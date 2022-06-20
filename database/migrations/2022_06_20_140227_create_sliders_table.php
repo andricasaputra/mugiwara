@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        // Use morph polymorpic relations in images table
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('title');
-            $table->longText('body');
-            $table->string('slug');
-            $table->string('image')->nullable();
+            $table->string('image');
+            $table->string('order');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->tinyInteger('is_active')->default(1)->nullable();
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('sliders');
     }
 };

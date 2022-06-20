@@ -19,4 +19,5 @@
   <script src="{{ asset('assets/js/dashboard.js') }}"></script>
   <script src="{{ asset('assets/js/Chart.roundedBarCharts.js') }}"></script>
   <!-- End custom js for this page-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
