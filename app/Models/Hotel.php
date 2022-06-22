@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FlashSale extends Model
+class Hotel extends Model
 {
     use HasFactory;
-    public function hotel()
+    public function flashSales()
     {
-        return $this->belongsTo(Hotel::class);
+        return $this->hasMany(FlashSale::class);
     }
 }

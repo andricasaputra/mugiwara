@@ -59,6 +59,9 @@ return new class extends Migration
             // When the voucher ends
             $table->timestamp('expires_at')->nullable();
 
+            // Point needed for get this voucher
+            $table->integer('point_needed');
+
             // You know what this is...
             $table->timestamps();
         });

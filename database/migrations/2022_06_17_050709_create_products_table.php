@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('stock');
+            $table->integer('point_needed');
             $table->timestamps();
         });
     }
