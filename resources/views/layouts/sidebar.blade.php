@@ -1,7 +1,8 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
+
     <li class="nav-item">
-      <a href="{{ route('admin.dashboard.index') }}"></a>
+      <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
         <i class="icon-grid menu-icon"></i>
         <span class="menu-title">Dashboard</span>
       </a>
