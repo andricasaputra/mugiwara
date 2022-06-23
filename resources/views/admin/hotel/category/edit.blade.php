@@ -9,32 +9,27 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Form Tambah Kantor Pusat</h4>
-            <form action="{{ route('admin.hotel_office.store') }}" enctype="multipart/form-data" method="post">
+            <h4 class="card-title">Form Ubah Kategori Hotel</h4>
+            <form action="{{ route('admin.hotel_category.update') }}" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="id" value="{{ $hotelCategory->id }}">
                 @csrf
-                <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
+                @method('PUT')
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label for="mobile_number">Nomor Telepon</label>
-                            <input type="number" class="form-control" id="mobile_number" name="mobile_number" value="{{ old('mobile_number') }}" required>
+                            <label for="name">Nama Kategori</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $hotelCategory->name }}" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label for="type">Tipe</label>
-                            <input type="text" max="5" min="1" class="form-control" id="type" name="type" value="{{ old('type') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                        <div class="form-group">
-                            <label for="address">Alamat</label>
-                            <textarea name="address" id="address" cols="30" rows="5" class="form-control">{{ old('address') }}</textarea>
+                            <label for="tag">Tag</label>
+                            <input type="text" class="form-control" id="tag" name="tag" value="{{ $hotelCategory->tag }}" required>
                         </div>
                     </div>
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('admin.hotel_office.index', $hotel->id) }}" class="btn btn-light">Kembali</a>
+                        <a href="{{ route('admin.hotel_category.index', $hotelCategory->hotel_id) }}" class="btn btn-light">Kembali</a>
                     </div>
                 </div>
             </form>

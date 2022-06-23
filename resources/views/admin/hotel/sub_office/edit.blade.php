@@ -9,7 +9,7 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Form Ubah Sub Kantor Hotel</h4>
+            <h4 class="card-title">Form Ubah Kantor Cabang</h4>
             <form action="{{ route('admin.hotel_sub_office.update') }}" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="id" value="{{ $hotelSubOffice->id }}">
                 @csrf

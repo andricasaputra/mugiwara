@@ -22,8 +22,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Kantor | <b>{{ $hotel->name }}</b></h4>
-                <a href="{{ route('admin.hotel_office.create', $hotel->id) }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kantor Hotel</a>
+                <h4 class="card-title">Daftar Kantor Pusat | <b>{{ $hotel->name }}</b></h4>
+                <a href="{{ route('admin.hotel_office.create', $hotel->id) }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kantor Pusat</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -59,7 +59,7 @@
                                                 Lainnya
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="lainnya">
-                                                <a class="dropdown-item" href="{{ route('admin.hotel_sub_office.index', $hotelOffice->id) }}">Sub Kantor</a>
+                                                <a class="dropdown-item" href="{{ route('admin.hotel_sub_office.index', $hotelOffice->id) }}">Kantor Cabang</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -86,13 +86,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Kantor Hotel</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Kantor Pusat</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus Kantor Hotel ini?
+                Apakah Anda yakin ingin menghapus Kantor Pusat ini?
             </div>
             <div class="modal-footer">
                 <form action="{{ route('admin.hotel_office.delete') }}" method="POST" enctype="multipart/form-data">

@@ -22,8 +22,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Sub Kantor | <b>{{ $hotelOffice->hotel->name }}</b></h4>
-                <a href="{{ route('admin.hotel_sub_office.create', $hotelOffice->id) }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Sub Kantor Hotel</a>
+                <h4 class="card-title">Daftar Kantor Cabang | <b>{{ $hotelOffice->hotel->name }}</b></h4>
+                <a href="{{ route('admin.hotel_sub_office.create', $hotelOffice->id) }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kantor Cabang Hotel</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -76,13 +76,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Sub Kantor Hotel</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Kantor Cabang Hotel</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus Sub Kantor Hotel ini?
+                Apakah Anda yakin ingin menghapus Kantor Cabang Hotel ini?
             </div>
             <div class="modal-footer">
                 <form action="{{ route('admin.hotel_sub_office.delete') }}" method="POST" enctype="multipart/form-data">

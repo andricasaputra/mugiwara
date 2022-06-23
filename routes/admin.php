@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HotelCategoryController;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\HotelOfficeController;
 use App\Http\Controllers\Admin\HotelSubOfficeController;
@@ -45,7 +46,15 @@ Route::name('admin.')->group(function() {
         Route::put('', [HotelController::class, 'update'])->name('update');
         Route::delete('', [HotelController::class, 'delete'])->name('delete');
     });
-    Route::prefix('hotel_office')->name('hotel_office.')->group(function() {
+    Route::prefix('hotel-category')->name('hotel_category.')->group(function() {
+        Route::get('{idHotel}', [HotelCategoryController::class, 'index'])->name('index');
+        Route::get('{idHotel}/create', [HotelCategoryController::class, 'create'])->name('create');
+        Route::post('', [HotelCategoryController::class, 'store'])->name('store');
+        Route::get('{id}/{idHotel}/edit', [HotelCategoryController::class, 'edit'])->name('edit');
+        Route::put('', [HotelCategoryController::class, 'update'])->name('update');
+        Route::delete('', [HotelCategoryController::class, 'delete'])->name('delete');
+    });
+    Route::prefix('hotel-office')->name('hotel_office.')->group(function() {
         Route::get('{idHotel}', [HotelOfficeController::class, 'index'])->name('index');
         Route::get('{idHotel}/create', [HotelOfficeController::class, 'create'])->name('create');
         Route::post('', [HotelOfficeController::class, 'store'])->name('store');
@@ -53,7 +62,7 @@ Route::name('admin.')->group(function() {
         Route::put('', [HotelOfficeController::class, 'update'])->name('update');
         Route::delete('', [HotelOfficeController::class, 'delete'])->name('delete');
     });
-    Route::prefix('hotel_sub_office')->name('hotel_sub_office.')->group(function() {
+    Route::prefix('hotel-sub_office')->name('hotel_sub_office.')->group(function() {
         Route::get('{idHotel}', [HotelSubOfficeController::class, 'index'])->name('index');
         Route::get('{idHotel}/create', [HotelSubOfficeController::class, 'create'])->name('create');
         Route::post('', [HotelSubOfficeController::class, 'store'])->name('store');
