@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
-use App\Models\City;
 use App\Models\Facility;
+use App\Models\Regency;
 use App\Models\Room;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class AccomodationController extends Controller
     {
         $rooms = Room::with(['images', 'type'])->get();
         $types = RoomType::query()->get();
-        $cities = City::query()->get();
+        $cities = Regency::query()->get();
         $facilities = Facility::query()->get();
 
         return view('admin.booking.accomodations.create')

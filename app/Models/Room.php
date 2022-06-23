@@ -9,6 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
+
     protected $guarded = ['id']; 
 
     public function images()
@@ -16,8 +17,13 @@ class Room extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function type()
+    public function roomType()
     {
         return $this->belongsTo(RoomType::class, 'type_id', 'id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
     }
 }

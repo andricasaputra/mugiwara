@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
@@ -110,4 +111,5 @@ class RoomController extends Controller
             $this->fileName[] = $this->upload->process($file);
         }
     }
+
 }

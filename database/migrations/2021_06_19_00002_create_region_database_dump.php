@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::unprepared( file_get_contents(public_path('/sql/wilayah.sql')) );
+        // DB::unprepared( file_get_contents(public_path('/sql/wilayah.sql')) );
     }
 
     /**

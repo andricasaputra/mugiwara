@@ -31,6 +31,37 @@
 
   @include('layouts.scripts')
 
+
   @yield('scripts')
+
+  @stack('scripts')
+  
+<script>
+  $(document).ready(function() {
+    @if($message = session('success'))
+    Swal.fire(
+      'Berhasil!',
+      '{{ $message }}',
+      'success'
+    )
+    @endif
+    @if ($errors->any())
+    Swal.fire(
+      'Gagal!',
+      '{{ $message }}',
+      'error'
+    )
+    @endif
+    
+    @if($message = session('alert'))
+    Swal.fire(
+      'Gagal!',
+      '{{ $message }}',
+      'error'
+    )
+    @endif
+  })
+</script>
+
 </body>
 </html>

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(IndoRegionSeeder::class);
         $this->call(RolePermissionsTableSeeder::class);
 
         $superadmin = \App\Models\User::create([
@@ -41,5 +42,10 @@ class DatabaseSeeder extends Seeder
         $users = \App\Models\User::factory(5)->create();
 
         $users->each(fn ($user) => $user->assignRole('employee'));
+
+        $this->call([
+            PostSeeder::class,
+            SliderSeeder::class,
+        ]);
     }
 }
