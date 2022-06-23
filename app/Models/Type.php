@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HotelOffice extends Model
+class Type extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function hotel()
+    public function rooms()
     {
-        return $this->belongsTo(Hotel::class);
+        return $this->hasMany(Room::class);
     }
 }

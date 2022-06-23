@@ -27,6 +27,7 @@ class SliderController extends Controller
             'image' => 'required',
             'order' => 'required',
             'is_active' => 'required',
+            'expired_date' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg',
         ]);
         if($request->image){
@@ -41,6 +42,7 @@ class SliderController extends Controller
             'order' => $request->order,
             'title' => $request->title,
             'description' => $request->description,
+            'expired_date' => $request->expired_date,
             'is_active' => $request->is_active,
         ]);
         return redirect()->route('admin.slider.index')->with('success', 'Data slider berhasil ditambahkan');
@@ -57,6 +59,7 @@ class SliderController extends Controller
             'image' => 'required',
             'order' => 'required',
             'is_active' => 'required',
+            'expired_date' => 'required',
             'image' => 'sometimes|mimes:jpeg,png,jpg',
         ]);
         $slider = Slider::find($request->id);
@@ -73,6 +76,7 @@ class SliderController extends Controller
             'order' => $request->order,
             'title' => $request->title,
             'description' => $request->description,
+            'expired_date' => $request->expired_date,
             'is_active' => $request->is_active,
         ]);
         return redirect()->route('admin.slider.index')->with('success', 'Data slider berhasil diubah');

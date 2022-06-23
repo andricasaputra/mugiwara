@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
+            $table->string('title');
+            $table->text('description');
             $table->string('image');
             $table->string('order');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->date('expired_date');
             $table->tinyInteger('is_active')->default(1)->nullable();
             $table->timestamps();
         });

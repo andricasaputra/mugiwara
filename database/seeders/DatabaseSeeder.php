@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(IndoRegionSeeder::class);
         $this->call(RolePermissionsTableSeeder::class);
 
         $superadmin = \App\Models\User::create([

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-12">
-        <form action="{{ route('admin.slider.index') }}" method="get">
+        <form action="{{ route('admin.hotel_sub_office.index', $hotelOffice->id) }}" method="get">
             <div class="row">
                 <div class="input-group mb-3 col-3">
                     <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
@@ -16,11 +16,14 @@
             </div>
         </form>
     </div>
+    <div class="container-fluid">
+        <a class="" href="{{ route('admin.hotel_office.index', $hotelOffice->hotel_id) }}">Kembali ke daftar kantor hotel</a>
+    </div>
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Slider</h4>
-                <a href="{{ route('admin.slider.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Slider</a>
+                <h4 class="card-title">Daftar Sub Kantor | <b>{{ $hotelOffice->hotel->name }}</b></h4>
+                <a href="{{ route('admin.hotel_sub_office.create', $hotelOffice->id) }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Sub Kantor Hotel</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,30 +31,26 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
-                        <th>Deskripsi</th>
-                        <th>Gambar</th>
-                        <th>Tanggal Kadaluwarsa</th>
-                        <th>Status</th>
+                        <th>Nomor Telepon</th>
+                        <th>Alamat</th>
+                        <th>Tipe</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($sliders as $key => $slider)
+                        @forelse($hotelSubOffices as $key => $hotelSubOffice)
                         <tr>
-                            <td>{{ ($sliders->currentpage()-1) * $sliders->perpage() + $key + 1 }}</td>
-                            <td>{{ $slider->title }}</td>
-                            <td>{{ $slider->description }}</td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $slider->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $slider->image) }}" style="height:100px;width:100px;"></a></td>
-                            <td>{{ date('d-m-Y', strtotime($slider->expired_date)) }}</td>
-                            <td>{{ $slider->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
+                            <td>{{ ($hotelSubOffices->currentpage()-1) * $hotelSubOffices->perpage() + $key + 1 }}</td>
+                            <td>{{ $hotelSubOffice->mobile_number }}</td>
+                            <td>{{ $hotelSubOffice->address }}</td>
+                            <td>{{ $hotelSubOffice->type }}</td>
                             <td>
                                 <table>
                                     <tr>
-                                        <td><a href="{{ route('admin.slider.edit', $slider->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
+                                        <td><a href="{{ route('admin.hotel_sub_office.edit', [$hotelSubOffice->id, $hotelSubOffice->hotel_office_id]) }}" class="btn btn-warning btn-sm">Ubah</a></td>
                                         <td>
                                             <a href="#" 
-                                            data-id="{{ $slider->id }}" data-toggle="modal" data-target="#delete"
+                                            data-id="{{ $hotelSubOffice->id }}" data-toggle="modal" data-target="#delete"
                                             class="btn btn-danger btn-sm">Hapus</a>
                                         </td>
                                     </tr>
@@ -66,7 +65,7 @@
                     </tbody>
                 </table>
                 </div>
-                {{$sliders->links("pagination::bootstrap-4")}}
+                {{$hotelSubOffices->links("pagination::bootstrap-4")}}
             </div>
         </div>
     </div>
@@ -77,16 +76,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Slider</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Sub Kantor Hotel</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus Slider ini?
+                Apakah Anda yakin ingin menghapus Sub Kantor Hotel ini?
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.slider.delete') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.hotel_sub_office.delete') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="id">

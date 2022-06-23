@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-12">
-        <form action="{{ route('admin.slider.index') }}" method="get">
+        <form action="{{ route('admin.room.index') }}" method="get">
             <div class="row">
                 <div class="input-group mb-3 col-3">
                     <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
@@ -19,8 +19,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Slider</h4>
-                <a href="{{ route('admin.slider.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Slider</a>
+                <h4 class="card-title">Daftar Ruangan</h4>
+                <a href="{{ route('admin.room.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Ruangan</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,30 +28,28 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
-                        <th>Deskripsi</th>
-                        <th>Gambar</th>
-                        <th>Tanggal Kadaluwarsa</th>
-                        <th>Status</th>
+                        <th>Nomor Ruangan</th>
+                        <th>Harga / Malam</th>
+                        <th>Diskon</th>
+                        <th>Tipe Ruangan</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($sliders as $key => $slider)
+                        @forelse($rooms as $key => $room)
                         <tr>
-                            <td>{{ ($sliders->currentpage()-1) * $sliders->perpage() + $key + 1 }}</td>
-                            <td>{{ $slider->title }}</td>
-                            <td>{{ $slider->description }}</td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $slider->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $slider->image) }}" style="height:100px;width:100px;"></a></td>
-                            <td>{{ date('d-m-Y', strtotime($slider->expired_date)) }}</td>
-                            <td>{{ $slider->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
+                            <td>{{ ($rooms->currentpage()-1) * $rooms->perpage() + $key + 1 }}</td>
+                            <td>{{ $room->room_number }}</td>
+                            <td>@currency($room->price)</td>
+                            <td>{{ $room->discount }}%</td>
+                            <td>{{ $room->type->name }}</td>
                             <td>
                                 <table>
                                     <tr>
-                                        <td><a href="{{ route('admin.slider.edit', $slider->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
+                                        <td><a href="{{ route('admin.room.edit', $room->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
                                         <td>
                                             <a href="#" 
-                                            data-id="{{ $slider->id }}" data-toggle="modal" data-target="#delete"
+                                            data-id="{{ $room->id }}" data-toggle="modal" data-target="#delete"
                                             class="btn btn-danger btn-sm">Hapus</a>
                                         </td>
                                     </tr>
@@ -60,13 +58,13 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center">Tidak ada data</td>
+                            <td colspan="6" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
                 </div>
-                {{$sliders->links("pagination::bootstrap-4")}}
+                {{$rooms->links("pagination::bootstrap-4")}}
             </div>
         </div>
     </div>
@@ -77,16 +75,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Slider</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Ruangan</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus Slider ini?
+                Apakah Anda yakin ingin menghapus Ruangan ini?
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.slider.delete') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.room.delete') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="id">

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-12">
-        <form action="{{ route('admin.slider.index') }}" method="get">
+        <form action="{{ route('admin.type.index') }}" method="get">
             <div class="row">
                 <div class="input-group mb-3 col-3">
                     <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
@@ -19,8 +19,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Slider</h4>
-                <a href="{{ route('admin.slider.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Slider</a>
+                <h4 class="card-title">Daftar Tipe Ruangan</h4>
+                <a href="{{ route('admin.type.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Tipe Ruangan</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,30 +28,22 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Judul</th>
-                        <th>Deskripsi</th>
-                        <th>Gambar</th>
-                        <th>Tanggal Kadaluwarsa</th>
-                        <th>Status</th>
+                        <th>Nama</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($sliders as $key => $slider)
+                        @forelse($types as $key => $type)
                         <tr>
-                            <td>{{ ($sliders->currentpage()-1) * $sliders->perpage() + $key + 1 }}</td>
-                            <td>{{ $slider->title }}</td>
-                            <td>{{ $slider->description }}</td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $slider->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $slider->image) }}" style="height:100px;width:100px;"></a></td>
-                            <td>{{ date('d-m-Y', strtotime($slider->expired_date)) }}</td>
-                            <td>{{ $slider->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
+                            <td>{{ ($types->currentpage()-1) * $types->perpage() + $key + 1 }}</td>
+                            <td>{{ $type->name }}</td>
                             <td>
                                 <table>
                                     <tr>
-                                        <td><a href="{{ route('admin.slider.edit', $slider->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
+                                        <td><a href="{{ route('admin.type.edit', $type->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
                                         <td>
                                             <a href="#" 
-                                            data-id="{{ $slider->id }}" data-toggle="modal" data-target="#delete"
+                                            data-id="{{ $type->id }}" data-toggle="modal" data-target="#delete"
                                             class="btn btn-danger btn-sm">Hapus</a>
                                         </td>
                                     </tr>
@@ -60,13 +52,13 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center">Tidak ada data</td>
+                            <td colspan="2" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
                 </div>
-                {{$sliders->links("pagination::bootstrap-4")}}
+                {{$types->links("pagination::bootstrap-4")}}
             </div>
         </div>
     </div>
@@ -77,16 +69,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Slider</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Tipe Ruangan</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus Slider ini?
+                Apakah Anda yakin ingin menghapus Tipe Ruangan ini?
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.slider.delete') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.type.delete') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="id">
@@ -104,10 +96,8 @@
     $("#edit").on('show.bs.modal', (e) => {
         var id = $(e.relatedTarget).data('id');
         var name = $(e.relatedTarget).data('name');
-        var description = $(e.relatedTarget).data('description');
         $('#edit').find('input[name="id"]').val(id);
         $('#edit').find('input[name="name"]').val(name);
-        $('#edit').find('input[name="description"]').val(description);
     });
     
     $('#delete').on('show.bs.modal', (e) => {

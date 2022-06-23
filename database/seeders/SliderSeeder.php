@@ -21,6 +21,7 @@ class SliderSeeder extends Seeder
             'description' => 'Untuk banner pada order 1',
             'image' => 'image.jpg',
             'order' => '1',
+            'expired_date' => '2022-06-23',
             'is_active' => 1
         ]);
     }

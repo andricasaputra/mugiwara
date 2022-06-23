@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\sendResetLinkEmailNotification;
 use App\Notifications\sendResetLinkWhatsapplNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
+        Blade::directive('currency', function ( $expression ) { return "<?php echo number_format($expression,0,',','.'); ?>"; });
     }
 
     protected function registerResetLinkNotificationClass()
