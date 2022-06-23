@@ -50,12 +50,12 @@ class RegisteredUserController extends Controller
             'mobile_attempts_left' => 4,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->assignRole('employee');
         
         event(new CustomRegistered($user));
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('users.index'))->withSuccess('Berhasil tambah user baru');
     }
 }

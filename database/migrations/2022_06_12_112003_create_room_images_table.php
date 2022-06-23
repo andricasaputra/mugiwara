@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('room_images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hotel_id');
+            $table->unsignedBigInteger('accomodation_id');
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('image_id');
             $table->timestamps();
@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
 
-            $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
+            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
 
 
         });

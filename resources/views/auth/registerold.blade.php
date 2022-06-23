@@ -1,67 +1,91 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo width="82" />
-            </a>
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div class="card-body">
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+</head>
 
-            <form method="POST" action="{{ route('register') }}">
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="{{ asset('assets/images/logo.svg') }}" alt="logo">
+              </div>
+              <h4>Register</h4>
+              <h6 class="font-weight-light">Please fill the form below to register.</h6>
+              @include('inc.auth-message', ['status' => session('status')])
+              <form class="pt-3" method="POST" action="{{ route('admin.register.post') }}">
                 @csrf
-
-                <!-- Name -->
-                <div class="mb-3">
-                    <x-label for="name" :value="__('Name')" />
-
-                    <x-input id="name" type="text" name="name" :value="old('name')" required autofocus />
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputName1" placeholder="Name" name="name" value="{{ old('name') }}" required>
                 </div>
-
-                <!-- Email Address -->
-                <div class="mb-3">
-                    <x-label for="email" :value="__('Email')" />
-
-                    <x-input id="email" type="email" name="email" :value="old('email')" required />
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" name="email" value="{{ old('email') }}" required>
                 </div>
-
-                <div class="mb-3">
-                    <x-label for="mobile_number" :value="__('Mobile Number')" />
-
-                    <x-input id="mobile_number" type="number" name="mobile_number" :value="old('mobile_number')" required />
+                <div class="form-group">
+                  <input type="number" class="form-control form-control-lg" id="exampleInputMobile" placeholder="Mobile Number" name="mobile_number" value="{{ old('mobile_number') }}" required>
                 </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <x-label for="password" :value="__('Password')" />
-
-                    <x-input id="password" type="password"
-                                    name="password"
-                                    required autocomplete="new-password" />
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password" required>
                 </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-3">
-                    <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                    <x-input id="password_confirmation" type="password"
-                                    name="password_confirmation" required />
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPasswordConfirmation1" placeholder="Password Confirmation" name="password.confirmation" required>
                 </div>
-
-                <div class="mb-0">
-                    <div class="d-flex justify-content-end align-items-baseline">
-                        <a class="text-muted me-3 text-decoration-none" href="{{ route('login') }}">
-                            {{ __('Already registered?') }}
-                        </a>
-
-                        <x-button>
-                            {{ __('Register') }}
-                        </x-button>
-                    </div>
+                <div class="mt-3">
+                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Register</button>
                 </div>
-            </form>
+                <div class="my-2 d-flex justify-content-end align-items-center">
+                  <a href="{{ route('login') }}" class="auth-link text-black">Already have account?</a>
+                </div>
+                {{-- <div class="mb-2">
+                  <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                    <i class="ti-facebook mr-2"></i>Connect using facebook
+                  </button>
+                </div> --}}
+                {{-- <div class="text-center mt-4 font-weight-light">
+                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                </div> --}}
+              </form>
+            </div>
+          </div>
         </div>
-    </x-auth-card>
-</x-guest-layout>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+  <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('assets/js/template.js') }}"></script>
+  <script src="{{ asset('assets/js/settings.js') }}"></script>
+  <script src="{{ asset('assets/js/todolist.js') }}"></script>
+  <!-- endinject -->
+</body>
+
+</html>

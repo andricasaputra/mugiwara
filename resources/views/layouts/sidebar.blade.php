@@ -1,11 +1,52 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{{ route('admin.dashboard') }}">
         <i class="icon-grid menu-icon"></i>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+
+    @role('admin')
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+        <i class="icon-head menu-icon"></i>
+        <span class="menu-title">Manajemen User</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="auth">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('users.index') }}"> Users </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}"> Roles </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('permissions.index') }}"> Permissions </a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#booking" aria-expanded="false" aria-controls="booking">
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Manajemen Booking</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="booking">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('accomodations.index') }}"> Penginapan </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('rooms.index') }}"> Kamar </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('room_types.index') }}"> Tipe Kamar </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('facilities.index') }}"> Fasilitas Kamar </a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('offices.index') }}">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">Manajemen Info Kantor</span>
+      </a>
+    </li>
+    @endrole
+
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <i class="icon-layout menu-icon"></i>
@@ -69,19 +110,7 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-        <i class="icon-head menu-icon"></i>
-        <span class="menu-title">User Pages</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="auth">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-        </ul>
-      </div>
-    </li>
+    
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
         <i class="icon-ban menu-icon"></i>

@@ -31,20 +31,25 @@ class RegisterController extends Controller
             'mobile_number' => $request->mobile_number,
             'gender' => $request->gender,
             'birth_date' => $request->birth_date,
-            'mobile_verify_code' => Random::generate(6, 1234567890),
-            'mobile_attempts_left' => 4,
+            'otp_verify_code' => Random::generate(6, 1234567890),
+            'mobile_attempts_left' => 0,
             'password' => Hash::make($request->password),
             'type' => 'customer',
         ]);
 
         $token = $user->createToken('access_token');
         
-        event(new CustomRegistered($user));
+        //event(new CustomRegistered($user));
         event(new Registered($user));
 
         return (new UserResource($user))->additional(
             [
-                'data' => ['token' => $token->plainTextToken],
+                'data' => [
+                    'token' => $token->plainTextToken,
+                    'message' => 'silahkan lakukan verifikasi alamat email anda',
+                    'verifcation_url' => route('api.otp.verification'),
+                    'resend_email_url' => route('api.otp.verification.resend')
+                ],
             ]
         );
     }

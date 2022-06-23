@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_categories', function (Blueprint $table) {
+        Schema::create('accomodation_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hotel_id');
-            // Popular, rekomendasi, trending
-            $table->string('name');
-            // Hotel murah, mewah etc
-            $table->string('tag');
+            $table->unsignedBigInteger('accomodation_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
-            $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
+            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_categories');
+        Schema::dropIfExists('accomodation_categories');
     }
 };

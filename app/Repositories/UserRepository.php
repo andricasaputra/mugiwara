@@ -1,0 +1,86 @@
+<?php  
+
+namespace App\Repositories;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Http\Resources\UserResource;
+
+ini_set('max_execution_time', 500);
+
+class UserRepository
+{
+	protected $users; 
+    protected $api;
+    protected $admin;
+
+    public function update($request, $user)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'sometimes|string|confirmed|min:6',
+            'wilker' => 'required'
+        ]);
+
+        if ($request->has('password')) {
+            $user->update([
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+                'e_password' => Crypt::encrypt($request->password)
+            ]);
+        } else {
+            $user->update($request->only('username'));
+        }
+
+        return redirect(route('users.index'))->withSuccess('Berhasil edit user ' . $user->username);
+    }
+
+    public function show(Request $request)
+    {
+        $this->admin = $request->user()->hasRole('admin');
+
+        $this->users = User::whereId($request->user()->id);
+
+        if ($this->admin) {
+            $this->users = User::where('id', '!=', 1);
+        } 
+
+        $this->users = $this->users->get();
+
+        $this->api = new UserResource($this->users);
+
+        return $this->api;
+    }
+
+    public function showTable(Request $request)
+    {
+       $this->show($request);
+
+        return datatables($this->users)->addIndexColumn()
+        ->addColumn('action', function($user) {
+
+            if ($this->admin) {
+                return '
+                <a href="'. route('users.edit', $user->id) .'" class="btn btn-outline-primary btn-xs">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </a> 
+                <a href="#" data-id="'. $user->id .'" class="btn btn-outline-danger btn-xs delete-user-btn">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+                <a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-outline-success btn-xs" onclick="addLoader(event)">
+                    <i class="fa fa-wrench"></i> Update 
+                </a>
+                <a href= "'. route('users.roles', $user->id) .'"  class="btn btn-outline-info btn-xs">
+                    <i class="fa fa-cog"></i> Role 
+                </a>
+                ';
+            } 
+
+            return '<a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-success btn-xs" onclick="addLoader(event)">
+                    <i class="fa fa-wrench"></i> Update 
+                </a>';
+        })
+        ->make(true);
+    }
+}

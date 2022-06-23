@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('type')->default('user');
+            $table->string('otp_verify_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile_number')->unique();
             $table->timestamp('mobile_verified_at')->nullable();

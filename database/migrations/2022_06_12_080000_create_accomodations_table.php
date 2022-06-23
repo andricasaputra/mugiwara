@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_offices', function (Blueprint $table) {
+        Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('hotel_id');
-            $table->string('mobile_number')->nullable();
+            $table->string('name');
+            $table->unsignedBigInteger('city');
             $table->longText('address');
-            $table->string('type')->default('main_office');
+            $table->string('ratings');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_offices');
+        Schema::dropIfExists('hotels');
     }
 };

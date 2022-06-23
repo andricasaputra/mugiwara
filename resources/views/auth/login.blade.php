@@ -5,19 +5,19 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Login</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="{{ ('assets/vendors/feather/feather.css') }}">
-  <link rel="stylesheet" href="{{ ('assets/vendors/ti-icons/css/themify-icons.css') }}">
-  <link rel="stylesheet" href="{{ ('assets/vendors/css/vendor.bundle.base.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="{{ ('assets/css/vertical-layout-light/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ ('assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 </head>
 
 <body>
@@ -27,11 +27,11 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="{{ ('assets/images/logo.svg') }}" alt="logo">
+              <div class="brand-logo text-center">
+                <img src="{{ asset('assets/images/capsuleinnlogo.png') }}" alt="logo" style="width: 50%;">
               </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
+              <h4>Login</h4>
+              <h6 class="font-weight-light">Silahkan login terlebih dahulu.</h6>
               @include('inc.auth-message', ['status' => session('status')])
               <form class="pt-3" method="POST" action="{{ route('login') }}">
                 @csrf
@@ -48,10 +48,10 @@
                   <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input" name="remember">
-                      Keep me signed in
+                      ingat device ini
                     </label>
                   </div>
-                  <a href="{{ route('password.request') }}" class="auth-link text-black">Forgot password?</a>
+                  <a href="{{ route('password.request') }}" class="auth-link text-black">Lupa password?</a>
                 </div>
                 {{-- <div class="mb-2">
                   <button type="button" class="btn btn-block btn-facebook auth-form-btn">
@@ -72,16 +72,16 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="{{ ('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="{{ ('assets/js/off-canvas.js') }}"></script>
-  <script src="{{ ('assets/js/hoverable-collapse.js') }}"></script>
-  <script src="{{ ('assets/js/template.js') }}"></script>
-  <script src="{{ ('assets/js/settings.js') }}"></script>
-  <script src="{{ ('assets/js/todolist.js') }}"></script>
+  <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+  <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('assets/js/template.js') }}"></script>
+  <script src="{{ asset('assets/js/settings.js') }}"></script>
+  <script src="{{ asset('assets/js/todolist.js') }}"></script>
   <!-- endinject -->
 </body>
 

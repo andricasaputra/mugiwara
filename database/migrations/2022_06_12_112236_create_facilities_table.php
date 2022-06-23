@@ -15,14 +15,10 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('room_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
-
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
-
         });
     }
 

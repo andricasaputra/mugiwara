@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Contracts\NotificationInterface;
-use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Models\User;
 use App\Notifications\sendResetLinkEmailNotification;
 use App\Notifications\sendResetLinkWhatsapplNotification;
@@ -35,7 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerResetLinkNotificationClass()
     {
-
         $this->app->bind(NotificationInterface::class, function($app){
             if(request()->has('email')){
                 $user = User::whereEmail(request('email'))->first();

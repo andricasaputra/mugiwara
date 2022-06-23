@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('terms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('hotel_id');
+            $table->unsignedInteger('accomodation_id');
             $table->string('title');
             $table->longText('body');
             $table->timestamps();

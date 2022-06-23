@@ -12,11 +12,8 @@ use App\Http\Controllers\Auth\MobileNumberVerificationNotificationController;
 use App\Http\Controllers\Auth\VerifyMobileController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
+Route::prefix('admin')->middleware('guest')->group(function () {
+    
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -36,7 +33,16 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    Route::get('admin/register', [RegisteredUserController::class, 'create'])
+        ->middleware('admin')
+        ->name('admin.register');
+
+    Route::post('admin/register', [RegisteredUserController::class, 'store']) 
+        ->middleware('admin')
+        ->name('admin.register.post');;
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -54,6 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::post('send-verify-mobile', [VerifyMobileController::class, 'store'])
                 ->middleware(['throttle:4,1'])
                 ->name('verification.mobile.verify.send');
+
+    Route::post('resend-verify-mobile', [VerifyMobileController::class, 'resend'])
+                ->middleware(['throttle:4,1'])
+                ->name('verification.mobile.verify.resend');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')

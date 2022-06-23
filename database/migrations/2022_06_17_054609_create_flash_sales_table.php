@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('flash_sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('hotel_id');
+            $table->unsignedInteger('accomodation_id');
             $table->unsignedInteger('room_id');
             $table->string('banner')->nullable();
             $table->date('start_date');

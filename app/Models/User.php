@@ -11,9 +11,9 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Contracts\MustVerifyMobileNumber;
 use App\Traits\VerifyMobileNumber;
 
-class User extends Authenticatable implements MustVerifyEmail, MustVerifyMobileNumber
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, VerifyMobileNumber;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -40,4 +40,14 @@ class User extends Authenticatable implements MustVerifyEmail, MustVerifyMobileN
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeEmployee($query)
+    {
+        $query->role('employee');
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 }
