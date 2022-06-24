@@ -9,8 +9,17 @@ class Room extends Model
 {
     use HasFactory;
 
-
     protected $guarded = ['id']; 
+
+    public function accomodation()
+    {
+        return $this->belongsTo(Accomodation::class);
+    }
+
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
+    }
 
     public function images()
     {

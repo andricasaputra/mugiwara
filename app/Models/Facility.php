@@ -17,4 +17,9 @@ class Facility extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
+    public function room()
+    {
+        return $this->belongsToMany(Room::class);
+    }
+
 }

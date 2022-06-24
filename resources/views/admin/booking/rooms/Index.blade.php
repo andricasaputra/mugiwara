@@ -21,22 +21,55 @@
                                     <table id="mytable" class="display expandable-table table-striped text-center" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Nama Kamar</th>
+                                                <th>Nama Penginapan</th>
                                                 <th>Type</th>
+                                                <th>Maksimal Tamu</th>
                                                 <th>Harga</th>
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>
+                                                <th>Fasilitas Kamar</th>
                                                 <th>Operation</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($rooms as $room)
                                                 <tr>
-                                                    <td>{{ $room->name }}</td>
+                                                    <td>{{ $room->accomodation->name }}</td>
                                                     <td>{{ $room->type->name }}</td>
+                                                    <td>{{ $room->max_guest }} orang</td>
                                                     <td>{{ $room->price }}</td>
                                                     <td>{{ $room->discount }}</td>
-                                                    <td>{{ $room->images->first()->image }}</td>
+                                                    <td>
+                                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                          <div class="carousel-inner">
+
+                                                            @foreach($room->images as $image)   
+
+                                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                                                <img  class="d-block w-100" src="{{ asset('/storage/rooms/') .'/'. $image->image }}" alt="Second slide">
+                                                            </div>
+                                                            @endforeach
+                                                          </div>
+                                                          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                          </a>
+                                                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                          </a>
+                                                        </div>
+
+                                                    </td>
+                                                    <td>
+                                                        @foreach($room->facilities as $facility)
+                                                            <div>
+
+                                                                <img src="{{ asset('images/facilities') .'/'. $facility->image}}" alt="facility" style="width : 30px">
+                                                                <p>{{ ucwords(str_replace("_", " ", $facility->name)) }}</p>
+                                                            </div>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $room->id) }}">Edit</a>
@@ -50,7 +83,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="6">Belum ada data untuk ditampilkan</td> 
+                                                    <td colspan="8">Belum ada data untuk ditampilkan</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -69,6 +102,15 @@
 </div>
    
 @endsection()
+
+@section('link')
+    <style>
+    img {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+@endsection
 
 @section('scripts')
     <script>

@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('room_number');
+            $table->unsignedBigInteger('accomodation_id');
             $table->unsignedBigInteger('type_id');
+            $table->integer('max_guest');
             $table->integer('price');
-            $table->float('discount')->default(0);
+            $table->float('discount')->nullable()->default(0);
             $table->timestamps();
 
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+
+            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
         });
     }
 

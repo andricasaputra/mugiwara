@@ -16,11 +16,8 @@ return new class extends Migration
         Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('province_id')->nullable()->references('id')->on('provinces')->onDelete('cascade');
             $table->foreignId('regency_id')->nullable()->references('id')->on('regencies')->onDelete('cascade');
-            $table->unsignedBigInteger('city');
             $table->longText('address');
-            $table->string('ratings');
             $table->timestamps();
         });
     }

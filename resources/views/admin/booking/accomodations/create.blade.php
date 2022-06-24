@@ -8,7 +8,6 @@
             <div class="card">
                 <div class="card-block">
 
-
                     @include('layouts.multistepformcss')
                     <div>
                         <div id="multi-step-form-container">
@@ -42,9 +41,13 @@
                                     </a>
                                 </li>
                             </ul>
-                            <!-- Step Wise Form Content -->
-                            <form action="{{ route('accomodations.store') }}" method="POST" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data">
 
+                            @include('inc.message')
+                            <!-- Step Wise Form Content -->
+                            <form action="{{ route('accomodations.store') }}" method="post">
+
+                           {{--  <form action="{{ route('accomodations.store') }}" method="POST" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data">
+ --}}
                                 <input type="hidden" name="image_type" value="room">
                                 <!-- Step 1 Content -->
                                 <section id="step-1" class="form-step">
@@ -74,7 +77,8 @@
                                     <h2 class="font-normal">Foto Kamar</h2>
                                     <!-- Step 3 input fields -->
                                     <div class="mt-3">
-                                        @include('admin.booking.accomodations.section3')
+                                        <input type="file" name="room_image[]" multiple required/>
+                                        <p class="help-block">{{ $errors->first('room_image.*') }}</p>
                                     </div>
                                     <div class="mt-3">
                                         <button class="button btn-navigate-form-step" type="button" step_number="2">Sebelumnya</button>
@@ -98,35 +102,62 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+
+<style>
+    .select2-selection__rendered {
+    line-height: 10px !important;
+    border-radius: 0 !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+    border-radius: 0 !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+    border-radius: 0 !important;
+}
+</style>
 
 @endsection
 
 @section('scripts')
 
+<!-- include FilePond library -->
+<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script>
     $(document).ready(function() {
-        $('.js-example-basic-single').select2();
+        $('#js-example-basic-single').select2();
 
         $(".js-example-tokenizer").select2({
             tags: true,
             tokenSeparators: [',', ' ']
         });
+
+    });
+</script>
+
+<script>
+    // Set default FilePond options
+    FilePond.setOptions({
+        server: {
+            url: "{{ config('filepond.server.url') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ @csrf_token() }}",
+            }
+        }
     });
 
-    // Register the plugin with FilePond
-    FilePond.registerPlugin(FilePondPluginImagePreview);
-
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
-
-    // Create the FilePond instance
-    const pond = FilePond.create(inputElement);
-
+    FilePond.create(document.querySelector('input[name="room_image[]"]'), {chunkUploads: true});
 </script>
+</script>
+
+
+
+
 
 @endsection

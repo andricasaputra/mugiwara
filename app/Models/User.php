@@ -46,6 +46,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $query->role('employee');
     }
 
+
+    public function scopeExceptSuperAdmin($query)
+    {
+        $query->whereHas('roles', function ($query) {
+            $query->where('name','!=', 'superadmin');
+        });
+    }
+
     public function isAdmin()
     {
         return $this->hasRole('admin');

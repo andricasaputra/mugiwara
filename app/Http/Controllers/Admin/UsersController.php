@@ -25,7 +25,9 @@ class UsersController extends Controller
 
     public function index()
     {
-        return view('admin.users.index')->withUsers(User::query()->get());
+        return view('admin.users.index')->withUsers(
+            User::query()->get()->filter(fn($user) => $user->name != 'superadmin')
+        );
     }
 
     public function edit(User $user)

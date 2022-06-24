@@ -9,7 +9,6 @@
     <select name="type_id" class="form-control" id="">
         @foreach($types as $type)
             <option value="{{ $type->id }}">{{ $type->name }}</option>
-
         @endforeach
     </select>
 </div>
@@ -21,10 +20,9 @@
 
 <div class="form-group">
     <label for="price">Fasilitas Kamar</label>
-    <select name="facility" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
+    <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
         @foreach($facilities as $facility)
             <option value="{{ $facility->id }}">{{ $facility->name }}</option>
-
         @endforeach
     </select>
 </div>

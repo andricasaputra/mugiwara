@@ -15,7 +15,7 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Informasi Kantor Induk dan cabanf</p>
+                                <p class="card-title">Informasi Kantor Induk dan cabang</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table text-center" style="width:100%">

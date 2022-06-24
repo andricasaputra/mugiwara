@@ -14,8 +14,8 @@ class Office extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function hotel()
+    public function accomodation()
     {
-        return $this->belongsTo(Hotel::class);
+        return $this->belongsTo(Accomodation::class);
     }
 }

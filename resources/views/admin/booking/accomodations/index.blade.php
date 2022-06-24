@@ -33,14 +33,17 @@
                                                 <tr>
                                                     <td>{{ $accomodation->name }}</td>
                                                     <td>{{ $accomodation->address }}</td>
-                                                    <td>3</td>
+                                                    <td>{{ $accomodation->ratings ?? 0 }}</td>
+                                                    <td>{{ $accomodation->room_count ?? 0 }}</td>
+                                                     
                                                     <td>
                                                         <div class="d-flex justify-content-center">
-                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('accomodations.edit', $accomodation->id) }}">Edit</a>
+                                                            <a class="btn-action btn btn-warning mr-2" href="{{ route('accomodations.add', $accomodation->id) }}">Tambah Kamar</a>
+                                                            <a class="btn-action btn btn-info mr-2" href="{{ route('accomodations.edit', $accomodation->id) }}">Edit</a>
                                                             <form action="{{ route('accomodations.destroy', $accomodation->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                                <button type="submit" class="btn-action btn btn-danger confirm">Delete</button>
                                                             </form>
                                                         </div>
                                                     </td>
@@ -64,7 +67,18 @@
         </div>
     </div>
 </div>
+
+
    
+@endsection()
+
+@section('link')
+    <style>
+        .btn-action{
+            height: 30px !important;
+            width: 100px !important; 
+        }
+    </style>
 @endsection()
 
 @section('scripts')

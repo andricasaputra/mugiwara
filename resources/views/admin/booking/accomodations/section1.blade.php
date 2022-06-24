@@ -1,16 +1,14 @@
 @csrf
 <div class="form-group">
     <label for="type_id">Nama penginapan</label>
-    <input type="text" class="form-control" value="{{ old('name') }}">
+    <input name="name" type="text" class="form-control" value="{{ old('name') }}">
 </div>
 
 <div class="form-group">
-    <label for="price">Kota</label>
-    <select name="city" class="form-control js-example-basic-single">
-        @foreach($cities as $city)
-
-            <option value="{{ $city->city_id }}">{{ $city->city_name }}</option>
-
+    <label for="city">Kota</label>
+    <select name="regencies" class="form-control" id="js-example-basic-single" style="width: 100%;">
+        @foreach($regencies as $regency)
+            <option value="{{ $regency->id }}">{{ $regency->name }}</option>
         @endforeach
     </select>
 </div>

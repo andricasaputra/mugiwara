@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-12">
+    {{-- <div class="col-12">
         <form action="{{ route('admin.post.index') }}" method="get">
             <div class="row">
                 <div class="input-group mb-3 col-3">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div> --}}
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
@@ -24,7 +24,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="mytable"  class="table table-hover">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -39,7 +39,7 @@
                     <tbody>
                         @forelse($posts as $key => $post)
                         <tr>
-                            <td>{{ ($posts->currentpage()-1) * $posts->perpage() + $key + 1 }}</td>
+                            <td>{{ $key + 1 }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->slug }}</td>
                             <td>{{ $post->body }}</td>
@@ -98,6 +98,19 @@
 </div>
 @endsection
 
+@section('link')
+    <style>
+        td {
+          white-space: normal !important; 
+          word-wrap: break-word;  
+        }
+        table {
+          table-layout: fixed;
+        }
+
+    </style>
+@endsection
+
 
 @push('scripts')
 <script>
@@ -115,5 +128,7 @@
         console.log(id);
         $('#delete').find('input[name="id"]').val(id);
     });
+
+    $('#mytable').DataTable();
 </script>
 @endpush

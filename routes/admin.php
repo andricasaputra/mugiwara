@@ -33,7 +33,10 @@ Route::get('users/permissions/{user}', [UsersController::class, 'permissions'])-
 Route::post('users/permissions/{user}', [UsersController::class, 'attachPermissions'])->name('users.attach.permissions');
 
 Route::resource('offices', OfficeListController::class);
+Route::get('accomodations_room/add/{accomodation}', [AccomodationController::class, 'add'])->name('accomodations.add');
+Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoom'])->name('accomodations.store_room');
 Route::resource('accomodations', AccomodationController::class);
+
 Route::resource('rooms', RoomController::class);
 Route::resource('facilities', FacilityController::class);
 Route::resource('room_types', RoomTypeController::class);

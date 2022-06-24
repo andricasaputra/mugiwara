@@ -46,6 +46,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PostSeeder::class,
             SliderSeeder::class,
+            FacilityTableSeeder::class,
+            RoomTypeTableSeeder::class
         ]);
     }
 }

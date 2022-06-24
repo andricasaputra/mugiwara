@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Login</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="{{ ('assets/vendors/feather/feather.css') }}">
-  <link rel="stylesheet" href="{{ ('assets/vendors/ti-icons/css/themify-icons.css') }}">
-  <link rel="stylesheet" href="{{ ('assets/vendors/css/vendor.bundle.base.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="{{ ('assets/css/vertical-layout-light/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ ('assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 </head>
 
 <body>
@@ -37,7 +37,7 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 text-center mt-xl-2">
-                <a class="text-white font-weight-medium" href="{{ route('admin.dashboard') }}">Back</a>
+                <a class="text-white font-weight-medium" href="{{ route('admin.dashboard.index') }}">Back</a>
               </div>
             </div>
             <div class="row mt-5">
@@ -54,12 +54,12 @@
   </div>
   <!-- container-scroller -->
 
-  <script src="{{ ('assets/vendors/js/vendor.bundle.base.js') }}"></script>
-  <script src="{{ ('assets/js/off-canvas.js') }}"></script>
-  <script src="{{ ('assets/js/hoverable-collapse.js') }}"></script>
-  <script src="{{ ('assets/js/template.js') }}"></script>
-  <script src="{{ ('assets/js/settings.js') }}"></script>
-  <script src="{{ ('assets/js/todolist.js') }}"></script>
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+  <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+  <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('assets/js/template.js') }}"></script>
+  <script src="{{ asset('assets/js/settings.js') }}"></script>
+  <script src="{{ asset('assets/js/todolist.js') }}"></script>
   <!-- endinject -->
 </body>
 

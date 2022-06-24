@@ -18,7 +18,7 @@ class RoomController extends Controller
 
     public function index()
     {
-        $rooms = Room::with(['images', 'type'])->get();
+        $rooms = Room::with(['images', 'type', 'accomodation', 'facilities'])->get();
 
         return view('admin.booking.rooms.index')->withRooms($rooms);
     }
