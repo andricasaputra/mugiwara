@@ -52,7 +52,7 @@
     @role('admin')
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="post">
-        <i class="icon-contract menu-icon"></i>
+        <i class="icon-layers menu-icon"></i>
         <span class="menu-title">Berita</span>
         <i class="menu-arrow"></i>
       </a>
@@ -63,6 +63,30 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
+        <i class="icon-menu menu-icon"></i>
+        <span class="menu-title">Produk</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="product">
+        <ul class="nav flex-column {{ request()->is('admin/product*') ? 'sub-menu' : '' }}">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.product.index') }}">Daftar Produk</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#voucher" aria-expanded="false" aria-controls="voucher">
+        <i class="icon-map menu-icon"></i>
+        <span class="menu-title">Voucher</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="voucher">
+        <ul class="nav flex-column {{ request()->is('admin/voucher*') ? 'sub-menu' : '' }}">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.voucher.index') }}">Daftar Voucher</a></li>
+        </ul>
+      </div>
+    </li>
+    {{-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#slider" aria-expanded="false" aria-controls="slider">
         <i class="icon-contract menu-icon"></i>
         <span class="menu-title">Slider</span>
@@ -73,7 +97,7 @@
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider.index') }}">Daftar Slider</a></li>
         </ul>
       </div>
-    </li>
+    </li> --}}
     
     <li class="nav-item">
       <a class="nav-link" href="pages/documentation/documentation.html">

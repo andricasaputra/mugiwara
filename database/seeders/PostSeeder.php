@@ -18,7 +18,7 @@ class PostSeeder extends Seeder
         Post::create([
             'user_id' => '1',
             'title' => 'Maaf Ada Kabar Nggak Enak Buat Yang Sudah Pernah Kena Omicron',
-            'body' => 'maaf-ada-kabar-nggak-enak-buat-yang-sudah-pernah-kena-omicron',
+            'body' => 'Harap hati hati dan jaga jarak',
             'slug' => 'maaf-ada-kabar-nggak-enak-buat-yang-sudah-pernah-kena-omicron',
             'image' => 'image.jpg',
             'is_active' => 1

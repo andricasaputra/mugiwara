@@ -17,10 +17,11 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\UsersController;
-
+use App\Http\Controllers\Admin\VoucherController;
 
 Route::resource('roles', RoleController::class);
 Route::resource('permissions', PermissionController::class);
@@ -51,6 +52,7 @@ Route::name('admin.')->group(function() {
         Route::get('create', [PostController::class, 'create'])->name('create');
         Route::post('', [PostController::class, 'store'])->name('store');
         Route::get('{id}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::get('{id}/show', [PostController::class, 'show'])->name('show');
         Route::put('', [PostController::class, 'update'])->name('update');
         Route::delete('', [PostController::class, 'delete'])->name('delete');
     });
@@ -72,6 +74,25 @@ Route::name('admin.')->group(function() {
         Route::get('{id}/edit', [TypeController::class, 'edit'])->name('edit');
         Route::put('', [TypeController::class, 'update'])->name('update');
         Route::delete('', [TypeController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('product')->name('product.')->group(function() {
+        Route::get('', [ProductController::class, 'index'])->name('index');
+        Route::get('create', [ProductController::class, 'create'])->name('create');
+        Route::post('', [ProductController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [ProductController::class, 'edit'])->name('edit');
+        Route::put('', [ProductController::class, 'update'])->name('update');
+        Route::delete('', [ProductController::class, 'delete'])->name('delete');
+    });
+    
+    Route::prefix('voucher')->name('voucher.')->group(function() {
+        Route::get('', [VoucherController::class, 'index'])->name('index');
+        Route::get('create', [VoucherController::class, 'create'])->name('create');
+        Route::post('', [VoucherController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [VoucherController::class, 'edit'])->name('edit');
+        Route::get('{id}/show', [VoucherController::class, 'show'])->name('show');
+        Route::put('', [VoucherController::class, 'update'])->name('update');
+        Route::delete('', [VoucherController::class, 'delete'])->name('delete');
     });
     // Route::prefix('room')->name('room.')->group(function() {
     //     Route::get('', [RoomController::class, 'index'])->name('index');

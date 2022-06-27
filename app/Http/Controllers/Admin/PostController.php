@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $posts = Post::when(request()->q, function($posts) {
             $posts->where('title', 'like', '%'.request()->q.'%')->orWhere('body', 'like', '%'.request()->q.'%');
-        })->paginate(10);
+        })->get();
         return view('admin.post.index', compact('posts'));
     }
     public function create()
@@ -38,13 +38,18 @@ class PostController extends Controller
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'body' => $request->body,
-            'slug' => Str::slug($request->slug),
+            'slug' => Str::slug($request->title),
             'image' => $namaImage,
             'is_active' => $request->is_active,
         ]);
         return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil ditambahkan');
     }
     
+    public function show($postId)
+    {
+        $post = Post::find($postId);
+        return view('admin.post.show', compact('post'));
+    }
     public function edit($postId)
     {
         $post = Post::find($postId);
@@ -70,7 +75,7 @@ class PostController extends Controller
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'body' => $request->body,
-            'slug' => Str::slug($request->slug),
+            'slug' => Str::slug($request->title),
             'image' => $namaImage ?? $post->image,
             'is_active' => $request->is_active,
         ]);
