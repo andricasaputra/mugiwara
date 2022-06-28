@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Contracts\MustVerifyMobileNumber;
+use App\Notifications\VerifyEmailNotification;
+use App\Traits\VerifyMobileNumber;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Contracts\MustVerifyMobileNumber;
-use App\Traits\VerifyMobileNumber;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -57,5 +58,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification($this));
     }
 }
