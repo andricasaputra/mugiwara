@@ -46,10 +46,10 @@ return new class extends Migration
             $table->integer('discount_amount')->nullable();
 
             // The amount to discount by (in prcent.
-            $table->decimal('discount_percent')->nullable()->default(0);
+            $table->string('discount_percent')->nullable()->default(0);
 
             // Whether or not the voucher is a percentage or a fixed price. 
-            $table->enum('dicount_type', ['fixed', 'percent'])->default('percent');
+            $table->enum('discount_type', ['fixed', 'percent'])->default('percent');
             
             // When the voucher begins
             $table->timestamp('starts_at')->nullable();
