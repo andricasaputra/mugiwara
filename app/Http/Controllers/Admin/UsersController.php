@@ -16,17 +16,20 @@ class UsersController extends Controller
 
     use UserAuthorization;
 
-    protected $users;    
-
-    public function __construct(UserRepository $users)
+    public function __construct(protected UserRepository $users)
     {
-        $this->users = $users;
     }
 
-    public function index()
+    public function showEmployee()
     {
-        return view('admin.users.index')->withUsers(
-            User::query()->get()->filter(fn($user) => $user->name != 'superadmin')
+        return view('admin.users.employee')->withUsers(
+            User::whereHas('roles')->get()->filter(fn($user) => $user->name != 'superadmin'));
+    }
+
+    public function showCustomer()
+    {
+        return view('admin.users.customer')->withUsers(
+            User::doesntHave('roles')->get()->filter(fn($user) => $user->name != 'superadmin')
         );
     }
 
@@ -34,7 +37,7 @@ class UsersController extends Controller
     {
         $roles = Role::excepSuperAdmin()->get();
 
-        return view('admin.users.edit')->withUser($user)->withRoles($roles);
+        return view('admin.users.edit')->withUser($user->load('roles'))->withRoles($roles);
     }
 
     public function update(Request $request, User $user)
@@ -54,8 +57,4 @@ class UsersController extends Controller
         return back()->withSuccess('Berhasil delete user');
     }
 
-    public function showTable(Request $request)
-    {
-       return $this->users->showTable($request);
-    }
 }

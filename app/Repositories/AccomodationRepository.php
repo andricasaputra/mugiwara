@@ -61,7 +61,7 @@ class AccomodationRepository
             'room_number' => $this->request->room_number,
             'type_id' => $this->request->type_id,
             'max_guest' => $this->request->max_guest,
-            'price' => $this->request->price,
+            'price' => (int) preg_replace('/[^0-9]/', '', $this->request->price),
             'discount' => $this->request->discount ?? 0,
         ]);
 	}

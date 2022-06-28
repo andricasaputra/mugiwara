@@ -11,4 +11,9 @@ class Customer extends User
 
     protected $table = 'users';
     protected $guarded = ['id'];
+
+    public function account()
+    {
+        return $this->hasOne(Account::class, 'user_id');
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 
 ini_set('max_execution_time', 500);
 
@@ -17,23 +18,47 @@ class UserRepository
 
     public function update($request, $user)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'sometimes|string|confirmed|min:6',
-            'wilker' => 'required'
-        ]);
+        DB::beginTransaction();
 
-        if ($request->has('password')) {
-            $user->update([
-                'username' => $request->username,
-                'password' => bcrypt($request->password),
-                'e_password' => Crypt::encrypt($request->password)
+        try {
+
+            $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|string',
+                'mobile_number' => 'required|string',
+                'password' => 'sometimes|string|confirmed|min:6',
             ]);
-        } else {
-            $user->update($request->only('username'));
+
+            if ($request->has('password')) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'mobile_number' => $request->mobile_number,
+                    'password' => bcrypt($request->password),
+                    'e_password' => Crypt::encrypt($request->password)
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'mobile_number' => $request->mobile_number,
+                ]);
+            }
+
+            $user->syncRoles($request->roles);
+
+            DB::commit();
+
+            return redirect(route('users.employee'))->withSuccess('Berhasil edit user ' . $user->name);
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return redirect(route('users.employee'))->withErrors('Gagl ubah data, error : ' . $e->getMessage());
         }
 
-        return redirect(route('users.index'))->withSuccess('Berhasil edit user ' . $user->username);
+        
     }
 
     public function show(Request $request)

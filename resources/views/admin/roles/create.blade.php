@@ -36,4 +36,4 @@
     </div>
 </div>
 
-@endsection();
+@endsection()

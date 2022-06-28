@@ -45,10 +45,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="hotel_id">Nama Hotel</label>
-                            <select name="hotel_id" id="" class="form-control">
-                                @forelse($hotels as $hotel)
-                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                            <label for="accomodations_id">Nama Hotel</label>
+                            <select name="accomodation_id" id="" class="form-control">
+                                @forelse($accomodations as $accomodation)
+                                    <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
                                 @empty
                                     <option value="">-</option>
                                 @endforelse
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-@endsection();
+@endsection()

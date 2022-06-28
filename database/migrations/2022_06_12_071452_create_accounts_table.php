@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('gender', ['pria', 'wanita']);
-            $table->date('birth_date');
+            $table->enum('gender', ['pria', 'wanita'])->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedBigInteger('refferral_code')->nullable();
             $table->timestamps();

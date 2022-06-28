@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\GoogleApiController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\Api\Auth\ResenVerifyEmailController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::post('auth/google/', [GoogleApiController::class, 'googleLogin']);
 
 Route::post('auth/register', RegisterController::class);
 

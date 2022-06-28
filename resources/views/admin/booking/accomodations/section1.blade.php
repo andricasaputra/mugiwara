@@ -15,7 +15,5 @@
 
 <div class="form-group">
     <label for="price">Alamat Lengkap</label>
-    <textarea class="form-control" name="address" cols="30" rows="3">
-        {{ old('address') }}
-    </textarea>
+    <textarea class="form-control" name="address" cols="30" rows="3">{{ old('address') }}</textarea>
 </div>

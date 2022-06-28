@@ -4,18 +4,6 @@
 @section('content')
 
 <div class="row">
-    {{-- <div class="col-12">
-        <form action="{{ route('admin.voucher.index') }}" method="get">
-            <div class="row">
-                <div class="input-group mb-3 col-3">
-                    <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="input-group-text">Cari</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline align-items-center">
@@ -45,7 +33,7 @@
                             <td>{{ $voucher->name }}</td>
                             <td>{{ $voucher->description }}</td>
                             <td>{{ $voucher->type }}</td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" style="height:100px;width:100px;border-radius:0;"></a></td>
+                            <td><a href="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" width="120"></a></td>
                             <td>{{ $voucher->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
                                 <table>

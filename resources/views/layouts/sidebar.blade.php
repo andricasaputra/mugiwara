@@ -18,9 +18,10 @@
       </a>
       <div class="collapse" id="auth">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{{ route('users.index') }}"> Users </a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}"> Roles </a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ route('permissions.index') }}"> Permissions </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('users.employee') }}"> Karyawan </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('users.customer') }}"> Pelanggan </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}"> Role </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('permissions.index') }}"> Hak Akses </a></li>
         </ul>
       </div>
     </li>
@@ -98,13 +99,18 @@
         </ul>
       </div>
     </li> --}}
-    
-    <li class="nav-item">
+     <li class="nav-item">
+      <a class="nav-link" href="{{ route('privacy.index') }}">
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Kebijakan Privasi</span>
+      </a>
+    </li> 
+    {{-- <li class="nav-item">
       <a class="nav-link" href="pages/documentation/documentation.html">
         <i class="icon-paper menu-icon"></i>
         <span class="menu-title">Documentation</span>
       </a>
-    </li>
+    </li> --}}
     @endrole
   </ul>
 </nav>

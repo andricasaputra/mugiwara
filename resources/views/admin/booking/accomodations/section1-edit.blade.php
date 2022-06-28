@@ -18,8 +18,6 @@
 
 <div class="form-group">
     <label for="address">Alamat Lengkap</label>
-    <textarea class="form-control" name="address" cols="30" rows="3">
-        {{ $accomodation->address }}
-    </textarea>
+    <textarea class="form-control" name="address" cols="30" rows="3">{{ $accomodation->address }}</textarea>
 </div>
 

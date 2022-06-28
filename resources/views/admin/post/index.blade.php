@@ -4,18 +4,6 @@
 @section('content')
 
 <div class="row">
-    {{-- <div class="col-12">
-        <form action="{{ route('admin.post.index') }}" method="get">
-            <div class="row">
-                <div class="input-group mb-3 col-3">
-                    <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="input-group-text">Cari</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
@@ -24,12 +12,11 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="mytable" class="display expandable-table table-striped text-center" style="width:100%">
+                    <table id="mytable" class="display expandable-table table-striped text-center" style="width: 100%">
                     <thead>
                     <tr>
                         <th>No</th>
                         <th>Judul</th>
-                        <th>Slug</th>
                         <th>Isi</th>
                         <th>Gambar</th>
                         <th>Status</th>
@@ -51,24 +38,18 @@
                             <td>{{ $key + 1 }}</td>
 
                             <td>{{ $post->title }}</td>
-                            <td>{{ $post->slug }}</td>
                             <td>
                                 {{ $string }}
                             </td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $post->image) }}" style="height:100px;width:100px;border-radius:0;"></a></td>
+                            <td><a href="{{ Storage::disk('local')->url('data/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $post->image) }}" width="100"></a></td>
                             <td>{{ $post->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
-                                <table>
-                                    <tr>
-                                        <td><a href="{{ route('admin.post.edit', $post->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
-                                        <td><a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-info btn-sm">Detail</a></td>
-                                        <td>
-                                            <a href="#" 
-                                            data-id="{{ $post->id }}" data-toggle="modal" data-target="#delete"
-                                            class="btn btn-danger btn-sm">Hapus</a>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="d-flex flex-column">
+                                   <a href="{{ route('admin.post.edit', $post->id) }}" class="btn btn-warning btn-sm mb-3">Ubah</a>
+                                    <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
+                                    <a href="#" data-id="{{ $post->id }}" data-toggle="modal" data-target="#delete"
+                                    class="btn btn-danger btn-sm mb-3">Hapus</a>
+                                </div>
                             </td>
                         </tr>
                         @empty

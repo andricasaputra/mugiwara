@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Facility;
 use App\Models\Room;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
@@ -75,25 +76,56 @@ class RoomController extends Controller
 
     public function edit(Room $room)
     {
-        return view('admin.booking.rooms.edit')->withRoom($room);
+        $types = RoomType::all();
+        $facilities = Facility::all();
+
+        return view('admin.booking.rooms.edit')
+            ->withRoom($room->load(['type', 'facilities', 'accomodation']))
+            ->withTypes($types)
+             ->withFacilities($facilities);
     }
 
     public function update(Request $request, Room $room)
     {
+        DB::beginTransaction();
+
         try {
 
             $request->validate([
                 'name' => [
                     'required',
                     \Illuminate\Validation\Rule::unique('Rooms')->ignore($room->id),
-                ]
+                ],
+                'type_id' => 'required|string',
+                'price' => 'required|numeric',
+                'discount' => 'nullable|string',
+                'images' => 'required',
             ]);
 
+            if($request->hasFile('images')){
+
+                $this->files = $request->file('images');
+                $this->upload  = app()->make(UploadServiceInterface::class);
+
+                $this->upload();
+            }
+
             $room->update($request->all());
+
+            $files = collect($this->fileName)->map(function($file){
+                return ['image' => $file];
+            })->all();
+
+            $room->images()->createMany($files);
+
+            DB::commit();
 
             return redirect(route('rooms.index'))->withSuccess('Berhasil ubah data');
             
         } catch (\Exception $e) {
+
+            DB::rollback();
+
             return back()->withErrors('Gagal ubah data, error : ' . $e->getMessage());
         }
     }

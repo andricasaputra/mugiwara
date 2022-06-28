@@ -40,7 +40,7 @@
     </div>
 </div>
 
-@endsection();
+@endsection()
 
 @section('link')
 

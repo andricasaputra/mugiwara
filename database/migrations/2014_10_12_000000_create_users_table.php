@@ -21,10 +21,11 @@ return new class extends Migration
             $table->string('type')->default('user');
             $table->string('otp_verify_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('mobile_number')->unique();
+            $table->string('mobile_number')->unique()->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('mobile_verify_code')->nullable();
             $table->tinyInteger('mobile_attempts_left')->default(0);
+            $table->string('google_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

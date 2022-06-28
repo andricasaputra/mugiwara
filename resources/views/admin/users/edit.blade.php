@@ -26,24 +26,26 @@
                         {{ Form::label('mobile_number', 'Nomor HP') }}
                         {{ Form::text('mobile_number', null, array('class' => 'form-control')) }}
                     </div>
-                    <h5><b>Give Role</b></h5>
+
+                    <h5><b>Role</b></h5>
 
                     <div class='form-group'>
-                        @foreach ($roles as $role)
-                            {{ Form::checkbox('roles[]',  $role->id, $user->roles) }}
-                            {{ Form::label($role->name, ucfirst($role->name)) }}<br>
-                        @endforeach
+                        <select name="roles" class="form-control">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role?->id }}" {{ $user->roles?->first()?->id == $role?->id ? 'selected' : '' }}>{{ ucfirst($role->name) }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 
                     <div class="password_container"></div>
 
                     <div class="form-group">
-                         <label><input type="checkbox" name="with_password" class="change_password"> Change User Password </label>
+                         <label><input type="checkbox" name="with_password" class="change_password"> Ubah User Password </label>
                     </div>
 
-                    {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
+                    {{ Form::submit('Ubah', array('class' => 'btn btn-primary')) }}
 
-                    <a class="btn btn-danger" href="{{ route('users.index') }}">Back</a>
+                    <a class="btn btn-danger" href="{{ route('users.employee') }}">Back</a>
 
                     {{ Form::close() }}
                 </div>
@@ -52,7 +54,7 @@
     </div>
 </div>
 
-@endsection();
+@endsection()
 
 @section('scripts')
     <script>

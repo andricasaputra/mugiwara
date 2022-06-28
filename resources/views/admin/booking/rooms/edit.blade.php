@@ -8,6 +8,7 @@
             <div class="card">
                 <div class="card-block">
 
+
                     @include('layouts.multistepformcss')
                     <div>
                         <div id="multi-step-form-container">
@@ -19,7 +20,7 @@
                                         <span class="form-stepper-circle">
                                             <span>1</span>
                                         </span>
-                                        <div class="label">Detail Informasi Penginapan</div>
+                                        <div class="label">Ubah Informasi Kamar</div>
                                     </a>
                                 </li>
                                 <!-- Step 2 -->
@@ -28,61 +29,45 @@
                                         <span class="form-stepper-circle text-muted">
                                             <span>2</span>
                                         </span>
-                                        <div class="label text-muted">Informai Detail Kamar</div>
-                                    </a>
-                                </li>
-                                <!-- Step 3 -->
-                                <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
-                                    <a class="mx-2">
-                                        <span class="form-stepper-circle text-muted">
-                                            <span>3</span>
-                                        </span>
                                         <div class="label text-muted">Foto Kamar</div>
                                     </a>
                                 </li>
                             </ul>
-
-                            @include('inc.message')
                             <!-- Step Wise Form Content -->
-                            <form action="{{ route('accomodations.store') }}" method="post">
+                            <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="{{ route('rooms.update', $room->id) }}">
 
-                           {{--  <form action="{{ route('accomodations.store') }}" method="POST" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data">
- --}}
+                                @method('PUT')
+                                @csrf
+
                                 <input type="hidden" name="image_type" value="room">
                                 <!-- Step 1 Content -->
                                 <section id="step-1" class="form-step">
-                                    <h3 class="font-normal">Detail Informasi Penginapan</h3>
+                                    <h3 class="font-normal">Detil Informasi Kamar</h3>
                                     <!-- Step 1 input fields -->
                                     <div class="mt-3">
-                                        @include('admin.booking.accomodations.section1')
+                                        <div class="form-group">
+                                            <label for="name">Nama Penginapan</label>
+                                            <input name="name" type="text" class="form-control form-control-lg"  required value="{{ $room->accomodation->name }}" readonly>
+                                        </div>
+                                        @include('admin.booking.rooms.section1-edit')
                                     </div>
                                     <div class="mt-3">
-                                        <button class="button btn-navigate-form-step" type="button" step_number="2">Selanjutnya</button>
+                                        <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                                     </div>
                                 </section>
-                                <!-- Step 2 Content, default hidden on page load. -->
+                                
                                 <section id="step-2" class="form-step d-none">
-                                    <h2 class="font-normal">Tambah Kamar</h2>
+                                    <h2 class="font-normal">Foto Kamar</h2>
                                     <!-- Step 2 input fields -->
                                     <div class="mt-3">
-                                       @include('admin.booking.accomodations.section2')
-                                    </div>
-                                    <div class="mt-3">
-                                        <button class="button btn-navigate-form-step" type="button" step_number="1">Sebelumnya</button>
-                                        <button class="button btn-navigate-form-step" type="button" step_number="3">Selanjutnya</button>
-                                    </div>
-                                </section>
-                                <!-- Step 3 Content, default hidden on page load. -->
-                                <section id="step-3" class="form-step d-none">
-                                    <h2 class="font-normal">Foto Kamar</h2>
-                                    <!-- Step 3 input fields -->
-                                    <div class="mt-3">
-                                        <input type="file" name="room_image[]" multiple required/>
+                                       <input type="file" name="room_image[]" multiple required/>
                                         <p class="help-block">{{ $errors->first('room_image.*') }}</p>
                                     </div>
                                     <div class="mt-3">
-                                        <button class="button btn-navigate-form-step" type="button" step_number="2">Sebelumnya</button>
-                                        <button class="button submit-btn" type="submit">Simpan</button>
+                                        <div class="mt-3">
+                                            <button class="button btn-navigate-form-step" type="button" step_number="1">Sebelumnya</button>
+                                            <button class="button submit-btn" type="submit">Simpan</button>
+                                        </div>
                                     </div>
                                 </section>
                             </form>
@@ -96,7 +81,7 @@
     </div>
 </div>
 
-@endsection()
+@endsection();
 
 @section('link')
 

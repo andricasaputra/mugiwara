@@ -38,4 +38,4 @@
     </div>
 </div>
 
-@endsection();
+@endsection()
