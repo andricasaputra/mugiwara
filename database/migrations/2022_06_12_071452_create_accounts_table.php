@@ -19,7 +19,8 @@ return new class extends Migration
             $table->enum('gender', ['pria', 'wanita'])->nullable();
             $table->date('birth_date')->nullable();
             $table->string('avatar')->nullable();
-            $table->unsignedBigInteger('refferral_code')->nullable();
+            $table->unsignedBigInteger('refferral_code')->nullable()->unique();
+            $table->unsignedBigInteger('point')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

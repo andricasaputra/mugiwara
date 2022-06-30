@@ -13,13 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_vouchers', function (Blueprint $table) {
+        Schema::create('account_points', function (Blueprint $table) {
             $table->id();
-            $table->integer( 'user_id' )->unsigned();
-            $table->bigInteger( 'voucher_id' )->unsigned( );
+            $table->unsignedBigInteger( 'user_id' );
+            $table->unsignedBigInteger( 'voucher_id' );
+            $table->bigInteger('before');
+            $table->bigInteger('after');
             $table->timestamps();
 
             $table->unique( [ 'user_id', 'voucher_id' ] );
+
+            $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('cascade');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_vouchers');
+        Schema::dropIfExists('account_points');
     }
 };

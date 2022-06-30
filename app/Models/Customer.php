@@ -16,4 +16,8 @@ class Customer extends User
     {
         return $this->hasOne(Account::class, 'user_id');
     }
+    public function accountPoints()
+    {
+        return $this->hasMany(AccountPoint::class, 'user_id');
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\HotelOfficeController;
 use App\Http\Controllers\Admin\HotelSubOfficeController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
@@ -59,6 +60,11 @@ Route::name('admin.')->group(function() {
         Route::get('{id}/show', [PostController::class, 'show'])->name('show');
         Route::put('', [PostController::class, 'update'])->name('update');
         Route::delete('', [PostController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('point')->name('point.')->group(function() {
+        Route::get('', [PointController::class, 'index'])->name('index');
+        Route::get('{id}/show', [PointController::class, 'show'])->name('show');
     });
 
     Route::prefix('slider')->name('slider.')->group(function() {

@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model
+class AccountPoint extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
-    public function customer()
+
+    public function user()
     {
         return $this->belongsTo(Customer::class);
+    }
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class, 'voucher_id');
     }
 }

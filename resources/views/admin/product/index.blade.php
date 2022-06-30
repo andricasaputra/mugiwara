@@ -19,7 +19,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title">Daftar Produk</h4>
+                <h4 class="card-title align-items-center my-auto">Daftar Produk</h4>
                 <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Produk</a>
             </div>
             <div class="card-body">
