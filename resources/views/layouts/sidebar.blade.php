@@ -48,6 +48,12 @@
         <span class="menu-title">Manajemen Info Kantor</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.point.index') }}">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">Manajemen Poin</span>
+      </a>
+    </li>
     @endrole
 
     @role('admin')

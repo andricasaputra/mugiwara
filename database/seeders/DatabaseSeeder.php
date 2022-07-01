@@ -47,7 +47,10 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             SliderSeeder::class,
             FacilityTableSeeder::class,
-            RoomTypeTableSeeder::class
+            RoomTypeTableSeeder::class,
+            ProductSeeder::class,
+            VoucherSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

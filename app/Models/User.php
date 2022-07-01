@@ -62,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasRole('admin');
     }
 
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification($this));
@@ -75,5 +76,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendForgotPasswordOtpViaWhatsappNotification()
     {
         $this->notify(new ForgotPasswordWhatsappNotification($this));
+    }
+
+    public function account()
+    {
+        return $this->hasOne(Account::class);
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+
     }
 }

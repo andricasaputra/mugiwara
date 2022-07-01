@@ -9,4 +9,8 @@ class Voucher extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function accountPoints()
+    {
+        return $this->hasMany(AccountPoint::class, 'voucher_id');
+    }
 }
