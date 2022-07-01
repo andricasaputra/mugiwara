@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>Nama Voucher</th>
+                                    <th>Poin Voucher</th>
                                     <th>Poin Awal</th>
                                     <th>Poin Akhir</th>
                                 </tr>
@@ -47,6 +48,7 @@
                                 @foreach($accountPoints as $accountPoint)
                                 <tr>
                                     <td>{{ $accountPoint->voucher->name }}</td>
+                                    <td>@currency($accountPoint->voucher->point_needed)</td>
                                     <td>@currency($accountPoint->before)</td>
                                     <td>@currency($accountPoint->after)</td>
                                 </tr>

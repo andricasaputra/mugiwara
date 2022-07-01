@@ -36,16 +36,16 @@ class CustomerSeeder extends Seeder
             'refferral_code' => '92983338',
             'point' => 1500000,
         ]);
-        $accountPoin = AccountPoint::create([
-            'user_id' => $customer->id,
-            'voucher_id' => '1',
-            'before' => '1500000',
-            'after' => '1000000',
-        ]);
-        $customer = Account::where('user_id', $accountPoin->user_id)->first();
-        $pointAkhir = $customer->point - ($accountPoin->before - $accountPoin->after);
-        $customer->update([
-            'point' => $pointAkhir
-        ]);
+        // $accountPoin = AccountPoint::create([
+        //     'user_id' => $customer->id,
+        //     'voucher_id' => '1',
+        //     'before' => '1500000',
+        //     'after' => '1000000',
+        // ]);
+        // $customer = Account::where('user_id', $accountPoin->user_id)->first();
+        // $pointAkhir = $customer->point - ($accountPoin->before - $accountPoin->after);
+        // $customer->update([
+        //     'point' => $pointAkhir
+        // ]);
     }
 }
