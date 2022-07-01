@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Contracts\MustVerifyMobileNumber;
+use App\Notifications\ForgotPasswordEmailNotification;
+use App\Notifications\ForgotPasswordWhatsappNotification;
 use App\Notifications\VerifyEmailNotification;
 use App\Traits\VerifyMobileNumber;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -63,5 +65,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification($this));
+    }
+
+    public function sendForgotPasswordOtpViaEmailNotification()
+    {
+        $this->notify(new ForgotPasswordEmailNotification($this));
+    }
+
+    public function sendForgotPasswordOtpViaWhatsappNotification()
+    {
+        $this->notify(new ForgotPasswordWhatsappNotification($this));
     }
 }

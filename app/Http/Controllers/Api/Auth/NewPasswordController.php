@@ -37,28 +37,20 @@ class NewPasswordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'token' => ['required'],
-            'email' => ['required_without:mobile_number', 'email'],
-            'mobile_number' => ['required_without:email', 'numeric'],
+            'otp_code' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if($request->has('email')) {
-            $user = $this->resetWithEmail($request->email, $request->token);
-        }elseif($request->has('mobile_number')){
-            $user = $this->resetWithMobileNumber($request->mobile_number, $request->token);
+        if($request->user()->otp_verify_code != $request->otp_code){
+            return response()->json([
+                'message' => 'kode otp tidak sesuai'
+            ]);
         }
 
-        if(! $this->signature){
-            return $this->errorStatus('Invalid Signature (token and mobile_number)');
-        }
-
-        $user->forceFill([
+        $request->user()->forceFill([
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
         ])->save();
-
-        $this->cleanoldPassword()->delete();
 
         return $this->successStatus();
     }
@@ -73,34 +65,4 @@ class NewPasswordController extends Controller
         return response()->json(['message' => $message ?? 'gagal perbarui password']);
     }
 
-    protected function resetWithEmail($email, $token)
-    {
-        $user = User::whereEmail($email)->first();
-
-        $this->signature = DB::table('password_resets')
-            ->whereEmail($email)
-            ->whereToken($token)
-            ->first();
-
-        return $user;
-    }
-
-    protected function resetWithMobileNumber($mobile_number, $token)
-    {
-        $user = User::whereMobileNumber($mobile_number)->first();
-
-        $this->signature = DB::table('password_resets')
-            ->whereMobileNumber($mobile_number)
-            ->whereToken($token)
-            ->first();
-
-        return $user;
-    }
-
-    protected function cleanoldPassword()
-    {
-        return DB::table('password_resets')
-            ->whereEmail($this->signature->email)
-            ->orWhere('mobile_number', $this->signature->mobile_number);
-    }
 }

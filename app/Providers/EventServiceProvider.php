@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\CustomRegistered;
+use App\Events\ForgotPasswordEvent;
+use App\Listeners\ForgotPasswordListener;
 use App\Listeners\SendMobileVerificationNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CustomRegistered::class => [
             SendMobileVerificationNotification::class,
+        ],
+        ForgotPasswordEvent::class => [
+            ForgotPasswordListener::class,
         ],
     ];
 

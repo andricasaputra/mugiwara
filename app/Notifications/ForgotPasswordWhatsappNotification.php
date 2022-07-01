@@ -3,35 +3,23 @@
 namespace App\Notifications;
 
 use App\Notifications\WhatsappChannel;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\URL;
 
-class sendVerifyWhatsapp extends Notification
+class ForgotPasswordWhatsappNotification extends Notification
 {
     use Queueable;
 
-    /**
-     * The callback that should be used to create the verify email URL.
-     *
-     * @var \Closure|null
-     */
-    public static $createUrlCallback;
-
-    /**
-     * The callback that should be used to build the mail message.
-     *
-     * @var \Closure|null
-     */
-    public static $toWhatsappCallback;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(protected \App\Models\User $user)
+    public function __construct(protected $user)
     {
         //
     }
@@ -47,7 +35,7 @@ class sendVerifyWhatsapp extends Notification
         return [WhatsappChannel::class];
     }
 
-    /**
+     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -55,13 +43,17 @@ class sendVerifyWhatsapp extends Notification
      */
     public function toWhatsapp($notifiable)
     {
-        
-
         $data = [
             'api_key' => 'b2d95af932eedb4de92b3496f338aa5f97b36ae0',
             'sender'  => '6281238422099',
             'number'  => $this->numberFormat(),
-            'message' => "Harap untuk tidak mebagikan kode rahasia berikut kepada siapapun! Kode OTP anda adalah {$this->user->otp_verify_code}"
+            'message' => "Kode OTP Reset Password.
+
+Harap untuk tidak membagikan kode rahasia ini kepada siapapun! 
+
+Kode OTP anda adalah : {$this->user->otp_verify_code}
+
+Silahkan kambali ke aplikasi dan masukkan kode OTP diatas."
         ];
 
         $curl = curl_init();
@@ -81,7 +73,10 @@ class sendVerifyWhatsapp extends Notification
         $response =  json_decode($response, true);
 
         if($response['status']){
-            return redirect($this->verificationUrl($notifiable));
+            return response()->json([
+                'message' => 'kode otp telah terkirim ke nomro whatsapp anda'
+            ], 200);
+            //return redirect($this->verificationUrl($notifiable));
         }
 
         throw new \Exception("Whastapp notification error");
@@ -134,27 +129,5 @@ class sendVerifyWhatsapp extends Notification
         return [
             //
         ];
-    }
-
-    /**
-     * Set a callback that should be used when creating the email verification URL.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function createUrlUsing($callback)
-    {
-        static::$createUrlCallback = $callback;
-    }
-
-    /**
-     * Set a callback that should be used when building the notification mail message.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function toWhatsappUsing($callback)
-    {
-        static::$toWhatsappCallback = $callback;
     }
 }
