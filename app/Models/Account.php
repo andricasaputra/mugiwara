@@ -10,8 +10,8 @@ class Account extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class);
     }
 }

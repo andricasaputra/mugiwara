@@ -13,17 +13,17 @@
                             <tr>
                                 <td>Nama</td>
                                 <td>:</td>
-                                <td>{{ $customer->name }}</td>
+                                <td>{{ $customer->user->name }}</td>
                             </tr>
                             <tr>
                                 <td>Email</td>
                                 <td>:</td>
-                                <td>{{ $customer->email }}</td>
+                                <td>{{ $customer->user->email }}</td>
                             </tr>
                             <tr>
                                 <td>Poin</td>
                                 <td>:</td>
-                                <td>@currency($customer->account->point)</td>
+                                <td>@currency($customer->point)</td>
                             </tr>
                         </table>
                     </div>

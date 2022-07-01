@@ -13,7 +13,7 @@
                           <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                               <div class="card-body">
-                                <p class="card-title align-items-center my-auto">Daftar Pelanggan</p>
+                                <p class="card-title align-items-center my-auto">Manajemen Poin Pelanggan</p>
                                 <hr>
                                 <div class="row">
                                   <div class="col-12">
@@ -21,22 +21,22 @@
                                       <table id="user-table" class="display expandable-table" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Nama</th>
-                                                <th>Email</th>
-                                                <th>Waktu daftar</th>
-                                                <th>Poin</th>
+                                                <th>Nama Voucher</th>
+                                                <th>Nama Pelanggan</th>
+                                                <th>Poin Awal</th>
+                                                <th>Poin Akhir</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                          <tbody>
-                                            @foreach ($customers as $user)
+                                            @foreach ($accountPoints as $accountPoint)
                                             <tr>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->created_at->isoFormat('Do MMMM YYYY, h:mm:ss a') }}</td>
-                                                <td>@currency($user->account->point)</td>
+                                                <td>{{ $accountPoint->voucher->name }}</td>
+                                                <td>{{ $accountPoint->user->name }}</td>
+                                                <td>@currency($accountPoint->before)</td>
+                                                <td>@currency($accountPoint->after)</td>
                                                 <td>
-                                                    <a href="{{ route('admin.point.show', $user->id) }}" class="btn btn-sm btn-primary p-2">Kelola Poin</a>
+                                                    <a href="{{ route('admin.point.show', $accountPoint->id) }}" class="btn btn-sm btn-primary p-2">Kelola Poin</a>
                                                 </td>
                                             </tr>
                                             @endforeach
