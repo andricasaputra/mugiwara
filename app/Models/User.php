@@ -87,4 +87,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class);
 
     }
+
+    //Add this line in the bottom of \Spatie\Permission\Models\Role
+    // public function scopeExcepSuperAdmin($query)
+    // {
+    //     $query->where('name', '!=' , 'superadmin');
+    // }
 }
