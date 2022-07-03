@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -35,6 +36,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        $customer = \App\Models\Customer::create([
+           'name' => 'andri',
+            'email' => 'andri@email.com',
+            'email_verified_at' => null,
+            'mobile_number' => '081238422099',
+            'mobile_verified_at' => null,
+            'type' => 'customer',
+            'password' => bcrypt('password'),
+        ]);
+
         $superadmin->assignRole('superadmin');
         $superadmin->assignRole('admin');
         $admin->assignRole('admin');
@@ -51,6 +62,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             VoucherSeeder::class,
             CustomerSeeder::class,
+            AccessTokenSeeder::class,
         ]);
     }
 }

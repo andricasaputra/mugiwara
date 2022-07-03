@@ -18,6 +18,11 @@ class ResendVerifyOtpController extends Controller
      */
     public function email(Request $request)
     {
+
+        $request->validate([
+            'email' => 'required'
+        ]);
+
         $request->user()->otp_verify_code = Random::generate(6, 1234567890);
 
         $request->user()->save();
@@ -37,6 +42,10 @@ class ResendVerifyOtpController extends Controller
 
     public function whatsapp(Request $request)
     {
+        $request->validate([
+            'mobile_number' => 'required'
+        ]);
+
         $request->user()->otp_verify_code = Random::generate(6, 1234567890);
 
         $request->user()->save();

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CustomerScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,16 @@ class Customer extends User
 
     protected $table = 'users';
     protected $guarded = ['id'];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new CustomerScope);
+    }
 
     public function account()
     {

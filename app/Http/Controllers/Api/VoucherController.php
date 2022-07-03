@@ -13,12 +13,11 @@ class VoucherController extends Controller
 {
     public function index()
     {
-        $posts = Voucher::paginate(10);
-        $posts = ResourcesVoucher::collection($posts);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'List Vouchers',
-            'data' =>  $posts->response()->getData(true),
-        ], 200);
+        $vouchers = Voucher::paginate(10);
+        return ResourcesVoucher::collection($vouchers)
+                ->additional([
+                'status' => 'success',
+                'message' => 'List Vouchers',
+            ]);
     }
 }

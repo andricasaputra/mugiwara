@@ -13,12 +13,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $posts = Product::paginate(10);
-        $posts = ResourcesProduct::collection($posts);
-        return response()->json([
+        $products = Product::paginate(10);
+        return ResourcesProduct::collection($products)
+                ->additional([
             'status' => 'success',
-            'message' => 'List Products',
-            'data' =>  $posts->response()->getData(true),
-        ], 200);
+            'message' => 'List Products'
+        ]);
     }
 }

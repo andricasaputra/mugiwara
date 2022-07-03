@@ -12,11 +12,10 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(10);
-        $posts = ResourcesPost::collection($posts);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'List Posts',
-            'data' =>  $posts->response()->getData(true),
-        ], 200);
+        return ResourcesPost::collection($posts) 
+                ->additional([
+                    'status' => 'success',
+                    'message' => 'List Posts',
+                ]);
     }
 }

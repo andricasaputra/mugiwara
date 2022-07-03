@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/reset-password/{token}', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
 
-    Route::post('verify-email-otp', [VerifyEmailController::class, '__invoke'])
+    Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])
                 ->middleware(['throttle:6,1'])
                 ->name('api.otp.verification');
 

@@ -48,7 +48,7 @@ class RegisterController extends Controller
                     'token' => $token->plainTextToken,
                     'message' => 'silahkan lakukan verifikasi alamat email anda',
                     'verifcation_url' => route('api.otp.verification'),
-                    'resend_email_url' => route('api.otp.verification.resend')
+                    'resend_email_url' => route('api.otp.verification.resend.email')
                 ],
             ]
         );
