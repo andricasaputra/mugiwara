@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $customer = \App\Models\Customer::create([
            'name' => 'andri',
             'email' => 'andri@email.com',
-            'email_verified_at' => null,
+            'email_verified_at' => now(),
             'mobile_number' => '081238422099',
             'mobile_verified_at' => null,
             'type' => 'customer',
@@ -58,11 +58,12 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             SliderSeeder::class,
             FacilityTableSeeder::class,
-            RoomTypeTableSeeder::class,
+            TypeTableSeeder::class,
             ProductSeeder::class,
             VoucherSeeder::class,
             CustomerSeeder::class,
             AccessTokenSeeder::class,
+            AccomodationTableSeeder::class,
         ]);
     }
 }

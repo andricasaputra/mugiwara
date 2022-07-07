@@ -26,11 +26,6 @@ class Room extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function roomType()
-    {
-        return $this->belongsTo(RoomType::class, 'type_id', 'id');
-    }
-
     public function type()
     {
         return $this->belongsTo(Type::class);

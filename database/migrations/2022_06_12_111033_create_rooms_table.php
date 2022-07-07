@@ -19,8 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('accomodation_id');
             $table->unsignedBigInteger('type_id');
             $table->integer('max_guest');
+            $table->enum('status', ['available', 'booked'])->nullbale()->default('available');
+            $table->date('booked_untill')->nullable();
             $table->integer('price');
-            $table->float('discount')->nullable()->default(0);
+            $table->enum('discount_type', ['flat', 'percent'])->nullable()->default(NULL);
+            $table->string('discount_amount')->nullable()->default(0);
             $table->timestamps();
 
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');

@@ -9,6 +9,7 @@ class Type extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    
     public function rooms()
     {
         return $this->hasMany(Room::class);

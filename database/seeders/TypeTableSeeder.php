@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoomTypeTableSeeder extends Seeder
+class TypeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class RoomTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\RoomType::insert([
+        \App\Models\Type::insert([
             [
                 'name' => 'medium',
             ],

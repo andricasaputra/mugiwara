@@ -15,8 +15,19 @@ class Accomodation extends Model
         return $this->hasMany(Room::class);
     }
 
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
     public function regency()
     {
         return $this->belongsTo(Regency::class);
+    }
+
+
+    public function ratings()
+    {
+        return $this->hasMany(AccomodationRatings::class);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\RegencyController;
+use App\Http\Controllers\Api\AccomdationController;
 use App\Http\Controllers\Api\Auth\GoogleApiController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProductController;
@@ -45,6 +48,11 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
+
+        Route::get('accomodations', [AccomdationController::class, 'index']);
+        Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
+
+        Route::apiResource('orders', OrderController::class);
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);
@@ -63,3 +71,7 @@ Route::prefix('vouchers')->name('vouchers.')->group(function() {
 Route::prefix('points')->name('points.')->group(function() {
     Route::post('', [PoinController::class, 'store'])->name('store');
 });
+
+Route::get('regencies/show/{id?}', [RegencyController::class, 'showRegencies'])->name('api.regencies.show');
+
+Route::get('distritcs/show/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');

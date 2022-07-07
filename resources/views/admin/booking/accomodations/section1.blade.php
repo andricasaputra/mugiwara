@@ -5,11 +5,23 @@
 </div>
 
 <div class="form-group">
-    <label for="city">Kota</label>
-    <select name="regencies" class="form-control" id="js-example-basic-single" style="width: 100%;">
-        @foreach($regencies as $regency)
-            <option value="{{ $regency->id }}">{{ $regency->name }}</option>
+    <label for="city">Pilih Provinsi</label>
+    <select name="province_id" class="form-control province" id="js-example-basic-single" style="width: 100%;">
+        @foreach($provinces as $province)
+            <option value="{{ $province->id }}">{{ $province->name }}</option>
         @endforeach
+    </select>
+</div>
+
+<div class="form-group regencies-container">
+    <label for="city">Kota</label>
+    <select name="regencies" class="form-control regencies" id="js-example-basic-single-regencies" style="width: 100%;">
+    </select>
+</div>
+
+<div class="form-group districts-container">
+    <label for="city">Kecamatan</label>
+    <select name="districts" class="form-control districts" id="js-example-basic-single-districts" style="width: 100%;">
     </select>
 </div>
 

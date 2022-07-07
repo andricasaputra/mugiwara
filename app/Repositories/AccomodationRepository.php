@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Accomodation;
 use App\Models\Facility;
+use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Room;
 use App\Models\RoomType;
@@ -11,6 +12,9 @@ use RahulHaque\Filepond\Facades\Filepond;
 
 class AccomodationRepository
 {
+
+	use AccomodationApiData;
+
 	protected $request;
 	protected $accomodation;
 
@@ -28,7 +32,7 @@ class AccomodationRepository
 
 	public function indexData()
 	{
-		$accomodations = Accomodation::withCount('room')->get();
+		$accomodations = Accomodation::withCount('room')->withAvg('ratings', 'rating')->get();
 
 		return compact('accomodations');
 	}
@@ -38,9 +42,10 @@ class AccomodationRepository
 		$rooms = Room::with(['images', 'roomType'])->get();
         $types = RoomType::query()->get();
         $regencies = Regency::query()->get();
+        $provinces = Province::query()->get();
         $facilities = Facility::query()->get();
 
-        return compact('rooms', 'types', 'regencies', 'facilities');
+        return compact('rooms', 'types', 'regencies', 'facilities', 'provinces');
 	}
 
 	public function storeAccomodation()

@@ -33,7 +33,7 @@
                                                 <tr>
                                                     <td>{{ $accomodation->name }}</td>
                                                     <td>{{ $accomodation->address }}</td>
-                                                    <td>{{ $accomodation->ratings ?? 0 }}</td>
+                                                    <td>{{ $accomodation->ratings_avg ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
                                                      
                                                     <td>

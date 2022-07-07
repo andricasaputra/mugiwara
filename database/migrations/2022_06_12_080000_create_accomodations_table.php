@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->foreignId('province_id')->nullable()->references('id')->on('provinces')->onDelete('cascade');
             $table->foreignId('regency_id')->nullable()->references('id')->on('regencies')->onDelete('cascade');
             $table->longText('address');
+            $table->string('lang')->nullable();
+            $table->string('lat')->nullable();
             $table->timestamps();
         });
     }

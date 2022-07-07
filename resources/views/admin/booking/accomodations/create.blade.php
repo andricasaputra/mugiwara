@@ -46,8 +46,6 @@
                             <!-- Step Wise Form Content -->
                             <form action="{{ route('accomodations.store') }}" method="post">
 
-                           {{--  <form action="{{ route('accomodations.store') }}" method="POST" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data">
- --}}
                                 <input type="hidden" name="image_type" value="room">
                                 <!-- Step 1 Content -->
                                 <section id="step-1" class="form-step">
@@ -138,6 +136,20 @@
             tokenSeparators: [',', ' ']
         });
 
+        $('#js-example-basic-single-regencies').select2();
+
+        $(".js-example-tokenizer").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        $('#js-example-basic-single-districts').select2();
+
+        $(".js-example-tokenizer").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
     });
 </script>
 
@@ -168,6 +180,53 @@
         centsLimit: 0,
         thousandsSeparator: '.'
     });
+
+    $(document).on('change', '.province', function(){
+
+        const id = $(this).val();
+
+        $.ajax({
+            url : `{{ route('api.regencies.show') }}/${id}`,
+            success : function(res){
+
+                $('.regencies').empty();
+
+                $.each(res.regency, function (key, val) {
+                    $('.regencies').append(optionsTemplate(val));
+                });
+
+                
+            } 
+        });
+
+        
+    });
+
+    $(document).on('change', '.regencies', function(){
+
+        const id = $(this).val();
+
+        $.ajax({
+            url : `{{ route('api.districts.show') }}/${id}`,
+            success : function(res){
+
+                $('.districts').empty();
+
+                $.each(res.districts, function (key, val) {
+                    $('.districts').append(optionsTemplate(val));
+                });
+
+                
+            } 
+        });
+
+        
+    });
+
+    function optionsTemplate(data){
+
+        return `<option value="${data.id}">${data.name}</option>`;
+    }
 </script>
 
 @endsection
