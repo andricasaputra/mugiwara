@@ -22,7 +22,7 @@ class VoucherController extends Controller
     }
     public function show($id)
     {
-        $voucher = Voucher::find($id);
+        $voucher = Voucher::findOrFail($id);
         $voucher = new ResourcesVoucher($voucher);
         return $voucher
                 ->additional([

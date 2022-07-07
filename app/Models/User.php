@@ -49,7 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $query->role('employee');
     }
 
-
     public function scopeExceptSuperAdmin($query)
     {
         $query->whereHas('roles', function ($query) {
@@ -61,7 +60,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasRole('admin');
     }
-
 
     public function sendEmailVerificationNotification()
     {

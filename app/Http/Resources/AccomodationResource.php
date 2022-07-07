@@ -20,6 +20,10 @@ class AccomodationResource extends JsonResource
             'province' => $this->province->name,
             'regency' => $this->regency->name,
             'address' => $this->address,
+            'location' => [
+                'lang' => $this->lang,
+                'lat' => $this->lat
+            ],
             'ratings_avg' => $this->ratings_avg ?? 0.0,
             'rooms' => RoomResource::collection($this->room),
         ];

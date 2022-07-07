@@ -12,7 +12,6 @@ use RahulHaque\Filepond\Facades\Filepond;
 
 class AccomodationRepository
 {
-
 	use AccomodationApiData;
 
 	protected $request;

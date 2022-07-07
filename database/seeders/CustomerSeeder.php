@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Account;
-use App\Models\AccountPoint;
-use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
+use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class CustomerSeeder extends Seeder
 {
@@ -19,33 +17,36 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        $customer = Customer::create([
-            'name' => 'customer',
-            'email' => 'customer@customer.com',
+        $customer = \App\Models\Customer::create([
+           'name' => 'andri',
+            'email' => 'andri@email.com',
             'email_verified_at' => now(),
-            'mobile_number' => '0040',
-            'mobile_verified_at' => now(),
+            'mobile_number' => '081238422099',
+            'mobile_verified_at' => null,
+            'type' => 'customer',
             'password' => bcrypt('password'),
-            'type' => 'customer'
         ]);
-        Account::create([
-            'user_id' => $customer->id,
-            'gender' => 'pria',
-            'birth_date' => '2000-01-01',
-            'avatar' => null,
-            'refferral_code' => '92983338',
-            'point' => 1500000,
+
+        $customer->account()->create([
+           'gender' => Arr::random(['pria', 'wanita']),
+           'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
+           'avatar' => 'avatars/default_avatar.png',
+           'refferral_code' => Random::generate(6, 'A-Z'),
+           'point' => 0,
         ]);
-        // $accountPoin = AccountPoint::create([
-        //     'user_id' => $customer->id,
-        //     'voucher_id' => '1',
-        //     'before' => '1500000',
-        //     'after' => '1000000',
-        // ]);
-        // $customer = Account::where('user_id', $accountPoin->user_id)->first();
-        // $pointAkhir = $customer->point - ($accountPoin->before - $accountPoin->after);
-        // $customer->update([
-        //     'point' => $pointAkhir
-        // ]);
+
+        $customers = \App\Models\User::factory(10)->create(
+            ['type' => 'customer']
+        );
+
+        $customers->each(function($customer) {
+            return $customer->account()->create([
+               'gender' => Arr::random(['pria', 'wanita']),
+               'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
+               'avatar' => 'storage/avatars/default_avatar.jpg',
+               'refferral_code' => Random::generate(6, 'A-Z'),
+               'point' => 0,
+            ]);
+        });
     }
 }

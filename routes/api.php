@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
 
-        Route::apiResource('orders', OrderController::class);
+        // Route::apiResource('orders', OrderController::class);
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);
@@ -84,7 +84,9 @@ Route::middleware('auth:sanctum')->group(function(){
     
 });
 
-Route::get('regencies/show/{id?}', [RegencyController::class, 'showRegencies'])->name('api.regencies.show');
+Route::get('provinces', [RegencyController::class, 'showProvinces'])->name('api.provinces.show');
 
-Route::get('distritcs/show/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
+Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies'])->name('api.regencies.show');
+
+Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
 

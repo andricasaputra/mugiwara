@@ -20,7 +20,7 @@ class PostController extends Controller
     }
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post = new ResourcesPost($post);
         return $post
                 ->additional([

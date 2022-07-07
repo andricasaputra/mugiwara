@@ -13,6 +13,8 @@ trait AccomodationApiData
 			'room.type',
 			'province', 
 			'regency',
-		])->withAvg('ratings', 'rating')->paginate(10);
+		])
+		->withAvg('ratings', 'rating')
+		->paginate(10);
 	}
 }

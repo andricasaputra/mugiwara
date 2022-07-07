@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'filename' => '{timestamp}_{app}_collection.json',
+    'filename' => '{app}_collection.json',
 
     /*
     |--------------------------------------------------------------------------
@@ -35,8 +35,8 @@ return [
     |
     */
 
-    'structured' => false,
-    'crud_folders' => true,
+    'structured' => true,
+    'crud_folders' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'auth_middleware' => 'auth:api',
+    'auth_middleware' => 'auth:sanctum',
 
     /*
     |--------------------------------------------------------------------------
@@ -68,6 +68,10 @@ return [
         [
             'key' => 'Content-Type',
             'value' => 'application/json',
+        ],
+        [
+            'key' => 'Authorization',
+            'value' => 'Bearer 1|S5Tz6ScVcjO6zRPwLTGBHqMSkVIzjzrX9fuTLfDd',
         ],
     ],
 

@@ -26,18 +26,10 @@ class AccomdationController extends Controller
 
     public function rooms(Accomodation $accomodation)
     {
-        return AccomodationResource::make($accomodation->load('room.facilities'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return AccomodationResource::make($accomodation->load([
+            'room.facilities',
+            'room.reviews'
+        ]));
     }
 
     /**
@@ -52,14 +44,4 @@ class AccomdationController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

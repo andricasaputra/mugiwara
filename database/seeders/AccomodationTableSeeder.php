@@ -63,6 +63,23 @@ class AccomodationTableSeeder extends Seeder
                 ],
             ]);
 
+
+            $room->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'harga terjangkau, fasilitas oke!',
+                    'rating' => 4.5,
+                ]
+            );
+
+            $room->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'liburan jadi tenang',
+                    'rating' => 3.5,
+                ]
+            );
+
             $room = $accomodation->room()->create(
                 [
                     'room_number' => '02',
@@ -92,6 +109,30 @@ class AccomodationTableSeeder extends Seeder
                 ],
             ]);
 
+            $room->reviews()->create(
+                [
+                    'user_id' => 11,
+                    'comment' => 'Keren! fasilitas mewah',
+                    'rating' => 5,
+                ]
+            );
+
+            $room->reviews()->create(
+                [
+                    'user_id' => 12,
+                    'comment' => 'Mantaap',
+                    'rating' => 4.5,
+                ]
+            );
+
+            $room->reviews()->create(
+                [
+                    'user_id' => 13,
+                    'comment' => 'i have good experience in this accomodation',
+                    'rating' => 4.8,
+                ]
+            );
+
             // Accomodation 2
             $accomodation2 = \App\Models\Accomodation::create(
                 [
@@ -108,6 +149,8 @@ class AccomodationTableSeeder extends Seeder
                     'type_id' => 1,
                     'max_guest' => 1,
                     'price' => 500000,
+                    'status' => 'booked',
+                    'booked_untill' => now()->addDays(2),
                 ]
             );
 
@@ -137,6 +180,22 @@ class AccomodationTableSeeder extends Seeder
                     'image' => 'room_4.jpg' ,
                 ],
             ]);
+
+            $room2->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'harga terjangkau yaaa',
+                    'rating' => 4,
+                ]
+            );
+
+            $room2->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'pelayanan kurang ramah!',
+                    'rating' => 2,
+                ]
+            );
 
             $accomodation3 = \App\Models\Accomodation::create(
                 [
@@ -191,6 +250,8 @@ class AccomodationTableSeeder extends Seeder
                     'price' => 1000000,
                     'discount_type' => 'flat',
                     'discount_amount' => 70000,
+                    'status' => 'booked',
+                    'booked_untill' => now()->addDays(1),
                 ]
             );
 
@@ -215,6 +276,56 @@ class AccomodationTableSeeder extends Seeder
                 ],
                 [
                     'image' => 'room_2.jpg' ,
+                ],
+                [
+                    'image' => 'room_3.jpg' ,
+                ],
+                [
+                    'image' => 'room_4.jpg' ,
+                ],
+            ]);
+
+            $room3->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'tempat parkirnya jauh banget',
+                    'rating' => 2.5,
+                ]
+            );
+
+            $room3->reviews()->create(
+                [
+                    'user_id' => 15,
+                    'comment' => 'sarapan nya mantap',
+                    'rating' => 3.5,
+                ]
+            );
+
+            $room3 = $accomodation3->room()->create(
+                [
+                    'room_number' => '02',
+                    'type_id' => 3,
+                    'max_guest' => 2,
+                    'price' => 1000000,
+                    'discount_type' => 'percent',
+                    'discount_amount' => 10,
+                    'status' => 'booked',
+                    'booked_untill' => now()->addDays(1),
+                ]
+            );
+
+            $room3->facilities()->attach([
+                [
+                    'facility_id' => 3
+                ],
+                [
+                    'facility_id' => 4
+                ],
+            ]);
+
+            $room3->images()->createMany([
+                [
+                    'image' => 'room_5.jpg' ,
                 ],
                 [
                     'image' => 'room_3.jpg' ,

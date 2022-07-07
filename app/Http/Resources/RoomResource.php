@@ -14,11 +14,22 @@ class RoomResource extends JsonResource
      */
     public function toArray($request)
     {
+        return $this->hasVailableRoom();
+    }
+
+    protected function hasVailableRoom()
+    {
         return [
             'id' => $this->id,
             'room_type' => $this->type->name,
             "room_number" => $this->room_number,
             "max_guest" => $this->max_guest,
+            'status' => $this->status,
+
+            $this->mergeWhen($this->status == 'booked', [
+                "booked_untill" => $this->booked_untill,
+            ]),
+
             "normal_price" => $this->price,
             'is_in_discount' => $this->discount_type ? true : false,
 
@@ -42,6 +53,7 @@ class RoomResource extends JsonResource
             "discount" => $this->when($this->discount, 'secret-value'),
             'facilities' => FacilityResource::collection($this->whenLoaded('facilities')),
             'images' => ImageResource::collection($this->images),
+            'reviews' => ReviewsResource::collection($this->reviews),
         ];
     }
 }

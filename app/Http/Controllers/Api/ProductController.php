@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $product = new ResourcesProduct($product);
         return $product
                 ->additional([
