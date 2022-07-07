@@ -20,4 +20,14 @@ class VoucherController extends Controller
                 'message' => 'List Vouchers',
             ]);
     }
+    public function show($id)
+    {
+        $voucher = Voucher::find($id);
+        $voucher = new ResourcesVoucher($voucher);
+        return $voucher
+                ->additional([
+                    'status' => 'success',
+                    'message' => 'Detail Voucher',
+                ]);
+    }
 }

@@ -18,4 +18,14 @@ class PostController extends Controller
                     'message' => 'List Posts',
                 ]);
     }
+    public function show($id)
+    {
+        $post = Post::find($id);
+        $post = new ResourcesPost($post);
+        return $post
+                ->additional([
+                    'status' => 'success',
+                    'message' => 'Detail Post',
+                ]);
+    }
 }

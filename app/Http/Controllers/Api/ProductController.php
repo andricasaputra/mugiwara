@@ -20,4 +20,14 @@ class ProductController extends Controller
             'message' => 'List Products'
         ]);
     }
+    public function show($id)
+    {
+        $product = Product::find($id);
+        $product = new ResourcesProduct($product);
+        return $product
+                ->additional([
+                    'status' => 'success',
+                    'message' => 'Detail Product',
+                ]);
+    }
 }
