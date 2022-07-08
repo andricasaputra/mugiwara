@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProductController;
@@ -53,7 +54,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
 
-        // Route::apiResource('orders', OrderController::class);
+        Route::get('payments/lists', [PaymentController::class, 'lists']);
+        Route::post('orders/pay', [OrderController::class, 'pay']);
+
+        //Route::apiResource('orders', OrderController::class);
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);

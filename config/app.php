@@ -198,6 +198,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\UploadServiceProvider::class,
+        App\Providers\PaymentServiceProvider::class,
 
     ],
 

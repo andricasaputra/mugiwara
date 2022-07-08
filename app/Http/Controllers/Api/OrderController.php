@@ -2,63 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\PaymentServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
+use Xendit\Xendit;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+         Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function pay(Request $request)
     {
-        //
-    }
+        $services = app()->make(PaymentServiceInterface::class);
+        $payments = $services->pay($request);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        dd($services);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $order = new OrderRepository();
+        $order->create($payments);
     }
 }
