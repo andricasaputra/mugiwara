@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,11 +19,13 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('admin.post.create');
+        $categoryPosts = CategoryPost::all();
+        return view('admin.post.create', compact('categoryPosts'));
     }
     public function store(Request $request)
     {
         $this->validate($request, [
+            'category_post_id' => 'required',
             'title' => 'required',
             'body' => 'required',
             'is_active' => 'required',
@@ -36,6 +39,7 @@ class PostController extends Controller
         }
         Post::create([
             'user_id' => auth()->user()->id,
+            'category_post_id' => $request->category_post_id,
             'title' => $request->title,
             'body' => $request->body,
             'slug' => Str::slug($request->title),
@@ -53,11 +57,13 @@ class PostController extends Controller
     public function edit($postId)
     {
         $post = Post::find($postId);
-        return view('admin.post.edit', compact('post'));
+        $categoryPosts = CategoryPost::all();
+        return view('admin.post.edit', compact('post','categoryPosts'));
     }
     public function update(Request $request)
     {
         $this->validate($request, [
+            'category_post_id' => 'required',
             'title' => 'required',
             'body' => 'required',
             'is_active' => 'required',
@@ -73,6 +79,7 @@ class PostController extends Controller
         }
         $post->update([
             'user_id' => auth()->user()->id,
+            'category_post_id' => $request->category_post_id,
             'title' => $request->title,
             'body' => $request->body,
             'slug' => Str::slug($request->title),

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\CategoryPostController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
@@ -61,6 +62,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::prefix('posts')->name('posts.')->group(function() {
         Route::get('', [PostController::class, 'index'])->name('index');
         Route::get('{id}', [PostController::class, 'show'])->name('show');
+    });
+    Route::prefix('category-posts')->name('category_posts.')->group(function() {
+        Route::get('', [CategoryPostController::class, 'index'])->name('index');
+        Route::get('{id}', [CategoryPostController::class, 'show'])->name('show');
     });
 
     Route::prefix('products')->name('products.')->group(function() {

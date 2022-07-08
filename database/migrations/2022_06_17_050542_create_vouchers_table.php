@@ -34,8 +34,8 @@ return new class extends Migration
             // How many times a user can use this voucher.
             $table->integer('max_uses_user')->unsigned()->nullable()->default(1);
 
-            // The type can be: voucher and item(barang).
-            $table->string('type')->default('voucher');
+            // The type can be: voucher, promo and item(barang).
+            $table->string('type')->default('voucher'); //
 
             // Voucher or item (barang) category, choice : menarik, rekomendasi.
             $table->string('category')->nullable();

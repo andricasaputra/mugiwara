@@ -13,6 +13,11 @@
             <div class="card-body">
                 <table class="display expandable-table table-striped" style="width:100%">
                     <tr>
+                        <td>Kategori</td>
+                        <td>:</td>
+                        <td>{{ $post->categoryPost->name }}</td>
+                    </tr>
+                    <tr>
                         <td>Judul</td>
                         <td>:</td>
                         <td>{{ $post->title }}</td>

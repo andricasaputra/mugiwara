@@ -9,9 +9,19 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Form Tambah Berita</h4>
+            <h4 class="card-title">Form Tambah Artikel</h4>
             <form action="{{ route('admin.post.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
+                
+                <div class="form-group">
+                    <label for="category_post_id">Kategori</label>
+                    <select name="category_post_id" id="category_post_id" class="form-control" required>
+                        <option value="">~ Pilih ~</option>
+                        @foreach($categoryPosts as $category)
+                        <option value="{{ $category->id }}" {{ old('category_post_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="title">Judul</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>

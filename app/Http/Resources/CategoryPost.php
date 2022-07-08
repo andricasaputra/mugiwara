@@ -3,8 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Route;
 
-class Post extends JsonResource
+
+class CategoryPost extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,17 +16,13 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
+        
         return [
             'id' => $this->id,
-            'category' => $this->categoryPost->name,
-            'postedBy' => $this->user->name,
-            'title' => $this->title,
-            'body' => $this->body,
-            'slug' => $this->slug,
-            'image' => $this->image,
-            'is_active' => $this->is_active,
+            'name' => $this->name,
             'created_at' => $this->created_at->isoFormat('dddd, D MMMM Y'),
             'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
+            'posts' => Post::collection($this->posts()->get()),
         ];
     }
 }
