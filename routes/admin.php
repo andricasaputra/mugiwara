@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AccomodationController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HotelCategoryController;
@@ -84,6 +85,14 @@ Route::name('admin.')->group(function() {
         Route::get('{id}/edit', [TypeController::class, 'edit'])->name('edit');
         Route::put('', [TypeController::class, 'update'])->name('update');
         Route::delete('', [TypeController::class, 'delete'])->name('delete');
+    });
+    Route::prefix('category-post')->name('category_post.')->group(function() {
+        Route::get('', [CategoryPostController::class, 'index'])->name('index');
+        Route::get('create', [CategoryPostController::class, 'create'])->name('create');
+        Route::post('', [CategoryPostController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [CategoryPostController::class, 'edit'])->name('edit');
+        Route::put('', [CategoryPostController::class, 'update'])->name('update');
+        Route::delete('', [CategoryPostController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('product')->name('product.')->group(function() {

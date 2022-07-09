@@ -7,8 +7,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title align-items-center my-auto">Daftar Berita</h4>
-                <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Berita</a>
+                <h4 class="card-title align-items-center my-auto">Daftar Artikel</h4>
+                <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Artikel</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -16,6 +16,7 @@
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th>Kategori</th>
                         <th>Judul</th>
                         <th>Isi</th>
                         <th>Gambar</th>
@@ -37,6 +38,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
 
+                            <td>{{ $post->categoryPost->name }}</td>
                             <td>{{ $post->title }}</td>
                             <td>
                                 {{ $string }}
@@ -54,7 +56,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center">Tidak ada data</td>
+                            <td colspan="7" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -70,13 +72,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Berita</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span class="text-orange-tagar-manual">|</span> Hapus Artikel</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus berita ini?
+                Apakah Anda yakin ingin menghapus Artikel ini?
             </div>
             <div class="modal-footer">
                 <form action="{{ route('admin.post.delete') }}" method="POST" enctype="multipart/form-data">

@@ -14,6 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(10);
+        $products->appends(request()->all());
         return ResourcesProduct::collection($products)
                 ->additional([
             'status' => 'success',

@@ -11,11 +11,16 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::when(request()->category_post_id, function($posts) {
+            $posts->where('category_post_id', request()->category_post_id);
+        })
+        ->where('is_active', '1')
+        ->paginate(10);
+        $posts->appends(request()->all());
         return ResourcesPost::collection($posts) 
                 ->additional([
                     'status' => 'success',
-                    'message' => 'List Posts',
+                    'message' => 'List Artikel',
                 ]);
     }
     public function show($id)
@@ -25,7 +30,7 @@ class PostController extends Controller
         return $post
                 ->additional([
                     'status' => 'success',
-                    'message' => 'Detail Post',
+                    'message' => 'Detail Artikel',
                 ]);
     }
 }

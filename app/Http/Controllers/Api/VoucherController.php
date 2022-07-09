@@ -13,7 +13,11 @@ class VoucherController extends Controller
 {
     public function index()
     {
-        $vouchers = Voucher::paginate(10);
+        $vouchers = Voucher::when(request()->category, function($vouchers) {
+            $vouchers->where('category', request()->category);
+        })
+        ->paginate(request()->take ?? 10);
+        $vouchers->appends(request()->all());
         return ResourcesVoucher::collection($vouchers)
                 ->additional([
                 'status' => 'success',
