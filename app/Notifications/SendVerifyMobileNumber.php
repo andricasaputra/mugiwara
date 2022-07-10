@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class sendVerifyWhatsapp extends Notification
+class SendVerifyMobileNumber extends Notification
 {
     use Queueable;
 
@@ -55,13 +55,23 @@ class sendVerifyWhatsapp extends Notification
      */
     public function toWhatsapp($notifiable)
     {
-        
+        try {
 
-        $data = [
+            $data = [
             'api_key' => 'b2d95af932eedb4de92b3496f338aa5f97b36ae0',
-            'sender'  => '6281238422099',
+            'sender'  => env('DEFAULT_WHATSAPP_NUUMBER'),
             'number'  => $this->numberFormat(),
-            'message' => "Harap untuk tidak mebagikan kode rahasia berikut kepada siapapun! Kode OTP anda adalah {$this->user->otp_verify_code}"
+            'message' => "Notifikasi verifikasi nomor telepon!
+
+Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
+
+Kode Verifikasi anda adalah : {$this->user->mobile_verify_code}
+
+Silahkan masukkan kode diatas pada layar Handpone anda di dalam aplikasi CapsuleInn.
+
+Hormat kami,
+
+Capsule Inn"
         ];
 
         $curl = curl_init();
@@ -81,10 +91,21 @@ class sendVerifyWhatsapp extends Notification
         $response =  json_decode($response, true);
 
         if($response['status']){
-            return redirect($this->verificationUrl($notifiable));
+            return response()->json([
+                'message' => 'verifikasi nomor telepon sukses!'
+            ]);
+        } else {
+            return response()->json([
+                'message' => $response
+            ]);
         }
-
-        throw new \Exception("Whastapp notification error");
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'verifikasi nomor telepon gagal!',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     protected function numberFormat()

@@ -92,17 +92,11 @@ class RoomController extends Controller
         try {
 
             $request->validate([
-                'name' => [
-                    'required',
-                    \Illuminate\Validation\Rule::unique('Rooms')->ignore($room->id),
-                ],
                 'type_id' => 'required|string',
                 'price' => 'required|numeric',
                 'discount' => 'nullable|string',
                 'images' => 'nullable',
             ]);
-
-            dd('here');
 
             if($request->hasFile('images')){
 

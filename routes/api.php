@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\Auth\VerifyMobileController;
 use App\Http\Controllers\Api\CategoryPostController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
@@ -35,18 +36,20 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/reset-password/{token}', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
 
-    Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])
-                ->middleware(['throttle:6,1'])
-                ->name('api.otp.verification');
+    Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])->middleware(['throttle:6,1']);
 
-    Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])
-                ->middleware(['throttle:6,1'])
-                ->name('api.otp.verification.resend.email');
+    Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->middleware(['throttle:6,1']);
 
-    Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])
-                ->middleware(['throttle:6,1'])
-                ->name('api.otp.verification.resend.whatsapp');
+    Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->middleware(['throttle:6,1']);
 
+    Route::post('auth/verify-mobile-number-request', [VerifyMobileController::class, 'create'])->middleware(['throttle:6,1']);;
+
+    /*Verifikasi Nomor HP*/
+
+    // Mengirim kode verifikasi via whtasapp
+    Route::post('auth/verify-mobile-number-match', [VerifyMobileController::class, 'verifyOtpCode'])->middleware(['throttle:6,1']);;
+
+    // Konfirmasi kode verifikasi (OTP)
     Route::middleware('verified')->group(function(){
         Route::get('/user', function (Request $request) {
             return $request->user();
@@ -67,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('', [PostController::class, 'index'])->name('index');
         Route::get('{id}', [PostController::class, 'show'])->name('show');
     });
+
     Route::prefix('category-posts')->name('category_posts.')->group(function() {
         Route::get('', [CategoryPostController::class, 'index'])->name('index');
         Route::get('{id}', [CategoryPostController::class, 'show'])->name('show');

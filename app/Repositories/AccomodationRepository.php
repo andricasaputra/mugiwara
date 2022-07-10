@@ -31,7 +31,7 @@ class AccomodationRepository
 
 	public function indexData()
 	{
-		$accomodations = Accomodation::latest()->withCount('room')->withAvg('ratings', 'rating')->get();
+		$accomodations = Accomodation::latest()->withCount('room')->withAvg('reviews', 'rating')->get();
 
 		return compact('accomodations');
 	}

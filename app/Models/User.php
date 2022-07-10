@@ -6,6 +6,7 @@ use App\Contracts\MustVerifyMobileNumber;
 use App\Notifications\ForgotPasswordEmailNotification;
 use App\Notifications\ForgotPasswordWhatsappNotification;
 use App\Notifications\VerifyEmailNotification;
+use App\Traits\HaserifyMobileNumber;
 use App\Traits\VerifyMobileNumber;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HaserifyMobileNumber;
 
     /**
      * The attributes that are mass assignable.

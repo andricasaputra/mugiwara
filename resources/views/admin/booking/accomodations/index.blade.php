@@ -25,6 +25,7 @@
                                                 <th>Alamat</th>
                                                 <th>Rating</th>
                                                 <th>Jumlah Kamar</th>
+                                                <th>Deskripsi Penginapan</th>
                                                 <th>Operation</th>
                                             </tr>
                                         </thead>
@@ -35,6 +36,7 @@
                                                     <td>{{ $accomodation->address }}</td>
                                                     <td>{{ $accomodation->ratings_avg ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
+                                                    <td>{{ $accomodation->description }}</td>
                                                      
                                                     <td>
                                                         <div class="d-flex justify-content-center">
@@ -94,4 +96,4 @@
 
         $('#mytable').DataTable();
     </script>
-@endsection()index
+@endsection()

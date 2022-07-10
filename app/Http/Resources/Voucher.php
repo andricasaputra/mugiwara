@@ -25,16 +25,18 @@ class Voucher extends JsonResource
             'max_uses_user' => $this->max_uses_user,
             'type' => $this->type,
             'category' => $this->category,
-            'image' => $this->image ? Storage::disk('local')->url('data/'. $this->image) : null,
-            'discount_amount' => $this->discount_amount ?? null,
-            'discount_percent' => $this->discount_percent ?? '0',
+            'image' => $this->image ? Storage::disk('local')->url($this->image) : null,
             'discount_type' => $this->discount_type,
-            'starts_at' => $this->starts_at,
+            $this->mergeWhen($this->discount_type == 'fixed', [
+                  'discount' => $this->discount_amount ?? null,
+            ]),
+            $this->mergeWhen($this->discount_type == 'percent', [
+                   'discount' => $this->discount_percent,
+            ]),
             'is_active' => $this->is_active,
+            'starts_at' => $this->starts_at,
             'expires_at' => $this->expires_at,
             'point_needed' => $this->point_needed,
-            'created_at' => $this->created_at->isoFormat('dddd, D MMMM Y'),
-            'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
         ];
     }
 }

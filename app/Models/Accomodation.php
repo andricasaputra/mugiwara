@@ -25,9 +25,20 @@ class Accomodation extends Model
         return $this->belongsTo(Regency::class);
     }
 
-
     public function ratings()
     {
         return $this->hasMany(AccomodationRatings::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasManyThrough(
+            Review::class,
+            Room::class,
+            'id',
+            'reviewable_id', 
+            'id',
+            'id'
+        );
     }
 }

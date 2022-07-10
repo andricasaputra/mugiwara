@@ -27,12 +27,14 @@ class CustomerSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        $gender = Arr::random(['pria', 'wanita']);
+
         $customer->account()->create([
-           'gender' => Arr::random(['pria', 'wanita']),
+           'gender' => $gender,
            'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
-           'avatar' => 'avatars/default_avatar.png',
+           'avatar' => $gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
            'refferral_code' => Random::generate(6, 'A-Z'),
-           'point' => 0,
+           'point' => random_int(50000, 200000),
         ]);
 
         $customers = \App\Models\User::factory(10)->create(
@@ -40,12 +42,15 @@ class CustomerSeeder extends Seeder
         );
 
         $customers->each(function($customer) {
+
+            $gender = Arr::random(['pria', 'wanita']);
+
             return $customer->account()->create([
-               'gender' => Arr::random(['pria', 'wanita']),
+               'gender' => $gender,
                'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
-               'avatar' => 'storage/avatars/default_avatar.jpg',
+               'avatar' => $gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
                'refferral_code' => Random::generate(6, 'A-Z'),
-               'point' => 0,
+               'point' => random_int(50000, 200000),
             ]);
         });
     }

@@ -60,7 +60,7 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
 
             // Point needed for get this voucher
-            $table->integer('point_needed');
+            $table->string('point_needed');
 
             // You know what this is...
             $table->timestamps();

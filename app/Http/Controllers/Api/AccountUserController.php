@@ -3,45 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Account as ResourcesAccount;
-use App\Http\Resources\Point as ResourcesPoint;
-use App\Models\Account;
-use App\Models\AccountPoint;
-use App\Models\Point;
-use App\Models\User;
-use App\Models\Voucher;
+use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Resources\Account as AccountResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AccountUserController extends Controller
 {
     public function index()
     {
-        $account = User::where('id', auth()->user()->id)->with('account')->first();
-        $account = new ResourcesAccount($account);
-        return $account
+        $account = request()->user()->load('account');
+
+        return (new AccountResource($account))
                 ->additional([
                     'status' => 'success',
                     'message' => 'Detail Akun',
                 ]);
     }
-    public function update(Request $request)
+
+    public function update(UpdateAccountRequest $request)
     {
-        $user = User::find(auth()->user()->id);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile_number' => $request->mobile_number,
-        ]);
-        Account::where('user_id', $user->id)->update([
+        $user = $request->user();
+
+        if ($request->has('mobile_number') && $user->hasVerifiedMobileNumber()) {
+            return response()->json([
+                'message' => 'anda tidak dapat merubah nomor telepon yang sudah di verifikasi!'
+            ]);
+        }
+
+        $user->update($request->validated());
+        
+        $user->account()->update([
             'gender' => $request->gender,
             'birth_date' => $request->birth_date,
         ]);
-        $user = new ResourcesAccount($user);
-        return $user
-                ->additional([
-                    'status' => 'success',
-                    'message' => 'Akun berhasil diubah',
-                ]);
+
+        return (new AccountResource($user))->additional([
+            'status' => 'success',
+            'message' => 'Akun berhasil diubah',
+        ]);
     }
 }

@@ -16,7 +16,7 @@ trait AccomodationApiData
 			'province', 
 			'regency',
 		])
-		->withAvg('ratings', 'rating');
+		->withAvg('reviews', 'rating');
 
 		return  app(Pipeline::class)
             ->send($accomodations)

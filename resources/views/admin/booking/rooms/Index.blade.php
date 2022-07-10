@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <a href="{{ route('rooms.create') }}" class="btn btn-success">Tambah kamar</a>
+                    {{-- <a href="{{ route('rooms.create') }}" class="btn btn-success">Tambah kamar</a> --}}
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -28,6 +28,7 @@
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>
                                                 <th>Fasilitas Kamar</th>
+                                                <th>Deskripsi Kamar Kamar</th>
                                                 <th>Operation</th>
                                             </tr>
                                         </thead>
@@ -38,7 +39,7 @@
                                                     <td>{{ $room->type->name }}</td>
                                                     <td>{{ $room->max_guest }} orang</td>
                                                     <td>{{ $room->price }}</td>
-                                                    <td>{{ $room->discount }}</td>
+                                                    <td>{{ $room->discount_type }} <br> {{ $room->discount_amount }}</td>
                                                     <td>
                                                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
@@ -70,6 +71,7 @@
                                                             </div>
                                                         @endforeach
                                                     </td>
+                                                    <td>{{ $room->description }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $room->id) }}">Edit</a>

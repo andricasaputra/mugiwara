@@ -20,11 +20,12 @@ class Account extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'mobile_number' => $this->mobile_number,
+            'mobile_verified_at' => $this->mobile_verified_at,
             'gender' => $this->account->gender ?? null,
             'birth_date' => $this->account->birth_date ?? null,
             'refferral_code' => $this->account->refferral_code ?? null,
             'avatar' => $this->account?->avatar ? Storage::disk('local')->url($this->account->avatar) : null,
-            'point' => $this->point ?? 0,
+            'point' => $this->account->point ?? 0,
             'created_at' => $this->created_at->format('d-m-Y'),
             'updated_at' => $this->updated_at->format('d-m-Y'),
         ];
