@@ -32,7 +32,7 @@ class UsersController extends Controller
         // return view('admin.users.customer')->withUsers(
         //     User::doesntHave('roles')->get()->filter(fn($user) => $user->name != 'superadmin')
         // );
-        return view('admin.users.customer')->withUsers(Customer::all());
+        return view('admin.users.customer')->withUsers(Customer::latest()->get());
     }
 
     public function edit(User $user)

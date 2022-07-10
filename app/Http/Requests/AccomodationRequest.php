@@ -31,11 +31,12 @@ class AccomodationRequest extends FormRequest
             'max_guest' => 'required|numeric',
             'facility' => 'required',
             'price' => 'required|string',
-            'discount' => 'nullable|numeric',
+            'discount_type' => 'nullable|string',
+            'discount_amount' => 'nullable|numeric',
             'room_image.*' => Rule::filepond([
                 'required',
                 'image',
-                'max:2000'
+                'max:3000'
             ])
         ];
     }

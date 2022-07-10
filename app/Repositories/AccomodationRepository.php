@@ -7,7 +7,7 @@ use App\Models\Facility;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Room;
-use App\Models\RoomType;
+use App\Models\Type as RoomType;
 use RahulHaque\Filepond\Facades\Filepond;
 
 class AccomodationRepository
@@ -31,14 +31,14 @@ class AccomodationRepository
 
 	public function indexData()
 	{
-		$accomodations = Accomodation::withCount('room')->withAvg('ratings', 'rating')->get();
+		$accomodations = Accomodation::latest()->withCount('room')->withAvg('ratings', 'rating')->get();
 
 		return compact('accomodations');
 	}
 
 	public function createData()
 	{
-		$rooms = Room::with(['images', 'roomType'])->get();
+		$rooms = Room::with(['images', 'type'])->get();
         $types = RoomType::query()->get();
         $regencies = Regency::query()->get();
         $provinces = Province::query()->get();
@@ -52,7 +52,12 @@ class AccomodationRepository
 		$this->accomodation = Accomodation::create([
             'name' => $this->request->name,
             'address' => $this->request->address,
-            'regency_id' => $this->request->regencies
+            'province_id' => $this->request->province_id,
+            'regency_id' => $this->request->regency_id,
+            'districts_id' => $this->request->districts_id,
+            'lat' => $this->request->lat,
+            'lang' => $this->request->lang,
+            'description' => $this->request->description_acc,
         ]);
 
         return $this->accomodation;
@@ -66,7 +71,9 @@ class AccomodationRepository
             'type_id' => $this->request->type_id,
             'max_guest' => $this->request->max_guest,
             'price' => (int) preg_replace('/[^0-9]/', '', $this->request->price),
-            'discount' => $this->request->discount ?? 0,
+            'discount_type' => $this->request->discount_type,
+            'discount_amount' => $this->request->discount_amount ?? 0,
+            'description' => $this->request->description_room,
         ]);
 	}
 

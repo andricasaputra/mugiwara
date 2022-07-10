@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::when(request()->q, function($posts) {
+        $posts = Post::latest()->when(request()->q, function($posts) {
             $posts->where('title', 'like', '%'.request()->q.'%')->orWhere('body', 'like', '%'.request()->q.'%');
         })->get();
         return view('admin.post.index', compact('posts'));

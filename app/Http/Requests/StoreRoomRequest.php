@@ -29,12 +29,13 @@ class StoreRoomRequest extends FormRequest
             'type_id' => 'required|numeric',
             'max_guest' => 'required|numeric',
             'facility' => 'required',
-            'price' => 'required|numeric',
-            'discount' => 'nullable|numeric',
+            'price' => 'required|string',
+            'discount_type' => 'nullable|string',
+            'discount_amuount' => 'nullable|numeric',
             'room_image.*' => Rule::filepond([
                 'required',
                 'image',
-                'max:2000'
+                'max:3000'
             ])
         ];
     }

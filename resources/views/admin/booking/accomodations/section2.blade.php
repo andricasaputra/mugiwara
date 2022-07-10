@@ -8,7 +8,7 @@
     <label for="type_id">Type kamar</label>
     <select name="type_id" class="form-control" id="">
         @foreach($types as $type)
-            <option value="{{ $type->id }}">{{ $type->name }}</option>
+            <option value="{{ $type->id }}">{{ ucfirst($type->name) }}</option>
         @endforeach
     </select>
 </div>
@@ -33,6 +33,18 @@
 </div>
 
 <div class="form-group">
-    <label for="price">Diskon (optional)</label>
-    <input name="discount" type="number" class="form-control form-control-lg" value="{{ old('discount') }}">
+    <label for="price">Type Diskon (optional)</label>
+    <select name="discount_type" id="discount_type" class="form-control">
+        <option value="">Kosongkan jika tidak diisi</option>
+        <option value="flat">Flat</option>
+        <option value="persen">Persen</option>
+    </select>
+</div>
+
+<div id="discount-container"></div>
+
+
+<div class="form-group mt-2">
+    <label for="price">Deskripsi Penginapan (optional)</label>
+    <textarea class="form-control" name="description_room" cols="30" rows="6">{{ old('description_room') }}</textarea>
 </div>

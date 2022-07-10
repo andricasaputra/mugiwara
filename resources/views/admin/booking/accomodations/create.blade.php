@@ -169,10 +169,7 @@
 
 </script>
 
-
-
 <script src="{{ asset('assets/js/jquery.priceformat.min.js') }}"></script>
-
 
 <script>
     $('#element').priceFormat({
@@ -227,6 +224,32 @@
 
         return `<option value="${data.id}">${data.name}</option>`;
     }
+
+    $('#discount_type').change(function(){
+
+        const disc = $('#discount-container');
+        const val = $(this).val();
+        let text = 'Dalam Rupiah';
+
+        if(val != ''){
+
+            if(val == 'persen'){
+                text = 'Dalam Persen'
+            }
+
+            disc.html(`
+                <div class="form-group">
+                    <label for="price">Jumlah Diskon (${text})</label>
+                    <input name="discount_amount" type="number" class="form-control form-control-lg">
+                </div>
+            `);
+
+        } else {
+            disc.html(``);
+        }
+
+        
+    })
 </script>
 
 @endsection

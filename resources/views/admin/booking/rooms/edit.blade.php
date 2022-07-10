@@ -34,6 +34,7 @@
                                 </li>
                             </ul>
                             <!-- Step Wise Form Content -->
+                            @include('inc.message')
                             <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="{{ route('rooms.update', $room->id) }}">
 
                                 @method('PUT')
@@ -60,7 +61,7 @@
                                     <h2 class="font-normal">Foto Kamar</h2>
                                     <!-- Step 2 input fields -->
                                     <div class="mt-3">
-                                       <input type="file" name="room_image[]" multiple required/>
+                                       <input type="file" name="room_image[]" multiple/>
                                         <p class="help-block">{{ $errors->first('room_image.*') }}</p>
                                     </div>
                                     <div class="mt-3">
@@ -153,6 +154,33 @@
         centsLimit: 0,
         thousandsSeparator: '.'
     });
+
+    $('#discount_type').change(function(){
+
+        const disc = $('#discount-container');
+        const val = $(this).val();
+        let text = 'Dalam Rupiah';
+
+        if(val != ''){
+
+            if(val == 'persen'){
+                text = 'Dalam Persen'
+            }
+
+            disc.html(`
+                <div class="form-group">
+                    <label for="price">Jumlah Diskon (${text})</label>
+                    <input name="discount_amount" type="number" class="form-control form-control-lg">
+                </div>
+            `);
+
+        } else {
+            disc.html(``);
+            $('.discount_amount').empty()
+        }
+
+        
+    })
 </script>
 
 @endsection

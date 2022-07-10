@@ -23,8 +23,8 @@
 <div class="form-group">
     <label for="price">Fasilitas Kamar</label>
     <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
-        @foreach($room->facilities as $room_facility)
-            <option selected value="{{ $room_facility->id }}">{{ $room_facility->name }}</option>
+        @foreach($room->facilities as $room_faility)
+            <option selected value="{{ $room_faility->id }}">{{ $room_faility->name }}</option>
         @endforeach
         @foreach($facilities as $facility)
             <option value="{{ $facility->id }}">{{ $facility->name }}</option>
@@ -34,10 +34,27 @@
 
 <div class="form-group">
     <label for="price">Harga / malam</label>
-    <input name="price" type="text" id="element" class="form-control form-control-lg"  required value="{{ $room->price }}">
+    <input name="price" type="number" class="form-control form-control-lg"  required value="{{ $room->price }}">
 </div>
 
 <div class="form-group">
-    <label for="price">Diskon (optional)</label>
-    <input name="discount" type="number" class="form-control form-control-lg" value="{{ $room->discount }}">
+    <label for="price">Type Diskon (optional)</label>
+    <select name="discount_type" id="discount_type" class="form-control">
+        <option selected value="{{ $room->discount_type }}">{{ ucfirst($room->discount_type )}}</option>
+        <option value="">Kosongkan jika tidak diisi</option>
+        <option value="flat">Flat</option>
+        <option value="persen">Persen</option>
+    </select>
+</div>
+
+<div id="discount-container">
+     <div class="form-group discount_amount">
+        <label for="price">Jumlah Diskon</label>
+        <input name="discount_amount" type="number" class="form-control form-control-lg" value="{{ $room->discount_amount }}">
+    </div>
+</div>
+
+<div class="form-group mt-2">
+    <label for="price">Deskripsi Penginapan (optional)</label>
+    <textarea class="form-control" name="description_room" cols="30" rows="6">{{ $room->description_room }}</textarea>
 </div>

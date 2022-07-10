@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->foreignId('province_id')->nullable()->references('id')->on('provinces')->onDelete('cascade');
             $table->foreignId('regency_id')->nullable()->references('id')->on('regencies')->onDelete('cascade');
+            $table->foreignId('districts_id')->nullable()->references('id')->on('districts')->onDelete('cascade');
             $table->longText('address');
+            $table->longText('description')->nullable();
             $table->string('lang')->nullable();
             $table->string('lat')->nullable();
             $table->timestamps();

@@ -112,7 +112,6 @@
 <!-- include FilePond library -->
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 
-
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
@@ -128,6 +127,8 @@
     });
 </script>
 
+<script src="{{ asset('assets/js/jquery.priceformat.min.js') }}"></script>
+
 <script>
     // Set default FilePond options
     FilePond.setOptions({
@@ -140,11 +141,39 @@
     });
 
     FilePond.create(document.querySelector('input[name="room_image[]"]'), {chunkUploads: true});
+
+    $('#element').priceFormat({
+        prefix: 'Rp ',
+        centsLimit: 0,
+        thousandsSeparator: '.'
+    });
+
+
+    $('#discount_type').change(function(){
+
+        const disc = $('#discount-container');
+        const val = $(this).val();
+        let text = 'Dalam Rupiah';
+
+        if(val != ''){
+
+            if(val == 'persen'){
+                text = 'Dalam Persen'
+            }
+
+            disc.html(`
+                <div class="form-group">
+                    <label for="price">Jumlah Diskon (${text})</label>
+                    <input name="discount_amount" type="number" class="form-control form-control-lg">
+                </div>
+            `);
+
+        } else {
+            disc.html(``);
+        }
+
+        
+    })
 </script>
-</script>
-
-
-
-
 
 @endsection

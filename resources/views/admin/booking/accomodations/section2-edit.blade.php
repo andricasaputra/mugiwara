@@ -1,4 +1,4 @@
-
+@dd($room)
 <div class="form-group">
     <label for="room_number">Nomor kamar</label>
    
@@ -23,7 +23,7 @@
 <div class="form-group">
     <label for="price">Fasilitas Kamar</label>
     <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
-        <option selected value="{{ $rooms->faciliti->id }}">{{ $rooms->faility->name }}</option>
+        <option selected value="{{ $rooms->facilities->id }}">{{ $rooms->facilities->name }}</option>
         @foreach($facilities as $facility)
             <option value="{{ $facility->id }}">{{ $facility->name }}</option>
         @endforeach
@@ -36,6 +36,19 @@
 </div>
 
 <div class="form-group">
-    <label for="price">Diskon (optional)</label>
-    <input name="discount" type="number" class="form-control form-control-lg" value="{{ $rooms->discount }}">
+    <label for="price">Type Diskon (optional)</label>
+    <select name="discount_type" id="discount_type" class="form-control">
+        <option value="{{ $room->discount_type }}">{{ ucfirst($room->discount_type )}}</option>
+        <option value="">Kosongkan jika tidak diisi</option>
+        <option value="flat">Flat</option>
+        <option value="persen">Persen</option>
+    </select>
+</div>
+
+<div id="discount-container"></div>
+
+
+<div class="form-group mt-2">
+    <label for="price">Deskripsi Penginapan (optional)</label>
+    <textarea class="form-control" name="description_room" cols="30" rows="6">{{ $rooms->description_room }}</textarea>
 </div>

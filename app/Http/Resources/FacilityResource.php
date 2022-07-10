@@ -17,7 +17,7 @@ class FacilityResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => url('storage/facilities' . $this->image),
+            'image' => url('storage/facilities/' . $this->image),
         ];
     }
 }

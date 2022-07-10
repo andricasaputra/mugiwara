@@ -7,7 +7,7 @@ use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Facility;
 use App\Models\Room;
-use App\Models\RoomType;
+use App\Models\Type as RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -99,8 +99,10 @@ class RoomController extends Controller
                 'type_id' => 'required|string',
                 'price' => 'required|numeric',
                 'discount' => 'nullable|string',
-                'images' => 'required',
+                'images' => 'nullable',
             ]);
+
+            dd('here');
 
             if($request->hasFile('images')){
 
@@ -108,15 +110,25 @@ class RoomController extends Controller
                 $this->upload  = app()->make(UploadServiceInterface::class);
 
                 $this->upload();
+
+                $files = collect($this->fileName)->map(function($file){
+                    return ['image' => $file];
+                })->all();
+
+                $room->images()->createMany($files);
             }
 
-            $room->update($request->all());
+            $room->update([
+              "name" => $request->name,
+              "room_number" => $request->room_number,
+              "type_id" => $request->type_id ,
+              "max_guest" => $request->max_guest ,
+              "price" => $request->price ,
+              "discount_type" => $request->discount_type ,
+              "description_room" => $request->description_room
+            ]);
 
-            $files = collect($this->fileName)->map(function($file){
-                return ['image' => $file];
-            })->all();
-
-            $room->images()->createMany($files);
+            $room->facilities()->sync($request->facility);
 
             DB::commit();
 

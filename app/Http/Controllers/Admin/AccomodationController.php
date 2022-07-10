@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AccomodationRequest;
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Accomodation;
+use App\Models\District;
 use App\Models\Facility;
+use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Room;
 use App\Models\RoomType;
@@ -68,6 +70,8 @@ class AccomodationController extends Controller
             
         } catch (\Exception $e) {
 
+            dd($e);
+
             DB::rollback();
 
             return back()->withErrors('Gagal tambah data, error : ' . $e->getMessage());
@@ -120,12 +124,15 @@ class AccomodationController extends Controller
 
     public function edit(Accomodation $accomodation)
     {
-
-        $regencies = Regency::query()->get();
+        $provinces = Province::all();
+        $regencies = Regency::where('province_id', $accomodation->province_id)->get();
+        $districts = District::where('regency_id', $accomodation->regency_id)->get();
 
         return view('admin.booking.accomodations.edit')
             ->withAccomodation($accomodation->load('regency'))
-            ->withRegencies($regencies);
+            ->withProvinces($provinces)
+            ->withRegencies($regencies)
+            ->withDistricts($districts);
     }
 
     public function update(Request $request, Accomodation $accomodation)
@@ -134,8 +141,11 @@ class AccomodationController extends Controller
 
             $request->validate([
                 'name' => 'required',
+                'province_id' => 'required',
                 'regency_id' => 'required',
-                'address' => 'required'
+                'districts_id' => 'required',
+                'address' => 'required',
+                'description' => 'nullable|string'
             ]);
 
             $accomodation->update($request->all());

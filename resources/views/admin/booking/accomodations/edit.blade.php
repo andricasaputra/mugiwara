@@ -70,6 +70,7 @@
 <!-- include FilePond library -->
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -77,13 +78,12 @@
     $(document).ready(function() {
         $('#js-example-basic-single').select2();
 
-        $(".js-example-tokenizer").select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
+        $('#js-example-basic-single-regencies').select2();
 
+        $('#js-example-basic-single-districts').select2();
     });
 </script>
+
 
 <script>
     // Set default FilePond options
@@ -98,10 +98,85 @@
 
     FilePond.create(document.querySelector('input[name="room_image[]"]'), {chunkUploads: true});
 </script>
+
+
+
+<script>
+
+    $(document).on('change', '.province', function(){
+
+        const id = $(this).val();
+
+        $.ajax({
+            url : `{{ route('api.regencies.show') }}/${id}`,
+            success : function(res){
+
+                $('.regencies').empty();
+
+                $.each(res.regency, function (key, val) {
+                    $('.regencies').append(optionsTemplate(val));
+                });
+
+                
+            } 
+        });
+
+        
+    });
+
+    $(document).on('change', '.regencies', function(){
+
+        const id = $(this).val();
+
+        $.ajax({
+            url : `{{ route('api.districts.show') }}/${id}`,
+            success : function(res){
+
+                $('.districts').empty();
+
+                $.each(res.districts, function (key, val) {
+                    $('.districts').append(optionsTemplate(val));
+                });
+
+                
+            } 
+        });
+
+        
+    });
+
+    function optionsTemplate(data){
+
+        return `<option value="${data.id}">${data.name}</option>`;
+    }
+
+    $('#discount_type').change(function(){
+
+        const disc = $('#discount-container');
+        const val = $(this).val();
+        let text = 'Dalam Rupiah';
+
+        if(val != ''){
+
+            if(val == 'persen'){
+                text = 'Dalam Persen'
+            }
+
+            disc.html(`
+                <div class="form-group">
+                    <label for="price">Jumlah Diskon (${text})</label>
+                    <input name="discount_amount" type="number" class="form-control form-control-lg">
+                </div>
+            `);
+
+        } else {
+            disc.html(``);
+        }
+
+        
+    })
 </script>
 
 
 
-
-
-@endsectionedit.blade.php
+@endsection

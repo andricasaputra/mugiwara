@@ -21,7 +21,8 @@ return new class extends Migration
             $table->integer('max_guest');
             $table->enum('status', ['available', 'booked'])->nullbale()->default('available');
             $table->date('booked_untill')->nullable();
-            $table->integer('price');
+            $table->longText('description')->nullable();
+            $table->bigInteger('price');
             $table->enum('discount_type', ['flat', 'percent'])->nullable()->default(NULL);
             $table->string('discount_amount')->nullable()->default(0);
             $table->timestamps();
