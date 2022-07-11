@@ -12,6 +12,9 @@ class Search extends Filter
             ->where('name', 'like' , '%' . request($this->filterName()) .'%')
             ->orWhereHas('regency', function($query){
                 $query->where('name', 'like' , '%' . request($this->filterName()) .'%');
+            })
+            ->orWhereHas('province', function($query){
+                $query->where('name', 'like' , '%' . request($this->filterName()) .'%');
             });
     }
 }

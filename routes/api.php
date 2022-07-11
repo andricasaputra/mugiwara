@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\Auth\VerifyMobileController;
 use App\Http\Controllers\Api\CategoryPostController;
+use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PoinController;
@@ -82,7 +83,10 @@ Route::middleware('auth:sanctum')->group(function(){
     });
     Route::prefix('vouchers')->name('vouchers.')->group(function() {
         Route::get('', [VoucherController::class, 'index'])->name('index');
+        Route::get('/user', [VoucherController::class, 'userVoucher']);
+        Route::get('/all', [VoucherController::class, 'allVouchers']);
         Route::get('{id}', [VoucherController::class, 'show'])->name('show');
+
     });
 
     Route::prefix('points')->name('points.')->group(function() {
@@ -97,9 +101,10 @@ Route::middleware('auth:sanctum')->group(function(){
     
 });
 
-Route::get('provinces', [RegencyController::class, 'showProvinces'])->name('api.provinces.show');
+Route::get('provinces', [RegencyController::class, 'showProvinces']);
 
-Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies'])->name('api.regencies.show');
+Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies']);
 
-Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
+Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts']);
 
+Route::get('filters', [FilterController::class, 'index']);

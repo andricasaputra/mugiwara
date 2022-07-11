@@ -13,4 +13,16 @@ class Voucher extends Model
     {
         return $this->hasMany(AccountPoint::class, 'voucher_id');
     }
+
+    public function account()
+    {
+        return $this->hasOneThrough(
+            Account::class, AccountPoint::class, 'voucher_id', 'id', 'id', 'user_id'
+        );
+    }
+
+    public function scopeIsActive($query)
+    {
+        $query->where('is_active', 1);
+    }
 }

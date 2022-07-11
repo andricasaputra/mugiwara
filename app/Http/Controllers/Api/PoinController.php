@@ -21,36 +21,74 @@ class PoinController extends Controller
         $this->validate($request, [
             'voucher_id' => 'required',
         ]);
-        // dd($request->all());
-        $voucher = Voucher::find($request->voucher_id);
-        $account = Account::where('user_id', 8)->first();
-        if($voucher->point_needed > $account->point){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Poin Akun kurang dari poin voucher',
-            ], 400);
-        }
-        $pointAfter = $account->point - $voucher->point_needed;
+
         try{
+
             DB::beginTransaction();
+
+            $voucher = Voucher::find($request->voucher_id);
+
+            $account = $request->user()->account;
+
+            $userVouchers = $request->user()->vouchers;
+
+            // check kecukupan poin user
+            if($voucher->point_needed > $account->point){
+                return response()->json([
+                    'status' => 'error',
+                    'data' => [
+                        'user_point' => $account->point,
+                        'voucher_point' =>  (int) $voucher->point_needed
+                    ],
+                    'message' => 'Poin anda tidak cukup untuk menukarkan voucher ini',
+                ], 400);
+            }
+
+            // check voucher sudah pernah ditukarkan atau belum
+            if(in_array($voucher->id, $userVouchers->pluck('id')->all()) ){
+                return response()->json([
+                    'status' => 'error',
+                    'data' => [
+                        'user_voucher' => $userVouchers->pluck('name'),
+                        'voucher' => $voucher->name 
+                    ],
+                    'message' => 'Poin anda tidak cukup untuk menukarkan voucher ini',
+                ], 400);
+            }
+
+            if($voucher->discount_type == 'percent'){
+                $discount_amount = $account->point * $voucher->point_needed;
+            } else{
+                $discount_amount = $voucher->point_needed;
+            }
+
+            $pointAfter = $account->point - $discount_amount;
+        
             $accountPoin = AccountPoint::create([
-                'user_id' => 8,
+                'user_id' => $request->user()->id,
                 'voucher_id' => $request->voucher_id,
                 'before' => $account->point,
                 'after' => $pointAfter,
             ]);
+
             $account->update([
                 'point' => $pointAfter
             ]);
+
             DB::commit();
+
         }catch(\Exception $e){
+
             DB::rollback();
+
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ], 400);
         }
+
         return response()->json([
+            'data' => $account->load('voucher'),
             'message' => 'success',
         ], 201);
     }

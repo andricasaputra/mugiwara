@@ -19,6 +19,9 @@ class RoomResource extends JsonResource
 
     protected function hasVailableRoom()
     {
+        if (is_null($this->type)) return [];
+        if ($this->facilities->isEmpty()) return [];
+
         return [
             'id' => $this->id,
             'room_type' => $this->type->name,

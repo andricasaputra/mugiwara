@@ -31,4 +31,16 @@ class Customer extends User
     {
         return $this->hasMany(AccountPoint::class, 'user_id');
     }
+
+    public function vouchers()
+    {
+        return $this->hasManyThrough(
+            Voucher::class, 
+            AccountPoint::class,
+            'user_id',
+            'id',
+            'id',
+            'voucher_id'
+        );
+    }
 }
