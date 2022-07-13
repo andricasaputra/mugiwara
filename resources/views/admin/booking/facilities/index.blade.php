@@ -33,7 +33,7 @@
                                                 <tr>
                                                     <td>{{ $facility->name }}</td>
                                                     <td>{{ $facility->description ?? '-' }}</td>
-                                                    <td><img src="{{ asset('images/facilities/') . '/' . $facility->image }}" alt="icon"></td>
+                                                    <td><img src="{{ asset('storage/facilities/') . '/' . $facility->image }}" alt="icon"></td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <a class="btn btn-info btn-sm mr-2" href="{{ route('facilities.edit', $facility->id) }}">Edit</a>

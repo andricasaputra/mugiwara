@@ -37,9 +37,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/reset-password/{token}', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
 
-    Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])->middleware(['throttle:6,1']);
+    Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])->name('api.otp.verification')->middleware(['throttle:6,1']);
 
-    Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->middleware(['throttle:6,1']);
+    Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->name('api.otp.verification.resend.email')->middleware(['throttle:6,1']);
 
     Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->middleware(['throttle:6,1']);
 

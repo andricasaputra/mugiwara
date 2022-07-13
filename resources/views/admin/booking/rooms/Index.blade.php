@@ -66,7 +66,7 @@
                                                         @foreach($room->facilities as $facility)
                                                             <div>
 
-                                                                <img src="{{ asset('images/facilities') .'/'. $facility->image}}" alt="facility" style="width : 30px">
+                                                                <img src="{{ asset('storage/facilities') .'/'. $facility->image}}" alt="facility" style="width : 30px">
                                                                 <p>{{ ucwords(str_replace("_", " ", $facility->name)) }}</p>
                                                             </div>
                                                         @endforeach
