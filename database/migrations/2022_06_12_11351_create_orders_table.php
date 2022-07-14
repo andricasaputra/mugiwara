@@ -16,13 +16,20 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('booking_code')->index();
+            $table->unsignedBigInteger('accomodation_id')->index();
             $table->unsignedBigInteger('room_id'); 
             $table->unsignedBigInteger('user_id'); 
-            $table->string('name', 18);
-            $table->timestamp('check_in_at')->nullable();
+            $table->date('check_in_date')->nullable();
+            $table->time('check_in_time')->nullable();
             $table->integer('stay_day')->nullable()->default(1);
+            $table->string('normal_price');
+            $table->string('discount_type')->nullable();
+            $table->string('discount_percent')->nullable();
+            $table->string('discount_amount')->nullable();
+            $table->string('total_price');
             $table->timestamps();
             
+            $table->foreign('accomodation_id')->references('id')->on('accomodations')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

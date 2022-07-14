@@ -28,7 +28,21 @@ class PoinController extends Controller
 
             $voucher = Voucher::find($request->voucher_id);
 
+             if(! $voucher){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Voucher tidak ditemukan',
+                ], 404);
+            }
+
             $account = $request->user()->account;
+
+            if(! $account){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Akun tidak ditemukan',
+                ], 404);
+            }
 
             $userVouchers = $request->user()->vouchers;
 
@@ -45,14 +59,14 @@ class PoinController extends Controller
             }
 
             // check voucher sudah pernah ditukarkan atau belum
-            if(in_array($voucher->id, $userVouchers->pluck('id')->all()) ){
+            if(in_array($voucher->id, $userVouchers?->pluck('id')->all()) ){
                 return response()->json([
                     'status' => 'error',
                     'data' => [
-                        'user_voucher' => $userVouchers->pluck('name'),
+                        'user_voucher' => $userVouchers?->pluck('name'),
                         'voucher' => $voucher->name 
                     ],
-                    'message' => 'Poin anda tidak cukup untuk menukarkan voucher ini',
+                    'message' => 'Anda sudah pernah menukarkan voucher ini',
                 ], 400);
             }
 

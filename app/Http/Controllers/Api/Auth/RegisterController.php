@@ -29,12 +29,18 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'mobile_number' => $request->mobile_number,
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
             'otp_verify_code' => Random::generate(6, 1234567890),
             'mobile_attempts_left' => 0,
             'password' => Hash::make($request->password),
             'type' => 'customer',
+        ]);
+
+        $user->account()->create([
+            'gender' => $request->gender,
+            'birth_date' => $request->birth_date,
+            'refferral_code' => Random::generate(6, 'A-Z'),
+            'avatar' => $request->gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
+            'point' => 0
         ]);
 
         $token = $user->createToken('access_token');

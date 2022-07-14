@@ -3,26 +3,41 @@
 namespace App\Services\Payments;
 
 use App\Contracts\PaymentServiceInterface;
+use Illuminate\Http\Request;
+use Xendit\Xendit;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Http;
 
 class VirtualAccountPayment implements PaymentServiceInterface
 {
-	public function pay()
+	public function createPayment(Request $request)
 	{
-		$ewalletChargeParams = [
-		    'reference_id' => 'test-reference-id',
-		    'currency' => 'IDR',
-		    'amount' => 50000,
-		    'checkout_method' => 'ONE_TIME_PAYMENT',
-		    'channel_code' => 'OVO',
-		    'channel_properties' => [
-		        'success_redirect_url' => 'https://yourwebsite.com/order/123',
-		    ],
-		    'metadata' => [
-		        'meta' => 'data'
-		    ]
-		];
+		Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
 
-		$createEWalletCharge = \Xendit\EWallets::createEWalletCharge($ewalletChargeParams);
-		var_dump($createEWalletCharge);
+		  $params = [ 
+		    "external_id" => 'va-' . Uuid::uuid4()->toString(),
+		    "bank_code" => $request->bank_code,
+		    "name" => $request->name
+		  ];
+
+		  //dd(\Xendit\VirtualAccounts::create($params));
+
+		  return  \Xendit\VirtualAccounts::create($params);
+	}
+
+	public function pay($request)
+	{
+
+		$username = env('XENDIT_SECRET_KEY') . ":";
+		$password = "";
+
+		$data = ['amount' => $request->amount];
+
+		$response = Http::asForm()
+			->accept('application/json')
+			->withBasicAuth($username, $password)
+			->post('https://api.xendit.co/callback_virtual_accounts/external_id='.$request->external_id.'/simulate_payment', $data);
+
+		return $response->json();
 	}
 }

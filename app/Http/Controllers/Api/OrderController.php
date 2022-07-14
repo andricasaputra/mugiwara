@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\PaymentServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use Xendit\Xendit;
 
 class OrderController extends Controller
 {
-    public function __construct()
+    public function __construct(protected OrderRepository $order)
     {
-         Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
     }
 
-    public function pay(Request $request)
+    public function create(OrderRequest $request)
     {
-        $services = app()->make(PaymentServiceInterface::class);
-        $payments = $services->pay($request);
-
-        dd($services);
-
-        $order = new OrderRepository();
-        $order->create($payments);
+        return new OrderResource($this->order->create($request));
     }
+
 }

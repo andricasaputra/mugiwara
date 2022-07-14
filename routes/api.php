@@ -59,10 +59,16 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
 
+        Route::post('orders/create', [OrderController::class, 'create']);
+        
         Route::get('payments/lists', [PaymentController::class, 'lists']);
-        Route::post('orders/pay', [OrderController::class, 'pay']);
-
-        //Route::apiResource('orders', OrderController::class);
+        Route::get('payments/callback/success', [PaymentController::class, 'status']);
+        Route::post('payments/ewallet/create', [PaymentController::class, 'createEwallet']);
+        Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
+        Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
+        Route::post('payments/va/pay', [PaymentController::class, 'virtualAccountPay']);
+        
+       
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);

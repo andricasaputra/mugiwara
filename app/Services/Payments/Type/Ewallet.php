@@ -1,12 +1,10 @@
 <?php  
 
-namespace App\Services\Payments;
+namespace App\Services\Payments\Type;
 
-use App\Contracts\PaymentServiceInterface;
 use Illuminate\Http\Request;
-use Xendit\Xendit;
 
-class EwalletPayment implements PaymentServiceInterface
+class Ewallet
 {
 	public function createPayment(Request $request)
 	{
@@ -29,10 +27,5 @@ class EwalletPayment implements PaymentServiceInterface
 		];
 		
 		return \Xendit\EWallets::createEWalletCharge($ewalletChargeParams);
-	}
-
-	public function pay()
-	{
-		//
 	}
 }
