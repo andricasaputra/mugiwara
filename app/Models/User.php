@@ -87,6 +87,18 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function vouchers()
+    {
+        return $this->hasManyThrough(
+            Voucher::class, 
+            AccountPoint::class,
+            'user_id',
+            'id',
+            'id',
+            'voucher_id'
+        );
+    }
+
     //Add this line in the bottom of \Spatie\Permission\Models\Role
     // public function scopeExcepSuperAdmin($query)
     // {

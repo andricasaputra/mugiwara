@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as ResourcesPost;
 use App\Http\Resources\Voucher as ResourcesVoucher;
+use App\Models\Customer;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 
@@ -14,19 +16,16 @@ class VoucherController extends Controller
     // Semua voucher yang belum pernah user claim
     public function index()
     {
-        $vouchers = Voucher::isActive()->when(request()->category, function($vouchers) {
+        $vouchers = Voucher::doesntHave('account')->isActive()->when(request()->category, function($vouchers) {
             $vouchers->where('category', request()->category);
         })->paginate(request()->take ?? 10);
-        $vouchers->appends(request()->all());
 
-        $vouchers = $vouchers->filter(fn($voucher) => !in_array(
-            $voucher->id, request()->user()->vouchers->pluck('id')->all()
-        ));
+        $vouchers->appends(request()->all());
 
         return ResourcesVoucher::collection($vouchers)
                 ->additional([
                 'status' => 'success',
-                'message' => 'List Vouchers',
+                'message' => 'List Vouchers that not claimed by user',
             ]);
     }
 
@@ -45,7 +44,7 @@ class VoucherController extends Controller
     // User voucher
     public function userVoucher()
     {
-        $vouchers = request()->user()->vouchers()->when(request()->category, function($vouchers) {
+        $vouchers = User::findOrFail(request()->user()->id)->vouchers()->when(request()->category, function($vouchers) {
             $vouchers->where('category', request()->category);
         })
         ->when(request()->search, function($vouchers) {
@@ -57,7 +56,7 @@ class VoucherController extends Controller
         return ResourcesVoucher::collection($vouchers)
                 ->additional([
                 'status' => 'success',
-                'message' => 'List Vouchers',
+                'message' => 'List User Vouchers',
             ]);
     }
 
@@ -72,7 +71,7 @@ class VoucherController extends Controller
         return ResourcesVoucher::collection($vouchers)
                 ->additional([
                 'status' => 'success',
-                'message' => 'List Vouchers',
+                'message' => 'All Vouchers',
             ]);
     }
 }
