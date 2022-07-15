@@ -32,7 +32,7 @@ class CustomerSeeder extends Seeder
         $customer->account()->create([
            'gender' => $gender,
            'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
-           'avatar' => $gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
+           'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
            'refferral_code' => Random::generate(6, 'A-Z'),
            'point' => random_int(50000, 200000),
         ]);
@@ -48,7 +48,7 @@ class CustomerSeeder extends Seeder
             return $customer->account()->create([
                'gender' => $gender,
                'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
-               'avatar' => $gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
+               'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
                'refferral_code' => Random::generate(6, 'A-Z'),
                'point' => random_int(50000, 200000),
             ]);

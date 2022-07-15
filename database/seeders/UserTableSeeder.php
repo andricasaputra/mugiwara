@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Nette\Utils\Random;
+use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
 {
@@ -39,5 +42,18 @@ class UserTableSeeder extends Seeder
         $users = \App\Models\User::factory(5)->create();
 
         $users->each(fn ($user) => $user->assignRole('employee'));
+
+        $users->each(function($user) {
+
+            $gender = Arr::random(['pria', 'wanita']);
+
+            return $user->account()->create([
+               'gender' => $gender,
+               'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
+               'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
+               'refferral_code' => Random::generate(6, 'A-Z'),
+               'point' => random_int(50000, 200000),
+            ]);
+        });
     }
 }
