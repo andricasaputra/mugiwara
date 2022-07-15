@@ -5,10 +5,9 @@ namespace App\Uploads;
 use App\Contracts\UploadServiceInterface;
 use Illuminate\Http\UploadedFile;
 
-class RoomUploadImageService extends AbstractUploadService implements UploadServiceInterface
+class PhotoProfileUploadService extends AbstractUploadService implements UploadServiceInterface
 {
-
-	protected static $savePathTo = 'rooms/';
+	protected static $savePathTo = 'avatars/';
 
 	public function process(UploadedFile $file)
 	{

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             VoucherSeeder::class,
             AccessTokenSeeder::class,
             AccomodationTableSeeder::class,
+            OfficeTableSeeder::class
         ]);
     }
 }

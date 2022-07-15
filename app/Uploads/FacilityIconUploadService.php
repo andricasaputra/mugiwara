@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class FacilityIconUploadService extends AbstractUploadService implements UploadServiceInterface
 {
-	protected static $savePathTo = 'images/facilities';
+	protected static $savePathTo = 'facilities/';
 
 	public function process(UploadedFile $file)
 	{

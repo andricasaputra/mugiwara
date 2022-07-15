@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Payment;
+use App\Models\PaymentList;
 use App\Models\Payments\Ewallet;
 use App\Models\Payments\VirtualAccount;
 use App\Repositories\PaymentsType;
@@ -78,25 +79,41 @@ class PaymentsRepository
 
 	public function lists($lists)
 	{
-		$newList = [];
-       foreach($lists as $list){
+       foreach($lists as $key => $list){
             if($list['channel_code'] == 'BCA'){
-                $list['image'] = '/storage/payments/bca.png';
+                $list['image'] = url('/storage/payments/bca.png');
             }elseif($list['channel_code'] == 'BRI'){
-                $list['image'] = '/storage/payments/bri.png';
+                $list['image'] = url('/storage/payments/bri.png');
             }elseif($list['channel_code'] == 'MANDIRI'){
-                $list['image'] = '/storage/payments/mandiri.png';
+                $list['image'] = url('/storage/payments/mandiri.png');
             }elseif($list['channel_code'] == 'BNI'){
-                $list['image'] = '/storage/payments/bni.png';
+                $list['image'] = url('/storage/payments/bni.png');
             }elseif($list['channel_code'] == 'OVO'){
-                $list['image'] = '/storage/payments/ovo.png';
+                $list['image'] = url('/storage/payments/ovo.png');
             }elseif($list['channel_code'] == 'LINKAJA'){
-                $list['image'] = '/storage/payments/linkaja.png';
+                $list['image'] = url('/storage/payments/linkaja.png');
             }elseif($list['channel_code'] == 'DANA'){
-                $list['image'] = '/storage/payments/dana.png';
+                $list['image'] = url('/storage/payments/dana.png');
             }
 
-            $newList[] = $list;
+            PaymentList::updateOrCreate(
+            	[
+            		'business_id' => $list['business_id'],
+            		'name' => $list['name'],
+            	],
+            	[
+            		'is_livemode' => $list['is_livemode'],
+            		'channel_code' => $list['channel_code'],
+            		'business_id' => $list['business_id'],
+            		'currency' => $list['currency'],
+            		'channel_category' => $list['channel_category'],
+            		'is_enabled' => $list['is_enabled'],
+            		'is_active' => true,
+            		'image' => $list['image'] ??  NULL,
+            	]
+        	);
        }
+
+       return PaymentList::whereNotNull('image')->get();
 	}
 }

@@ -26,7 +26,7 @@
                                                 <th>Alamat</th>
                                                 <th>Nomor HP</th>
                                                 <th>Karyawan</th>
-                                                <th>Hotel</th>
+                                                <th>Penginapan</th>
                                                 <th>Operation</th>
                                             </tr>
                                         </thead>
@@ -34,15 +34,15 @@
                                             @forelse ($offices as $office)
                                                 <tr>
                                                     <td>{{ $office->name }}</td>
-                                                    <td>{{ $office->type }}</td>
+                                                    <td>{{ $office->type == 'main_office' ? 'Kanotr Utama' : 'Kantor Cabang' }}</td>
                                                     <td>{{ $office->address }}</td>
                                                     <td>{{ $office->mobile_number }}</td>
-                                                    <td>{{ $office->user->name }}</td>
-                                                    <td>{{ $office->hotel->name }}</td>
+                                                    <td>{{ $office->user?->name }}</td>
+                                                    <td>{{ $office->accomodation?->name }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-between">
                                                             <a class="btn btn-info btn sm" href="{{ route('offices.edit', $office->id) }}">Edit</a>
-                                                            <form action="{{ route('offices.delete') }}" method="POST">
+                                                            <form action="{{ route('offices.destroy', $office->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger btn-small">Delete</button>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\UploadServiceInterface;
 use App\Uploads\FacilityIconUploadService;
+use App\Uploads\PhotoProfileUploadService;
 use App\Uploads\RoomUploadImageService;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +22,8 @@ class UploadServiceProvider extends ServiceProvider
                 return new RoomUploadImageService;
             }elseif(request()->image_type == 'facility'){
                 return new FacilityIconUploadService;
+            }elseif(request()->hasFile('photo_profile')){
+                 return new PhotoProfileUploadService;
             }
 
             throw new \Exception("Upload service not supported!");

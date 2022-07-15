@@ -10,16 +10,17 @@
                     <h4><i class='fa fa-gear'></i> Edit data kantor</h4>
                     <hr>
                     <form  method="post" action="{{ route('offices.update', $office->id) }}">
+                        @method('PUT')
                         @csrf
                         <div class="form-group">
                             <label for="name">Nama Kantor</label>
-                            <input name="name" type="text" class="form-control form-control-lg" value="{{ $office->name }}" required>
+                            <input name="name" type="text" class="form-control form-control-lg"  required value="{{ $office->name }}">
                         </div>
 
                         <div class="form-group">
                             <label for="type">Tipe Kantor</label>
                             <select name="type" id="" class="form-control" required>
-                                <option value="{{ $office->type }}">value="{{ $office->type }}"</option>
+                                <option value="{{ $office->type }}">{{ $office->type == 'main_office' ? 'Kantor utama' : 'Kantor Cabang' }}</option>
                                 <option value="main_office">Kantor utama</option>
                                 <option value="sub_office">Kantor cabang</option>
                               
@@ -33,25 +34,25 @@
 
                         <div class="form-group">
                             <label for="mobile_number">No HP</label>
-                            <input name="mobile_number" class="form-control form-control-lg" value="{{ $office->mobile_number }}" required>
+                            <input name="mobile_number" class="form-control form-control-lg" required value="{{ $office->mobile_number }}">
                         </div>
 
                         <div class="form-group">
                             <label for="user_id">Nama Karyawan</label>
                             <select name="user_id" id="" class="form-control">
-                                <option value="{{ $office->user->user_id }}">{{ $office->user->name }}</option>
-                                @foreach($employees as $user)
+                                <option value="{{ $office->user?->id }}">{{ $office->user?->name }}</option>
+                                @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="hotel_id">Nama Hotel</label>
-                            <select name="hotel_id" id="" class="form-control">
-                                <option value="{{ $office->hotel->hotel_id }}">{{ $office->hotel->name }}</option>
-                                @forelse($hotels as $hotel)
-                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                            <label for="accomodations_id">Nama Hotel</label>
+                            <select name="accomodation_id" id="" class="form-control">
+                                <option value="{{ $office->accomodation?->id }}">{{ $office->accomodation->name }}</option>
+                                @forelse($accomodations as $accomodation)
+                                    <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
                                 @empty
                                     <option value="">-</option>
                                 @endforelse

@@ -66,17 +66,6 @@
       <div class="collapse" id="post">
         <ul class="nav flex-column {{ request()->is('admin/post*') ? 'sub-menu' : '' }}">
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post.index') }}">Daftar Artikel</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#category-post" aria-expanded="false" aria-controls="category-post">
-        <i class="icon-layers menu-icon"></i>
-        <span class="menu-title">Kategori Artikel</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="category-post">
-        <ul class="nav flex-column {{ request()->is('admin/post*') ? 'sub-menu' : '' }}">
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.category_post.index') }}">Daftar Kategori Artikel</a></li>
         </ul>
       </div>

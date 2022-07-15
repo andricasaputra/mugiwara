@@ -21,7 +21,7 @@
                                 <div class="row">
                                   <div class="col-12">
                                     {{-- <div class="table-responsive"> --}}
-                                      <table id="user-table" class="display expandable-table" style="width:100%">
+                                      <table id="user-table" class="display expandable-table text-center" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Nama</th>

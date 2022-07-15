@@ -12,6 +12,8 @@
 
                     {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}{{-- Form model binding to automatically populate our fields with user data --}}
 
+                    @csrf
+
                     <div class="form-group">
                         {{ Form::label('name', 'Nama Lengkap') }}
                         {{ Form::text('name', null, array('class' => 'form-control')) }}

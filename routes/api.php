@@ -13,10 +13,12 @@ use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\Auth\VerifyMobileController;
 use App\Http\Controllers\Api\CategoryPostController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
@@ -43,14 +45,15 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->middleware(['throttle:6,1']);
 
-    Route::post('auth/verify-mobile-number-request', [VerifyMobileController::class, 'create'])->middleware(['throttle:6,1']);;
 
     /*Verifikasi Nomor HP*/
 
     // Mengirim kode verifikasi via whtasapp
+    Route::post('auth/verify-mobile-number-request', [VerifyMobileController::class, 'create'])->middleware(['throttle:6,1']);;
+
+    // Menyamakan kode otp di databse dengan otp yang dikirim ke whatsapp
     Route::post('auth/verify-mobile-number-match', [VerifyMobileController::class, 'verifyOtpCode'])->middleware(['throttle:6,1']);;
 
-    // Konfirmasi kode verifikasi (OTP)
     Route::middleware('verified')->group(function(){
         Route::get('/user', function (Request $request) {
             return $request->user();
@@ -87,6 +90,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('', [ProductController::class, 'index'])->name('index');
         Route::get('{id}', [ProductController::class, 'show'])->name('show');
     });
+
     Route::prefix('vouchers')->name('vouchers.')->group(function() {
         Route::get('', [VoucherController::class, 'index'])->name('index');
         Route::get('/user', [VoucherController::class, 'userVoucher']);
@@ -103,14 +107,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::prefix('account')->name('account.')->group(function() {
         Route::get('', [AccountUserController::class, 'index'])->name('index');
         Route::put('update', [AccountUserController::class, 'update'])->name('update');
+        Route::post('update/photo-profile', [AccountUserController::class, 'updatePhotoProfile']);
     });
+
+    Route::get('offices', [OfficeController::class, 'index']);
+    Route::get('privacy', [PrivacyController::class, 'index']);
     
 });
 
 Route::get('provinces', [RegencyController::class, 'showProvinces']);
 
-Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies']);
+Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies'])->name('api.regencies.show');
 
-Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts']);
+Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
 
 Route::get('filters', [FilterController::class, 'index']);

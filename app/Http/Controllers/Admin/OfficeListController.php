@@ -38,21 +38,33 @@ class OfficeListController extends Controller
 
     public function store(OfficeStoreRequest $request)
     {
-        dd($request->all());
+        $office = Office::create($request->all());
+
+        return redirect(route('offices.index'))->withSuccess('Berhasil Tambah Data Informasi Kantor');
     }
 
     public function edit(Office $office)
     {
-        return view('admin.offices.edit')->withOffice($office);
+        $users = User::whereType('user')->get();
+        $accomodations = Accomodation::get();
+
+        return view('admin.offices.edit')
+            ->withUsers($users)
+            ->withAccomodations($accomodations)
+            ->withOffice($office->load(['user', 'accomodation']));
     }
 
-    public function uodate(OfficeStoreRequest $request, Office $office)
+    public function update(OfficeStoreRequest $request, Office $office)
     {
-        dd($request->all());
+        $office->update($request->all());
+
+        return redirect(route('offices.index'))->withSuccess('Berhasil Ubah Data Informasi Kantor');
     }
 
-    public function destroy(Request $request)
+    public function destroy(Office $office)
     {
+        $office->delete();
 
+        return redirect(route('offices.index'))->withSuccess('Berhasil Hapus Data Informasi Kantor');
     }
 }

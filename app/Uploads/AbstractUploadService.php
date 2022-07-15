@@ -1,29 +1,24 @@
-<?php  
+<?php
 
 namespace App\Uploads;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 abstract class AbstractUploadService
 {
 	protected static $image;
 	protected static $imagename;
 	protected static $filepath;
-	protected static $savePathTo = 'images/rooms';
+	protected static $savePathTo = 'data/';
 
 	protected static function upload(UploadedFile $file)
 	{
 		static::$image = $file;
 
 	    static::$imagename = time() .'_'. static::$image->getClientOriginalName();
-	 
-	    static::$filepath = public_path(static::$savePathTo);
 
-	    if (! file_exists(static::$filepath)) {
-		    mkdir(static::$filepath, 0777, true);
-		}
-
-		static::$image->move(static::$filepath, static::$imagename);
+		Storage::disk('public')->put(static::$savePathTo . static::$imagename , file_get_contents(static::$image->getRealPath()));
 
 	    return static::getImageName();
 	}

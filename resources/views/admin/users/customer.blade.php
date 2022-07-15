@@ -18,12 +18,17 @@
                                 <div class="row">
                                   <div class="col-12">
                                     {{-- <div class="table-responsive"> --}}
-                                      <table id="user-table" class="display expandable-table" style="width:100%">
+                                      <table id="user-table" class="display expandable-table text-center" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Nama</th>
                                                 <th>Email</th>
+                                                <th>No HP</th>
+                                                <th>Email Verified</th>
+                                                <th>No HP Verified</th>
+                                                <th>Status</th>
                                                 <th>Waktu daftar</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                          <tbody>
@@ -31,8 +36,16 @@
                                             <tr>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
+                                                <td>{{ $user->mobile_number }}</td>
+                                                <td>{{ $user->email_verified_at == NULL ? 'Not Verified' : 'Verified' }}</td>
+                                                <td>{{ $user->mobile_verified_at == NULL ? 'Not Verified' : 'Verified' }}</td>
+                                                <td>Aktif</td>
                                                 <td>{{ $user->created_at->isoFormat('Do MMMM YYYY, h:mm:ss a') }}</td>
 
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="#" class="btn btn-success mb-2">Detail</a>
+                                                    <a href="#" class="btn btn-danger">Banned</a>
                                                 </td>
                                             </tr>
                                             @endforeach
