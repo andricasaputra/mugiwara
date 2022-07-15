@@ -21,7 +21,7 @@ class CustomerSeeder extends Seeder
            'name' => 'andri',
             'email' => 'andri@email.com',
             'email_verified_at' => now(),
-            'mobile_number' => '081238422099',
+            'mobile_number' => '082145372360',
             'mobile_verified_at' => null,
             'type' => 'customer',
             'password' => bcrypt('password'),

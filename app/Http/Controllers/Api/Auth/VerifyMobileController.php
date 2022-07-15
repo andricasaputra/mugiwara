@@ -28,6 +28,12 @@ class VerifyMobileController extends Controller
 
         $user  = $request->user()->fresh();
 
+        if($this->numberFormat($user) == env('DEFAULT_WHATSAPP_NUMBER')){
+            return response()->json([
+                'message' => 'Nomor telepon tidak boleh sama dengan wa sender'
+            ], 403);
+        }
+
         $user->notify(new SendVerifyMobileNumber($user));
 
         return response()->json([
@@ -69,5 +75,20 @@ class VerifyMobileController extends Controller
             ]),
             'message' => 'Verifikasi nomor hp berhhasil'
         ]);
+    }
+
+    protected function numberFormat($user)
+    {
+        $number = $user->mobile_number;
+        $number = str_replace(' ', '-', $number);
+        $number = preg_replace("/[^0-9\-]+/", "", $number);
+
+        $first_character = substr($number, 0, 1);
+
+        if($first_character == 0 || $first_character == '0'){
+            $number = substr_replace($number, "62", 0, 1);
+        }
+
+        return $number;
     }
 }

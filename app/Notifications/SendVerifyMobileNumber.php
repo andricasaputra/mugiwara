@@ -59,7 +59,7 @@ class SendVerifyMobileNumber extends Notification
 
             $data = [
             'api_key' => 'b2d95af932eedb4de92b3496f338aa5f97b36ae0',
-            'sender'  => env('DEFAULT_WHATSAPP_NUUMBER'),
+            'sender'  => env('DEFAULT_WHATSAPP_NUMBER'),
             'number'  => $this->numberFormat(),
             'message' => "Notifikasi verifikasi nomor telepon!
 
@@ -90,21 +90,17 @@ Capsule Inn"
         $response = curl_exec($curl);
         $response =  json_decode($response, true);
 
-        if($response['status']){
+        if(!is_null($response) && $response['status']){
             return response()->json([
                 'message' => 'verifikasi nomor telepon sukses!'
             ]);
-        } else {
-            return response()->json([
-                'message' => $response
-            ]);
-        }
+        } 
+
+        throw new \Exception("Whatsaap error, please connect your number to whatsapp gateway", 1);
+            
             
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'verifikasi nomor telepon gagal!',
-                'error' => $e->getMessage()
-            ]);
+            throw new \Exception("Whatsaap error, please connect your number to whatsapp gateway", 1);
         }
     }
 

@@ -72,7 +72,7 @@ Silahkan kambali ke aplikasi dan masukkan kode OTP diatas."
         $response = curl_exec($curl);
         $response =  json_decode($response, true);
 
-        if($response['status']){
+        if(!is_null($response) && $response['status']){
             return response()->json([
                 'message' => 'kode otp telah terkirim ke nomro whatsapp anda'
             ], 200);
