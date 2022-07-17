@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class sendResetLinkEmailNotification extends Notification
+class sendResetLinkEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 

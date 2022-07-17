@@ -74,7 +74,7 @@ class PaymentsRepository
 
 		$va->payment()->update(['status' => $status]);
 
-		return $va->payment ?? NULL;
+		return $va->payment->first();
 	}
 
 	public function lists($lists)
