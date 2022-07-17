@@ -43,4 +43,21 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function isPaid() : bool
+    {
+        return $this->hasOne(Payment::class)
+            ->where('status', 'SUCCEEDED')
+            ->orWhere('status', 'COMPLETED');
+    }
+
+    public function isExpired() : bool
+    {
+        return $this->hasOne(Payment::class)->where('status', 'EXPIRED');
+    }
+
+    public function isPending() : bool
+    {
+        return $this->hasOne(Payment::class)->where('status', 'PENDING');
+    }
 }

@@ -57,11 +57,6 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function isAdmin()
-    {
-        return $this->hasRole('admin');
-    }
-
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification($this));
@@ -97,6 +92,26 @@ class User extends Authenticatable implements MustVerifyEmail
             'id',
             'voucher_id'
         );
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isNotAdmin() : bool
+    {
+        return $this->role != 'admin' || $this->role != 'superadmin';
+    }
+
+    public function isUser() : bool
+    {
+        return $this->attributes['type'] == 'user';
+    }
+
+    public function isCustomer() : bool
+    {
+        return $this->attributes['type'] == 'customer';
     }
 
     //Add this line in the bottom of \Spatie\Permission\Models\Role

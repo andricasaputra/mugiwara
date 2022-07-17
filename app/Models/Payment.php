@@ -30,4 +30,20 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isPaid() : bool
+    {
+        return $this->attributes['status'] == 'SUCCEEDED' 
+                || $this->attributes['status'] == 'COMPLETED';
+    }
+
+    public function isExpired() : bool
+    {
+        return $$this->attributes['status'] == 'EXPIRED';
+    }
+
+    public function isPending() : bool
+    {
+        return $$this->attributes['status'] == 'PENDING';
+    }
 }

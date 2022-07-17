@@ -15,6 +15,11 @@ class Accomodation extends Model
         return $this->hasMany(Room::class);
     }
 
+    public function roomAvailable()
+    {
+        return $this->hasMany(Room::class)->where('status', 'available');
+    }
+
     public function province()
     {
         return $this->belongsTo(Province::class);

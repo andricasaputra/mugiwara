@@ -64,11 +64,22 @@ class AccomodationTableSeeder extends Seeder
                 for ($i=0; $i < 5; $i++) :
 
                     $discount_type = Arr::random(['flat', 'percent', 'none']);
+                    $status = Arr::random(['available', 'booked', 'stayed']);
 
                    if($discount_type == 'flat'){
                         $discount = Arr::random([10000, 20000, 30000, 40000, 50000]);
                     }elseif($discount_type == 'percent'){
                          $discount = Arr::random([5, 10, 15, 20, 25]);
+                    }
+
+                    $booked_until = NULL;
+                    $stayed_until = NULL;
+                    if($status == 'booked'){
+                        $booked_until = now()->addDays(1);
+                    }elseif($status == 'stayed'){
+
+                        $days = $faker->numberBetween(1, 3);
+                        $stayed_until = now()->addDays($days);
                     }
                     
                     $type  = $faker->numberBetween(1, 3);
@@ -88,6 +99,9 @@ class AccomodationTableSeeder extends Seeder
                         'room_number' => $faker->numberBetween(1, 20),
                         'type_id' => $type,
                         'max_guest' => $faker->numberBetween(1, 3),
+                        'status' => $status,
+                        'booked_untill' => $booked_until,
+                        'stayed_untill' => $stayed_until,
                         'price' => $price,
                         'description' => $faker->paragraph
                     ];
@@ -107,7 +121,7 @@ class AccomodationTableSeeder extends Seeder
                        $facilities = Arr::random(\App\Models\Facility::get()
                                 ->map(fn($f) => ['facility_id' => $f['id']])->toArray());
 
-                       $room->facilities()->detach($facilities);
+                        $room->facilities()->detach($facilities);
                         $room->facilities()->attach($facilities);
 
                         $room->images()->updateOrCreate(Arr::random($images));

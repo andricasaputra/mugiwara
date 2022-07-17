@@ -19,8 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('accomodation_id');
             $table->unsignedBigInteger('type_id');
             $table->integer('max_guest');
-            $table->enum('status', ['available', 'booked'])->nullbale()->default('available');
+            $table->enum('status', ['available', 'booked', 'stayed'])->nullbale()->default('available');
             $table->date('booked_untill')->nullable();
+            $table->date('stayed_untill')->nullable();
             $table->longText('description')->nullable();
             $table->bigInteger('price');
             $table->enum('discount_type', ['flat', 'percent'])->nullable()->default(NULL);

@@ -11,13 +11,13 @@ trait AccomodationApiData
 	public function all()
 	{
         $accomodations = Accomodation::with([
-			'room.images', 
+			'roomAvailable.images', 
 			'province', 
 			'regency',
-			'room.type' => function($query) {
+			'roomAvailable.type' => function($query) {
 				if(request()->type) $query->where('name', request()->type);
 			},
-			'room.facilities' => function($query) {
+			'roomAvailable.facilities' => function($query) {
 				
 				if(request()->facilities) {
 

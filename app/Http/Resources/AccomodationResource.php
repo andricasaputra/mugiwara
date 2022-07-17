@@ -26,7 +26,7 @@ class AccomodationResource extends JsonResource
                 'lat' => $this->lat
             ],
             'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
-            'rooms' =>  RoomResource::collection($this->whenLoaded('room')),
+            'rooms' =>  RoomResource::collection($this->whenLoaded('roomAvailable')),
         ];
     }
 }

@@ -16,7 +16,15 @@ class OrderController extends Controller
 
     public function create(OrderRequest $request)
     {
-        return new OrderResource($this->order->create($request));
+        try {
+
+            return new OrderResource($this->order->create($request));
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
 }

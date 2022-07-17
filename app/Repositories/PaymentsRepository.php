@@ -57,7 +57,7 @@ class PaymentsRepository
 
 		$ewallet->payment()->update(['status' => $status['status']]);
 
-		return $ewallet->payment ?? NULL;
+		return $ewallet->payment->first();
 	}
 
 	public function updateStatusVirtualAccount($status, $request)

@@ -27,8 +27,8 @@ class AccomdationController extends Controller
     public function rooms(Accomodation $accomodation)
     {
         return AccomodationResource::make($accomodation->load([
-            'room.facilities',
-            'room.reviews'
+            'roomAvailable.facilities',
+            'roomAvailable.reviews'
         ]));
     }
 

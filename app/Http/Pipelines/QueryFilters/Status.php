@@ -6,6 +6,6 @@ class Status extends Filter
 {
     protected function applyFilters($builder)
     {
-        return $builder->whereHas('status', request($this->filterName()));
+        return $builder->where('status', request($this->filterName()));
     }
 }

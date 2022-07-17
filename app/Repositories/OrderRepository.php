@@ -7,6 +7,7 @@ use App\Models\Accomodation;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Room;
+use App\Notifications\Orders\SendOrderCreatedNotifications;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
@@ -16,6 +17,10 @@ class OrderRepository
 	{
 		$accomodation = Accomodation::findOrFail($request->accomodation_id);
 		$room = Room::findOrFail($request->room_id);
+
+		if ($room->isBooked() || $room->isStayed()) {
+			throw new \Exception('Kamar tidak tersedia');
+		}
 
 		$discount_percent = $room->discount_type == 'percent' 
                 ? (int) $room->discount_amount / 100 
@@ -27,7 +32,7 @@ class OrderRepository
 
 		$total_price =  ($room->price * $request->stay_day)- (int) $discount_amount;
 
-		return Order::create([
+		$order = Order::create([
 			'booking_code' => 'capsuleinn-' . Uuid::uuid4()->toString(),
 			'accomodation_id' => $accomodation->id,
 			'room_id' => $room->id,
@@ -41,6 +46,10 @@ class OrderRepository
 			'discount_amount' => $discount_amount,
 			'total_price' => $total_price
 		]);
+
+		$request->user()->notify(new SendOrderCreatedNotifications($order));
+
+		return $order;
 	}
 
 	public function updateStatus($status, $request)

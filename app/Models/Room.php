@@ -35,4 +35,19 @@ class Room extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+
+    public function isAvailable() : bool
+    {
+        return $this->attributes['status'] == 'available';
+    }
+
+    public function isBooked() : bool
+    {
+        return $this->attributes['status'] == 'booked';
+    }
+
+    public function isStayed() : bool
+    {
+        return $this->attributes['status'] == 'stayed';
+    }
 }

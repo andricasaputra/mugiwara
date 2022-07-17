@@ -13,7 +13,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->isNotAdmin();
     }
 
     /**

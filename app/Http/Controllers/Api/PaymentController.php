@@ -8,6 +8,7 @@ use App\Http\Requests\PaymentEwalletRequest;
 use App\Http\Requests\PaymentVirtualAccountRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Order;
+use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsType;
 use Illuminate\Http\Request;
@@ -51,7 +52,6 @@ class PaymentController extends Controller
             ], 422);
         }
 
-
         $paymentOrder = $order->payment?->status;
 
         if(!is_null($paymentOrder) && $paymentOrder != 'PENDING'){
@@ -66,9 +66,9 @@ class PaymentController extends Controller
         $payments = $services->createPayment($request);
 
         // create payment to databse
-        $create = $this->payment->create($payments, $order, $request);
+        $payment = $this->payment->create($payments, $order, $request);
 
-        return new PaymentResource($create);
+        return new PaymentResource($payment);
     }
 
     public function createVirtualAccount(PaymentVirtualAccountRequest $request)
@@ -115,11 +115,25 @@ class PaymentController extends Controller
             'booking_code' => 'required'
         ]);
 
+        $order = Order::where('booking_code', $request->booking_code)->first();
+
+        if(! $order){
+            return response()->json([
+                'message' => 'Order dengan ID "' . $request->booking_code . '" tidak ditemukan.'
+            ], 422);
+        }
+
         $services = app()->make(PaymentServiceInterface::class);
 
         $payment = $services->pay($request);
 
         $this->payment->updateStatusVirtualAccount($payment['status'], $request);
+
+        if($payment['status'] == 'COMPLETED'){
+
+            $request->user()->notify(new PaymentStatusNotification($order, $payment));
+
+        }
 
         return response()->json(['data' => $payment]);
     }
@@ -133,8 +147,21 @@ class PaymentController extends Controller
                 'booking_code' => 'required'
             ]);
 
+            $order = Order::where('booking_code', $request->booking_code)->first();
+
+            if(! $order){
+                return response()->json([
+                    'message' => 'Order dengan ID "' . $request->booking_code . '" tidak ditemukan.'
+                ], 422);
+            }
+
             $payment = \Xendit\EWallets::getEWalletChargeStatus($request->ewallet_id);
-            $this->payment->updateStatusEwallet($payment, $request);
+            $payment = $this->payment->updateStatusEwallet($payment, $request);
+
+            if($payment->status == 'SUCCEEDED'){
+
+                $request->user()->notify(new PaymentStatusNotification($order, $payment));
+            }
             
             return response()->json(['data' => $payment]);
             
