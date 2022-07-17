@@ -52,7 +52,7 @@ class CustomerSeeder extends Seeder
            'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
            'avatar' => 'default_man.png',
            'refferral_code' => Random::generate(6, 'A-Z'),
-           'point' => 1000000,
+           'point' => 100000000000,
         ]);
 
         $customers = \App\Models\User::factory(10)->create(

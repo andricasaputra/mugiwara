@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             CustomerSeeder::class,
             CategoryPostSeeder::class,
-            PostSeeder::class,
+            //PostSeeder::class,
             SliderSeeder::class,
             FacilityTableSeeder::class,
             TypeTableSeeder::class,
@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             VoucherSeeder::class,
             AccessTokenSeeder::class,
             AccomodationTableSeeder::class,
-            OfficeTableSeeder::class
+            OfficeTableSeeder::class,
+            PostTableSeeder::class,
         ]);
     }
 }

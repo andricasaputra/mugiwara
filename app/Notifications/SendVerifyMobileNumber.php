@@ -57,38 +57,46 @@ class SendVerifyMobileNumber extends Notification
     {
         try {
 
-            $data = [
-            'api_key' => 'b2d95af932eedb4de92b3496f338aa5f97b36ae0',
-            'sender'  => env('DEFAULT_WHATSAPP_NUMBER'),
-            'number'  => $this->numberFormat(),
-            'message' => "Notifikasi verifikasi nomor telepon!
+        $api_key   = 'ae7d8d1b89b362ed342ee1e1da0e181d4219673f'; // API KEY Anda
+        $id_device = '6281238422099'; // ID DEVICE yang di SCAN (Sebagai pengirim)
+        $url   = 'https://api.watsap.id/send-message'; // URL API
+        $no_hp = '081234567890'; // No.HP yang dikirim (No.HP Penerima)
+        $pesan = "Notifikasi verifikasi nomor telepon!
 
-Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
+        Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
 
-Kode Verifikasi anda adalah : {$this->user->mobile_verify_code}
+        Kode Verifikasi anda adalah : {$this->user->mobile_verify_code}
 
-Silahkan masukkan kode diatas pada layar Handpone anda di dalam aplikasi CapsuleInn.
+        Silahkan masukkan kode diatas pada layar Handpone anda di dalam aplikasi CapsuleInn.
 
-Hormat kami,
+        Hormat kami,
 
-Capsule Inn"
-        ];
+        Capsule Inn"; // Pesan yang dikirim
 
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://wa.eqosistem.com/app/api/send-message",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => json_encode($data))
-        );
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_MAXREDIRS, 10);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 0); // batas waktu response
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_POST, 1);
 
+        $data_post = [
+           'id_device' => $id_device,
+           'api-key' => $api_key,
+           'no_hp'   => $no_hp,
+           'pesan'   => $pesan
+        ];
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data_post));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         $response = curl_exec($curl);
-        $response =  json_decode($response, true);
+        curl_close($curl);
+
+
+        dd($response);
 
         if(!is_null($response) && $response['status']){
             return response()->json([
