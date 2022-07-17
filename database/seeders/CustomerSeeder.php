@@ -27,6 +27,16 @@ class CustomerSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        $customer2 = \App\Models\Customer::create([
+           'name' => 'Abdur Rahim',
+            'email' => 'abdoerrahiem2@gmail.com',
+            'email_verified_at' => now(),
+            'mobile_number' => '089694624299',
+            'mobile_verified_at' => now(),
+            'type' => 'customer',
+            'password' => bcrypt('password'),
+        ]);
+
         $gender = Arr::random(['pria', 'wanita']);
 
         $customer->account()->create([
@@ -35,6 +45,14 @@ class CustomerSeeder extends Seeder
            'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
            'refferral_code' => Random::generate(6, 'A-Z'),
            'point' => random_int(50000, 200000),
+        ]);
+
+         $customer2->account()->create([
+           'gender' => $gender,
+           'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
+           'avatar' => 'default_man.png',
+           'refferral_code' => Random::generate(6, 'A-Z'),
+           'point' => 1000000,
         ]);
 
         $customers = \App\Models\User::factory(10)->create(
