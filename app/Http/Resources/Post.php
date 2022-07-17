@@ -21,7 +21,7 @@ class Post extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'slug' => $this->slug,
-            'image' => url('storage/post/' .  $this->image),
+            'image' => url('storage/posts/' .  $this->image),
             'is_active' => $this->is_active,
             'created_at' => $this->created_at->isoFormat('dddd, D MMMM Y'),
             'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
