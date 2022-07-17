@@ -46,11 +46,11 @@ class PaymentController extends Controller
             ], 422);
         }
 
-        if($request->amount != $order?->total_price){
-            return response()->json([
-                'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
-            ], 422);
-        }
+        // if($request->amount != $order?->total_price){
+        //     return response()->json([
+        //         'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
+        //     ], 422);
+        // }
 
         $paymentOrder = $order->payment?->status;
 
@@ -81,11 +81,11 @@ class PaymentController extends Controller
             ], 422);
         }
 
-        if($request->amount != $order?->total_price){
-            return response()->json([
-                'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
-            ], 422);
-        }
+        // if($request->amount != $order?->total_price){
+        //     return response()->json([
+        //         'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
+        //     ], 422);
+        // }
 
         $paymentOrder = $order->payment?->status;
 

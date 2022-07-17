@@ -11,13 +11,13 @@ class Category extends Filter
     {
         if (request($this->filterName()) == 'rekomendasi') {
 
-            $builder = $builder->whereHas('room', function($query){
+            $builder = $builder->whereHas('roomAvailable', function($query){
                 $query->whereNotNull('discount_type');
             });
 
         } elseif(request($this->filterName()) == 'populer'){
 
-            $builder = $builder->whereHas('room', function($query){
+            $builder = $builder->whereHas('roomAvailable', function($query){
                 $query->whereRaw('status = "booked"');
             });
 

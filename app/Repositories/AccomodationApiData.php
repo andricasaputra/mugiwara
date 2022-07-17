@@ -11,6 +11,11 @@ trait AccomodationApiData
 	public function all()
 	{
         $accomodations = Accomodation::with([
+        	'roomAvailable' => function($query){
+        		if(request()->category == 'rekomendasi'){
+					 $accomodations =  $query->whereNotNull('discount_type');
+				}
+        	},
 			'roomAvailable.images', 
 			'province', 
 			'regency',
@@ -37,13 +42,18 @@ trait AccomodationApiData
 			 $accomodations =  $accomodations->having('reviews_avg_rating', '>', request()->rating);
 		}
 
+		if(request()->category == 'trending'){
+			
+			 $accomodations =  $accomodations->having('reviews_avg_rating', '>=', '4.0');
+		}
+
 		return  app(Pipeline::class)
             ->send($accomodations)
             ->through([
             	 \App\Http\Pipelines\QueryFilters\Sort::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Search::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Status::class,
-                \App\Http\Pipelines\QueryFilters\Relations\Category::class,
+                //\App\Http\Pipelines\QueryFilters\Relations\Category::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Location::class
             ])
             ->thenReturn()
