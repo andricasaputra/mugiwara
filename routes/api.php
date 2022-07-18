@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->name('api.otp.verification.resend.email')->middleware(['throttle:6,1']);
 
-    Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->middleware(['throttle:6,1']);
+    Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->middleware(['throttle:6,1'])->name('api.otp.verification.resend.whatsapp');
 
 
     /*Verifikasi Nomor HP*/
