@@ -26,10 +26,18 @@ class AccomdationController extends Controller
 
     public function rooms(Accomodation $accomodation)
     {
-        return AccomodationResource::make($accomodation->load([
+        $acc = $accomodation->load([
             'roomAvailable.facilities',
-            'roomAvailable.reviews'
-        ]));
+            'room.reviews' => function($query){
+                //$query->withAvg('reviews', 'rating');
+            }
+        ]);
+
+        $acc = $acc->room()->reviews()->avg('rating');
+
+        return $acc;
+
+
     }
 
     /**
