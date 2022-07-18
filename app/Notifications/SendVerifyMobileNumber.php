@@ -63,15 +63,15 @@ class SendVerifyMobileNumber extends Notification
         $no_hp = $this->numberFormat(); // No.HP yang dikirim (No.HP Penerima)
         $pesan = "Notifikasi verifikasi nomor telepon!
 
-        Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
+Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
 
-        Kode Verifikasi anda adalah : {$this->user->mobile_verify_code}
+Kode Verifikasi anda adalah : {$this->user->mobile_verify_code}
 
-        Silahkan masukkan kode diatas pada layar Handpone anda di dalam aplikasi CapsuleInn.
+Silahkan masukkan kode diatas pada layar Handpone anda di dalam aplikasi CapsuleInn.
 
-        Hormat kami,
+Hormat kami,
 
-        Capsule Inn"; // Pesan yang dikirim
+Capsule Inn"; // Pesan yang dikirim
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
