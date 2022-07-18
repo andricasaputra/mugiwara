@@ -13,7 +13,7 @@ trait AccomodationApiData
         $accomodations = Accomodation::with([
         	'roomAvailable' => function($query){
         		if(request()->category == 'rekomendasi'){
-					 $query->whereNotNull('discount_type');
+					$query->whereNotNull('discount_type');
 				}
         	},
 			'roomAvailable.images', 
@@ -39,12 +39,12 @@ trait AccomodationApiData
 		->withAvg('reviews', 'rating');
 		
 		if(request()->rating){
-			 $accomodations =  $accomodations->having('reviews_avg_rating', '>', request()->rating);
+			$accomodations->having('reviews_avg_rating', '>', request()->rating);
 		}
 
 		if(request()->category == 'trending'){
 			
-			 $accomodations =  $accomodations->having('reviews_avg_rating', '>=', '4.0');
+			$accomodations->having('reviews_avg_rating', '>=', '4.0');
 		}
 
 		return  app(Pipeline::class)
