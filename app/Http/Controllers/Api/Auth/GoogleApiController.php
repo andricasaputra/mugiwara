@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\Customer;
 use Socialite;
+use Nette\Utils\Random;
 
 class GoogleApiController extends Controller
 {
@@ -26,6 +27,10 @@ class GoogleApiController extends Controller
             [
                 'avatar' => $request->photo ?? NULL,
             ],
+            [
+                'refferral_code' => Random::generate(6, 'A-Z'),
+                'point' => 0
+            ]
         );
     
         $token = $newUser->createToken('access_token');
