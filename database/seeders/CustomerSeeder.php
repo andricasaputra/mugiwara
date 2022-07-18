@@ -32,7 +32,7 @@ class CustomerSeeder extends Seeder
             'email' => 'abdoerrahiem2@gmail.com',
             'email_verified_at' => now(),
             'mobile_number' => '089694624299',
-            'mobile_verified_at' => now(),
+            'mobile_verified_at' => null,
             'type' => 'customer',
             'password' => bcrypt('password'),
         ]);
@@ -44,7 +44,7 @@ class CustomerSeeder extends Seeder
            'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
            'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
            'refferral_code' => Random::generate(6, 'A-Z'),
-           'point' => random_int(50000, 200000),
+           'point' => 1000000000000,
         ]);
 
          $customer2->account()->create([
