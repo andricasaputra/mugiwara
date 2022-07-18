@@ -24,7 +24,7 @@ class RoomResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'room_type' => $this->type->name,
+            'room_type' => ucwords($this->type->name),
             'description' => $this->description,
             "room_number" => $this->room_number,
             "max_guest" => $this->max_guest,

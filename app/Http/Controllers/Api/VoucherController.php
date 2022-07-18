@@ -8,6 +8,7 @@ use App\Http\Resources\Voucher as ResourcesVoucher;
 use App\Models\Customer;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,32 @@ class VoucherController extends Controller
                 ->additional([
                 'status' => 'success',
                 'message' => 'List User Vouchers',
+            ]);
+    }
+
+    public function userVoucherUsed()
+    {
+        $vouchers = User::has('voucher')
+        ->paginate(request()->take ?? 10);
+        $vouchers->appends(request()->all());
+
+        return ResourcesVoucher::collection($vouchers)
+                ->additional([
+                'status' => 'success',
+                'message' => 'List Used Vouchers',
+            ]);
+    }
+
+    public function userVoucherUnUsed()
+    {
+        $vouchers = UserVoucher::whereNot('user_id', auth()->id())
+        ->paginate(request()->take ?? 10);
+        $vouchers->appends(request()->all());
+
+        return ResourcesVoucher::collection($vouchers)
+                ->additional([
+                'status' => 'success',
+                'message' => 'List Used Vouchers',
             ]);
     }
 

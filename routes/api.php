@@ -93,6 +93,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::prefix('vouchers')->name('vouchers.')->group(function() {
         Route::get('', [VoucherController::class, 'index'])->name('index');
+        Route::get('/user/used', [VoucherController::class, 'userVoucherUsed']);
+        // Route::get('/user/unused', [VoucherController::class, 'userVoucherUnUsed']);
         Route::get('/user', [VoucherController::class, 'userVoucher']);
         Route::get('/all', [VoucherController::class, 'allVouchers']);
         Route::get('{id}', [VoucherController::class, 'show'])->name('show');

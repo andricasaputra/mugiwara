@@ -52,6 +52,23 @@ class PaymentController extends Controller
         //     ], 422);
         // }
 
+        if($request->has('voucher_id')){
+
+            $user = \App\Models\User::where('id', auth()->id())->first();
+            $userVoucherUsed = $user->voucher()->find('voucher_id');
+
+            if(!is_null($userVoucherUsed)){
+                return response()->json([
+                    'message' => 'voucher sudah pernah digunakan'
+                ]); 
+            }
+
+           \App\Models\UserVoucher::create([
+                'user_id' => auth()->id(),
+                'voucher_id' => $request->voucher_id
+            ]);
+        }
+
         $paymentOrder = $order->payment?->status;
 
         if(!is_null($paymentOrder) && $paymentOrder != 'PENDING'){
@@ -59,6 +76,8 @@ class PaymentController extends Controller
                 'message' => 'Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini'
             ], 422);
         }
+
+
 
         $services = app()->make(PaymentServiceInterface::class);
 
@@ -86,6 +105,23 @@ class PaymentController extends Controller
         //         'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
         //     ], 422);
         // }
+
+       if($request->has('voucher_id')){
+
+            $user = \App\Models\User::where('id', auth()->id())->first();
+            $userVoucherUsed = $user->voucher()->find('voucher_id');
+
+            if(!is_null($userVoucherUsed)){
+                return response()->json([
+                    'message' => 'voucher sudah pernah digunakan'
+                ]); 
+            }
+
+           \App\Models\UserVoucher::create([
+                'user_id' => auth()->id(),
+                'voucher_id' => $request->voucher_id
+            ]);
+        }
 
         $paymentOrder = $order->payment?->status;
 

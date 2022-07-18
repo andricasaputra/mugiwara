@@ -94,6 +94,11 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function voucher()
+    {
+         return $this->belongsToMany(User::class, UserVoucher::class);
+    }
+
     public function isAdmin()
     {
         return $this->hasRole('admin');

@@ -25,4 +25,9 @@ class Voucher extends Model
     {
         $query->where('is_active', 1);
     }
+
+    public function user()
+    {
+         return $this->belongsToMany(Voucher::class, UserVoucher::class);
+    }
 }

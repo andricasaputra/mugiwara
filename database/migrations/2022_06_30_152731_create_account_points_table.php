@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger( 'voucher_id' );
             $table->bigInteger('before');
             $table->bigInteger('after');
+            $table->string('transaction_number')->nullable();
             $table->timestamps();
 
             $table->unique( [ 'user_id', 'voucher_id' ] );
