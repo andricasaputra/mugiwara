@@ -58,9 +58,9 @@ class SendVerifyMobileNumber extends Notification
         try {
 
         $api_key   = 'ae7d8d1b89b362ed342ee1e1da0e181d4219673f'; // API KEY Anda
-        $id_device = '6281238422099'; // ID DEVICE yang di SCAN (Sebagai pengirim)
+        $id_device = '5746'; // ID DEVICE yang di SCAN (Sebagai pengirim)
         $url   = 'https://api.watsap.id/send-message'; // URL API
-        $no_hp = '081234567890'; // No.HP yang dikirim (No.HP Penerima)
+        $no_hp = $this->numberFormat(); // No.HP yang dikirim (No.HP Penerima)
         $pesan = "Notifikasi verifikasi nomor telepon!
 
         Mohon untuk tidak mebagikan kode rahasia berikut kepada siapapun! 
@@ -94,9 +94,6 @@ class SendVerifyMobileNumber extends Notification
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         $response = curl_exec($curl);
         curl_close($curl);
-
-
-        dd($response);
 
         if(!is_null($response) && $response['status']){
             return response()->json([
