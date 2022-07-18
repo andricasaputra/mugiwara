@@ -77,12 +77,6 @@ Silahkan kambali ke aplikasi dan masukkan kode OTP diatas."; // Pesan yang dikir
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         $response = curl_exec($curl);
         curl_close($curl);
-
-        if(!is_null($response) && $response['status']){
-            return response()->json([
-                'message' => 'verifikasi nomor telepon sukses!'
-            ]);
-        } 
     }
 
     protected function numberFormat()
