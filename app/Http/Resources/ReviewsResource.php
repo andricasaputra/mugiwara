@@ -18,7 +18,7 @@ class ReviewsResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => $this->user->name,
-            'avatar' => $this->user?->account?->avatar,
+            'avatar' => url('storage/avatars/' . $this->user?->account?->avatar),
             'comment' => $this->comment,
             'rating' => $this->rating,
         ];

@@ -52,7 +52,7 @@ class PaymentController extends Controller
         //     ], 422);
         // }
 
-        if($request->has('voucher_id')){
+        if($request->has('voucher_id') || $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
@@ -106,7 +106,7 @@ class PaymentController extends Controller
         //     ], 422);
         // }
 
-       if($request->has('voucher_id')){
+       if($request->has('voucher_id') || $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
