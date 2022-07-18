@@ -13,6 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class VerifyEmailNotification extends Notification implements ShouldQueue
 {
+    use Queueable;
     /**
      * The callback that should be used to create the verify email URL.
      *
