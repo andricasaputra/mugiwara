@@ -95,15 +95,6 @@ Capsule Inn"; // Pesan yang dikirim
         $response = curl_exec($curl);
         curl_close($curl);
 
-        if(!is_null($response) && $response['status']){
-            return response()->json([
-                'message' => 'verifikasi nomor telepon sukses!'
-            ]);
-        } 
-
-        throw new \Exception("Whatsaap error, please connect your number to whatsapp gateway", 1);
-            
-            
         } catch (\Exception $e) {
             throw new \Exception("Whatsaap error, please connect your number to whatsapp gateway", 1);
         }
