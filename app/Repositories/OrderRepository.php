@@ -18,9 +18,9 @@ class OrderRepository
 		$accomodation = Accomodation::findOrFail($request->accomodation_id);
 		$room = Room::findOrFail($request->room_id);
 
-		if ($room->isBooked() || $room->isStayed()) {
-			throw new \Exception('Kamar tidak tersedia');
-		}
+		// if ($room->isBooked() || $room->isStayed()) {
+		// 	throw new \Exception('Kamar tidak tersedia');
+		// }
 
 		$discount_percent = $room->discount_type == 'percent' 
                 ? (int) $room->discount_amount / 100 
