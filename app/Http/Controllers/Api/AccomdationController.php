@@ -26,17 +26,27 @@ class AccomdationController extends Controller
 
     public function rooms(Accomodation $accomodation)
     {
-        $acc = $accomodation->load([
+        return AccomodationResource::make($accomodation->load([
             'roomAvailable.facilities',
-            'room.reviews' => function($query){
-                //$query->withAvg('reviews', 'rating');
-            }
-        ]);
+            'roomAvailable.reviews'
+        ]));
 
-        $acc = $acc->room()->reviews()->avg('rating');
+        //  $room = $accomodation->room->map(function($room){
+        //     $room['avg_rating'] = $room->reviews->avg('ratings');
 
-        return $acc;
+        //     return $room;
+        // });
 
+        // $accomodation = $accomodation->load(['province', 'regency', 'room' => function($query) {
+        //     $query->withAvg('reviews', 'rating');
+        // }]);
+
+        // $accomodation = (collect) array_merge($accomodation->toArray(), $room->toArray());
+
+
+        // //return $accomodation;
+
+        //     return new AccomodationResource($accomodation);
 
     }
 

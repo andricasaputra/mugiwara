@@ -13,7 +13,7 @@ class AccomodationResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {
+    {//dd($this->room);
         return [
             'id' => $this->id,
             'name' => $this->name,

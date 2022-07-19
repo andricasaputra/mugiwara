@@ -56,6 +56,7 @@ class RoomResource extends JsonResource
             'facilities' => FacilityResource::collection($this->whenLoaded('facilities')),
             'images' => ImageResource::collection($this->images),
             'reviews' => ReviewsResource::collection($this->reviews),
+            'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
         ];
     }
 }
