@@ -28,6 +28,7 @@ class Promotion extends Model
     {
         return Attribute::make(
             get: fn ($value) => $value == 1 ? 'Aktif' : 'Tidak Aktif',
+            set: fn ($value) => $value == 'Aktif' ? 1 : NULL,
         );
     }
 }

@@ -72,4 +72,46 @@ class AccomdationController extends Controller
         //
     }
 
+    public function status(Request $request)
+    {
+
+        $request->validate([
+            'accomodation_id' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'room_type' => 'required'
+        ]);
+
+        $type = Type::whereName(request()->room_type)->first();
+
+        $status = Room::where('accomodation_id', request()->accomodation_id)
+            ->where('type_id', $type->id)
+            ->get();
+
+         $count = Room::where('accomodation_id', request()->accomodation_id)
+                    ->where('type_id', $type->id)
+                    ->where('status', 'available')
+                    ->get()->count();
+
+        if($count >= 1){
+            return response()->json([
+                'data' => [
+                    'is_available' => true, 
+                    'available_room' => $count
+                ]
+            ]);
+        }
+
+
+        return response()->json([
+            'data' => [
+                'is_available' => false, 
+                'available_room' => $count
+            ]
+        ]);
+
+        return ;
+        
+    }
+
 }

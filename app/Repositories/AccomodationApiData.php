@@ -16,6 +16,11 @@ trait AccomodationApiData
         		if(request()->category == 'rekomendasi'){
 					 $accomodations =  $query->whereNotNull('discount_type');
 				}
+
+				if(request()->status){
+			
+					 $accomodations = $query->where('status', request()->status);
+				}
         	},
 			'room.images', 
 			'province', 
@@ -60,6 +65,8 @@ trait AccomodationApiData
 			
 			 $accomodations =  $accomodations->having('reviews_avg_rating', '>=', '4.0');
 		}
+
+
 
 		return  app(Pipeline::class)
             ->send($accomodations)

@@ -48,7 +48,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->name('api.otp.verification.resend.whatsapp')->middleware(['throttle:6,1']);
 
-    Route::post('auth/update-password', [UpdatePasswordController::class, '__invoke']);
+    Route::post('auth/check-password', [UpdatePasswordController::class, 'check']);
+    Route::post('auth/update-password', [UpdatePasswordController::class, 'update']);
     
     /*Verifikasi Nomor HP*/
 
@@ -64,6 +65,9 @@ Route::middleware('auth:sanctum')->group(function(){
         });
 
         Route::get('accomodations', [AccomdationController::class, 'index']);
+        Route::post('accomodations/status', [AccomdationController::class, 'status']);
+        Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
+
 
         Route::post('rooms/status', [RoomController::class, 'status']);
         
@@ -131,9 +135,6 @@ Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies'])->name
 Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
 
 Route::get('filters', [FilterController::class, 'index']);
-
-
-Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
 
 Route::get('promotions', [PromotionController::class, 'index']);
 

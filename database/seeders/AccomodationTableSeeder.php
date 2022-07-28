@@ -61,7 +61,7 @@ class AccomodationTableSeeder extends Seeder
                 );
 
                 // Create rooms
-                for ($i=0; $i < 5; $i++) :
+                for ($i=0; $i < 15; $i++) :
 
                     $discount_type = Arr::random(['flat', 'percent', 'none']);
                     $status = Arr::random(['available', 'booked', 'stayed']);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(1)->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

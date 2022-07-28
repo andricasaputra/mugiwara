@@ -31,6 +31,11 @@ class Room extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');

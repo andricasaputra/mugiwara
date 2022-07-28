@@ -20,9 +20,9 @@ class PromotionController extends Controller
         return view('admin.promotions.create');
     }
 
-    public function edit()
+    public function edit(Promotion $promotion)
     {
-        return view('admin.promotions.edit');
+        return view('admin.promotions.edit')->withPromotion($promotion->load('images'));
     }
 
     public function show(Promotion $promotion)
@@ -46,6 +46,17 @@ class PromotionController extends Controller
 
     public function update(Request $request, Promotion $promotion)
     {
+
+        $promotion->update($request->all());
+
+        if ($request->hasFile('promotion_image')) {
+            $upload = app()->make(UploadServiceInterface::class);
+            $filename = $upload->process($request->file('promotion_image'));
+
+            $promotion->images()->update(['image' => $filename]);
+        }
+
+        return redirect(route('admin.promotion.index'))->withSuccess('Berhasil ubah promosi');
 
     }
 
