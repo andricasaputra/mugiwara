@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             AccomodationTableSeeder::class,
             OfficeTableSeeder::class,
             PostTableSeeder::class,
+            PromoTableSeeder::class,
         ]);
     }
 }

@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AccomodationResource;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\ShowAccomodationResource;
 use App\Models\Accomodation;
+use App\Models\Room;
+use App\Models\Type;
 use App\Repositories\AccomodationRepository;
 use Illuminate\Http\Request;
 
@@ -26,28 +30,34 @@ class AccomdationController extends Controller
 
     public function rooms(Accomodation $accomodation)
     {
-        return AccomodationResource::make($accomodation->load([
-            'roomAvailable.facilities',
-            'roomAvailable.reviews'
-        ]));
+        $rooms = Room::query();
+        $types = Type::all();
 
-        //  $room = $accomodation->room->map(function($room){
-        //     $room['avg_rating'] = $room->reviews->avg('ratings');
+        $room_type = [];
 
-        //     return $room;
-        // });
+        foreach($types as $type){
+            $room_type[$type->name] = $rooms->where('accomodation_id', $accomodation->id)->with('type')->get()
+            ->where('type.name', $type->name)
+            ->count();
+        }
 
-        // $accomodation = $accomodation->load(['province', 'regency', 'room' => function($query) {
-        //     $query->withAvg('reviews', 'rating');
-        // }]);
+        $rooms = $rooms->where('status', 'available')->with([
+            'images' ,
+            'facilities', 
+            'reviews',
+            'type'
+        ])->where('accomodation_id', $accomodation->id)
+            ->withCount('reviews')
+            ->withAvg('reviews', 'rating')
+            ->get();
 
-        // $accomodation = (collect) array_merge($accomodation->toArray(), $room->toArray());
+        $data = collect($accomodation)
+                ->put('total_room', $accomodation->room()->count())
+                ->put('available_room_count', $rooms->count())
+                ->put('room_type_count', $room_type)
+                ->put('rooms', new RoomCollection($rooms));
 
-
-        // //return $accomodation;
-
-        //     return new AccomodationResource($accomodation);
-
+        return new ShowAccomodationResource($data);
     }
 
     /**

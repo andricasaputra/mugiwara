@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResendVerifyOtpController;
+use App\Http\Controllers\Api\Auth\UpdatePasswordController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\Auth\VerifyMobileController;
 use App\Http\Controllers\Api\CategoryPostController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PromotionController;
+use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
 use Illuminate\Http\Request;
@@ -45,7 +48,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->name('api.otp.verification.resend.whatsapp')->middleware(['throttle:6,1']);
 
-
+    Route::post('auth/update-password', [UpdatePasswordController::class, '__invoke']);
+    
     /*Verifikasi Nomor HP*/
 
     // Mengirim kode verifikasi via whtasapp
@@ -60,8 +64,9 @@ Route::middleware('auth:sanctum')->group(function(){
         });
 
         Route::get('accomodations', [AccomdationController::class, 'index']);
-        Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
 
+        Route::post('rooms/status', [RoomController::class, 'status']);
+        
         Route::post('orders/create', [OrderController::class, 'create']);
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);
@@ -124,3 +129,11 @@ Route::get('regencies/{id?}', [RegencyController::class, 'showRegencies'])->name
 Route::get('distritcs/{id?}', [RegencyController::class, 'showDistricts'])->name('api.districts.show');
 
 Route::get('filters', [FilterController::class, 'index']);
+
+
+Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
+
+Route::get('promotions', [PromotionController::class, 'index']);
+
+Route::get('promotions/{promotion}', [PromotionController::class, 'show']);
+

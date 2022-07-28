@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
@@ -113,5 +114,8 @@ Route::name('admin.')->group(function() {
         Route::put('', [VoucherController::class, 'update'])->name('update');
         Route::delete('', [VoucherController::class, 'delete'])->name('delete');
     });
+
+    Route::resource('promotion', PromotionController::class);
+
 });
 

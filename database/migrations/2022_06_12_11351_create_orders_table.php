@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('check_in_date')->nullable();
             $table->time('check_in_time')->nullable();
             $table->integer('stay_day')->nullable()->default(1);
+            $table->integer('total_guest')->default(1);
             $table->string('normal_price');
             $table->string('discount_type')->nullable();
             $table->string('discount_percent')->nullable();

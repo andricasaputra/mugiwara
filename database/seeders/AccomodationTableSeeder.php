@@ -96,7 +96,7 @@ class AccomodationTableSeeder extends Seeder
                     }
 
                     $room = [
-                        'room_number' => $faker->numberBetween(1, 20),
+                        'room_number' => $i + 1,
                         'type_id' => $type,
                         'max_guest' => $faker->numberBetween(1, 3),
                         'status' => $status,

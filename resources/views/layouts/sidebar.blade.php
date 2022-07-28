@@ -94,6 +94,12 @@
         </ul>
       </div>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.promotion.index') }}">
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Promo</span>
+      </a>
+    </li>
     {{-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#slider" aria-expanded="false" aria-controls="slider">
         <i class="icon-contract menu-icon"></i>

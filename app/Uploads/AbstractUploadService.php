@@ -18,7 +18,10 @@ abstract class AbstractUploadService
 
 	    static::$imagename = time() .'_'. static::$image->getClientOriginalName();
 
-		Storage::disk('public')->put(static::$savePathTo . static::$imagename , file_get_contents(static::$image->getRealPath()));
+		Storage::disk('public')->put(
+			static::$savePathTo . static::$imagename, 
+			file_get_contents(static::$image->getRealPath())
+		);
 
 	    return static::getImageName();
 	}

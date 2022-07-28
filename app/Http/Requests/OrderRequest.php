@@ -29,6 +29,7 @@ class OrderRequest extends FormRequest
             'check_in_date' => 'required',
             'check_in_time' => 'required',
             'stay_day' => 'required',
+            'total_guest' => 'required'
         ];
     }
 }

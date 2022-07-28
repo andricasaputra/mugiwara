@@ -5,24 +5,25 @@ namespace App\Repositories;
 use App\Models\Accomodation;
 use Illuminate\Pipeline\Pipeline;
 use App\Http\Pipelines\QueryFilters\Take;
+use Illuminate\Database\Eloquent\Builder;
 
 trait AccomodationApiData
 {   
 	public function all()
 	{
         $accomodations = Accomodation::with([
-        	'roomAvailable' => function($query){
+        	'room' => function($query){
         		if(request()->category == 'rekomendasi'){
 					 $accomodations =  $query->whereNotNull('discount_type');
 				}
         	},
-			'roomAvailable.images', 
+			'room.images', 
 			'province', 
 			'regency',
-			'roomAvailable.type' => function($query) {
+			'room.type' => function($query) {
 				if(request()->type) $query->where('name', request()->type);
 			},
-			'roomAvailable.facilities' => function($query) {
+			'room.facilities' => function($query) {
 				
 				if(request()->facilities) {
 
@@ -36,10 +37,23 @@ trait AccomodationApiData
 				}
 			},
 		])
-		->withAvg('reviews', 'rating');
+		->withAvg('reviews', 'rating')
+		->withCount([
+			'room',
+			'room as available_room_count' => function (Builder $query) {
+			    $query->where('status', 'available');
+			},
+			'room as booked_room_count' => function (Builder $query) {
+			    $query->where('status', 'booked');
+			},
+			'room as stayed_room_count' => function (Builder $query) {
+			    $query->where('status', 'stayed');
+			}
+
+		]);
 		
 		if(request()->rating){
-			 $accomodations =  $accomodations->having('reviews_avg_rating', '>', request()->rating);
+			 $accomodations =  $accomodations->having('reviews_avg_rating', '>=', request()->rating);
 		}
 
 		if(request()->category == 'trending'){
@@ -59,5 +73,7 @@ trait AccomodationApiData
             ->thenReturn()
             ->paginate(Take::getDefaultPerPage())
             ->appends(request()->input());
+
+
 	}
 }

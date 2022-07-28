@@ -36,6 +36,7 @@ class OrderResource extends JsonResource
             'check_in_date' => $this->check_in_date,
             'check_in_time' => $this->check_in_time,
             'stay_day' => $this->stay_day,
+            'total_guest' => $this->total_guest,
             'normal_price' => $this->normal_price, 
             'discount_type' => $this->discount_type,
 

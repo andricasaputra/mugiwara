@@ -13,7 +13,7 @@ class AccomodationResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {//dd($this->room);
+    {
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -25,8 +25,13 @@ class AccomodationResource extends JsonResource
                 'lang' => $this->lang,
                 'lat' => $this->lat
             ],
+            'total_room' => $this->room_count,
+            'available_room_count' => $this->available_room_count,
+            'booked_room_count' => $this->booked_room_count,
+            'stayed_room_count' => $this->stayed_room_count,
             'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
             'rooms' =>  RoomResource::collection($this->roomAvailable),
+
         ];
     }
 }

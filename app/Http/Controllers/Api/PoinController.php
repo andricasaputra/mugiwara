@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 
 class PoinController extends Controller
 {
@@ -83,6 +84,7 @@ class PoinController extends Controller
                 'voucher_id' => $request->voucher_id,
                 'before' => $account->point,
                 'after' => $pointAfter,
+                'transaction_number' => 'Trxp' . Random::generate(15, 1234567890),
             ]);
 
             $account->update([
@@ -102,7 +104,7 @@ class PoinController extends Controller
         }
 
         return response()->json([
-            'data' => $account->load('voucher'),
+            'data' => $accountPoin,
             'message' => 'success',
         ], 201);
     }
