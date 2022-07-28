@@ -53,7 +53,7 @@ class AccomdationController extends Controller
 
         $data = collect($accomodation)
                 ->put('total_room', $accomodation->room()->count())
-                ->put('available_room_count', $rooms->count())
+                ->put('available_room_count', $rooms->where('status', 'available')->count())
                 ->put('room_type_count', $room_type)
                 ->put('rooms', new RoomCollection($rooms));
 
