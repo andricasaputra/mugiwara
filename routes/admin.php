@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\RefferalController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
@@ -116,6 +117,7 @@ Route::name('admin.')->group(function() {
     });
 
     Route::resource('promotion', PromotionController::class);
+    Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');
 
 });
 

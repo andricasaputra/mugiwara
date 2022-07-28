@@ -41,7 +41,7 @@ class AccomdationController extends Controller
             ->count();
         }
 
-        $rooms = $rooms->where('status', 'available')->with([
+        $rooms = $rooms->with([
             'images' ,
             'facilities', 
             'reviews',

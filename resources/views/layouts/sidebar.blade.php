@@ -95,6 +95,12 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.refferals.index') }}">
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Majamen Refferral</span>
+      </a>
+    </li> 
+    <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.promotion.index') }}">
         <i class="icon-paper menu-icon"></i>
         <span class="menu-title">Promo</span>
@@ -112,6 +118,7 @@
         </ul>
       </div>
     </li> --}}
+
      <li class="nav-item">
       <a class="nav-link" href="{{ route('privacy.index') }}">
         <i class="icon-paper menu-icon"></i>
