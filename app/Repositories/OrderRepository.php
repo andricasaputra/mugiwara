@@ -32,7 +32,11 @@ class OrderRepository
 			}
 
 			if ($room->isBooked() || $room->isStayed()) {
-				throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
+				//throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
+
+				$room_id = $rooms->where('status', 'available')->first()?->id;
+			} else {
+				$room_id = $room->id;
 			}
 
 			$discount_percent = $room->discount_type == 'percent' 
@@ -48,7 +52,7 @@ class OrderRepository
 			$order = Order::create([
 				'booking_code' => 'capsuleinn-' . Uuid::uuid4()->toString(),
 				'accomodation_id' => $accomodation->id,
-				'room_id' => $room->id,
+				'room_id' => $room_id,
 				'user_id' => $request->user()->id,
 				'check_in_date' => $request->check_in_date,
 				'check_in_time' => $request->check_in_time,

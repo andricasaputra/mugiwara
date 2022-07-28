@@ -15,6 +15,7 @@ class PromoTableSeeder extends Seeder
     public function run()
     {
         $promo = \App\Models\Promotion::create([
+            'accomoation_id' => 1,
             'name' => 'Promo Akhir tahun',
             'description' => 'Menginap bersama keluarga tercinta',
             'is_active' => 1,

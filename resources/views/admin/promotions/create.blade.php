@@ -12,6 +12,11 @@
             <h4 class="card-title">Form Tambah Promoosi</h4>
             <form action="{{ route('admin.promotion.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
+
+                <div class="form-group">
+                    <label for="name">Promo untuk penginapan</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                </div>
                 
                 <div class="form-group">
                     <label for="name">Nama</label>
