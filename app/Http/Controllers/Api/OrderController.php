@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\UserOrderResource;
+use App\Models\Order;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,18 @@ class OrderController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function index(Request $request)
+    {
+        $orders = Order::where('user_id', $request->user()->id)->get();
+
+        return new UserOrderResource($orders);
+    }
+
+    public function show(Order $order)
+    {
+        return new UserOrderResource($order);
     }
 
 }

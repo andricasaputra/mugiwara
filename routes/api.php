@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('rooms/status', [RoomController::class, 'status']);
         
+        Route::get('orders', [OrderController::class, 'index']);
+        Route::get('orders/{order}', [OrderController::class, 'show']);
         Route::post('orders/create', [OrderController::class, 'create']);
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);

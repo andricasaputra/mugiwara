@@ -8,6 +8,7 @@ use App\Http\Requests\PaymentEwalletRequest;
 use App\Http\Requests\PaymentVirtualAccountRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Order;
+use App\Models\Room;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsType;
@@ -76,8 +77,6 @@ class PaymentController extends Controller
                 'message' => 'Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini'
             ], 422);
         }
-
-
 
         $services = app()->make(PaymentServiceInterface::class);
 
@@ -171,6 +170,9 @@ class PaymentController extends Controller
 
         }
 
+        //Update room status
+        $this->updateRoomStatus($order->room_id, $order->stay_day);
+
         return response()->json(['data' => $payment]);
     }
 
@@ -198,6 +200,9 @@ class PaymentController extends Controller
 
                 $request->user()->notify(new PaymentStatusNotification($order, $payment));
             }
+
+            //Update room status
+            $this->updateRoomStatus($order->room_id, $order->stay_day);
             
             return response()->json(['data' => $payment]);
             
@@ -208,5 +213,16 @@ class PaymentController extends Controller
             ]);
             
         }
+    }
+
+    protected function updateRoomStatus($id, $stay_days = 1)
+    {
+        $room = Room::findOrFail($id);
+
+        $room->update([
+            'status' => 'stayed',
+            'booked_untill' => null,
+            'stayed_untill' => now()->addDays($stay_days)
+        ]);
     }
 }
