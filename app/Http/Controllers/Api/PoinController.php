@@ -104,7 +104,7 @@ class PoinController extends Controller
         }
 
         return response()->json([
-            'data' => $accountPoin,
+            'data' => $accountPoin->load('voucher'),
             'message' => 'success',
         ], 201);
     }

@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PromotionController;
+use App\Http\Controllers\Api\RefferralController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
@@ -70,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
 
         Route::post('rooms/status', [RoomController::class, 'status']);
+
         
         Route::get('orders', [OrderController::class, 'index']);
         Route::get('orders/{order}', [OrderController::class, 'show']);
@@ -81,8 +83,8 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
         Route::post('payments/va/pay', [PaymentController::class, 'virtualAccountPay']);
+        Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
         
-       
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);
@@ -139,4 +141,6 @@ Route::get('filters', [FilterController::class, 'index']);
 Route::get('promotions', [PromotionController::class, 'index']);
 
 Route::get('promotions/{promotion}', [PromotionController::class, 'show']);
+
+Route::post('rooms/list', [RoomController::class, 'list'])->name('api.rooms.list');
 

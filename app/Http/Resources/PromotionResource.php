@@ -22,6 +22,8 @@ class PromotionResource extends JsonResource
             'start_date' => $this->start_date,
              'end_date' => $this->end_date,
             'created_at' =>  $this->created_at,
+            'accomodation_id' => $this->accomodations?->first()?->accomodation_id,
+            'room_id' => $this->accomodations?->pluck('room_id'),
             'images' => PromotionImageResource::collection($this->images)
         ];
     }

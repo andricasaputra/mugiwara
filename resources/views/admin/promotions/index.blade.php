@@ -46,8 +46,11 @@
                                 <div class="d-flex flex-column">
                                    <a href="{{ route('admin.promotion.edit', $promotion->id) }}" class="btn btn-warning btn-sm mb-3">Ubah</a>
                                     <a href="{{ route('admin.promotion.show', $promotion->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
-                                    <a href="#" data-id="{{ $promotion->id }}" data-toggle="modal" data-target="#delete"
-                                    class="btn btn-danger btn-sm mb-3">Hapus</a>
+                                    <form action="{{ route('admin.promotion.destroy', $promotion->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-action btn btn-danger confirm">Delete</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

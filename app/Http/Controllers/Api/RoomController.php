@@ -18,4 +18,9 @@ class RoomController extends Controller
             'data' => Room::findOrfail(request()->room_id)->only(['id', 'status', 'booked_untill', 'stayed_untill'])
         ]);
     }
+
+    public function list(Request $request)
+    {
+        return Room::where('accomodation_id', $request->id)->get();
+    }
 }

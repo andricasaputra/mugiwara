@@ -15,11 +15,20 @@
 
                 <div class="form-group">
                     <label for="name">Promo untuk penginapan</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                    <select name="accomodation_id" class="form-control" id="accomodation">
+                        @foreach($accomodations as $accomodation)
+                            <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group"  id="room_container">
+                    <label for="room_id">No Kamar</label>
+                    <select name="room_id[]" id="room_id" class="form-control js-example-tags" multiple></select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="name">Nama</label>
+                    <label for="name">Nama Promo</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
                 </div>
 
@@ -59,5 +68,78 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $(".js-example-tags").select2({
+          tags: true
+        });
+
+    });
+
+    $(document).on('change', '#accomodation', function(){
+
+        const id = $(this).val();
+        const container = $('#room_id');
+
+        $.ajax({
+            url : `{{ route('api.rooms.list') }}`,
+            method : "POST",
+            headers:{
+                'X-CRSF-TOKEN' : '{{ csrf_token() }}'
+            },
+            data : {
+                id : id
+            },
+            success : function(res){
+
+                $.each(res, function (key, val) {
+                    container.append(roomTemplater(val))
+                });
+
+            } 
+        });
+
+        function roomTemplater(data)
+        {
+            return `
+                <option value="${data.id}">${data.room_number}</option>
+            `;
+        }
+
+        
+    });
+
+</script>
+
+@endsection
+
+@section('link')
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+
+<style>
+    .select2-selection__rendered {
+    line-height: 10px !important;
+    border-radius: 0 !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+    border-radius: 0 !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+    border-radius: 0 !important;
+}
+</style>
+
 @endsection
 
