@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Accomodation;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PromotionResource extends JsonResource
@@ -22,6 +23,7 @@ class PromotionResource extends JsonResource
              'end_date' => $this->end_date,
             'created_at' =>  $this->created_at,
             'accomodation_id' => $this->accomodation_id,
+            'accomodation_name' => Accomodation::find($this->accomodation_id)->name,
             'room_id' => $this->room_id,
             'room_type' => $this->room_type,
             'images' => PromotionImageResource::collection($this->images)

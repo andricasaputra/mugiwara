@@ -11,6 +11,7 @@ use App\Models\AccountPoint;
 use App\Models\Point;
 use App\Models\Post;
 use App\Models\Voucher;
+use App\Notifications\PointRedeemSuccessNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\Random;
@@ -90,6 +91,10 @@ class PoinController extends Controller
             $account->update([
                 'point' => $pointAfter
             ]);
+
+            $request->user()->notify(
+                new PointRedeemSuccessNotification($request->voucher_id)
+            );
 
             DB::commit();
 
