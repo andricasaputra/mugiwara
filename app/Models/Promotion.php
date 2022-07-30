@@ -19,16 +19,6 @@ class Promotion extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function accomodations()
-    {
-        return $this->hasMany(AccomodationPromotion::class);
-    }
-
-    public function rooms()
-    {
-        return $this->hasMany(AccomodationPromotion::class, 'room_id', 'promotion_id');
-    }
-
     /**
      * Get the user's first name.
      *

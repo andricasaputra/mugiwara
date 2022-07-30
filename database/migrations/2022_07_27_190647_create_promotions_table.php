@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('accomodation_id');
+            $table->unsignedBigInteger('room_id');
+            $table->string('room_type');
             $table->string('name');
             $table->longText('description')->nullable();
             $table->boolean('is_active')->default(1)->nullable();

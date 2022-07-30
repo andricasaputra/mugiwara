@@ -21,6 +21,8 @@ trait AccomodationApiData
 			
 					 $accomodations = $query->where('status', request()->status);
 				}
+
+				$query->withCount('reviews')->withAvg('reviews', 'rating');
         	},
 			'room.images', 
 			'province', 
