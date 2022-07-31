@@ -30,7 +30,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -62,7 +62,9 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => 'Pesanan Kamar Segera Diproses',
+            'message' => 'Terimakasih telah melakukan pemesanan di Capsule Inn, Segera lakukan pembayaran sesuai tagihan yang ada.',
+            'order' => $this->order
         ];
     }
 }

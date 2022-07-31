@@ -31,6 +31,10 @@ class OrderRepository
 				throw new \Exception('Kamar sudah penuh.');
 			}
 
+			if($request->check_in_date < now()){
+				throw new \Exception('Tidak dapat memilih tanggal lampau.');
+			}
+
 			if ($room->isBooked() || $room->isStayed()) {
 				//throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
 

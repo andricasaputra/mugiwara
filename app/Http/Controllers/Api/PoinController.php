@@ -10,6 +10,7 @@ use App\Models\Account;
 use App\Models\AccountPoint;
 use App\Models\Point;
 use App\Models\Post;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use App\Notifications\PointRedeemSuccessNotification;
 use Illuminate\Http\Request;
@@ -78,6 +79,12 @@ class PoinController extends Controller
                 $discount_amount = $voucher->point_needed;
             }
 
+            $uVoucher = UserVoucher::create([
+                'user_id' => $request->user()->id,
+                'voucher_id' => $request->voucher_id,
+                'is_used' => NULL
+            ]);
+
             $pointAfter = $account->point - $discount_amount;
         
             $accountPoin = AccountPoint::create([
@@ -93,7 +100,7 @@ class PoinController extends Controller
             ]);
 
             $request->user()->notify(
-                new PointRedeemSuccessNotification($request->voucher_id)
+                new PointRedeemSuccessNotification($accountPoin, $voucher)
             );
 
             DB::commit();
@@ -104,7 +111,7 @@ class PoinController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage(),
+                'message' => $e->getMessage() . ' ' .  $e->getLine(),
             ], 400);
         }
 

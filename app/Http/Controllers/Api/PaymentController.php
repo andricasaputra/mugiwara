@@ -64,10 +64,16 @@ class PaymentController extends Controller
                 ]); 
             }
 
-           \App\Models\UserVoucher::create([
-                'user_id' => auth()->id(),
-                'voucher_id' => $request->voucher_id
-            ]);
+           \App\Models\UserVoucher::updateOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'voucher_id' => $request->voucher_id,
+                ],
+                [
+                    'is_used' => 1
+                ]
+
+            );
         }
 
         $paymentOrder = $order->payment?->status;
@@ -116,10 +122,16 @@ class PaymentController extends Controller
                 ]); 
             }
 
-           \App\Models\UserVoucher::create([
-                'user_id' => auth()->id(),
-                'voucher_id' => $request->voucher_id
-            ]);
+           \App\Models\UserVoucher::updateOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'voucher_id' => $request->voucher_id,
+                ],
+                [
+                    'is_used' => 1
+                ]
+
+            );
         }
 
         $paymentOrder = $order->payment?->status;

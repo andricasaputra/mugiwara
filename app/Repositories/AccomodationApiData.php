@@ -22,6 +22,12 @@ trait AccomodationApiData
 					 $accomodations = $query->where('status', request()->status);
 				}
 
+				if(request()->rating){
+					 $accomodations =  $query
+					 ->having('reviews_avg_rating', '>=', request()->rating)
+					 ->having('reviews_avg_rating', '<', request()->rating + 1);
+				}
+
 				$query->withCount('reviews')->withAvg('reviews', 'rating');
         	},
 			'room.images', 
@@ -60,7 +66,9 @@ trait AccomodationApiData
 		]);
 		
 		if(request()->rating){
-			 $accomodations =  $accomodations->having('reviews_avg_rating', '>=', request()->rating);
+			 $accomodations =  $accomodations
+			 ->having('reviews_avg_rating', '>=', request()->rating)
+			 ->having('reviews_avg_rating', '<', request()->rating + 1);
 		}
 
 		if(request()->category == 'trending'){

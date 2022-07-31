@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as ResourcesPost;
+use App\Http\Resources\UserVoucherResource;
 use App\Http\Resources\Voucher as ResourcesVoucher;
 use App\Models\Customer;
 use App\Models\Post;
@@ -45,20 +46,22 @@ class VoucherController extends Controller
     // User voucher
     public function userVoucher()
     {
-        $vouchers = User::findOrFail(request()->user()->id)->vouchers()->when(request()->category, function($vouchers) {
-            $vouchers->where('category', request()->category);
-        })
-        ->when(request()->search, function($vouchers) {
-            $vouchers->where('name', '', '%' .request()->search. '%' );
-        })
-        ->paginate(request()->take ?? 10);
-        $vouchers->appends(request()->all());
+        $vouchers = UserVoucher::with(['user', 'voucher' => function($query){
+            if(request()->category){
+                $query->where('category', request()->category);
+            }
 
-        return ResourcesVoucher::collection($vouchers)
-                ->additional([
-                'status' => 'success',
-                'message' => 'List User Vouchers',
-            ]);
+            if(request()->search){
+                $query->where('name', '', '%' .request()->search. '%' );
+            }
+        }])
+            ->where('user_id', request()->user()->id)
+            ->whereNull('is_used')
+            ->paginate(request()->take ?? 10);
+
+        $vouchers->appends(request()->all());;
+
+        return UserVoucherResource::collection($vouchers);
     }
 
     public function userVoucherUsed()

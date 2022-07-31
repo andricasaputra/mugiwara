@@ -33,12 +33,16 @@ class OrderController extends Controller
     {
         $orders = Order::where('user_id', $request->user()->id)->get();
 
-        return new UserOrderResource($orders);
+        return response()->json([
+            'data' => $orders
+        ]);
     }
 
     public function show(Order $order)
     {
-        return new UserOrderResource($order);
+        return new UserOrderResource($order->load(['payment.voucher', 'room.images', 'room' => function($query){
+            $query->withCount('reviews')->withAvg('reviews', 'rating');
+        }]));
     }
 
 }

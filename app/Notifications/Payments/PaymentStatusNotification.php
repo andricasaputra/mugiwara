@@ -33,7 +33,7 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -64,7 +64,10 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => 'Pembayaran Berhasil!',
+            'message' => 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!',
+            'order' => $this->order,
+            'payment' => $this->payment
         ];
     }
 }

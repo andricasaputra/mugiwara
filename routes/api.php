@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\Auth\VerifyMobileController;
 use App\Http\Controllers\Api\CategoryPostController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
@@ -127,6 +128,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('offices', [OfficeController::class, 'index']);
     Route::get('privacy', [PrivacyController::class, 'index']);
+
+    Route::get('notifications', [NotificationController::class, 'index']);
     
 });
 
