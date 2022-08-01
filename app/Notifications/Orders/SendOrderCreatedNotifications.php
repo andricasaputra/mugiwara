@@ -64,7 +64,8 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
         return [
             'title' => 'Pesanan Kamar Segera Diproses',
             'message' => 'Terimakasih telah melakukan pemesanan di Capsule Inn, Segera lakukan pembayaran sesuai tagihan yang ada.',
-            'order' => $this->order
+            'order' => $this->order,
+            'category' => 'pemberitahuan'
         ];
     }
 }

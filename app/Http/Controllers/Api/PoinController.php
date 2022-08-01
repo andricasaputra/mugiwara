@@ -120,4 +120,18 @@ class PoinController extends Controller
             'message' => 'success',
         ], 201);
     }
+
+    public function list()
+    {
+        return response()->json([
+            'data' => UserVoucher::with(['user:id,name', 'voucher'])->get()
+        ]);
+    }
+
+    public function detail($id)
+    {
+        return response()->json([
+            'data' => UserVoucher::where('id', $id)->with(['user:id,name', 'voucher'])->first()
+        ]);
+    }
 }

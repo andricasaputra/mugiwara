@@ -67,7 +67,8 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
             'title' => 'Pembayaran Berhasil!',
             'message' => 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!',
             'order' => $this->order,
-            'payment' => $this->payment
+            'payment' => $this->payment,
+            'category' => 'pemberitahuan'
         ];
     }
 }

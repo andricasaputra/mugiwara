@@ -45,4 +45,14 @@ class OrderController extends Controller
         }]));
     }
 
+    public function checkout(Request $request)
+    {
+
+    }
+
+    public function ticket(Order $order)
+    {
+        return new OrderResource($order->load(['user', 'payment']));
+    }
+
 }

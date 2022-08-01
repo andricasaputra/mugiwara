@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PromotionController;
+use App\Http\Controllers\Api\ReviewsController;
 use App\Http\Controllers\Api\RefferralController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
@@ -73,10 +74,11 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('rooms/status', [RoomController::class, 'status']);
 
-        
         Route::get('orders', [OrderController::class, 'index']);
         Route::get('orders/{order}', [OrderController::class, 'show']);
         Route::post('orders/create', [OrderController::class, 'create']);
+        Route::post('orders/checkout', [OrderController::class, 'checkout']);
+        Route::get('orders/ticket/{order}', [OrderController::class, 'ticket']);
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);
         Route::get('payments/callback/success', [PaymentController::class, 'status']);
@@ -85,6 +87,8 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
         Route::post('payments/va/pay', [PaymentController::class, 'virtualAccountPay']);
         Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
+        
+        Route::post('reviews', [ReviewsController::class, 'create']);
         
     });
 
@@ -118,6 +122,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::prefix('points')->name('points.')->group(function() {
         Route::post('', [PoinController::class, 'store'])->name('store');
         Route::post('', [PoinController::class, 'store'])->name('store');
+        Route::get('list', [PoinController::class, 'list'])->name('list');
+         Route::get('list/detail/{id}', [PoinController::class, 'detail'])->name('detail');
     });
     
     Route::prefix('account')->name('account.')->group(function() {
@@ -130,6 +136,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('privacy', [PrivacyController::class, 'index']);
 
     Route::get('notifications', [NotificationController::class, 'index']);
+    Route::get('notifications/categories', [NotificationController::class, 'categories']);
+    Route::get('notifications/{id}', [NotificationController::class, 'show']);
+    Route::post('notifications/markasread/{id}', [NotificationController::class, 'markAsRead']);
     
 });
 
