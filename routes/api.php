@@ -23,8 +23,9 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PromotionController;
-use App\Http\Controllers\Api\ReviewsController;
 use App\Http\Controllers\Api\RefferralController;
+use App\Http\Controllers\Api\RefundController;
+use App\Http\Controllers\Api\ReviewsController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
@@ -86,6 +87,13 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
         Route::post('payments/va/pay', [PaymentController::class, 'virtualAccountPay']);
+
+        Route::get('refund/status/{refund}', [RefundController::class, 'status']);
+        Route::get('refund/reason', [RefundController::class, 'reason']);
+        Route::post('refund/{order}', [RefundController::class, 'refund']);
+        Route::post('refund/confirm/{order}', [RefundController::class, 'confirm']);
+        
+
         Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
         
         Route::post('reviews', [ReviewsController::class, 'create']);

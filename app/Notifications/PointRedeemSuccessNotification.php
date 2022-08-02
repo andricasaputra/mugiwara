@@ -45,6 +45,8 @@ class PointRedeemSuccessNotification extends Notification
             'message' => 'Terimaksih telah menukarkan point anda, Gunakan sebelum batas waktu yang sudah ditentukan',
             'history' => $this->accountPoin,
             'voucher' => $this->voucher,
+            'type' => 'point',
+            'category' => 'pemberitahuan'
         ];
     }
 }

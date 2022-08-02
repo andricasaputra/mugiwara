@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             OfficeTableSeeder::class,
             PostTableSeeder::class,
             PromoTableSeeder::class,
+            RefundReasonTableSeeder::class,
         ]);
     }
 }
