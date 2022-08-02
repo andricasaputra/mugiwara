@@ -53,8 +53,6 @@ class OrderRepository
 
 			$total_price =  ($room->price * $request->stay_day)- (int) $discount_amount;
 
-			dd($request->all());
-
 			$order = Order::create([
 				'booking_code' => 'capsuleinn-' . Uuid::uuid4()->toString(),
 				'accomodation_id' => $accomodation->id,
