@@ -52,7 +52,9 @@ class OrderController extends Controller
 
     public function ticket(Order $order)
     {
-        return new OrderResource($order->load(['user', 'payment', 'voucher']));
+        return response()->json([
+            'data' => $order->load(['accomodation:id,name', 'user:id,name,mobile_number', 'payment.voucher'])
+        ]);
     }
 
 }

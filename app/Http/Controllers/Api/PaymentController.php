@@ -174,7 +174,7 @@ class PaymentController extends Controller
 
         $payment = $services->pay($request);
 
-         $payment = $this->payment->updateStatusVirtualAccount($payment['status'], $request);
+        $payment = $this->payment->updateStatusVirtualAccount($payment['status'], $request);
 
         if($payment['status'] == 'COMPLETED'){
 
