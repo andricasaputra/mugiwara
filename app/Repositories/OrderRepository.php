@@ -76,7 +76,7 @@ class OrderRepository
 			if ($room->isBooked() || $room->isStayed()) {
 				//throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
 
-				$room_id = $accomodation->room->where('status', 'available')->where('type_id', $type_id)->first()?->id;
+				$room_id = $accomodation->room->where('type_id', $type_id)->first()?->id;
 			} else {
 				$room_id = $room->id;
 			}
