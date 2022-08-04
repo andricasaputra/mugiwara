@@ -26,7 +26,7 @@ class OrderRepository
 
 			$rooms = $accomodation->room;
 
-			$available = $rooms->where('status', 'available')->count();
+			$available = $rooms->where('status', 'available')->where('type_id', $type_id)->count();
 
 			if($available === 0){
 				throw new \Exception('Kamar sudah penuh.');
