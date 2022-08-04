@@ -41,7 +41,7 @@ class VoucherSeeder extends Seeder
                 'starts_at' => now(),
                 'is_active' => '1',
                 'expires_at' => Carbon::now()->addDay(14),
-                'point_needed' =>$discount == 'fixed' ? $fixed_disc : ($percent_disc / 100),
+                'point_needed' => $fixed_disc,
             ]);
         }
     }

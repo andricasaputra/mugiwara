@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Refund;
 use App\Models\RefundReason;
 use Illuminate\Http\Request;
+use Nette\Utils\Random;
 
 class RefundController extends Controller
 {
@@ -30,6 +31,14 @@ class RefundController extends Controller
             ], 403);
         }
 
+        $check = Refund::where('user_id', $request->user()->id)->where('order_id', $order->id)->first();
+
+        if($check){
+            return response()->json([
+                'message' => 'Anda sudah pernah mengajukan refund untuk pesanan ini, mohon untuk menunggu proses refund anda'
+            ], 403);
+        }
+
         $refund = Refund::create([
             'user_id' => $request->user()->id,
             'order_id' => $order->id,
@@ -37,7 +46,8 @@ class RefundController extends Controller
             'status' => 'Diproses',
             'reason_id' => $request->reason,
             'detail' => $request->detail,
-            'refund_date' => NULL
+            'refund_request_date' => now(),
+            'refund_number' => Random::generate(12, 1234567890),
         ]);
 
         return response()->json([

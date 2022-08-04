@@ -13,6 +13,11 @@ class GoogleApiController extends Controller
 {
     public function googleLogin(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'name' => 'required'
+        ]);
+
         $newUser = Customer::firstOrCreate([
             'email' => $request->email
         ], [

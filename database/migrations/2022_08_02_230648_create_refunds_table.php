@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->unsignedBigInteger('reason_id')->nullable();
             $table->longText('detail')->nullable();
-            $table->date('refund_date')->nullable();
+            $table->date('refund_request_date')->nullable();
+            $table->date('refund_action_date')->nullable();
+            $table->string('refund_number')->nullable();
             $table->timestamps();
         });
     }

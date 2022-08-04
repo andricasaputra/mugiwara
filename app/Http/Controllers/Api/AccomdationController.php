@@ -84,29 +84,47 @@ class AccomdationController extends Controller
 
         $type = Type::whereName(request()->room_type)->first();
 
-        $status = Room::where('accomodation_id', request()->accomodation_id)
+        $rooms = Room::where('accomodation_id', request()->accomodation_id)
             ->where('type_id', $type->id)
             ->get();
 
-         $count = Room::where('accomodation_id', request()->accomodation_id)
+        $notAvailable = Room::where('accomodation_id', request()->accomodation_id)
                     ->where('type_id', $type->id)
-                    ->where('status', 'available')
-                    ->get()->count();
+                    ->where('status', '!=' ,'available')
+                    ->get();
 
-        if($count >= 1){
+        $available = Room::where('accomodation_id', request()->accomodation_id)
+                    ->where('type_id', $type->id)
+                    ->where('status', '!=', 'stayed')
+                    ->get();
+
+        $stayed_date = $notAvailable->pluck('stayed_untill')->filter(fn($data) => !is_null($data))->toArray();
+
+        $booked_date = $notAvailable->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
+
+        $rooms = $rooms->count();
+
+        if(in_array($request->end_date, $booked_date) || in_array($request->start_date, $booked_date)){
+            $rooms = $rooms - 1;
+        }
+
+        if(in_array($request->end_date, $stayed_date)){
+            $rooms = $rooms - 1;
+        }
+
+        if($rooms >= 1){
             return response()->json([
                 'data' => [
                     'is_available' => true, 
-                    'available_room' => $count
+                    'available_room' => $rooms
                 ]
             ]);
         }
 
-
         return response()->json([
             'data' => [
                 'is_available' => false, 
-                'available_room' => $count
+                'available_room' => $rooms
             ]
         ]);
 

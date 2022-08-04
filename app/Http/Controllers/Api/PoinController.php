@@ -73,26 +73,20 @@ class PoinController extends Controller
                 ], 400);
             }
 
-            if($voucher->discount_type == 'percent'){
-                $discount_amount = $account->point * $voucher->point_needed;
-            } else{
-                $discount_amount = $voucher->point_needed;
-            }
-
             $uVoucher = UserVoucher::create([
                 'user_id' => $request->user()->id,
                 'voucher_id' => $request->voucher_id,
                 'is_used' => NULL
             ]);
 
-            $pointAfter = $account->point - $discount_amount;
+            $pointAfter = $account->point - $voucher->point_needed;;
         
             $accountPoin = AccountPoint::create([
                 'user_id' => $request->user()->id,
                 'voucher_id' => $request->voucher_id,
                 'before' => $account->point,
                 'after' => $pointAfter,
-                'transaction_number' => 'Trxp' . Random::generate(15, 1234567890),
+                'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
             ]);
 
             $account->update([

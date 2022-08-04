@@ -27,25 +27,44 @@ class AccountUserController extends Controller
 
     public function update(UpdateAccountRequest $request)
     {
-        $user = $request->user();
+        try {
 
-        if ($request->has('mobile_number') && $user->hasVerifiedMobileNumber()) {
+            $user = $request->user();
+
+            if ($request->has('mobile_number') && $user->hasVerifiedMobileNumber()) {
+                return response()->json([
+                    'message' => 'anda tidak dapat merubah nomor telepon yang sudah di verifikasi!'
+                ]);
+            }
+
+            if($user->mobile_number == $request->mobile_number){
+                $data = [
+                     'name' => $request->name,
+                ];
+            } else {
+                $data = [
+                     'name' => $request->name,
+                     'mobile_number' => $request->mobile_number,
+                ];
+            }
+
+            $user->update($data);
+            
+            $user->account()->update([
+                'gender' => $request->gender,
+                'birth_date' => $request->birth_date,
+            ]);
+
+            return (new AccountResource($user))->additional([
+                'status' => 'success',
+                'message' => 'Akun berhasil diubah',
+            ]);
+            
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => 'anda tidak dapat merubah nomor telepon yang sudah di verifikasi!'
+                'message' => $e->getMessage()
             ]);
         }
-
-        $user->update($request->validated());
-        
-        $user->account()->update([
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
-        ]);
-
-        return (new AccountResource($user))->additional([
-            'status' => 'success',
-            'message' => 'Akun berhasil diubah',
-        ]);
     }
 
     public function updatePhotoProfile(Request $request)

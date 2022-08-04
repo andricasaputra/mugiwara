@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Affiliate;
+use App\Models\Customer;
+use App\Notifications\ReferralCodeUsedNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class RefferralController extends Controller
 {
@@ -40,6 +43,8 @@ class RefferralController extends Controller
             ]);
         }
 
+        //dd($account->point);
+
         $affilliate = Affiliate::create([
             'user_id' => $request->user()->id,
             'refferal_code' => $request->refferral_code
@@ -50,14 +55,20 @@ class RefferralController extends Controller
             'user_id' => $account->user?->id
         ]);
 
-        $request->user()->account->point += 60000000;
+        $request->user()->account->point += 60000;
         $request->user()->account->save();
 
-        $account->point += 60000000;
+        $account->point += 60000;
         $account->save();
 
+        $customer = Customer::find($account->user?->id);
+
+        Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . 60000 . ' dari pemakaian kode refferral ' . $request->refferral_code));
+
+        Notification::send($customer, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . 60000 . ' dari pemakaian kode refferral ' . $request->refferral_code));
+
         return response()->json([
-            'message' => 'Success, selamat anda mendapatkan ' . 60000000 . ' poin'
+            'message' => 'Success, selamat anda mendapatkan ' . 60000 . ' poin'
         ]);
     }
 }

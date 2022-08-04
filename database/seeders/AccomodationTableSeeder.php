@@ -22,15 +22,51 @@ class AccomodationTableSeeder extends Seeder
         try {
 
             $accLists = [
-                ['name' => 'Arjuna Bamboe'],
-                ['name' => 'Grand Hotel'],
-                ['name' => 'Fortune Hotel'],
-                ['name' => 'Astoria'],
-                ['name' => 'GOlden Palace'],
-                ['name' => 'Grand Izzy'],
-                ['name' => 'Sriwijaya Hotel'],
-                ['name' => 'Nutana Hotel'],
-                ['name' => 'Sedayu hotel'],
+                [   
+                    'name' => 'Arjuna Bamboe', 
+                    'longitude' => '-5.382', 
+                    'latitude' => '10.525.921'
+                ],
+                [
+                    'name' => 'Grand Hotel',
+                    'longitude' => '--5.43226,', 
+                    'latitude' => '10.525.822'
+                ],
+                [
+                    'name' => 'Fortune Hotel',
+                     'longitude' => '-542.629', 
+                     'latitude' => '10.525.122'
+                ],
+                [
+                    'name' => 'Astoria',
+                    'longitude' => '-544.013', 
+                    'latitude' => '10.525.466'
+                ],
+                [
+                    'name' => 'GOlden Palace',
+                     'longitude' => '-5.382', 
+                    'latitude' => '10.525.921'
+                ],
+                [
+                    'name' => 'Grand Izzy',
+                    'longitude' => '-567.372', 
+                    'latitude' => '10.553.324'
+                ],
+                [
+                    'name' => 'Sriwijaya Hotel',
+                    'longitude' => '-5.382', 
+                    'latitude' => '10.525.921'
+                ],
+                [
+                    'name' => 'Nutana Hotel',
+                    'longitude' => '-5.382', 
+                    'latitude' => '10.525.921'
+                ],
+                [
+                    'name' => 'Sedayu hotel',
+                    'longitude' => '-5.382', 
+                    'latitude' => '10.525.921'
+                ],
             ];
 
             $faker = app(Generator::class);
@@ -56,21 +92,16 @@ class AccomodationTableSeeder extends Seeder
                         'regency_id' => $regency->id,
                         'districts_id' => $districts->id,
                         'address' => $faker->address(),
-                        'description' => $faker->paragraph
+                        'description' => $faker->paragraph,
+                        'lat' => $acc['latitude'],
+                        'lang' => $acc['longitude'],
                     ],
                 );
 
                 // Create rooms
                 for ($i=0; $i < 15; $i++) :
 
-                    $discount_type = Arr::random(['flat', 'percent', 'none']);
                     $status = Arr::random(['available', 'booked', 'stayed']);
-
-                   if($discount_type == 'flat'){
-                        $discount = Arr::random([10000, 20000, 30000, 40000, 50000]);
-                    }elseif($discount_type == 'percent'){
-                         $discount = Arr::random([5, 10, 15, 20, 25]);
-                    }
 
                     $booked_until = NULL;
                     $stayed_until = NULL;
@@ -83,16 +114,22 @@ class AccomodationTableSeeder extends Seeder
                     }
                     
                     $type  = $faker->numberBetween(1, 3);
-                    $price_1 = Arr::random([100000, 200000, 300000]);
-                    $price_2 = Arr::random([300000, 400000, 500000]);
-                    $price_3 = Arr::random([500000, 750000, 10000000]);
+                    $price_1 = 300000;
+                    $price_2 = 500000;
+                    $price_3 = 10000000;
 
                     if($type == 1){
                         $price = $price_1;
+                        $discount_type = NULL;
+                        $discount = NULL;
                     }elseif($type == 2){
                        $price = $price_2;
+                       $discount_type = 'percent';
+                       $discount = 10;
                     }else{
                         $price = $price_3;
+                        $discount_type = 'flat';
+                        $discount = 200000;
                     }
 
                     $room = [
@@ -103,17 +140,14 @@ class AccomodationTableSeeder extends Seeder
                         'booked_untill' => $booked_until,
                         'stayed_untill' => $stayed_until,
                         'price' => $price,
-                        'description' => $faker->paragraph
+                        'description' => $faker->paragraph,
+                        'discount_type' => $discount_type,
+                        'discount_amount' => $discount
                     ];
-
-                    if ($discount_type != 'none') {
-                        $room = array_merge($room, ['discount_type' => $discount_type ]);
-                        $room = array_merge($room, ['discount_amount' => $discount]);
-                    }
 
                     $room = $accomodation->room()->create($room);
 
-                   $images = $this->imagesList();
+                    $images = $this->imagesList();
 
                     // Create room facilities, images, reviews
                     for ($j=0; $j < 10; $j++) { 
