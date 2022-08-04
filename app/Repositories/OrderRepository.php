@@ -24,13 +24,50 @@ class OrderRepository
 			$room = Room::findOrFail($request->room_id);
 			$type_id = $room->type?->id;
 
-			$rooms = $accomodation->room;
+			//$rooms = $accomodation->room;
 
-			$available = $rooms->where('status', 'available')->where('type_id', $type_id)->count();
+			// $available = $rooms->where('status', 'available')->where('type_id', $type_id)->count();
 
-			if($available === 0){
-				throw new \Exception('Kamar sudah penuh.');
-			}
+			// if($available === 0){
+			// 	throw new \Exception('Kamar sudah penuh.');
+			// }
+
+			// $type = Type::whereName(request()->room_type)->first();
+
+	        $rooms = Room::where('accomodation_id', request()->accomodation_id)
+	            ->where('type_id', $type_id)
+	            ->get();
+
+	        $notAvailable = Room::where('accomodation_id', request()->accomodation_id)
+	                    ->where('type_id', $type_id)
+	                    ->where('status', '!=' ,'available')
+	                    ->get();
+
+	        $available = Room::where('accomodation_id', request()->accomodation_id)
+	                    ->where('type_id', $type_id)
+	                    ->where('status', '!=', 'stayed')
+	                    ->get();
+
+	        $stayed_date = $notAvailable->pluck('stayed_untill')->filter(fn($data) => !is_null($data))->toArray();
+
+	        $booked_date = $notAvailable->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
+
+	        $rooms = $rooms->count();
+
+
+	        $end_date = \Carbon\Carbon::parse($request->check_in_date)->addDays(request()->stay_day);
+
+	        if(in_array($end_date, $booked_date)){
+	            $rooms = $rooms - 1;
+	        }
+
+	        if(in_array($end_date, $stayed_date)){
+	            $rooms = $rooms - 1;
+	        }
+
+	         if($rooms == 0){
+	        	throw new \Exception('Kamar sudah penuh.');
+	        }
 
 			if($request->check_in_date < now()){
 				throw new \Exception('Tidak dapat memilih tanggal lampau.');
@@ -39,11 +76,11 @@ class OrderRepository
 			if ($room->isBooked() || $room->isStayed()) {
 				//throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
 
-				$room_id = $rooms->where('status', 'available')->where('type_id', $type_id)->first()?->id;
+				$room_id = $accomodation->room->where('status', 'available')->where('type_id', $type_id)->first()?->id;
 			} else {
 				$room_id = $room->id;
 			}
-			
+
 			$discount_percent = $room->discount_type == 'percent' 
 	                ? (int) $room->discount_amount / 100 
 	                : NULL;
