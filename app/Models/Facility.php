@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Facility extends Model
 {
@@ -20,6 +21,13 @@ class Facility extends Model
     public function room()
     {
         return $this->belongsToMany(Room::class);
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucwords(str_replace("_", " ", $value)),
+        );
     }
 
 }
