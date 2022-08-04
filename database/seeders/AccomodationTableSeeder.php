@@ -25,47 +25,47 @@ class AccomodationTableSeeder extends Seeder
                 [   
                     'name' => 'Arjuna Bamboe', 
                     'longitude' => '-5.382', 
-                    'latitude' => '10.525.921'
+                    'latitude' => '10.525921'
                 ],
                 [
                     'name' => 'Grand Hotel',
                     'longitude' => '--5.43226,', 
-                    'latitude' => '10.525.822'
+                    'latitude' => '10.525822'
                 ],
                 [
                     'name' => 'Fortune Hotel',
                      'longitude' => '-542.629', 
-                     'latitude' => '10.525.122'
+                     'latitude' => '10.525122'
                 ],
                 [
                     'name' => 'Astoria',
                     'longitude' => '-544.013', 
-                    'latitude' => '10.525.466'
+                    'latitude' => '10.525466'
                 ],
                 [
                     'name' => 'GOlden Palace',
                      'longitude' => '-5.382', 
-                    'latitude' => '10.525.921'
+                    'latitude' => '10.525921'
                 ],
                 [
                     'name' => 'Grand Izzy',
                     'longitude' => '-567.372', 
-                    'latitude' => '10.553.324'
+                    'latitude' => '10.553324'
                 ],
                 [
                     'name' => 'Sriwijaya Hotel',
                     'longitude' => '-5.382', 
-                    'latitude' => '10.525.921'
+                    'latitude' => '10.525921'
                 ],
                 [
                     'name' => 'Nutana Hotel',
                     'longitude' => '-5.382', 
-                    'latitude' => '10.525.921'
+                    'latitude' => '10.525921'
                 ],
                 [
                     'name' => 'Sedayu hotel',
                     'longitude' => '-5.382', 
-                    'latitude' => '10.525.921'
+                    'latitude' => '10.525921'
                 ],
             ];
 
