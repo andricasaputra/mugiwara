@@ -18,7 +18,9 @@ class VoucherController extends Controller
     // Semua voucher yang belum pernah user claim
     public function index()
     {
-        $vouchers = Voucher::doesntHave('user')->isActive()->when(request()->category, function($vouchers) {
+        $vouchers = Voucher::whereDoesntHave('user', function($query){
+            $query->where('user_id', request()->user()->id);
+        })->isActive()->when(request()->category, function($vouchers) {
             $vouchers->where('category', request()->category);
         })->paginate(request()->take ?? 10);
 
