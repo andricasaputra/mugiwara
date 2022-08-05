@@ -55,11 +55,22 @@ class RefferralController extends Controller
             'user_id' => $account->user?->id
         ]);
 
-        $request->user()->account->point += 60000;
-        $request->user()->account->save();
+        $acc1 = Account::where('user_id', $request->user()->id)->first();
+        $acc2 = Account::where('id', $account->id)->first();
 
-        $account->point += 60000;
-        $account->save();
+        $acc1->update([
+            'point' => $acc1->point + 60000
+        ]);
+
+        $acc2->update([
+            'point' => $acc2->point + 60000
+        ]);
+
+        // $request->user()->account->point += 60000;
+        // $request->user()->account->save();
+
+        // $account->point += 60000;
+        // $account->save();
 
         $customer = Customer::find($account->user?->id);
 
