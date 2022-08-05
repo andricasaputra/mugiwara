@@ -36,9 +36,9 @@ class VerifyMobileController extends Controller
 
         $user->notify(new SendVerifyMobileNumber($user));
 
-        return response()->json([
-            'message' => 'Kode otp telah kami kirimkan ke nomor hp anda via whatsapp'
-        ], 200);
+        // return response()->json([
+        //     'message' => 'Kode otp telah kami kirimkan ke nomor hp anda via whatsapp'
+        // ], 200);
     }
 
     /**

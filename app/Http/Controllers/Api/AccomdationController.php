@@ -7,6 +7,7 @@ use App\Http\Resources\AccomodationResource;
 use App\Http\Resources\RoomCollection;
 use App\Http\Resources\ShowAccomodationResource;
 use App\Models\Accomodation;
+use App\Models\Order;
 use App\Models\Room;
 use App\Models\Type;
 use App\Repositories\AccomodationRepository;
@@ -102,21 +103,36 @@ class AccomdationController extends Controller
 
         $booked_date = $notAvailable->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
 
-        $rooms = $rooms->count();
+        $roomsAvailable = $rooms->where('status', 'available')->count();
+        $roomsBooked = $rooms->where('status', 'booked')->count();
+        $roomsStayed = $rooms->where('status', 'stayed')->count();
+        $allRooms = $rooms->count();
+
+        //dd(array_values(array_count_values($stayed_date)));
+
+        $order = Order::where('check_in_date', '>', now());
+
+        dd($order->count());
+
+
+        $stayed_count = array_values(array_count_values($stayed_date));
+        $booked_count = array_values(array_count_values($booked_date));
+
+        //dd($stayed_count[0]);
 
         if(in_array($request->end_date, $booked_date) || in_array($request->start_date, $booked_date)){
-            $rooms = $rooms - 1;
+            $allRooms = $allRooms - $booked_count[0];
         }
 
         if(in_array($request->end_date, $stayed_date)){
-            $rooms = $rooms - 1;
+            $allRooms = $allRooms - $stayed_count[0];
         }
 
-        if($rooms >= 1){
+        if($allRooms >= 1){
             return response()->json([
                 'data' => [
                     'is_available' => true, 
-                    'available_room' => $rooms
+                    'available_room' => $allRooms
                 ]
             ]);
         }
@@ -124,7 +140,7 @@ class AccomdationController extends Controller
         return response()->json([
             'data' => [
                 'is_available' => false, 
-                'available_room' => $rooms
+                'available_room' => $allRooms
             ]
         ]);
 
