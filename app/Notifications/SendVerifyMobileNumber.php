@@ -58,7 +58,7 @@ class SendVerifyMobileNumber extends Notification
         try {
 
         $api_key   = 'ae7d8d1b89b362ed342ee1e1da0e181d4219673f'; // API KEY Anda
-        $id_device = '5746'; // ID DEVICE yang di SCAN (Sebagai pengirim)
+        $id_device = env('WHATSAPP_ID_DEVICE'); // ID DEVICE yang di SCAN (Sebagai pengirim)
         $url   = 'https://api.watsap.id/send-message'; // URL API
         $no_hp = $this->numberFormat(); // No.HP yang dikirim (No.HP Penerima)
         $pesan = "Notifikasi verifikasi nomor telepon!
