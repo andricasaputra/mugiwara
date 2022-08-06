@@ -28,16 +28,27 @@ class GoogleApiController extends Controller
             'password' => bcrypt(env('DEFAULT_PASSWORD'))
         ]);
 
-        $newUser->account()->updateOrCreate(
-            [
-                'avatar' => $request->photo ?? NULL,
-            ],
-            [
-                'refferral_code' => Random::generate(6, 'A-Z'),
-                'point' => 0
-            ]
-        );
-    
+        if($newUser->account()->refferral_code == NULL){
+            $newUser->account()->updateOrCreate(
+                [
+                    'avatar' => $request->photo ?? NULL,
+                ],
+                [
+                    'refferral_code' => Random::generate(6, 'A-Z'),
+                    'point' => 0
+                ]
+            );
+        } else{
+            $newUser->account()->updateOrCreate(
+                [
+                    'avatar' => $request->photo ?? NULL,
+                ],
+                [
+                    'point' => 0
+                ]
+            );
+        }
+
         $token = $newUser->createToken('access_token');
 
         return (new UserResource($newUser))->additional(
