@@ -17,13 +17,11 @@ class AccountUserController extends Controller
 
     public function index()
     {
-        $account = request()->user()->load('account');
+        $account = Account::where('user_id', request()->user()->id)->first();
 
-        return (new AccountResource($account))
-                ->additional([
-                    'status' => 'success',
-                    'message' => 'Detail Akun',
-                ]);
+        return response()->json([
+            'data' => $account
+        ]);
     }
 
     public function update(UpdateAccountRequest $request)
