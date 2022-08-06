@@ -7,6 +7,7 @@ use App\Http\Resources\AccomodationResource;
 use App\Http\Resources\RoomCollection;
 use App\Http\Resources\ShowAccomodationResource;
 use App\Models\Accomodation;
+use App\Models\Order;
 use App\Models\Room;
 use App\Models\Type;
 use App\Repositories\AccomodationRepository;
@@ -74,7 +75,6 @@ class AccomdationController extends Controller
 
     public function status(Request $request)
     {
-
         $request->validate([
             'accomodation_id' => 'required',
             'start_date' => 'required',
@@ -84,39 +84,42 @@ class AccomdationController extends Controller
 
         $type = Type::whereName(request()->room_type)->first();
 
+        $orders = Order::with(['room' => function($query) use($type){
+                        $query->where('type_id', $type->id);
+                    }])->where('accomodation_id', $request->accomodation_id)
+                    ->where('check_in_date', $request->start_date)
+                    ->orWhere('check_in_date', $request->end_date)
+                    ->get();
+
         $rooms = Room::where('accomodation_id', request()->accomodation_id)
             ->where('type_id', $type->id)
             ->get();
 
-        $notAvailable = Room::where('accomodation_id', request()->accomodation_id)
-                    ->where('type_id', $type->id)
-                    ->where('status', '!=' ,'available')
-                    ->get();
+        $stayed_date = $rooms->pluck('stayed_untill')->filter(fn($data) => !is_null($data))->toArray();
 
-        $available = Room::where('accomodation_id', request()->accomodation_id)
-                    ->where('type_id', $type->id)
-                    ->where('status', '!=', 'stayed')
-                    ->get();
+        $booked_date = $rooms->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
 
-        $stayed_date = $notAvailable->pluck('stayed_untill')->filter(fn($data) => !is_null($data))->toArray();
+        $notAvailableRoom = 0;
 
-        $booked_date = $notAvailable->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
-
-        $rooms = $rooms->count();
-
-        if(in_array($request->end_date, $booked_date) || in_array($request->start_date, $booked_date)){
-            $rooms = $rooms - 1;
+        foreach($booked_date as $bk){
+            if($bk == $request->start_date || $bk == $request->end_date){
+                $notAvailableRoom += 1;
+            }   
         }
 
-        if(in_array($request->end_date, $stayed_date)){
-            $rooms = $rooms - 1;
+        foreach($stayed_date as $st){
+            if($st == $request->start_date || $st == $request->end_date){
+                $notAvailableRoom += 1;
+            }   
         }
 
-        if($rooms >= 1){
+        $total = $rooms->count() - $notAvailableRoom - $orders->count();
+
+        if($total >= 1){
             return response()->json([
                 'data' => [
                     'is_available' => true, 
-                    'available_room' => $rooms
+                    'available_room' => $total
                 ]
             ]);
         }
@@ -124,11 +127,9 @@ class AccomdationController extends Controller
         return response()->json([
             'data' => [
                 'is_available' => false, 
-                'available_room' => $rooms
+                'available_room' => $total
             ]
         ]);
-
-        return ;
         
     }
 

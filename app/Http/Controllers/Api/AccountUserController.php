@@ -6,6 +6,7 @@ use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Resources\Account as AccountResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AccountUserController extends Controller
@@ -37,18 +38,9 @@ class AccountUserController extends Controller
                 ]);
             }
 
-            if($user->mobile_number == $request->mobile_number){
-                $data = [
-                     'name' => $request->name,
-                ];
-            } else {
-                $data = [
-                     'name' => $request->name,
-                     'mobile_number' => $request->mobile_number,
-                ];
-            }
-
-            $user->update($data);
+            $request->user()->name = $request->name;
+            $request->user()->mobile_number = $request->mobile_number;
+            $request->user()->save();
             
             $user->account()->update([
                 'gender' => $request->gender,
@@ -62,7 +54,7 @@ class AccountUserController extends Controller
             
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => 'No HP Sudah Terdaftar Sebelumnya'
             ]);
         }
     }
