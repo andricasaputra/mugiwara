@@ -25,7 +25,7 @@ class UpdateAccountRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'mobile_number' => 'required_if:mobile_verified_at,null',
+            'mobile_number' => 'required',
             'gender' => 'required',
             'birth_date' => 'required'
         ];
