@@ -32,7 +32,7 @@ class GoogleApiController extends Controller
         $account = Account::where('user_id', $newUser->id)->first();
 
         if(! $account){
-            Account::crate([
+            Account::create([
                 'user_id' => $newUser->id,
                 'avatar' => $request->photo ?? NULL,
                 'refferral_code' => Random::generate(6, 'A-Z'),
