@@ -6,6 +6,7 @@ use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Resources\Account as AccountResource;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
 
