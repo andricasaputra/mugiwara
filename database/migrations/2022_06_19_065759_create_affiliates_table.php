@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('refferal_code');
-            $table->unsignedBigInteger('device_id')->nullable();
+            $table->string('device_id')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
         });
