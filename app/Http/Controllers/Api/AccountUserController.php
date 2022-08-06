@@ -21,7 +21,7 @@ class AccountUserController extends Controller
         $account = Account::where('user_id', request()->user()->id)->first();
 
         return response()->json([
-            'data' => $account
+            'data' => request()->user()
         ]);
     }
 
