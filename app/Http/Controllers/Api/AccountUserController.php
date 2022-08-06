@@ -38,9 +38,11 @@ class AccountUserController extends Controller
                 ]);
             }
 
-            $request->user()->name = $request->name;
-            $request->user()->mobile_number = $request->mobile_number;
-            $request->user()->save();
+            $user->update($request->validated());
+
+            // $request->user()->name = $request->name;
+            // $request->user()->mobile_number = $request->mobile_number;
+            // $request->user()->save();
             
             $user->account()->update([
                 'gender' => $request->gender,

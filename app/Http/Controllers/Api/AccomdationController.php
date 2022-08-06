@@ -12,6 +12,8 @@ use App\Models\Room;
 use App\Models\Type;
 use App\Repositories\AccomodationRepository;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class AccomdationController extends Controller
 {
@@ -91,6 +93,20 @@ class AccomdationController extends Controller
                     ->orWhere('check_in_date', $request->end_date)
                     ->get();
 
+        $check_in_date = $orders->pluck('check_in_date');
+        $stay_days = $orders->pluck('stay_day');
+        
+        $dates = [];
+        foreach($stay_days as $key => $stay_day){
+            $startDate = Carbon::createFromFormat('Y-m-d', $check_in_date[$key]);
+            $endDate = Carbon::parse($check_in_date[$key])->addDays($stay_day);
+      
+            $dateRange = CarbonPeriod::create($startDate, $endDate);
+       
+            $dates[] = $dateRange->toArray();
+            
+        }
+
         $rooms = Room::where('accomodation_id', request()->accomodation_id)
             ->where('type_id', $type->id)
             ->get();
@@ -100,6 +116,12 @@ class AccomdationController extends Controller
         $booked_date = $rooms->pluck('booked_untill')->filter(fn($data) => !is_null($data))->toArray();
 
         $notAvailableRoom = 0;
+
+        dd(in_array($request->end_date, $dates));
+
+        if(in_array($request->start_date, $dates)){
+            $notAvailableRoom += 1;
+        }
 
         foreach($booked_date as $bk){
             if($bk == $request->start_date || $bk == $request->end_date){
@@ -127,7 +149,7 @@ class AccomdationController extends Controller
         return response()->json([
             'data' => [
                 'is_available' => false, 
-                'available_room' => $total
+                'available_room' => 0
             ]
         ]);
         
