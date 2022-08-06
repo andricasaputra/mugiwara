@@ -117,11 +117,6 @@ class AccomdationController extends Controller
 
         $notAvailableRoom = 0;
 
-        dd(in_array($request->end_date, $dates));
-
-        if(in_array($request->start_date, $dates)){
-            $notAvailableRoom += 1;
-        }
 
         foreach($booked_date as $bk){
             if($bk == $request->start_date || $bk == $request->end_date){
