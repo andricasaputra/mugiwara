@@ -53,7 +53,7 @@ Harap untuk tidak membagikan kode rahasia ini kepada siapapun!
 
 Kode OTP anda adalah : {$this->user->otp_verify_code}
 
-Silahkan kambali ke aplikasi dan masukkan kode OTP diatas."; // Pesan yang dikirim
+Silahkan kembali ke aplikasi dan masukkan kode OTP diatas."; // Pesan yang dikirim
 
         $token = env('WHATSAPP_TOKEN');
         $phone= $no_hp; //untuk group pakai groupid contoh: 62812xxxxxx-xxxxx

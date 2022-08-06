@@ -20,7 +20,8 @@ class RefferralController extends Controller
         try {
 
              $request->validate([
-                'refferral_code' => 'required'
+                'refferral_code' => 'required',
+                'device_id' => 'required',
             ]);
 
             $user_efferral = $request->user()?->account?->refferral_code;
@@ -48,9 +49,18 @@ class RefferralController extends Controller
                 ]);
             }
 
+            $deviceCheck = Affiliate::where('device_id', $request->device_id)->first();
+
+            if($deviceCheck){
+                 return response()->json([
+                    'message' => 'Anda tidak dapat lagi menukarkan kode refferral dengan device ini'
+                ]);
+            }
+
             $affilliate = Affiliate::create([
                 'user_id' => $request->user()->id,
-                'refferal_code' => $request->refferral_code
+                'refferal_code' => $request->refferral_code,
+                'device_id' => $request->device_id
             ]);
 
             $affilliate->affiliatesUser()->create([
@@ -68,13 +78,7 @@ class RefferralController extends Controller
             $acc2->update([
                 'point' => $acc2->point + 60000
             ]);
-
-            // $request->user()->account->point += 60000;
-            // $request->user()->account->save();
-
-            // $account->point += 60000;
-            // $account->save();
-
+            
             $customer = Customer::find($account->user?->id);
 
             Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . 60000 . ' dari pemakaian kode refferral ' . $request->refferral_code));
