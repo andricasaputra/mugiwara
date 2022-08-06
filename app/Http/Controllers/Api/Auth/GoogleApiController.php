@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Models\Account;
 use App\Models\Customer;
-use Socialite;
+use Illuminate\Http\Request;
 use Nette\Utils\Random;
+use Socialite;
 
 class GoogleApiController extends Controller
 {
@@ -28,25 +29,15 @@ class GoogleApiController extends Controller
             'password' => bcrypt(env('DEFAULT_PASSWORD'))
         ]);
 
-        if($newUser->account()->refferral_code == NULL){
-            $newUser->account()->updateOrCreate(
-                [
-                    'avatar' => $request->photo ?? NULL,
-                ],
-                [
-                    'refferral_code' => Random::generate(6, 'A-Z'),
-                    'point' => 0
-                ]
-            );
-        } else{
-            $newUser->account()->updateOrCreate(
-                [
-                    'avatar' => $request->photo ?? NULL,
-                ],
-                [
-                    'point' => 0
-                ]
-            );
+        $account = Account::where('user_id', $newUser->id)->first();
+
+        if(! $account){
+            Account::crate([
+                'user_id' => $newUser->id,
+                'avatar' => $request->photo ?? NULL,
+                'refferral_code' => Random::generate(6, 'A-Z'),
+                'point' => 0
+            ]);
         }
 
         $token = $newUser->createToken('access_token');
