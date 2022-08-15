@@ -5,11 +5,8 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
-use App\Http\Controllers\Admin\HotelCategoryController;
-use App\Http\Controllers\Admin\HotelController;
-use App\Http\Controllers\Admin\HotelOfficeController;
-use App\Http\Controllers\Admin\HotelSubOfficeController;
 use App\Http\Controllers\Admin\OfficeListController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\PostController;
@@ -17,6 +14,7 @@ use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\RefferalController;
+use App\Http\Controllers\Admin\RefundController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
@@ -118,6 +116,18 @@ Route::name('admin.')->group(function() {
 
     Route::resource('promotion', PromotionController::class);
     Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');
+
+    Route::get('refunds', [RefundController::class, 'index'])->name('refund.index');
+    Route::get('refunds/detail/{refund}', [RefundController::class, 'show'])->name('refund.show');
+    Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
+    Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
+
+    Route::get('order', [OrderController::class, 'index'])->name('order.index');
+    Route::get('order/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
+    Route::post('order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
+    require __DIR__.'/setting.php';
+
 
 });
 

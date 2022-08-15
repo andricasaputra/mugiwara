@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\UploadServiceInterface;
 use App\Uploads\FacilityIconUploadService;
+use App\Uploads\PaymentListUploadService;
 use App\Uploads\PhotoProfileUploadService;
 use App\Uploads\PromotionUploadImageService;
 use App\Uploads\RoomUploadImageService;
@@ -23,6 +24,8 @@ class UploadServiceProvider extends ServiceProvider
                 return new RoomUploadImageService;
             }elseif(request()->image_type == 'facility'){
                 return new FacilityIconUploadService;
+            }elseif(request()->image_type == 'payment_list'){
+                return new PaymentListUploadService;
             }elseif(request()->hasFile('photo_profile')){
                  return new PhotoProfileUploadService;
             }elseif(request()->hasFile('promotion_image')){

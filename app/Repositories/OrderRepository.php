@@ -11,6 +11,7 @@ use App\Notifications\Orders\SendOrderCreatedNotifications;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderRepository
 {
@@ -104,7 +105,9 @@ class OrderRepository
 				'discount_type' => $room->discount_type,
 				'discount_percent' => $room->discount_amount,
 				'discount_amount' => $discount_amount,
-				'total_price' => $total_price
+				'total_price' => $total_price,
+				'check_out_date' => Carbon::parse($request->check_in_date)->addDays($request->stay_day),
+				'order_status' => 'booked'
 			]);
 
 			$room = Room::findOrFail($room->id);

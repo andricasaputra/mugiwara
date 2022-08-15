@@ -36,6 +36,7 @@ class OrderResource extends JsonResource
             'check_in_date' => $this->check_in_date,
             'check_in_time' => $this->check_in_time,
             'stay_day' => $this->stay_day,
+            'check_out_date' => $this->check_out_date->format('Y-m-d'),
             'total_guest' => $this->total_guest,
             'normal_price' => $this->normal_price, 
             'discount_type' => $this->discount_type,
@@ -46,6 +47,7 @@ class OrderResource extends JsonResource
 
             'discount_amout' => $this->discount_amount,
             'total_price' => $this->total_price,
+            'order_status' => $this->order_status
         ];
     }
 }

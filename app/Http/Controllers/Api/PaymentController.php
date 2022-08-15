@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentVirtualAccountRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Order;
 use App\Models\Room;
+use App\Models\Setting;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsType;
@@ -235,6 +236,28 @@ class PaymentController extends Controller
             'status' => 'stayed',
             'booked_untill' => null,
             'stayed_untill' => now()->addDays($stay_days)
+        ]);
+    }
+
+    public function tax()
+    {
+        $setting = Setting::where('type', 'tax')->latest()->first();
+
+        if($setting->is_active == 1){
+            return response()->json([
+                'data' => [
+                    'is_active' => true,
+                    'tax' => $setting->value,
+                    'type' => 'percent'
+                ]
+            ]);
+
+        }
+
+        return response()->json([
+            'data' => [
+                'is_active' => false
+            ]
         ]);
     }
 }

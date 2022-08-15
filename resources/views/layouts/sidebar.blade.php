@@ -29,7 +29,7 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#booking" aria-expanded="false" aria-controls="booking">
         <i class="icon-paper menu-icon"></i>
-        <span class="menu-title">Manajemen Booking</span>
+        <span class="menu-title">Manajemen Penginapan</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="booking">
@@ -40,6 +40,13 @@
           <li class="nav-item"> <a class="nav-link" href="{{ route('facilities.index') }}"> Fasilitas Kamar </a></li>
         </ul>
       </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.order.index') }}">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">List Pemesanan</span>
+      </a>
     </li>
 
     <li class="nav-item">
@@ -100,6 +107,14 @@
         <span class="menu-title">Majamen Refferral</span>
       </a>
     </li> 
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.refund.index') }}">
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Refund</span>
+      </a>
+    </li>
+
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.promotion.index') }}">
         <i class="icon-paper menu-icon"></i>
@@ -125,6 +140,21 @@
         <span class="menu-title">Kebijakan Privasi</span>
       </a>
     </li> 
+
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting">
+        <i class="icon-head menu-icon"></i>
+        <span class="menu-title">Setting</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="setting">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.point.index') }}"> Poin </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.payment') }}"> List Metode Pembayaran </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.tax') }}"> Pajak </a></li>
+        </ul>
+      </div>
+    </li>
     {{-- <li class="nav-item">
       <a class="nav-link" href="pages/documentation/documentation.html">
         <i class="icon-paper menu-icon"></i>

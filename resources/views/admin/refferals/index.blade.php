@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
                 <h4 class="card-title align-items-center my-auto">Daftar Refferal</h4>
-                <a href="" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Refferal</a>
+               {{--  <a href="" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Refferal</a> --}}
             </div>
             <div class="card-body">
                 <table id="mytable" class="table table-striped text-center">

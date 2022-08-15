@@ -22,7 +22,9 @@ class Order extends Model
         'discount_type',
         'discount_percent',
         'discount_amount',
-        'total_price'
+        'total_price',
+        'check_out_date',
+        'order_status'
     ];
 
     public function accomodation()
@@ -43,6 +45,11 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    public function refund()
+    {
+        return $this->hasOne(Refund::class);
     }
 
     public function isPaid() : bool

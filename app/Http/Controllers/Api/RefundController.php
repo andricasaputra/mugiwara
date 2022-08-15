@@ -9,6 +9,7 @@ use App\Models\Refund;
 use App\Models\RefundReason;
 use Illuminate\Http\Request;
 use Nette\Utils\Random;
+use Illuminate\Support\Facades\DB;
 
 class RefundController extends Controller
 {
@@ -39,21 +40,41 @@ class RefundController extends Controller
             ], 403);
         }
 
-        $refund = Refund::create([
-            'user_id' => $request->user()->id,
-            'order_id' => $order->id,
-            'payment_id' => $order->payment?->id,
-            'status' => 'Diproses',
-            'reason_id' => $request->reason,
-            'detail' => $request->detail,
-            'refund_request_date' => now(),
-            'refund_number' => Random::generate(12, 1234567890),
-        ]);
+        DB::beginTransaction();
 
-        return response()->json([
-            'data' => $refund->load('reason'),
-            'message' => 'Permohonan refund sedang diproses'
-        ]);
+        try {
+
+            $refund = Refund::create([
+                'user_id' => $request->user()->id,
+                'order_id' => $order->id,
+                'payment_id' => $order->payment?->id,
+                'status' => 'Diproses',
+                'reason_id' => $request->reason,
+                'detail' => $request->detail,
+                'refund_request_date' => now(),
+                'refund_number' => Random::generate(12, 1234567890),
+            ]);
+
+            $order = Order::findOrFail($order->id);
+
+            $order->update([
+                'order_status' => 'refund'
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'data' => $refund->load(['reason', 'payment']),
+                'message' => 'Permohonan refund sedang diproses'
+            ]);
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     public function reason()

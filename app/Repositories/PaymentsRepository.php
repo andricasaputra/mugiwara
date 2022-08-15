@@ -96,12 +96,13 @@ class PaymentsRepository
                 $list['image'] = url('/storage/payments/dana.png');
             }
 
-            PaymentList::updateOrCreate(
-            	[
+            $check = PaymentList::where('business_id', $list['business_id'])
+            			->where('name', $list['name'])->first();
+
+            if(! $check){
+            	PaymentList::create([
             		'business_id' => $list['business_id'],
             		'name' => $list['name'],
-            	],
-            	[
             		'is_livemode' => $list['is_livemode'],
             		'channel_code' => $list['channel_code'],
             		'business_id' => $list['business_id'],
@@ -110,10 +111,10 @@ class PaymentsRepository
             		'is_enabled' => $list['is_enabled'],
             		'is_active' => true,
             		'image' => $list['image'] ??  NULL,
-            	]
-        	);
+            	]);
+            }
        }
 
-       return PaymentList::whereNotNull('image')->get();
+       return PaymentList::where('is_active', 1)->get();
 	}
 }

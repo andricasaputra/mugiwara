@@ -82,6 +82,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('orders/ticket/{order}', [OrderController::class, 'ticket']);
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);
+        Route::get('payments/tax', [PaymentController::class, 'tax']);
         Route::get('payments/callback/success', [PaymentController::class, 'status']);
         Route::post('payments/ewallet/create', [PaymentController::class, 'createEwallet']);
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);

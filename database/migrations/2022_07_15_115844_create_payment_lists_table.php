@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('currency');
             $table->string('channel_category');
             $table->boolean('is_enabled')->default(false);
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
