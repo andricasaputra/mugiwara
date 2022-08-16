@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Models\PaymentList;
 use App\Models\Payments\Ewallet;
 use App\Models\Payments\VirtualAccount;
+use App\Models\Setting;
 use App\Repositories\PaymentsType;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
@@ -16,6 +17,8 @@ class PaymentsRepository
 	{
 		$type  = new PaymentsType();
 		$type = $type->create($request, $order, $payment);
+
+		$setting = Setting::where('type', 'payment_expired')->latest()->first();
 
 		return $type->payment()->updateOrCreate(
 			[
@@ -34,6 +37,7 @@ class PaymentsRepository
 				'discount_amount' => $request->discount_amount ??= NULL,
 				'tax' => $request->tax ??= NULL,
 				'status' => $payment['status'],
+				'expired_at' => now()->addHours($setting->value ?? 2),
 			]
 		);
 	}

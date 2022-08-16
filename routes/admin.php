@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
+use App\Http\Controllers\Admin\FinanceController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -125,6 +126,8 @@ Route::name('admin.')->group(function() {
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
     Route::get('order/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
     Route::post('order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
+    Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 
     require __DIR__.'/setting.php';
 

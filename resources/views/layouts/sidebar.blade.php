@@ -50,6 +50,20 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#keuangan" aria-expanded="false" aria-controls="keuangan">
+        <i class="icon-head menu-icon"></i>
+        <span class="menu-title">Manajemen Keuangan</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="keuangan">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.finance.index') }}"> Keuangan </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('users.customer') }}"> Invoices </a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link" href="{{ route('offices.index') }}">
         <i class="icon-grid menu-icon"></i>
         <span class="menu-title">Manajemen Info Kantor</span>
@@ -104,7 +118,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.refferals.index') }}">
         <i class="icon-paper menu-icon"></i>
-        <span class="menu-title">Majamen Refferral</span>
+        <span class="menu-title">Manajemen Refferral</span>
       </a>
     </li> 
 

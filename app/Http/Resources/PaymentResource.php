@@ -57,6 +57,7 @@ class PaymentResource extends JsonResource
 
             "updated_at" => $this->updated_at,
             "created_at" => $this->created_at,
+            "expired_at" => $this->expired_at,
             
         ];
     }
