@@ -34,7 +34,7 @@ class VoucherSeeder extends Seeder
                 'max_uses_user' => 1,
                 'type' => 'voucher',
                 'category' => Arr::random(['menarik', 'rekomendasi']),
-                'image' => Arr::random(['vouchers/voucher_1.png', 'vouchers/voucher_2.png', 'vouchers/voucher_3.png', 'vouchers/voucher_4.png']) ,
+                'image' => Arr::random(['voucher_1.png', 'voucher_2.png', 'voucher_3.png', 'voucher_4.png']) ,
                 'discount_amount' => $discount == 'fixed' ? $fixed_disc : NULL,
                 'discount_percent' => $discount == 'percent' ? $percent_disc : NULL,
                 'discount_type' => $discount,

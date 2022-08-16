@@ -14,7 +14,7 @@ class VoucherController extends Controller
     {
         $vouchers = Voucher::when(request()->q, function($vouchers) {
             $vouchers->where('name', 'like', '%'.request()->q.'%')->orWhere('description', 'like', '%'.request()->q.'%');
-        })->get();
+        })->latest()->get();
         return view('admin.voucher.index', compact('vouchers'));
     }
     public function create()
@@ -44,7 +44,7 @@ class VoucherController extends Controller
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('vouchers/'.$namaImage, file_get_contents($img->getRealPath()));
         }
         Voucher::create([
             'code' => $request->code,

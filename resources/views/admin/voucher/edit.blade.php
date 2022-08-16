@@ -77,7 +77,7 @@
                     <div class="col-lg-6 col-sm-12 {{ $voucher->discount_type == 'fixed' ? 'd-none' : '' }}" id="containerPercent">
                         <div class="form-group">
                             <label for="discount_percent">Jumlah Diskon ( % )</label>
-                            <input type="number" name="discount_percent" id="discount_percent" class="form-control" value="{{ $voucher->discount_percent }}" required>
+                            <input type="number" name="discount_percent" id="discount_percent" class="form-control" value="{{ $voucher->discount_percent }}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 {{ $voucher->discount_type == 'percent' ? 'd-none' : '' }}" id="containerFixed">

@@ -125,7 +125,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">No order available</td> 
+                                                    <td colspan="11">No order available</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>
