@@ -40,6 +40,7 @@ class UserOrderResource extends JsonResource
             "total_price" => $this->total_price,
             "created_at" => $this->created_at,
             "booking_status" => $status,
+            'order_status' => $this->order_status,
             "payment" => $this->payment,
             "room" => new RoomResource($this->room),
             ];

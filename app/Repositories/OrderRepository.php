@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Xendit\Xendit;
 
 class OrderRepository
 {
@@ -138,4 +139,60 @@ class OrderRepository
 
 		return $payment;
 	}
+
+	public function createInvoices()
+	{
+
+		Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
+
+		$params = ['external_id' => 'demo_147580196270',
+		    'payer_email' => 'sample_email@xendit.co',
+		    'description' => 'Trip to Bali',
+		    'amount' => 32000,
+		    'for-user-id' => '5c2323c67d6d305ac433ba20'
+		];
+
+		$createInvoice = \Xendit\Invoice::create($params);
+		dd($createInvoice);
+	}
+
+	public function createInvoice($args) {
+        Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
+
+        $date = new \DateTime();
+        $redirectUrl = '';
+        $defParams = [
+            'external_id' => 'native8-checkout-demo-' . $date->getTimestamp(),
+            'payer_email' => 'invoice+demo@xendit.co', 
+            'description' => 'Vanilla PHP Checkout Demo', 
+            'failure_redirect_url' => $redirectUrl, 
+            'success_redirect_url' => $redirectUrl
+        ];
+
+        $defParams['failure_redirect_url'] = $args['redirect_url'];
+        $defParams['success_redirect_url'] = $args['redirect_url'];
+        $post = [];
+
+        foreach ($args as $k => $v) {
+            $post[$k] = $v;
+        }
+        
+        $params = array_merge($defParams, $post);
+
+        // return json_encode($params);
+
+        header('Content-Type: application/json');
+        $response = [];
+
+        try {
+            Xendit::setApiKey($apiKey);
+
+            $response = \Xendit\Invoice::create($params);
+        } catch (\Exception $e) {
+            http_response_code($e->getCode());
+            $response['message'] = $e->getMessage();
+        }
+
+        return json_encode($response);
+    }
 }

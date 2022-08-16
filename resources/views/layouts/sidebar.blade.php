@@ -58,7 +58,8 @@
       <div class="collapse" id="keuangan">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.finance.index') }}"> Keuangan </a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ route('users.customer') }}"> Invoices </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.finance.transaction.list') }}"> Transaksi </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.finance.invoices') }}"> Invoices </a></li>
         </ul>
       </div>
     </li>

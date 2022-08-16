@@ -186,6 +186,8 @@ class PaymentController extends Controller
         //Update room status
         $this->updateRoomStatus($order->room_id, $order->stay_day);
 
+        $this->createInvoices($payment->toArray());
+
         return response()->json(['data' => $payment]);
     }
 
@@ -259,5 +261,21 @@ class PaymentController extends Controller
                 'is_active' => false
             ]
         ]);
+    }
+
+    public function createInvoices($payment)
+    {//dd($payment);
+
+        Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
+
+        $params = ['external_id' => 'va-97cc4371-6b0d-4e1f-9ea6-f9e9f94858bc',
+            'payer_email' => 'sample_email@xendit.co',
+            'description' => 'Trip to Bali',
+            'amount' => 32000,
+            'for-user-id' => '5c2323c67d6d305ac433ba20'
+        ];
+
+        $createInvoice = \Xendit\Invoice::create($params);
+        dd($createInvoice);
     }
 }

@@ -7,6 +7,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
+
+                	<div class="row">
+				      <div class="col-md-6 mb-4 stretch-card transparent">
+				        <div class="card card-tale">
+				          <div class="card-body">
+				            <p class="mb-4">Saldo Xendit</p>
+				            <p class="fs-30 mb-2">{{ $balance }}</p>
+				            {{-- <p>10.00% (30 days)</p> --}}
+				          </div>
+				        </div>
+				      </div>
+				      <div class="col-md-6 mb-4 stretch-card transparent">
+				        <div class="card card-dark-blue">
+				          <div class="card-body">
+				            <p class="mb-4">Total Bookings</p>
+				            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
+				            {{-- <p>22.00% (30 days)</p> --}}
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -20,9 +42,13 @@
                                     <table id="mytable" class="display expandable-table text-center" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Point</th>
-                                                <th>Kegunaan</th>
-                                                <th>status</th>
+                                                <th>Order ID</th>
+                                                <th>User</th>
+                                                <th>Jumlah Pembayaran</th>
+                                                <th>Voucher</th>
+                                                <th>Jumlah Diskon</th>
+                                                <th>Pajak</th>
+                                                <th>Status Pembayaran</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -30,17 +56,36 @@
                                             @forelse ($payments as $payment)
                                                 <tr>
 
-                                                    <td>{{ $payment->value }}</td>
-
-                                                    <td>{{ $payment->name }} </td>
-
-
-                                                    <td style="font-weight: bold; {{ $payment->is_active == 1 ? 'color : green' : 'color : red' }}">{{ $payment->is_active == 1 ? 'Aktif' : 'Non Aktif' }} </td>
+                                                    <td>{{ $payment->order_id }}</td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.finance.edit', $payment->id) }}" class="btn btn-success">Edit</a>
+                                                    	{{ ucfirst($payment->user?->name) }} 
 
-                                                        <a href="{{ route('admin.finance.destroy', $payment->id) }}" class="btn btn-danger">Delete</a>
+                                                    	<br>
+
+                                                    	{{ $payment->user?->email }}
+                                                    </td>
+
+                                                    <td>{{ $payment->amount }} </td>
+
+                                                    <td>
+                                                    	{{ $payment->voucher?->name ?? '-' }}
+
+                                                    	<br>
+
+                                                    	{{ $payment->voucher?->discount_amount }}  
+                                                    </td>
+
+                                                    <td>{{ $payment->discount_amount ?? '0' }} </td>
+
+                                                    <td>{{ $payment->tax ?? '0' }} </td>
+
+                                                    <td>{{ $payment->status }} </td>
+
+                                                    <td>
+
+                                                    	<a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success">Detail</a>
+
                                                     </td>
                                                 </tr>
                                             @empty

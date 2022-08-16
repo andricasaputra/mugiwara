@@ -55,7 +55,7 @@
                     <tr>
                         <td>Gambar</td>
                         <td>:</td>
-                        <td><a href="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $voucher->image) }}" style="height:100px;width:100px;border-radius:0;"></a></td>
+                        <td><a href="{{ Storage::disk('public')->url('vouchers/'. $voucher->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('vouchers/'. $voucher->image) }}" width="200"></a></td>
                     </tr>
                     <tr>
                         <td>Voucher Berlaku Pada</td>

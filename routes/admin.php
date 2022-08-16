@@ -129,6 +129,18 @@ Route::name('admin.')->group(function() {
 
     Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 
+    Route::get('finance/detail/{payment}', [FinanceController::class, 'paymentDetail'])->name('finance.detail');
+
+    Route::get('finance/balace', [FinanceController::class, 'getBalance'])->name('finance.balance');
+
+    Route::get('finance/transaction/list/{page?}/{limit?}/{link?}', [FinanceController::class, 'transaction'])->name('finance.transaction.list');
+
+
+    Route::get('finance/transaction/detail/{id}', [FinanceController::class, 'transactionDetail'])->name('finance.transaction.detail');
+
+    Route::get('finance/invoices', [FinanceController::class, 'allInvoices'])->name('finance.invoices');
+
+
     require __DIR__.'/setting.php';
 
 
