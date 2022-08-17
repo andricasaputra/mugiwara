@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Nette\Utils\Random;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -25,38 +26,54 @@ class RegisterController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = Customer::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile_number' => $request->mobile_number,
-            'otp_verify_code' => Random::generate(6, 1234567890),
-            'mobile_attempts_left' => 0,
-            'password' => Hash::make($request->password),
-            'type' => 'customer',
-        ]);
+        DB::beginTransaction();
 
-        $user->account()->create([
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
-            'refferral_code' => Random::generate(6, 'A-Z'),
-            'avatar' => $request->gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
-            'point' => 0
-        ]);
+        try {
 
-        $token = $user->createToken('access_token');
-        
-        //event(new CustomRegistered($user));
-        event(new Registered($user));
+            $user = Customer::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile_number' => $request->mobile_number,
+                'otp_verify_code' => Random::generate(6, 1234567890),
+                'mobile_attempts_left' => 0,
+                'password' => Hash::make($request->password),
+                'type' => 'customer',
+            ]);
 
-        return (new UserResource($user))->additional(
-            [
-                'data' => [
-                    'token' => $token->plainTextToken,
-                    'message' => 'silahkan lakukan verifikasi alamat email anda',
-                    'verifcation_url' => route('api.otp.verification'),
-                    'resend_email_url' => route('api.otp.verification.resend.email')
-                ],
-            ]
-        );
+            $user->account()->create([
+                'gender' => $request->gender,
+                'birth_date' => $request->birth_date,
+                'refferral_code' => Random::generate(6, 'A-Z'),
+                'avatar' => $request->gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
+                'point' => 0
+            ]);
+
+            $token = $user->createToken('access_token');
+            
+            //event(new CustomRegistered($user));
+            event(new Registered($user));
+
+            DB::commit();
+
+            return (new UserResource($user))->additional(
+                [
+                    'data' => [
+                        'token' => $token->plainTextToken,
+                        'message' => 'silahkan lakukan verifikasi alamat email anda',
+                        'verifcation_url' => route('api.otp.verification'),
+                        'resend_email_url' => route('api.otp.verification.resend.email')
+                    ],
+                ]
+            );
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+            
+        }
     }
 }
