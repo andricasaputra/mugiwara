@@ -86,6 +86,9 @@ class PoinController extends Controller
                 'voucher_id' => $request->voucher_id,
                 'before' => $account->point,
                 'after' => $pointAfter,
+                'mutation' => $account->point - $pointAfter,
+                'type' => 'point_out',
+                'description' => 'penukaran voucher',
                 'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
             ]);
 

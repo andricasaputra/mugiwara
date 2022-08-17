@@ -25,7 +25,6 @@ trait HasPointSetting
    {
         $request->validate([
             "name" => "required",
-            "is_active" => "required",
             "value" => "required"
         ]);
 
@@ -45,7 +44,6 @@ trait HasPointSetting
    {
         $request->validate([
             "name" => "required",
-            "is_active" => "required",
             "value" => "required"
         ]);
 

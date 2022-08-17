@@ -43,6 +43,6 @@ class UserOrderResource extends JsonResource
             'order_status' => $this->order_status,
             "payment" => $this->payment,
             "room" => new RoomResource($this->room),
-            ];
+        ];
     }
 }

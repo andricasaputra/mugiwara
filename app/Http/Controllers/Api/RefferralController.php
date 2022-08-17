@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\AccountPoint;
 use App\Models\Affiliate;
 use App\Models\Customer;
 use App\Models\Setting;
@@ -11,6 +12,7 @@ use App\Notifications\ReferralCodeUsedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Nette\Utils\Random;
 
 class RefferralController extends Controller
 {
@@ -69,29 +71,57 @@ class RefferralController extends Controller
                 'user_id' => $account->user?->id
             ]);
 
+
             $acc1 = Account::where('user_id', $request->user()->id)->first();
             $acc2 = Account::where('id', $account->id)->first();
 
-            $point = Setting::where('name', 'point_refferral')->first();
+            $point = Setting::where('name', 'point_refferral')->where('is_active', 1)->first();
+
+            if(! $point){
+                $point = 0;
+            } else {
+                $point = $point->value;
+            }
 
             $acc1->update([
-                'point' => $acc1->point + $point->value
+                'point' => $acc1->point + $point
             ]);
 
             $acc2->update([
-                'point' => $acc2->point + $point->value
+                'point' => $acc2->point + $point
+            ]);
+
+             AccountPoint::insert([
+               [
+                    'user_id' => $request->user()->id,
+                    'before' => $acc1->point,
+                    'after' => $acc1->point + $point,
+                    'mutation' => $point,
+                    'type' => 'point_in',
+                    'description' => 'penukaran kode refferral',
+                    'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
+               ],
+               [
+                    'user_id' => $account->user?->id,
+                    'before' => $acc2->point,
+                    'after' => $acc2->point + $point,
+                    'mutation' => $point,
+                    'type' => 'point_in',
+                    'description' => 'penukaran kode refferral',
+                    'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
+               ],
             ]);
             
             $customer = Customer::find($account->user?->id);
 
-            Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point->value . ' dari pemakaian kode refferral ' . $request->refferral_code));
+            Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
-            Notification::send($customer, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point->value . ' dari pemakaian kode refferral ' . $request->refferral_code));
+            Notification::send($customer, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
             DB::commit();
 
             return response()->json([
-                'message' => 'Success, selamat anda mendapatkan ' . $point->value . ' poin'
+                'message' => 'Success, selamat anda mendapatkan ' . $point . ' poin'
             ]);
             
         } catch (\Exception $e) {

@@ -12,7 +12,13 @@
       
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      @include('layouts.sidebar')
+      @role('admin')
+        @include('layouts.sidebar_admin')
+      @endrole
+
+      @role('employee')
+        @include('layouts.sidebar')
+      @endrole  
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">

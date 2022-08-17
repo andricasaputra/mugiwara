@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Http;
 use Xendit\Xendit;
 
@@ -73,7 +72,6 @@ class FinanceController extends Controller
                 $prevLink = url(route('admin.finance.transaction.list', [$pages - 1, substr($transactions['links'][0]['href'], 1)]));
 
             }
-
             
             $nextLink = url(route('admin.finance.transaction.list', [$pages + 1, substr($transactions['links'][0]['href'], 1)]));
         

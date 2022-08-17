@@ -93,6 +93,8 @@ class PaymentController extends Controller
         // create payment to databse
         $payment = $this->payment->create($payments, $order, $request);
 
+        //$this->createInvoices($payment->toArray());
+
         return new PaymentResource($payment);
     }
 
@@ -151,6 +153,8 @@ class PaymentController extends Controller
         // create payment to databse
         $create = $this->payment->create($payments, $order, $request);
 
+        //$this->createInvoices($create->toArray());
+
         return new PaymentResource($create);
     }
 
@@ -185,8 +189,6 @@ class PaymentController extends Controller
 
         //Update room status
         $this->updateRoomStatus($order->room_id, $order->stay_day);
-
-        $this->createInvoices($payment->toArray());
 
         return response()->json(['data' => $payment]);
     }
@@ -264,15 +266,17 @@ class PaymentController extends Controller
     }
 
     public function createInvoices($payment)
-    {//dd($payment);
+    {
 
         Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
 
-        $params = ['external_id' => 'va-97cc4371-6b0d-4e1f-9ea6-f9e9f94858bc',
+        dd($payment);
+
+
+        $params = ['external_id' => $payment->booking_code,
             'payer_email' => 'sample_email@xendit.co',
             'description' => 'Trip to Bali',
-            'amount' => 32000,
-            'for-user-id' => '5c2323c67d6d305ac433ba20'
+            'amount' => 32000
         ];
 
         $createInvoice = \Xendit\Invoice::create($params);

@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('account_points', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger( 'user_id' );
-            $table->unsignedBigInteger( 'voucher_id' );
+            $table->unsignedBigInteger( 'voucher_id' )->nullable();
             $table->bigInteger('before');
             $table->bigInteger('after');
+            $table->string('mutation')->nullable();
+            $table->string('type')->nullable();
+            $table->string('description')->nullable();
             $table->string('transaction_number')->nullable();
             $table->timestamps();
 

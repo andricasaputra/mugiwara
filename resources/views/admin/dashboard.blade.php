@@ -30,10 +30,10 @@
 <div class="row">
   <div class="col-md-6 grid-margin stretch-card">
     <div class="card tale-bg">
-      <div class="card-people mt-auto">
-        <img src="{{ asset('assets/images/dashboard/people.svg') }}" alt="people">
+      <div class="card-people mt-0">
+        <img src="{{ asset('storage/misc/hotel.png') }}" alt="people">
         <div class="weather-info">
-          <div class="d-flex">
+          {{-- <div class="d-flex">
             <div>
               <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
             </div>
@@ -41,28 +41,36 @@
               <h4 class="location font-weight-normal">Bangalore</h4>
               <h6 class="font-weight-normal">India</h6>
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-6 grid-margin transparent">
     <div class="row">
       <div class="col-md-6 mb-4 stretch-card transparent">
         <div class="card card-tale">
-          <div class="card-body">
-            <p class="mb-4">Today’s Bookings</p>
-            <p class="fs-30 mb-2">4006</p>
-            <p>10.00% (30 days)</p>
-          </div>
+          <a href="{{ route('admin.point.index') }}" style="text-decoration: none; color: #fff">
+            <div class="card-body">
+              <p class="mb-2">Total Point</p>
+              <p class="fs-10 mb-2">
+                
+                  {{ number_format($points->first()?->total_point, 2, ',', '.') }}
+                
+              </p>
+              <p>Dari {{ $points->first()?->total_account }} Akun</p>
+            </div>
+          </a>
         </div>
       </div>
-      <div class="col-md-6 mb-4 stretch-card transparent">
+      <div class="col-md-6 mb-2 stretch-card transparent">
         <div class="card card-dark-blue">
           <div class="card-body">
-            <p class="mb-4">Total Bookings</p>
-            <p class="fs-30 mb-2">61344</p>
-            <p>22.00% (30 days)</p>
+            <p class="mb-2">Point Masuk : {{ $pointins->count() }}</p>
+            <p class="mb-2">Point Keluar : {{ $pointouts->count() }}</p>
+            
+           {{--  <p>22.00% (30 days)</p> --}}
           </div>
         </div>
       </div>
@@ -71,18 +79,18 @@
       <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
         <div class="card card-light-blue">
           <div class="card-body">
-            <p class="mb-4">Number of Meetings</p>
-            <p class="fs-30 mb-2">34040</p>
-            <p>2.00% (30 days)</p>
+            <p class="mb-4">Total Pesanan</p>
+            <p class="fs-30 mb-2">{{ $bookings->count() }}</p>
+            {{-- <p>2.00% (30 days)</p> --}}
           </div>
         </div>
       </div>
       <div class="col-md-6 stretch-card transparent">
         <div class="card card-light-danger">
           <div class="card-body">
-            <p class="mb-4">Number of Clients</p>
-            <p class="fs-30 mb-2">47033</p>
-            <p>0.22% (30 days)</p>
+            <p class="mb-4">Pesanan Hri Ini</p>
+            <p class="fs-30 mb-2">{{ $todaybookings->count() }}</p>
+           {{--  <p>0.22% (30 days)</p> --}}
           </div>
         </div>
       </div>
