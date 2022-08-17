@@ -70,8 +70,6 @@ class AccomodationController extends Controller
             
         } catch (\Exception $e) {
 
-            dd($e);
-
             DB::rollback();
 
             return back()->withErrors('Gagal tambah data, error : ' . $e->getMessage());

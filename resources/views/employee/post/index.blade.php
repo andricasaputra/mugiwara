@@ -43,7 +43,7 @@
                             <td>
                                 {{ $string }}
                             </td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $post->image) }}" width="100"></a></td>
+                            <td><a href="{{ Storage::disk('public')->url('posts/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('posts/'. $post->image) }}" width="100"></a></td>
                             <td>{{ $post->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
                                 <div class="d-flex flex-column">
