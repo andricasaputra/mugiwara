@@ -45,7 +45,6 @@
                             <td>
                                 <div class="d-flex flex-column">
                                    <a href="{{ route('admin.promotion.edit', $promotion->id) }}" class="btn btn-warning btn-sm mb-3">Ubah</a>
-                                    <a href="{{ route('admin.promotion.show', $promotion->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
                                     <form action="{{ route('admin.promotion.destroy', $promotion->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

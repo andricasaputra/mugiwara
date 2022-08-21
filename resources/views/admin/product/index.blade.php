@@ -32,6 +32,7 @@
                         <th>Deskripsi</th>
                         <th>Stok</th>
                         <th>Point Yang Dibutuhkan</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -43,6 +44,7 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->point_needed }}</td>
+                            <td><img src="{{ url('storage/products/' . $product->image?->image) }}" alt="product" width="100"></td>
                             <td>
                                 <table>
                                     <tr>

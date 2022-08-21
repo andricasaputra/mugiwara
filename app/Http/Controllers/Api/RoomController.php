@@ -21,6 +21,6 @@ class RoomController extends Controller
 
     public function list(Request $request)
     {
-        return Room::where('accomodation_id', $request->id)->get();
+        return Room::with('type')->where('accomodation_id', $request->id)->get();
     }
 }

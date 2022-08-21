@@ -16,8 +16,8 @@ class Affiliate extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function affiliatesUser()
+    public function followers()
     {
-        return $this->belongsTo(AffiliateUser::class);
+        return $this->hasMany(AffiliateUser::class, 'affiliates_id');
     }
 }

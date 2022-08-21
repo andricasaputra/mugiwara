@@ -28,7 +28,7 @@
 
                         <div class="form-group">
                             <div style="padding: 0 100px" class="d-flex justify-content-start">
-                                <img src="{{ asset('images/facilities/') . '/' . $facility->image }}" alt="icon">
+                                <img src="{{ asset('storage/facilities/') . '/' . $facility->image }}" alt="icon">
                             </div>
                             <label for="name">upload Icon</label>
                             <input name="image" type="file" class="form-control form-control-lg">

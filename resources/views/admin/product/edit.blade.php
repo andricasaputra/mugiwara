@@ -39,6 +39,15 @@
                             <input type="number" class="form-control" id="point_needed" name="point_needed" value="{{ $product->point_needed }}" required>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="photo_product">Gambar Produk</label>
+                            <div>
+                                <img src="{{ url('storage/products/' . $product->image?->image) }}" alt="" width="100">
+                            </div>
+                            <input type="file" class="form-control" name="photo_product" required>
+                        </div>
+                    </div>
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <a href="{{ route('admin.product.index') }}" class="btn btn-light">Kembali</a>

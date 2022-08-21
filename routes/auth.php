@@ -49,7 +49,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('notify-verify-mobile', [MobileNumberVerificationNotificationController::class, '__invoke'])
                 ->name('verification.mobile');
 
-    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, 'verify'])
                 ->middleware(['signed', 'throttle:6,1'])
                 ->name('verification.verify');
 
@@ -64,6 +64,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('resend-verify-mobile', [VerifyMobileController::class, 'resend'])
                 ->middleware(['throttle:4,1'])
                 ->name('verification.mobile.verify.resend');
+
+    Route::post('resend-verify-email', [VerifyEmailController::class, 'resend'])
+                ->middleware(['throttle:4,1'])
+                ->name('verification.email.verify.resend');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')

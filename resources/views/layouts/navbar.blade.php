@@ -7,6 +7,7 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
+
        {{--  <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-search d-none d-lg-block">
             <div class="input-group">
@@ -20,27 +21,73 @@
           </li>
         </ul> --}}
         <ul class="navbar-nav navbar-nav-right">
+
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
+              @if(auth()->user()->notifications->filter(function($notification){
+                return $notification->read_at == null;
+              })->count() > 0)
               <span class="count"></span>
+              @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-success">
-                    <i class="ti-info-alt mx-0"></i>
+
+              @forelse(auth()->user()->notifications as $notification)
+
+                @role('admin')
+
+                  <a href="{{ route('admin.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
+
+                @else
+
+                  <a href="{{ route('employee.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
+
+                @endrole
+
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="ti-info-alt mx-0"></i>
+                    </div>
                   </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Just now
-                  </p>
-                </div>
-              </a>
+                  <div class="preview-item-content">
+                    <h5 class="preview-subject font-wei5ht-normal">{{ $notification->data['title'] }}</h5>
+                    <h6>
+                      Order Id : {{ $notification->data['order']['id'] }}
+                    </h6>
+                    <p class="font-weight-light small-text mb-0 text-muted">
+                      {{ $notification->created_at->diffForHumans() }}
+                       
+                    </p>
+                    @if(is_null($notification->read_at))
+                        <small style="color: red; font-weight: bold">Belum Dibaca</small>
+                    @else
+                      <small style="color: green">Dibaca</small>
+                      @endif
+                  </div>
+                </a>
+
+              @empty
+
               <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="ti-info-alt mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Tidak Ada Notifikasi</h6>
+                    {{-- <p class="font-weight-light small-text mb-0 text-muted">
+                      Just now
+                    </p> --}}
+                  </div>
+                </a>
+
+              @endforelse
+
+              
+              {{-- <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-warning">
                     <i class="ti-settings mx-0"></i>
@@ -65,18 +112,30 @@
                     2 days ago
                   </p>
                 </div>
-              </a>
+              </a> --}}
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{{ asset('assets/images/faces/face28.jpg') }}" alt="profile"/>
+              <img src="{{ asset('storage/avatars/' . auth()->user()->account?->avatar) }}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
-              </a>
+              
+              @role('admin')
+
+                  <a href="{{ route('users.edit', auth()->id()) }}" class="dropdown-item">
+                    <i class="ti-settings text-primary"></i>
+                    Settings Profile
+                  </a>
+
+              @else
+
+                 <a href="{{ route('users.edit.employee', auth()->id()) }}" class="dropdown-item">
+                    <i class="ti-settings text-primary"></i>
+                    Settings Profile
+                  </a>
+
+              @endrole
              
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -89,11 +148,11 @@
               
             </div>
           </li>
-          <li class="nav-item nav-settings d-none d-lg-flex">
+         {{--  <li class="nav-item nav-settings d-none d-lg-flex">
             <a class="nav-link" href="#">
               <i class="icon-ellipsis"></i>
             </a>
-          </li>
+          </li> --}}
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>

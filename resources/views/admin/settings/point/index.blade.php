@@ -23,6 +23,7 @@
                                             <tr>
                                                 <th>Point</th>
                                                 <th>Kegunaan</th>
+                                                <th>Tipe Poin</th>
                                                 <th>status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -31,9 +32,11 @@
                                             @forelse ($points as $point)
                                                 <tr>
 
-                                                    <td>{{ $point->value }}</td>
+                                                    <td>{{ $point->value }}  {{ $point->point_type == 'percent' ? '%' : '' }}</td>
 
-                                                    <td>{{ $point->name }} </td>
+                                                    <td>{{ ucwords(str_replace("_", " ", $point->name)) }} </td>
+
+                                                    <td>{{ $point->point_type }} </td>
 
 
                                                     <td style="font-weight: bold; {{ $point->is_active == 1 ? 'color : green' : 'color : red' }}">{{ $point->is_active == 1 ? 'Aktif' : 'Non Aktif' }} </td>

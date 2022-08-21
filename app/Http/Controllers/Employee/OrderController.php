@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->where('accomodation_id', auth()->user()->office?->id)->get();
+        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->where('accomodation_id', auth()->user()->office?->accomodation_id)->get();
 
         return view('admin.order.index')->withOrders($orders);
     }

@@ -30,6 +30,21 @@
 				    </div>
 
                     <hr>
+                        <div>
+                            <form class="form-inline" action="{{ route('admin.payment.export.excel') }}" method="post">
+                              <div class="form-group mb-2">
+                                @csrf
+                                <label for="from" class="sr-only">Dari</label>
+                                <input type="date" class="form-control-plaintext" name="from" required>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                <label for="to" class="sr-only">Sampai</label>
+                                <input type="date" class="form-control" name="to" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary mb-2">Export Excel</button>
+                            </form>
+                        </div>
+                    <hr>
                     <div class="table-responsive">
                         <div class="row">
                           <div class="col-md-12 grid-margin stretch-card">
@@ -84,13 +99,15 @@
 
                                                     <td>
 
-                                                    	<a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success">Detail</a>
+                                                    	<a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success mb-2">Detail</a>
+
+                                                        <a href="{{ route('admin.finance.invoices', $payment->id) }}" class="btn btn-primary" target="_blank">Invoice</a>
 
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">No settings available</td> 
+                                                    <td colspan="8">No settings available</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>

@@ -82,6 +82,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function banned()
+    {
+        return $this->hasOne(BannedUser::class);
+
+    }
+
     public function vouchers()
     {
         return $this->hasManyThrough(

@@ -90,6 +90,7 @@ class PoinController extends Controller
                 'type' => 'point_out',
                 'description' => 'penukaran voucher',
                 'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
+                'created_at' => now()
             ]);
 
             $account->update([

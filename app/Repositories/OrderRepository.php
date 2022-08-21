@@ -4,14 +4,16 @@ namespace App\Repositories;
 
 use App\Contracts\PaymentTypenterface;
 use App\Models\Accomodation;
+use App\Models\Office;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Room;
+use App\Models\User;
 use App\Notifications\Orders\SendOrderCreatedNotifications;
-use Illuminate\Http\Request;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 use Xendit\Xendit;
 
 class OrderRepository
@@ -118,6 +120,16 @@ class OrderRepository
 			$room->save();
 
 			$request->user()->notify(new SendOrderCreatedNotifications($order));
+
+			$admin = User::where('id',  2)->first();
+			$employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
+
+			// Notify admin and employee
+			$admin->notify(new SendOrderCreatedNotifications($order));
+			
+			if($employee){
+				$employee->user?->notify(new SendOrderCreatedNotifications($order));
+			}
 
 			DB::commit();
 

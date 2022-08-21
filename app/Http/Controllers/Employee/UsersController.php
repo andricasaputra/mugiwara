@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
@@ -23,40 +23,29 @@ class UsersController extends Controller
 
     public function showEmployee()
     {
-        return view('admin.users.employee')->withUsers(
+        return view('employee.users.employee')->withUsers(
             User::whereHas('roles')->get()->filter(fn($user) => $user->name != 'superadmin'));
     }
 
     public function showCustomer()
     {
-        // return view('admin.users.customer')->withUsers(
-        //     User::doesntHave('roles')->get()->filter(fn($user) => $user->name != 'superadmin')
-        // );
-        return view('admin.users.customer')->withUsers(Customer::latest()->get());
+        return view('employee.users.customer')->withUsers(Customer::latest()->get());
     }
 
     public function edit(User $user)
     {
+        $params = request()->route('user')->id;
+
+        if($params != auth()->id()) abort(403);
+
         $roles = Role::excepSuperAdmin()->get();
 
-        return view('admin.users.edit')->withUser($user->load('roles'))->withRoles($roles);
+        return view('employee.users.edit')->withUser($user->load('roles'))->withRoles($roles);
     }
 
     public function update(Request $request, User $user)
     {
         return $this->users->update($request, $user); 
-    }
-
-    public function show(Request $request)
-    {
-        return $this->users->show($request);  
-    }
-
-    public function delete(User $user)
-    {
-        $user->delete();
-
-        return back()->withSuccess('Berhasil delete user');
     }
 
 }

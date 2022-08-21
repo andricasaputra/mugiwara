@@ -2,11 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Contracts\UploadServiceInterface;
 use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 ini_set('max_execution_time', 500);
 
@@ -27,33 +30,103 @@ class UserRepository
                 'email' => 'required|string',
                 'mobile_number' => 'required|string',
                 'password' => 'sometimes|string|confirmed|min:6',
+                'photo_profile' => 'sometimes|mimes:jpeg,jpg,png|max:100000'
             ]);
 
             if ($request->has('password')) {
+
                 $user->update([
                     'name' => $request->name,
-                    'email' => $request->email,
                     'mobile_number' => $request->mobile_number,
                     'password' => bcrypt($request->password),
                     'e_password' => Crypt::encrypt($request->password)
                 ]);
+
+                if($user->email != $request->email){
+
+                    $user->update([
+                        'email' => $request->email,
+                        'email_verified_at' => NULL
+                    ]);
+
+                    $user = $user->fresh();
+
+                    $user->notify(new VerifyEmail);
+                    
+                }
+
             } else {
+
                 $user->update([
                     'name' => $request->name,
-                    'email' => $request->email,
+                    
                     'mobile_number' => $request->mobile_number,
                 ]);
+
+                if($user->email != $request->email){
+
+                    $user->update([
+                        'email' => $request->email,
+                        'email_verified_at' => NULL
+                    ]);
+
+                    $user = $user->fresh();
+
+                    $user->notify(new VerifyEmail);
+
+                }
+
             }
 
-            $user->syncRoles($request->roles);
+            if ($request->hasFile('photo_profile')) {
+
+                $file = $request->file('photo_profile');
+                $factory  = app()->make(UploadServiceInterface::class);
+                $fileName = $factory->process($file);
+
+                $user->account()->updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                    ],
+                    [
+                        'gender' => $request->gender,
+                        'birth_date' => $request->birth_date,
+                        'avatar' => $fileName
+                    ]
+                );
+
+            } else {
+
+                $user->account()->updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                    ],
+                    [
+                        'gender' => $request->gender,
+                        'birth_date' => $request->birth_date
+                    ]
+                );
+            }
+
+            if ($request->role) {
+                $user->syncRoles($request->roles);
+            }
 
             DB::commit();
+
+            if(! $user->isAdmin()){
+                return redirect(route('dashboard'))->withSuccess('Berhasil edit user ' . $user->name);
+            }
 
             return redirect(route('users.employee'))->withSuccess('Berhasil edit user ' . $user->name);
             
         } catch (\Exception $e) {
 
             DB::rollback();
+
+            if(! $user->isAdmin()){
+                return redirect(route('dashboard'))->withSuccess('Berhasil edit user ' . $user->name);
+            }
 
             return redirect(route('users.employee'))->withErrors('Gagl ubah data, error : ' . $e->getMessage());
         }

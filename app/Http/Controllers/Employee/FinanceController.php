@@ -19,7 +19,9 @@ class FinanceController extends Controller
 
     public function index()
     {
-        $payments = Payment::with(['user', 'order', 'payable', 'voucher'])->get();
+        $payments = Payment::whereHas('order', function($query){
+            $query->where('accomodation_id', auth()->user()->office?->accomodation_id);
+        })->with(['user', 'order', 'payable', 'voucher'])->get();
 
         $getBalance = $this->getBalance();
 

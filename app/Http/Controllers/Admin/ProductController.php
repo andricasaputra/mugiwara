@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::when(request()->q, function($products) {
+        $products = Product::with('image')->when(request()->q, function($products) {
             $products->where('name', 'like', '%'.request()->q.'%');
         })->get();
         return view('admin.product.index', compact('products'));
@@ -26,19 +27,35 @@ class ProductController extends Controller
             'description' => 'required',
             'stock' => 'required',
             'point_needed' => 'required',
+            'photo_product' => 'required|mimes:png,jpg,jpeg'
         ]);
-        Product::create([
+
+        $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'stock' => $request->stock,
             'point_needed' => $request->point_needed,
         ]);
+
+        if($request->hasFile('photo_product')){
+
+            $file = $request->file('photo_product');
+
+            $factory  = app()->make(UploadServiceInterface::class);
+
+            $fileName = $factory->process($file);
+
+            $product->image()->create([
+                'image' => $fileName
+            ]);
+        }
+
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil ditambahkan');
     }
     
     public function edit($productId)
     {
-        $product = Product::find($productId);
+        $product = Product::find($productId)->load('image');
         return view('admin.product.edit', compact('product'));
     }
     public function update(Request $request)
@@ -48,6 +65,7 @@ class ProductController extends Controller
             'description' => 'required',
             'stock' => 'required',
             'point_needed' => 'required',
+            'photo_product' => 'sometimes|mimes:png,jpg,jpeg'
         ]);
         $product = Product::find($request->id);
         $product->update([
@@ -56,6 +74,20 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'point_needed' => $request->point_needed,
         ]);
+
+        if($request->hasFile('photo_product')){
+
+            $file = $request->file('photo_product');
+
+            $factory  = app()->make(UploadServiceInterface::class);
+
+            $fileName = $factory->process($file);
+
+            $product->image()->update([
+                'image' => $fileName
+            ]);
+        }
+        
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil diubah');
     }
     

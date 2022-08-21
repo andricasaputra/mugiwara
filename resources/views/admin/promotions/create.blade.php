@@ -9,22 +9,23 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Form Tambah Promoosi</h4>
+            <h4 class="card-title">Form Tambah Promosi</h4>
             <form action="{{ route('admin.promotion.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
 
                 <div class="form-group">
                     <label for="name">Promo untuk penginapan</label>
                     <select name="accomodation_id" class="form-control" id="accomodation">
+                        <option value="">Pilih Penginapan</option>
                         @foreach($accomodations as $accomodation)
                             <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="form-group"  id="room_container">
-                    <label for="room_id">No Kamar</label>
-                    <select name="room_id[]" id="room_id" class="form-control js-example-tags" multiple></select>
+                <div class="form-group"  id="type_container">
+                    <label for="room_id">Tipe Kamar & Nomor Kamar</label>
+                    <select name="type" id="type" class="form-control js-example-tags" ></select>
                 </div>
                 
                 <div class="form-group">
@@ -43,12 +44,12 @@
                 </div>
 
                  <div class="form-group">
-                    <label for="name">Judul</label>
+                    <label for="name">Waktu Mulai</label>
                     <input type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}" required>
                 </div>
 
                  <div class="form-group">
-                    <label for="name">Judul</label>
+                    <label for="name">Waktu Selesai</label>
                     <input type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}" required>
                 </div>
 
@@ -56,8 +57,8 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" id="is_active" class="form-control" required>
-                        <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Aktif</option>
-                        <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Non-Aktif</option>
+                        <option value="1" selected>Aktif</option>
+                        <option value="">Non Aktif</option>
                     </select>
                 </div>
                 
@@ -87,6 +88,7 @@
 
         const id = $(this).val();
         const container = $('#room_id');
+        const type_container = $('#type');
 
         $.ajax({
             url : `{{ route('api.rooms.list') }}`,
@@ -99,8 +101,12 @@
             },
             success : function(res){
 
+
+                console.log(res);
+
                 $.each(res, function (key, val) {
-                    container.append(roomTemplater(val))
+                    //container.append(roomTemplater(val))
+                    type_container.append(typeTemplater(val))
                 });
 
             } 
@@ -110,6 +116,13 @@
         {
             return `
                 <option value="${data.id}">${data.room_number}</option>
+            `;
+        }
+
+        function typeTemplater(data)
+        {
+            return `
+                <option value="${data.type.name}-${data.room_number}">${data.type.name} - ${data.room_number}</option>
             `;
         }
 

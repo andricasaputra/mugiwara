@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('type')->nullable();
             $table->string('name')->nullable();
+            $table->string('point_type')->nullable();
             $table->tinyInteger('is_active')->nullable();
             $table->string('value')->nullable();
             $table->timestamps();

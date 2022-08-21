@@ -8,6 +8,7 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Xendit\Xendit;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinanceController extends Controller
 {
@@ -93,12 +94,12 @@ class FinanceController extends Controller
         return view('admin.finance.transaction_detail')->withTransaction($detailTransaction);
     }
 
-    public function allInvoices()
+    public function invoices(Payment $payment)
     {
-        $getAllInvoice = \Xendit\Invoice::retrieveAll();
-        dd(($getAllInvoice));
+        $data = $payment->load(['voucher', 'payable', 'user', 'order.accomodation:id,name,address', 'order.room.type:id,name'])->toArray();
 
-        return view('admin.finance.invoice.index')->withTransaction($detailTransaction);
+        $pdf = Pdf::loadView('admin.finance.invoice', compact('data'));
+        return $pdf->stream();
     }
 
     protected function rupiah($angka){

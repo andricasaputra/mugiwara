@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Form Tambah Produk</h4>
-            <form action="{{ route('admin.product.store') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('admin.product.store') }}" enctype="multipart/form-data" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
@@ -35,6 +35,12 @@
                         <div class="form-group">
                             <label for="point_needed">Poin Yang Dibutuhkan</label>
                             <input type="number" class="form-control" id="point_needed" name="point_needed" value="{{ old('point_needed') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="photo_product">Gambar Produk</label>
+                            <input type="file" class="form-control" name="photo_product" required>
                         </div>
                     </div>
                     <div class="container-fluid">

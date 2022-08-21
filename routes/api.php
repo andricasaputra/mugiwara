@@ -42,7 +42,7 @@ Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store'
 
 // Route::get('auth/reset-password/{token}', [NewPasswordController::class, 'create'])->name('api.reset.password');
 
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
     Route::post('auth/reset-password/{token}', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
 

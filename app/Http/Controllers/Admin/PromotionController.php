@@ -28,8 +28,8 @@ class PromotionController extends Controller
     public function edit(Promotion $promotion)
     {
         return view('admin.promotions.edit')
-            ->withPromotion($promotion->load('images'))
-            ->withAccomomodations(Accomodation::all());
+            ->withPromotion($promotion->load(['images', 'accomodation', 'room']))
+            ->withAccomodations(Accomodation::all());
     }
 
     public function show(Promotion $promotion)
@@ -39,6 +39,15 @@ class PromotionController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'accomodation_id' => 'required',
+            'type' => 'required',
+            'promotion_image' => 'required|mimes:jpg,jpeg,png',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'name' => 'required',
+            'is_active' => 'nullable'
+        ]);
 
         DB::beginTransaction();
 
@@ -49,18 +58,29 @@ class PromotionController extends Controller
                 $filename = $upload->process($request->file('promotion_image'));
             }
 
-            $promotion = Promotion::create($request->all());
+            $ex = explode("-", $request->type);
+
+            $promotion = Promotion::create([
+                'accomodation_id' => $request->accomodation_id,
+                'room_type' => $ex[0],
+                'room_number' => $ex[1],
+                'name' => $request->name,
+                'description' => $request->description,
+                'is_active' => $request->is_active,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date
+            ]);
 
             $promotion->images()->create(['image' => $filename]);
 
-            foreach($request->room_id as $room_id)
-            {
-                $acc = AccomodationPromotion::create([
-                    'promotion_id' => $promotion->id,
-                    'accomodation_id' => $request->accomodation_id,
-                    'room_id' => $room_id
-                ]);
-            }
+            // foreach($request->room_id as $room_id)
+            // {
+            //     $acc = AccomodationPromotion::create([
+            //         'promotion_id' => $promotion->id,
+            //         'accomodation_id' => $request->accomodation_id,
+            //         'tye' => $room_id
+            //     ]);
+            // }
 
             DB::commit();
 
@@ -68,6 +88,8 @@ class PromotionController extends Controller
             
         } catch (\Exception $e) {
             DB::commit();
+
+            dd($e->getMessage());
 
             return redirect(route('admin.promotion.index'))->withErrors('Gagal Tamabah Data');
         }
@@ -78,7 +100,27 @@ class PromotionController extends Controller
     public function update(Request $request, Promotion $promotion)
     {
 
-        $promotion->update($request->all());
+        $request->validate([
+            'accomodation_id' => 'required',
+            'type' => 'required',
+            'promotion_image' => 'sometimes|mimes:jpg,jpeg,png',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'name' => 'required'
+        ]);
+
+        $ex = explode("-", $request->type);
+
+        $promotion = $promotion->update([
+            'accomodation_id' => $request->accomodation_id,
+            'room_type' => $ex[0],
+            'room_number' => $ex[1],
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_active' => $request->is_active,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
 
         if ($request->hasFile('promotion_image')) {
             $upload = app()->make(UploadServiceInterface::class);

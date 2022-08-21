@@ -17,7 +17,9 @@
                         <th>No</th>
                         <th>Affiliator</th>
                         <th>Referral Code</th>
-                        <th>Users</th>
+                        <th>Users / Follower</th>
+                        <th>Waktu Penukaran</th>
+                        <th>Detail</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,10 +29,23 @@
 
                             <td>{{ $refferal->user?->name }}</td>
                             <td>{{ $refferal->user?->account?->refferral_code }}</td>
+                            <td>
+                                @foreach($refferal->followers as $follower)
+                                    {{ $follower->user?->name }} <br>
+                                @endforeach
+                                
+                                
+                            </td>
+                            <td>
+                                {{ $refferal->created_at->format('d-m-Y H:i:s') }}
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.refferals.show', $refferal->id) }}" class="btn btn-primary">Detail</a>
+                            </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center">Tidak ada data</td>
+                            <td colspan="6" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>

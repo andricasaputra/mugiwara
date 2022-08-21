@@ -1,14 +1,19 @@
 <?php
 
 use App\Http\Controllers\Admin\AccomodationController;
+use App\Http\Controllers\Admin\AppStoreController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\FinanceController;
+use App\Http\Controllers\Admin\ManajemenMenuController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PlayStoreController;
 use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
@@ -37,6 +42,22 @@ Route::post('users/roles/{user}', [UsersController::class, 'attachRoles'])->name
 Route::get('users/permissions/{user}', [UsersController::class, 'permissions'])->name('users.permissions');
 Route::post('users/permissions/{user}', [UsersController::class, 'attachPermissions'])->name('users.attach.permissions');
 
+Route::get('users/detail/{user}', [UsersController::class, 'detail'])->name('users.detail');
+
+Route::post('users/banned/{user}', [UsersController::class, 'banned'])->name('users.banned');
+
+Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit');
+
+Route::put('users/update/{user}', [UsersController::class, 'update'])->name('users.update');
+
+Route::delete('users/destroy/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+
+Route::get('users/banned/{user}', [UsersController::class, 'bannedPage'])->name('users.banned.page');
+
+Route::post('users/banned/', [UsersController::class, 'banned'])->name('users.banned');
+
+Route::post('users/release', [UsersController::class, 'release'])->name('users.banned.release');
+
 Route::resource('offices', OfficeListController::class);
 Route::get('accomodations_room/add/{accomodation}', [AccomodationController::class, 'add'])->name('accomodations.add');
 Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoom'])->name('accomodations.store_room');
@@ -52,6 +73,9 @@ Route::name('admin.')->group(function() {
 
     Route::prefix('dashboard')->name('dashboard.')->group(function() {
         Route::get('', [DashboardController::class, 'index'])->name('index');
+        Route::post('orderchart', [DashboardController::class, 'orderChart'])->name('orderchart');
+        Route::post('pointchart', [DashboardController::class, 'pointChart'])->name('pointchart');
+        Route::post('financechart', [DashboardController::class, 'financeChart'])->name('financechart');
     });
 
     Route::prefix('post')->name('post.')->group(function() {
@@ -117,6 +141,7 @@ Route::name('admin.')->group(function() {
 
     Route::resource('promotion', PromotionController::class);
     Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');
+    Route::get('refferals/{refferral}', [RefferalController::class, 'show'])->name('refferals.show');
 
     Route::get('refunds', [RefundController::class, 'index'])->name('refund.index');
     Route::get('refunds/detail/{refund}', [RefundController::class, 'show'])->name('refund.show');
@@ -138,8 +163,16 @@ Route::name('admin.')->group(function() {
 
     Route::get('finance/transaction/detail/{id}', [FinanceController::class, 'transactionDetail'])->name('finance.transaction.detail');
 
-    Route::get('finance/invoices', [FinanceController::class, 'allInvoices'])->name('finance.invoices');
+    Route::get('finance/invoices/{payment}', [FinanceController::class, 'invoices'])->name('finance.invoices');
 
+    Route::post('payment/export/excel', [PaymentController::class, 'export'])->name('payment.export.excel');
+
+    Route::resource('playstores', PlayStoreController::class);
+    Route::resource('appstores', AppStoreController::class);
+
+    Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
+
+    Route::resource('menus', ManajemenMenuController::class);
 
     require __DIR__.'/setting.php';
 

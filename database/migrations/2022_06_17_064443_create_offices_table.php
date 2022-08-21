@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedInteger('accomodation_id');
+            $table->unsignedInteger('accomodation_id')->unique();
             $table->string('name');
             $table->longText('address');
             $table->string('mobile_number');

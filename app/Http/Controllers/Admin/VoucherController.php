@@ -98,11 +98,11 @@ class VoucherController extends Controller
         ]);
         $voucher = Voucher::find($request->id);
         if($request->image){
-            Storage::disk('public')->delete('data/'.$voucher->image);
+            Storage::disk('public')->delete('vouchers/'.$voucher->image);
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('vouchers/'.$namaImage, file_get_contents($img->getRealPath()));
         }
         $voucher->update([
             'code' => $request->code,

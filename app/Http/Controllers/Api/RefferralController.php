@@ -94,21 +94,25 @@ class RefferralController extends Controller
              AccountPoint::insert([
                [
                     'user_id' => $request->user()->id,
+                    'affiliate_id' => $affilliate->id,
                     'before' => $acc1->point,
                     'after' => $acc1->point + $point,
                     'mutation' => $point,
                     'type' => 'point_in',
                     'description' => 'penukaran kode refferral',
                     'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
+                    'created_at' => now()
                ],
                [
                     'user_id' => $account->user?->id,
+                    'affiliate_id' => $affilliate->id,
                     'before' => $acc2->point,
                     'after' => $acc2->point + $point,
                     'mutation' => $point,
                     'type' => 'point_in',
                     'description' => 'penukaran kode refferral',
                     'transaction_number' => 'Trxp-' . Random::generate(15, 1234567890),
+                    'created_at' => now()
                ],
             ]);
             

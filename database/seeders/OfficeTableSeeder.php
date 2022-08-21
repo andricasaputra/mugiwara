@@ -26,7 +26,7 @@ class OfficeTableSeeder extends Seeder
                 'address' => $faker->address(),
                 'mobile_number' => $faker->phoneNumber,
                 'user_id' => $faker->numberBetween(2, 8),
-                'accomodation_id' => $faker->numberBetween(1, 10),
+                'accomodation_id' => $i,
             ]);
         }
     }

@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('accomodation_id');
-            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('room_number');
             $table->string('room_type');
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->boolean('is_active')->default(1)->nullable();
+            $table->boolean('is_active')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

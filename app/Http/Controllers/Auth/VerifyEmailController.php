@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Http\Request;
 
 class VerifyEmailController extends Controller
 {
@@ -15,7 +17,7 @@ class VerifyEmailController extends Controller
      * @param  \Illuminate\Foundation\Auth\EmailVerificationRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(EmailVerificationRequest $request)
+    public function verify(EmailVerificationRequest $request)
     {
         $home = $request->user()->hasRole('admin') 
                 ? RouteServiceProvider::ADMINHOME
@@ -31,5 +33,12 @@ class VerifyEmailController extends Controller
         }
 
         return redirect()->intended($home.'?verified=1');
+    }
+
+    public function resend(Request $request)
+    {
+        auth()->user()->notify(new VerifyEmail);
+
+        return back()->with('status', 'verification-link-sent');
     }
 }

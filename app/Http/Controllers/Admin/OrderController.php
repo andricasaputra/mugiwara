@@ -18,9 +18,9 @@ class OrderController extends Controller
 
     public function detail(Order $order)
     {
-        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type'])->get();
+        $order = $order->load(['payment.payable', 'payment.voucher', 'user', 'accomodation', 'room.type']);
 
-        return view('admin.order.detail')->withOrders($orders);
+        return view('admin.order.detail')->withOrder($order);
     }
 
     public function checkout(Request $request)

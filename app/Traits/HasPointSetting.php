@@ -25,6 +25,7 @@ trait HasPointSetting
    {
         $request->validate([
             "name" => "required",
+            'point_type' => 'required',
             "value" => "required"
         ]);
 

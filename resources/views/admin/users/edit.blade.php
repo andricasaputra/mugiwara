@@ -6,11 +6,15 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                @if($errors->any())
+                    {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+                @endif
+                
                 <div class="card-block">
                     <h4><i class='fa fa-user-plus'></i> Edit {{$user->name}}</h4>
                     <hr>
 
-                    {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}{{-- Form model binding to automatically populate our fields with user data --}}
+                    {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT', 'files' => true)) }}{{-- Form model binding to automatically populate our fields with user data --}}
 
                     @csrf
 
@@ -29,6 +33,36 @@
                         {{ Form::text('mobile_number', null, array('class' => 'form-control')) }}
                     </div>
 
+                    <hr>
+
+                    <h5><b>Informasi Akun</b></h5>
+
+                    <hr>
+
+                    <div class="form-group">
+                      <label for="gender">Gender</label>
+                      <select name="gender" class="form-control">
+                        <option value="{{ $user->account?->gender }}">{{ $user->account?->gender }}</option>
+                        <option value="pria">Pria</option>
+                        <option value="wanita">Wanita</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="birth_date">Tanggal Lahir</label>
+                      <input type="date" name="birth_date" class="form-control" required value="{{ $user->account?->birth_date }}">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="photo_profile">Avatar</label>
+                      <div>
+                          <img src="{{ url('storage/avatars/' . $user->account?->avatar) }}" alt="avatar" width="100">
+                      </div>
+                      <input type="file" name="photo_profile" class="form-control">
+                    </div>
+
+                    @role('admin')
+
                     <h5><b>Role</b></h5>
 
                     <div class='form-group'>
@@ -44,6 +78,8 @@
                     <div class="form-group">
                          <label><input type="checkbox" name="with_password" class="change_password"> Ubah User Password </label>
                     </div>
+
+                    @endrole
 
                     {{ Form::submit('Ubah', array('class' => 'btn btn-primary')) }}
 

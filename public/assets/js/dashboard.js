@@ -257,7 +257,8 @@
         type: 'bar',
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-          datasets: [{
+          datasets: [
+            {
               label: 'Offline Sales',
               data: [480, 230, 470, 210, 330],
               backgroundColor: '#98BDFF'

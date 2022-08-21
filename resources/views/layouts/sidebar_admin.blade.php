@@ -67,12 +67,14 @@
         <span class="menu-title">Manajemen Info Kantor</span>
       </a>
     </li>
+    
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.point.index') }}">
         <i class="icon-grid menu-icon"></i>
         <span class="menu-title">Manajemen Poin</span>
       </a>
     </li>
+
 
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="post">
@@ -81,12 +83,13 @@
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="post">
-        <ul class="nav flex-column {{ request()->is('admin/post*') ? 'sub-menu' : '' }}">
+        <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post.index') }}">Daftar Artikel</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.category_post.index') }}">Daftar Kategori Artikel</a></li>
         </ul>
       </div>
     </li>
+
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
         <i class="icon-menu menu-icon"></i>
@@ -94,23 +97,25 @@
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="product">
-        <ul class="nav flex-column {{ request()->is('admin/product*') ? 'sub-menu' : '' }}">
-          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.product.index') }}">Daftar Produk</a></li>
+        <ul class="nav flex-column sub-menu">
+           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.product.index') }}">Daftar Produk</a></li>
         </ul>
       </div>
     </li>
-    <li class="nav-item">
+
+     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#voucher" aria-expanded="false" aria-controls="voucher">
-        <i class="icon-map menu-icon"></i>
+         <i class="icon-map menu-icon"></i>
         <span class="menu-title">Voucher</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="voucher">
-        <ul class="nav flex-column {{ request()->is('admin/voucher*') ? 'sub-menu' : '' }}">
-          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.voucher.index') }}">Daftar Voucher</a></li>
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.voucher.index') }}">Daftar Voucher</a></li>
         </ul>
       </div>
     </li>
+
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.refferals.index') }}">
         <i class="icon-paper menu-icon"></i>
@@ -162,6 +167,9 @@
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.point.index') }}"> Poin </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.payment') }}"> List Metode Pembayaran </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.tax') }}"> Pajak </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.playstores.index') }}"> Play Store </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.appstores.index') }}"> App Store </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('admin.menus.index') }}"> Manajemen Menu </a></li>
         </ul>
       </div>
     </li>

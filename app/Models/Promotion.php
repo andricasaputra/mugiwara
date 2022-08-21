@@ -10,13 +10,21 @@ class Promotion extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
-        'promotion_image'
-    ];
+    protected $guarded = [];
 
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function accomodation()
+    {
+        return $this->belongsTo(Accomodation::class);
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 
     /**
@@ -27,8 +35,7 @@ class Promotion extends Model
     protected function isActive(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value == 1 ? 'Aktif' : 'Tidak Aktif',
-            set: fn ($value) => $value == 'Aktif' ? 1 : NULL,
+            get: fn ($value) => $value == 1 ? 'Aktif' : 'Tidak Aktif'
         );
     }
 }

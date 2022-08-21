@@ -10,6 +10,13 @@ class RefferalController extends Controller
 {
     public function index()
     {
-        return view('admin.refferals.index')->withRefferals(Affiliate::all());
+        $affiliates = Affiliate::with(['user', 'followers.user'])->get();
+
+        return view('admin.refferals.index')->withRefferals($affiliates);
+    }
+
+    public function show(Affiliate $refferral)
+    {//dd($refferral->load(['user', 'followers.user']));
+        return view('admin.refferals.show')->withRefferral($refferral->load(['user', 'followers.user']));
     }
 }

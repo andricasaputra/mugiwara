@@ -29,6 +29,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="name">Tipe Poin</label>
+                    <select name="point_type" class="form-control">
+                        <option value="{{ $setting->point_type }}">{{ $setting->point_type }}</option>
+                        <option value="flat">Flat</option>
+                        <option value="percent">Percent</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="name">Jumlah Point</label>
                     <input type="number" class="form-control"  name="value" required value="{{ $setting->value }}">
                 </div>

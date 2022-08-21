@@ -20,7 +20,7 @@ class PromoTableSeeder extends Seeder
 
         $promotion = \App\Models\Promotion::create([
             'accomodation_id' => 1,
-            'room_id' => $room->id,
+            'room_number' => $room->room_number,
             'room_type' => $room->type->name,
             'name' => 'Promo Akhir tahun',
             'description' => 'Menginap bersama keluarga tercinta',

@@ -24,10 +24,12 @@
                                                 <th>Nama</th>
                                                 <th>Email</th>
                                                 <th>No HP</th>
+
                                                 <th>Email Verified</th>
                                                 <th>No HP Verified</th>
                                                 <th>Status</th>
                                                 <th>Waktu daftar</th>
+                                                <th>Is banned</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -43,9 +45,24 @@
                                                 <td>{{ $user->created_at->isoFormat('Do MMMM YYYY, h:mm:ss a') }}</td>
 
                                                 </td>
+
+                                                <td>{{ is_null($user->banned) ? '-' : 'Banned' }}</td>
+
                                                 <td class="text-center">
-                                                    <a href="#" class="btn btn-success mb-2">Detail</a>
-                                                    <a href="#" class="btn btn-danger">Banned</a>
+                                                    <a href="{{ route('users.detail', $user->id) }}" class="btn btn-success mb-2">Detail</a>
+
+                                                    @if(is_null($user->banned))
+                                                        <a href="{{ route('users.banned.page', $user->id) }}" class="btn btn-danger">Banned</a>
+                                                    @else
+
+                                                        <form action=" {{ route('users.banned.release') }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                            <button type="submit" class="btn btn-primary">Release banned</button>
+                                                        </form>
+                                                    @endif
+
+                                                    
                                                 </td>
                                             </tr>
                                             @endforeach

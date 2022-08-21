@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentEwalletRequest;
 use App\Http\Requests\PaymentVirtualAccountRequest;
 use App\Http\Resources\PaymentResource;
+use App\Models\Office;
 use App\Models\Order;
 use App\Models\Room;
 use App\Models\Setting;
+use App\Models\User;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsType;
@@ -185,6 +187,16 @@ class PaymentController extends Controller
 
             $request->user()->notify(new PaymentStatusNotification($order, $payment));
 
+            $admin = User::where('id',  2)->first();
+            $employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
+
+            // Notify admin and employee
+            $admin->notify(new PaymentStatusNotification($order, $payment));
+            
+            if($employee){
+                $employee->user?->notify(new PaymentStatusNotification($order, $payment));
+            }
+
         }
 
         //Update room status
@@ -216,6 +228,17 @@ class PaymentController extends Controller
             if($payment->status == 'SUCCEEDED'){
 
                 $request->user()->notify(new PaymentStatusNotification($order, $payment));
+
+                $admin = User::where('id',  2)->first();
+                $employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
+
+                // Notify admin and employee
+                $admin->notify(new PaymentStatusNotification($order, $payment));
+                
+                if($employee){
+                    $employee->user?->notify(new PaymentStatusNotification($order, $payment));
+
+                }
             }
 
             //Update room status

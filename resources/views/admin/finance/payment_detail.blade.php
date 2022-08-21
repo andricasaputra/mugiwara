@@ -34,7 +34,7 @@
                                 <tbody>
                                   <tr>
                                      <td class="border-bottom pb-2">{{ $payment->booking_code }}</td>
-                                      <th class="border-bottom pb-2">{{ $payment->order?->accomodation?->name }}</th>
+                                      <td class="border-bottom pb-2">{{ $payment->order?->accomodation?->name }}</td>
                                     <td class="border-bottom pb-2">
                                       Nomor : {{ $payment->order?->room?->room_number }}
                                       <br>

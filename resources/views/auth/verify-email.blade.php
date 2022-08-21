@@ -18,7 +18,7 @@
             @endif
 
             <div class="mt-4 d-flex justify-content-between">
-                <form method="POST" action="{{ route('verification.send') }}">
+                <form method="POST" action="{{ route('verification.email.verify.resend') }}">
                     @csrf
                     <div>
                         <x-button>

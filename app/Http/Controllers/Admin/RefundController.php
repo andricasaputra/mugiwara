@@ -15,7 +15,7 @@ class RefundController extends Controller
 
     public function show(Refund $refund)
     {
-        return view('admin.refund.show')->withRefund($refund);
+        return view('admin.refund.show')->withRefund($refund->load(['reason', 'order', 'payment', 'user']));
     }
 
     public function actionPage(Refund $refund)
