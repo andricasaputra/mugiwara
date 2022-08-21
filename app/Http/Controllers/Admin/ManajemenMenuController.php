@@ -40,7 +40,11 @@ class ManajemenMenuController extends Controller
             'role_id' => 'required'
         ]);
 
-        $menu = ManajemanMenu::create($request->except(['role_id', '_token', 'icon_menu']));
+        $menu = ManajemanMenu::create([
+            "name" => $request->name,
+            "url" => $request->url,
+            'is_active' => $request->is_active,
+        ]);
 
         foreach($request->role_id as $r){
             $menu->role()->create(['role_id' => $r]);
@@ -80,6 +84,7 @@ class ManajemenMenuController extends Controller
         $request->validate([
             "name" => "required",
             "url" => "required",
+            'is_active' => 'nullable',
             "icon_menu" => 'sometimes|mimes:jpg,jpeg,svg,png,ico',
             'role_id' => 'required'
         ]);
@@ -88,7 +93,11 @@ class ManajemenMenuController extends Controller
 
         $menu = ManajemanMenu::findOrFail($id);
 
-        $menu->update($request->except(['role_id', '_token', 'icon_menu']));
+        $menu->update([
+            "name" => $request->name,
+            "url" => $request->url,
+            'is_active' => $request->is_active,
+        ]);
 
         //dd($request->role_id);
 
