@@ -16,9 +16,10 @@
                     <tr>
                         <th>No</th>
                         <th>Affiliator</th>
-                        <th>Referral Code</th>
-                        <th>Users / Follower</th>
-                        <th>Waktu Penukaran</th>
+                        <th>Kode</th>
+                        <th>Follower</th>
+                        <th>Waktu Tukar</th>
+                        <th>Device ID</th>
                         <th>Detail</th>
                     </tr>
                     </thead>
@@ -40,12 +41,15 @@
                                 {{ $refferal->created_at->format('d-m-Y H:i:s') }}
                             </td>
                             <td>
+                                {{ $refferal->device_id }}
+                            </td>
+                            <td>
                                 <a href="{{ route('admin.refferals.show', $refferal->id) }}" class="btn btn-primary">Detail</a>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center">Tidak ada data</td>
+                            <td colspan="7" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>
