@@ -13,7 +13,7 @@
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       @role('admin')
-        @include('layouts.sidebar_admin')
+        @include('layouts.sidebar_admin_new')
       @endrole
 
       @role('employee')
