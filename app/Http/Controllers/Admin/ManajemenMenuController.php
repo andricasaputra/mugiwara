@@ -34,7 +34,7 @@ class ManajemenMenuController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "is_active" => "required",
+            "is_active" => "nullable",
             "url" => "required",
             "icon_menu" => 'sometimes|mimes:jpg,jpeg,svg,png,ico',
             'role_id' => 'required'

@@ -42,7 +42,7 @@
                                                      <td>{{ $menu->is_active == 1 ? 'Aktif' : 'Tidak Aktif'}}</td>
 
 
-                                                     <td><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="menu" width="100"></td>
+                                                     <td><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="menu"></td>
 
 
                                                       <td>{{ $menu->url }}</td>
