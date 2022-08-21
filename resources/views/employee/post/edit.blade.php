@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
             @if($errors->any())
@@ -33,6 +33,9 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Gambar <small>Optional | Isi jika ingin diubah</small></label>
+                    <div>
+                        <img src="{{ url('storage/posts/' . $post->image) }}" alt="">
+                    </div>
                     <input type="file" class="form-control" name="image" id="image">
                 </div>
                 <div class="form-group">
