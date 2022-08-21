@@ -35,7 +35,7 @@
                     <tr>
                         <td>Gambar</td>
                         <td>:</td>
-                        <td><a href="{{ Storage::disk('local')->url('data/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $post->image) }}" style="height:100px;width:100px;border-radius:0;"></a></td>
+                        <td><a href="{{ Storage::disk('public')->url('posts/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('posts/'. $post->image) }}" style="height:100px;width:100px;border-radius:0;"></a></td>
                     </tr>
                     <tr>
                         <td>Status</td>
