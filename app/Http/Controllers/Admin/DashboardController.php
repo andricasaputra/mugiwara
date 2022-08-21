@@ -30,8 +30,7 @@ class DashboardController extends Controller
             ->withBookings($all_booking)
             ->withTodaybookings($today_booking)
             ->withPointins($pointin)
-            ->withPointouts($pointout)
-            ->withMenus($menus);
+            ->withPointouts($pointout);
     }
 
     public function orderChart(Request $request)
