@@ -8,6 +8,7 @@ use App\Models\AccountPoint;
 use App\Models\Affiliate;
 use App\Models\Customer;
 use App\Models\Setting;
+use App\Models\User;
 use App\Notifications\ReferralCodeUsedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ class RefferralController extends Controller
                 'device_id' => $request->device_id
             ]);
 
-            $affilliate->affiliatesUser()->create([
+            $followers = $affilliate->followers()->create([
                 'affiliates_id' =>  $affilliate ->id,
                 'user_id' => $account->user?->id
             ]);
@@ -116,7 +117,7 @@ class RefferralController extends Controller
                ],
             ]);
             
-            $customer = Customer::find($account->user?->id);
+            $customer = User::find($account->user?->id);
 
             Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
