@@ -28,7 +28,7 @@
                                         <span class="form-stepper-circle text-muted">
                                             <span>2</span>
                                         </span>
-                                        <div class="label text-muted">Informai Detail Kamar</div>
+                                        <div class="label text-muted">Informasi Detail Kamar</div>
                                     </a>
                                 </li>
                                 <!-- Step 3 -->

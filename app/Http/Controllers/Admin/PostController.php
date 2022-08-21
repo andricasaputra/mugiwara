@@ -35,7 +35,7 @@ class PostController extends Controller
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('posts/'.$namaImage, file_get_contents($img->getRealPath()));
         }
         Post::create([
             'user_id' => auth()->user()->id,
@@ -75,7 +75,7 @@ class PostController extends Controller
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('posts/'.$namaImage, file_get_contents($img->getRealPath()));
         }
         $post->update([
             'user_id' => auth()->user()->id,

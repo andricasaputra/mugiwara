@@ -20,7 +20,7 @@
 
                         <div class="form-group">
                             <label for="description">Deskripsi (optional)</label>
-                            <textarea name="description" id="" cols="30" rows="2" class="form-control form-control-lg">{{ $room_type->descrition }}</textarea>
+                            <textarea name="description" id="" cols="30" rows="2" class="form-control form-control-lg">{{ $room_type->description }}</textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>

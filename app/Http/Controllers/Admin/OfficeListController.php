@@ -20,8 +20,21 @@ class OfficeListController extends Controller
 
     public function create()
     {
-        $accomodations = Accomodation::query()->get();
-        $employees = User::employee()->get();
+         $acc = [];
+
+         $offices = Office::with(['user', 'accomodation'])->get();
+
+        foreach($offices as $office){
+            //dd($office->accomodation);
+            if (is_null($office->accomodation)) {
+                continue;
+            } else {
+                array_push($acc, $office->accomodation->id);
+            }
+        }
+
+        $accomodations = Accomodation::whereNotIn('id', $acc)->get();
+        $employees = User::doesntHave('office')->employee()->get();
 
         if ($accomodations->isEmpty()) {
             return back()->withWarning('Daftar Pengiapa masih kosong, silahkan tambahkan data penginapan terlebuh dahulu');
@@ -38,6 +51,8 @@ class OfficeListController extends Controller
 
     public function store(OfficeStoreRequest $request)
     {
+
+        //dd($request->all());
         $office = Office::create($request->all());
 
         return redirect(route('offices.index'))->withSuccess('Berhasil Tambah Data Informasi Kantor');
@@ -45,7 +60,7 @@ class OfficeListController extends Controller
 
     public function edit(Office $office)
     {
-        $users = User::whereType('user')->get();
+        $users = User::whereType('user')->whereNotIn('id', [1, 2])->get();
         $accomodations = Accomodation::get();
 
         return view('admin.offices.edit')
@@ -55,8 +70,34 @@ class OfficeListController extends Controller
     }
 
     public function update(OfficeStoreRequest $request, Office $office)
-    {
-        $office->update($request->all());
+    { 
+
+        if($office->accomodation->id != $request->accomodation_id){
+
+            $check = Office::where('accomodation_id', $request->accomodation_id)->first();
+
+            if ($check) {
+                $check->delete();
+            }
+
+            $office->update([
+              "name" => $request->name,
+              "type" => $request->type,
+              "address" => $request->address,
+              "user_id" => $request->user_id,
+              "accomodation_id" => $request->accomodation_id,
+            ]);
+
+        }else{
+
+            $office->update([
+              "name" => $request->name,
+              "type" => $request->type,
+              "address" => $request->address,
+              "user_id" => $request->user_id,
+            ]);
+
+        }
 
         return redirect(route('offices.index'))->withSuccess('Berhasil Ubah Data Informasi Kantor');
     }

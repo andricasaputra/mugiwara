@@ -19,7 +19,7 @@
                                         <span class="form-stepper-circle">
                                             <span>1</span>
                                         </span>
-                                        <div class="label">Informai Detil Kama</div>
+                                        <div class="label">Informasi Detail Kamar</div>
                                     </a>
                                 </li>
                                 <!-- Step 2 -->
