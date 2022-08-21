@@ -27,13 +27,14 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-              <img src="{{ ('/assets/images/logo.svg') }}" alt="logo">
+              <div class="brand-logo text-center">
+              <img src="{{ asset('assets/images/capsuleinnlogo.png') }}" alt="logo">
               </div>
               <h4>Reset Password</h4>
               <h6 class="font-weight-light">Please input new password.</h6>
               @include('inc.auth-message', ['status' => session('status')])
               <form class="pt-3" method="POST" action="{{ route('password.update') }}">
+                @csrf
                  <input type="hidden" name="token" value="{{ $request->route('token') }}">
                 <div class="form-group">
                   <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" name="email" required value="{{ old('email', $request->email) }}">

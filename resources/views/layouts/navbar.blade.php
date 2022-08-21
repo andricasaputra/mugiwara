@@ -8,6 +8,8 @@
           <span class="icon-menu"></span>
         </button>
 
+
+
        {{--  <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-search d-none d-lg-block">
             <div class="input-group">
@@ -22,7 +24,7 @@
         </ul> --}}
         <ul class="navbar-nav navbar-nav-right">
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown">  
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
               @if(auth()->user()->notifications->filter(function($notification){
@@ -35,6 +37,8 @@
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
 
               @forelse(auth()->user()->notifications as $notification)
+
+
 
                 @role('admin')
 
@@ -53,9 +57,6 @@
                   </div>
                   <div class="preview-item-content">
                     <h5 class="preview-subject font-wei5ht-normal">{{ $notification->data['title'] }}</h5>
-                    <h6>
-                      Order Id : {{ $notification->data['order']['id'] }}
-                    </h6>
                     <p class="font-weight-light small-text mb-0 text-muted">
                       {{ $notification->created_at->diffForHumans() }}
                        
