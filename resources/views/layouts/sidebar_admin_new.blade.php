@@ -19,7 +19,7 @@
 
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+                <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -38,7 +38,7 @@
 
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#booking" aria-expanded="false" aria-controls="booking">
-                <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+                <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -58,7 +58,7 @@
 
            <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.order.index') }}">
-                <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+                <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
               </a>
             </li>
@@ -70,7 +70,7 @@
            
         <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#keuangan" aria-expanded="false" aria-controls="keuangan">
-            <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+            <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
             <i class="menu-arrow"></i>
           </a>
@@ -88,7 +88,7 @@
 
           <li class="nav-item">
               <a class="nav-link" href="{{ route('offices.index') }}">
-               <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+               <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
               </a>
             </li>
@@ -99,7 +99,7 @@
 
           <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.point.index') }}">
-               <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+               <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
               </a>
             </li>
@@ -110,7 +110,7 @@
 
           <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#post" aria-expanded="false" aria-controls="post">
-                <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+                <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -129,7 +129,7 @@
           
         <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
-            <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+            <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
             <i class="menu-arrow"></i>
           </a>
@@ -146,7 +146,7 @@
           
          <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#voucher" aria-expanded="false" aria-controls="voucher">
-             <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+             <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
             <i class="menu-arrow"></i>
           </a>
@@ -164,7 +164,7 @@
           
        <li class="nav-item">
           <a class="nav-link" href="{{ route('admin.refferals.index') }}">
-             <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+             <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
           </a>
         </li> 
@@ -176,7 +176,7 @@
           
        <li class="nav-item">
           <a class="nav-link" href="{{ route('admin.refund.index') }}">
-            <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+            <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
           </a>
         </li>
@@ -188,7 +188,7 @@
           
        <li class="nav-item">
           <a class="nav-link" href="{{ route('admin.promotion.index') }}">
-           <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+           <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
           </a>
         </li>
@@ -200,7 +200,7 @@
           
        <li class="nav-item">
             <a class="nav-link" href="{{ route('privacy.index') }}">
-            <i><img src="{{ url('storage/icons/' . $menu->image->image) }}" alt="icon" width="20"></i>
+            <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon" width="20"></i>
                 <span class="menu-title ml-2">{{ $menu->name }}</span>
           </a>
         </li> 
