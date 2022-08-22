@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Office;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\RoomReviewsNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,7 +48,25 @@ class OrderController extends Controller
                 'booked_untill' => NULL,
             ]);
 
-            //dd($room);
+            $admin = User::where('id', 2)->first();
+
+            $offices = Office::where('accomodation_id', $order->accomodation?->id)->get();
+
+            $customer = Customer::where('id', $order->user?->id)->first();
+
+            if ($offices) {
+                foreach($offices as $office){
+                    if($office->user){
+                        $office->user?->notify(new RoomReviewsNotification($order));
+                    }
+                }
+            }
+
+            if($customer){
+                $customer->notify(new RoomReviewsNotification($order));
+            }
+
+            $admin->notify(new RoomReviewsNotification($order));
 
             DB::commit();
 

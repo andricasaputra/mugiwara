@@ -40,28 +40,23 @@ Route::post('auth/login', [LoginController::class, 'login']);
 
 Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store']);
 
-// Route::get('auth/reset-password/{token}', [NewPasswordController::class, 'create'])->name('api.reset.password');
-
 Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
-    Route::post('auth/reset-password/{token}', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
+    Route::post('auth/reset-password', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
 
     Route::post('auth/verify-email-otp', [VerifyEmailController::class, '__invoke'])->name('api.otp.verification')->middleware(['throttle:6,1']);
 
     Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->name('api.otp.verification.resend.email')->middleware(['throttle:6,1']);
 
-    Route::post('auth/resend-verify-whatsapp-otp', [ResendVerifyOtpController::class, 'whatsapp'])->name('api.otp.verification.resend.whatsapp')->middleware(['throttle:6,1']);
+    // Route::post('auth/resend-verify-whatsapp-otp',
 
     Route::post('auth/check-password', [UpdatePasswordController::class, 'check']);
     Route::post('auth/update-password', [UpdatePasswordController::class, 'update']);
     
     /*Verifikasi Nomor HP*/
 
-    // Mengirim kode verifikasi via whtasapp
-    Route::post('auth/verify-mobile-number-request', [VerifyMobileController::class, 'create'])->middleware(['throttle:6,1']);;
-
     // Menyamakan kode otp di databse dengan otp yang dikirim ke whatsapp
-    Route::post('auth/verify-mobile-number-match', [VerifyMobileController::class, 'verifyOtpCode'])->middleware(['throttle:6,1']);;
+    Route::post('auth/verify-mobile-number', [VerifyMobileController::class, 'verify'])->middleware(['throttle:6,1']);;
 
     Route::middleware('verified')->group(function(){
         Route::get('/user', function (Request $request) {
@@ -71,7 +66,6 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::post('accomodations/status', [AccomdationController::class, 'status']);
         Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
-
 
         Route::post('rooms/status', [RoomController::class, 'status']);
 
@@ -94,10 +88,10 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::post('refund/{order}', [RefundController::class, 'refund']);
         Route::post('refund/confirm/{order}', [RefundController::class, 'confirm']);
         
-
+        Route::get('refferrals/point', [RefferralController::class, 'getPointValue']);
         Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
         
-        Route::post('reviews', [ReviewsController::class, 'create']);
+        Route::post('reviews', [ReviewsController::class, 'create'])->name('api.review.create');
         
     });
 
@@ -116,6 +110,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
     Route::prefix('products')->name('products.')->group(function() {
         Route::get('', [ProductController::class, 'index'])->name('index');
         Route::get('{id}', [ProductController::class, 'show'])->name('show');
+        Route::post('redeem', [ProductController::class, 'redeem']);
     });
 
     Route::prefix('vouchers')->name('vouchers.')->group(function() {
@@ -125,7 +120,6 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::get('/user', [VoucherController::class, 'userVoucher']);
         Route::get('/all', [VoucherController::class, 'allVouchers']);
         Route::get('{id}', [VoucherController::class, 'show'])->name('show');
-
     });
 
     Route::prefix('points')->name('points.')->group(function() {
@@ -143,7 +137,6 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
     Route::get('offices', [OfficeController::class, 'index']);
     Route::get('privacy', [PrivacyController::class, 'index']);
-
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::get('notifications/categories', [NotificationController::class, 'categories']);
     Route::get('notifications/{id}', [NotificationController::class, 'show']);

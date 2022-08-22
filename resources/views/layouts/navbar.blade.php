@@ -36,38 +36,38 @@
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
 
-              @forelse(auth()->user()->notifications as $notification)
+              @forelse(auth()->user()->notifications as $key => $notification)
 
+                  @if($key < 4)
+                     @role('admin')
 
+                        <a href="{{ route('admin.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
 
-                @role('admin')
+                      @else
 
-                  <a href="{{ route('admin.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
+                        <a href="{{ route('employee.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
 
-                @else
+                      @endrole
 
-                  <a href="{{ route('employee.notification.markasread', $notification->id) }}" class="dropdown-item preview-item">
-
-                @endrole
-
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="ti-info-alt mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h5 class="preview-subject font-wei5ht-normal">{{ $notification->data['title'] }}</h5>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      {{ $notification->created_at->diffForHumans() }}
-                       
-                    </p>
-                    @if(is_null($notification->read_at))
-                        <small style="color: red; font-weight: bold">Belum Dibaca</small>
-                    @else
-                      <small style="color: green">Dibaca</small>
-                      @endif
-                  </div>
-                </a>
+                        <div class="preview-thumbnail">
+                          <div class="preview-icon bg-success">
+                            <i class="ti-info-alt mx-0"></i>
+                          </div>
+                        </div>
+                        <div class="preview-item-content">
+                          <h5 class="preview-subject font-wei5ht-normal">{{ $notification->data['title'] }}</h5>
+                          <p class="font-weight-light small-text mb-0 text-muted">
+                            {{ $notification->created_at->diffForHumans() }}
+                             
+                          </p>
+                          @if(is_null($notification->read_at))
+                              <small style="color: red; font-weight: bold">Belum Dibaca</small>
+                          @else
+                            <small style="color: green">Dibaca</small>
+                            @endif
+                        </div>
+                      </a>
+                  @endif
 
               @empty
 
@@ -86,6 +86,16 @@
                 </a>
 
               @endforelse
+
+              @if(auth()->user()->notifications->count() > 0)
+
+              <hr>
+
+              <div class="row text-center d-flex justify-content-center">
+                  <a href="#" class="text-center">Lihat semua</a>
+              </div>
+
+              @endif
 
               
               {{-- <a class="dropdown-item preview-item">

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PointRedeemSuccessNotification extends Notification
+class ProductReedemSuccessNotification extends Notification
 {
     use Queueable;
 
@@ -16,7 +16,7 @@ class PointRedeemSuccessNotification extends Notification
      *
      * @return void
      */
-    public function __construct(protected $accountPoin, protected $voucher, protected $message)
+    public function __construct(protected $accountPoin, protected $product)
     {
         //
     }
@@ -33,6 +33,20 @@ class PointRedeemSuccessNotification extends Notification
     }
 
     /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -41,10 +55,10 @@ class PointRedeemSuccessNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Penukaran Poin Berhasil!',
-            'message' => $this->message,
+            'title' => 'Penukaran Merchandise Berhasil!',
+            'message' => 'Terimaksih telah menukarkan point anda, Tim kami akan segera menghubungi anda untuk pengirimman merchandise anda',
             'history' => $this->accountPoin,
-            'voucher' => $this->voucher,
+            'product' => $this->product,
             'type' => 'point',
             'category' => 'pemberitahuan'
         ];

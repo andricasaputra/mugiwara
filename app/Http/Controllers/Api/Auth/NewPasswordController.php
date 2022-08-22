@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\PasswordReset;
 use App\Models\User;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Auth\Events\PasswordReset as ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -37,32 +38,58 @@ class NewPasswordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'otp_code' => 'required',
+            'reset_token' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if($request->user()->otp_verify_code != $request->otp_code){
-            return response()->json([
-                'message' => 'kode otp tidak sesuai'
-            ]);
+        DB::beginTransaction();
+
+        try {
+
+            $reset_token = PasswordReset::where('token', $request->reset_token)->latest()->first();
+
+            if(! $reset_token){
+                return response()->json(['message' => 'reset token tidak ditemukan']);
+            }
+
+            if($reset_token->token != $request->reset_token){
+                return response()->json(['message' => 'reset token tidak sesuai']);
+            }
+
+            if(! is_null($reset_token->email)){
+                $query = 'DELETE FROM password_resets WHERE email = ?';
+                DB::delete($query, [$reset_token->email]);
+
+            } else {
+                $query = 'DELETE FROM password_resets WHERE mobile_number = ?';
+                DB::delete($query, [$reset_token->mobile_number]);
+            }
+
+            $request->user()->forceFill([
+                'password' => Hash::make($request->password),
+                'remember_token' => Str::random(60),
+            ])->save();
+
+            DB::commit();
+
+            return $this->successStatus();
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(['message' => $e->getMessage()]);
         }
-
-        $request->user()->forceFill([
-            'password' => Hash::make($request->password),
-            'remember_token' => Str::random(60),
-        ])->save();
-
-        return $this->successStatus();
     }
 
     protected function successStatus()
     {
-        return response()->json(['message' => 'berhasil perbarui password']);
+        return response()->json(['message' => 'Berhasil perbarui password']);
     }
 
     protected function errorStatus($message = null)
     {
-        return response()->json(['message' => $message ?? 'gagal perbarui password']);
+        return response()->json(['message' => $message ?? 'Gagal perbarui password']);
     }
 
 }

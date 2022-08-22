@@ -25,7 +25,7 @@ class Voucher extends JsonResource
             'max_uses_user' => $this->max_uses_user,
             'type' => $this->type,
             'category' => $this->category,
-            'image' => $this->image ? Storage::disk('public')->url($this->image) : null,
+            'image' => Storage::disk('public')->url('vouchers/' . $this->image),
             'discount_type' => $this->discount_type,
             $this->mergeWhen($this->discount_type == 'fixed', [
                   'discount' => $this->discount_amount ?? null,

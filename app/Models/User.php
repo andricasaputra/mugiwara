@@ -34,6 +34,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'otp_verify_code',
+        'mobile_verify_code'
     ];
 
     /**
@@ -69,7 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendForgotPasswordOtpViaWhatsappNotification()
     {
-        $this->notify(new ForgotPasswordWhatsappNotification($this));
+        //$this->notify(new ForgotPasswordWhatsappNotification($this));
     }
 
     public function account()
@@ -128,6 +130,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isCustomer() : bool
     {
         return $this->attributes['type'] == 'customer';
+    }
+
+    public function scopeSuperAdmin($query)
+    {
+        $query->where('id', 1);
+    }
+
+    public function scopeAdmin($query)
+    {
+        $query->where('id', 2);
     }
 
     //Add this line in the bottom of \Spatie\Permission\Models\Role

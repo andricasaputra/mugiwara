@@ -138,4 +138,18 @@ class RefferralController extends Controller
         }
        
     }
+
+    public function getPointValue()
+    {
+        $point_refferral = Setting::where('type', 'point')->where('name', 'point_refferral')->first();
+
+        $point_menginap = Setting::where('type', 'point')->where('name', 'point_menginap')->first();
+
+        return response()->json([
+            'data' => [
+                'point_refferral' => $point_refferral,
+                'point_menginap' => $point_menginap
+            ]
+        ]);
+    }
 }

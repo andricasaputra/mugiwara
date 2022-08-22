@@ -25,6 +25,12 @@ class RefundController extends Controller
             'detail' => 'required',
         ]);
 
+        if($order->user_id != $request->user()->id){
+            return response()->json([
+                'message' => 'Pesanan ini bukan milik akun anda, apbila terjadi kesalahan silahkan hubungi admin'
+            ], 403);
+        }
+
         if(is_null($order->payment) || $order->payment?->status == 'PENDING'){
 
             return response()->json([

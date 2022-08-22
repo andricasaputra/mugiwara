@@ -19,12 +19,13 @@ class PromotionResource extends JsonResource
             'id' =>  $this->id,
             'name' =>  $this->name,
             'description' =>  $this->description,
+            'is_active' => $this->getRawOriginal('is_active'),
             'start_date' => $this->start_date,
              'end_date' => $this->end_date,
             'created_at' =>  $this->created_at,
             'accomodation_id' => $this->accomodation_id,
             'accomodation_name' => Accomodation::find($this->accomodation_id)->name,
-            'room_id' => $this->room_id,
+            'room_number' => $this->room_number,
             'room_type' => $this->room_type,
             'images' => PromotionImageResource::collection($this->images)
         ];

@@ -56,7 +56,9 @@ class ReferralCodeUsedNotification extends Notification
     {
         return [
             'title' => 'Tambahan Poin',
-            'message' => $this->message
+            'message' => $this->message,
+            'type' => 'common',
+            'category' => 'pemberitahuan'
         ];
     }
 }

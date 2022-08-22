@@ -11,9 +11,9 @@ class PromotionController extends Controller
 {
     public function index()
     {
-        $promortions = Promotion::with(['images'])->get();
+        $promotion = Promotion::with(['images'])->latest()->first();
 
-        return PromotionResource::collection($promortions);
+        return new PromotionResource($promotion);
     }
 
     public function show(Promotion $promotion)

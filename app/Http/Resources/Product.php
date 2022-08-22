@@ -20,8 +20,7 @@ class Product extends JsonResource
             'description' => $this->description,
             'stock' => $this->stock,
             'point_needed' => $this->point_needed,
-            'created_at' => $this->created_at->isoFormat('dddd, D MMMM Y'),
-            'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
+            'image' => url('storage/products/' . $this->image?->image),
         ];
     }
 }

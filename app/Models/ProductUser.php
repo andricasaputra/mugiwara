@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductUser extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
+    protected $guarded = [];
 
     public function user()
     {
-        return $this->hasMany(ProductUser::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

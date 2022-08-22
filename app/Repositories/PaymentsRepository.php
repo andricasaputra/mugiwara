@@ -20,6 +20,14 @@ class PaymentsRepository
 
 		$setting = Setting::where('type', 'payment_expired')->latest()->first();
 
+		$tax = Setting::where('type', 'tax')->latest()->first();
+
+		if ($tax && $tax->is_active == 1) {
+			$tax_amount = ($tax->value / 100) * $request->amount;
+		} else {
+			$tax_amount = 0;
+		}
+
 		return $type->payment()->updateOrCreate(
 			[
 				'type_id' => $type->id,
@@ -35,7 +43,7 @@ class PaymentsRepository
 				'amount' => $request->amount,
 				'discount_type' => $request->discount_type ??= NULL,
 				'discount_amount' => $request->discount_amount ??= NULL,
-				'tax' => $request->tax ??= NULL,
+				'tax' => $tax_amount,
 				'status' => $payment['status'],
 				'expired_at' => now()->addHours($setting->value ?? 2),
 			]
