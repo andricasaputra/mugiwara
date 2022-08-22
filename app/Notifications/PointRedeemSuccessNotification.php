@@ -16,7 +16,7 @@ class PointRedeemSuccessNotification extends Notification
      *
      * @return void
      */
-    public function __construct(protected $accountPoin, protected $voucher, protected $message)
+    public function __construct(protected $accountPoin, protected $voucher)
     {
         //
     }
@@ -42,7 +42,7 @@ class PointRedeemSuccessNotification extends Notification
     {
         return [
             'title' => 'Penukaran Poin Berhasil!',
-            'message' => $this->message,
+            'message' => 'Terimaksih telah menukarkan point anda, Gunakan sebelum batas waktu yang sudah ditentukan',
             'history' => $this->accountPoin,
             'voucher' => $this->voucher,
             'type' => 'point',

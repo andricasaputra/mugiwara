@@ -16,7 +16,7 @@ class ProductReedemSuccessNotification extends Notification
      *
      * @return void
      */
-    public function __construct(protected $accountPoin, protected $product)
+    public function __construct(protected $accountPoin, protected $product, protected $message)
     {
         //
     }
@@ -56,7 +56,7 @@ class ProductReedemSuccessNotification extends Notification
     {
         return [
             'title' => 'Penukaran Merchandise Berhasil!',
-            'message' => 'Terimaksih telah menukarkan point anda, Tim kami akan segera menghubungi anda untuk pengirimman merchandise anda',
+            'message' => $this->message,
             'history' => $this->accountPoin,
             'product' => $this->product,
             'type' => 'point',
