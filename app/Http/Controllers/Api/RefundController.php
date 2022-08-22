@@ -7,9 +7,11 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Refund;
 use App\Models\RefundReason;
+use App\Models\User;
+use App\Notifications\RefundRequestNotification;
 use Illuminate\Http\Request;
-use Nette\Utils\Random;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 
 class RefundController extends Controller
 {
@@ -66,6 +68,22 @@ class RefundController extends Controller
             $order->update([
                 'order_status' => 'refund'
             ]);
+
+            $admin = User::admin()->first();
+
+            $notification_user = new RefundRequestNotification(
+                $refund,
+                'Anda telah mengajukan permohonan refund, permohonan anda akan segera kami proses'
+            );
+
+            $notification_admin = new RefundRequestNotification(
+                $refund,
+                'Terdapat pengajuan refund'
+            );
+
+            $request->user()->notify($notification_user);
+
+            $admin->notify($notification_admin); 
 
             DB::commit();
 

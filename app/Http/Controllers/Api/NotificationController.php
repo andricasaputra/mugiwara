@@ -31,7 +31,11 @@ class NotificationController extends Controller
                 [
                     'id' => 2,
                     'name' => 'rating'
-                ]
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'refund'
+                ],
             ]
         ]);
     }

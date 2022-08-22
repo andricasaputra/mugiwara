@@ -6,8 +6,12 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\URL;
 
-class ProductReedemSuccessNotification extends Notification implements ShouldQueue
+class RefundStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -16,7 +20,7 @@ class ProductReedemSuccessNotification extends Notification implements ShouldQue
      *
      * @return void
      */
-    public function __construct(protected $accountPoin, protected $product, protected $message)
+    public function __construct(protected \App\Models\Refund $refund, protected $message)
     {
         //
     }
@@ -29,7 +33,7 @@ class ProductReedemSuccessNotification extends Notification implements ShouldQue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,9 +45,13 @@ class ProductReedemSuccessNotification extends Notification implements ShouldQue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting('Halo ' . ucfirst($notifiable->name))
+                    ->subject(Lang::get('Status Refund'))
+                    ->line(Lang::get('Order ID : ' . $this->refund->order?->id))
+                    ->line(Lang::get('Kode Booking : ' . $this->refund->order?->booking_code))
+                    ->line(Lang::get('Permohonan refund anda ' . $this->refund->status))
+                    ->line(Lang::get($this->message))
+                    ->salutation(Lang::get('Terimakasih'));
     }
 
     /**
@@ -55,12 +63,11 @@ class ProductReedemSuccessNotification extends Notification implements ShouldQue
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Penukaran Merchandise Berhasil!',
+            'title' => 'Status Pengajuan Refund',
             'message' => $this->message,
-            'history' => $this->accountPoin,
-            'product' => $this->product,
-            'type' => 'point',
-            'category' => 'pemberitahuan'
+            'refund' => $this->refund->load(['user', 'order']),
+            'type' => 'refund',
+            'category' => 'refund'
         ];
     }
 }
