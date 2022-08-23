@@ -16,7 +16,8 @@ class GoogleApiController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'name' => 'required'
+            'name' => 'required',
+            'device_token' => 'required'
         ]);
 
         $newUser = Customer::firstOrCreate([
@@ -26,7 +27,8 @@ class GoogleApiController extends Controller
             'name' => $request->name,
             'type' => 'customer',
             'google_id' => $request->id,
-            'password' => bcrypt(env('DEFAULT_PASSWORD'))
+            'password' => bcrypt(env('DEFAULT_PASSWORD')),
+            'device_token' => $request->device_token
         ]);
 
         $account = Account::where('user_id', $newUser->id)->first();

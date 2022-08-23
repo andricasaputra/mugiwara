@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Messaging\CloudMessage;
 
 class PushController extends Controller
 {
     public function index()
-    {
-        $messaging = app('firebase.messaging');
+    {$messaging = app('firebase.messaging');
 
         $users = User::whereId('device_token')->get();
 
