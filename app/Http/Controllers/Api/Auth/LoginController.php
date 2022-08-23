@@ -34,9 +34,14 @@ class LoginController extends Controller
 
         $user = auth()->user();
 
-        $user->update([
-            'device_token' => $request->device_token
-        ]);
+        $user->updateOrCreate(
+            [
+                'id' => $user->id
+            ],
+            [
+                'device_token' => $request->device_token
+            ]
+        );
 
         return (new UserResource($user))->additional([
             'data' => [
