@@ -47,10 +47,6 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->validate([
-            'device_token' => ['required'],
-        ]);
-
         $request->user()->update([
             'device_token' => NULL
         ]);
