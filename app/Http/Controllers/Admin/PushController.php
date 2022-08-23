@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Messaging\CloudMessage;
 
@@ -12,7 +13,9 @@ class PushController extends Controller
     {
         $messaging = app('firebase.messaging');
 
-        $deviceToken = 'cuIhMTpxSlWAo-wDVJN5rG:APA91bFjUPg6HXtAZueEGptYrkMVeblxdZuGF4L5cV4myPEPL4SvfxhZjoq4csjXMUTueKsR5wLnmCR9qtZRM-PPVeDiD4u2NlGTyeLd4h5m49_RsiiWvm9BF0_VTYPXllr4odYpg1j7';
+        $users = User::whereId('device_token')->get();
+
+        $deviceToken = NULL;
 
         $data = [
             'title' => 'Ini data title dari backend',
