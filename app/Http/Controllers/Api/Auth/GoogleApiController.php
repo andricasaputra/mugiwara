@@ -20,6 +20,8 @@ class GoogleApiController extends Controller
             'device_token' => 'required'
         ]);
 
+        dd($request->device_token);
+
         $newUser = Customer::firstOrCreate([
             'email' => $request->email,
             'device_token' => $request->device_token
