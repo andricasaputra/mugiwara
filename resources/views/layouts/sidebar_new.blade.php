@@ -2,7 +2,7 @@
   <ul class="nav">
 
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
+      <a class="nav-link" href="{{ route('dashboard') }}">
         <i class="mr-2"><img src="{{ url('storage/icons/dashboard.png') }}" alt="icon"></i>
         <span class="menu-title">Dashboard</span>
       </a>
@@ -15,7 +15,7 @@
 
     @foreach($menus as $menu)
 
-      @if($menu->is_active == 1 && in_array(2, $menu->role?->pluck('role_id')->toArray()))
+      @if($menu->is_active == 1 && in_array(1, $menu->role?->pluck('role_id')->toArray()))
 
         @if(count($menu->childs) > 0)
 
@@ -32,7 +32,7 @@
 
                   @if($child->is_active == 1)
 
-                    <li class="nav-item"> <a class="nav-link" href="{{ url('admin/' . $child->url) }}">{{ ucwords($child->name) }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
 
                   @endif
 
@@ -45,7 +45,7 @@
         @else
 
            <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/' . $menu->url) }}">
+            <a class="nav-link" href="{{ url($menu->url) }}">
                 <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon"></i>
                 <span class="menu-title ml-2">{{ ucwords($menu->name) }}</span>
               </a>
@@ -56,24 +56,6 @@
       @endif 
 
     @endforeach
-
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting">
-          <i class="mr-2"><img src="{{ url('storage/icons/settings.png') }}" alt="icon"></i>
-          <span class="menu-title">Setting</span>
-          <i class="menu-arrow"></i>
-        </a>
-        <div class="collapse" id="setting">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.point.index') }}"> Poin </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.payment') }}"> List Metode Pembayaran </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.tax') }}"> Pajak </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.playstores.index') }}"> Play Store </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.appstores.index') }}"> App Store </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.menus.index') }}"> Manajemen Menu </a></li>
-          </ul>
-        </div>
-      </li>
 
   </ul>
 </nav>

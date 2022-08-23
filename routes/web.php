@@ -60,9 +60,9 @@ Route::middleware('verified')->group(function(){
         Route::resource('booking', BookingController::class);
         Route::resource('privacy', PrivacyPoliciesController::class);
 
-        Route::get('order', [OrderController::class, 'index'])->name('order.index');
-        Route::get('order/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
-        Route::post('order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+        Route::get('orders', [OrderController::class, 'index'])->name('order.index');
+        Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
+        Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 
         Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 

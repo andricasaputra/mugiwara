@@ -35,7 +35,7 @@
                                         
                                                 <tr>
 
-                                                    <td>{{ $menu->name }}</td>
+                                                    <td>{{ ucwords($menu->name) }}</td>
 
                                                      <td>{{ $menu->description }}</td>
 
@@ -45,12 +45,12 @@
                                                      <td><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="menu"></td>
 
 
-                                                      <td>{{ $menu->url }}</td>
+                                                      <td>{{ $menu->url ?? '-' }}</td>
 
                                                       <td>
                                                       	@foreach($menu->role as $role)
 
-                                                      		{{ $role->role_id }} 
+                                                      		{{ ucwords(\Spatie\Permission\Models\Role::find($role->role_id)?->name) ?? '-' }} 
                                                       		<br>
                                                       	@endforeach
                                                       </td>

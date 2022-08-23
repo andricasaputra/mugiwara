@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('manajeman_menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('url');
+            $table->string('url')->nullable();
+            $table->string('amount_child')->nullable();
             $table->string('is_active')->nullable();
             $table->string('icon_menu')->nullable();
             $table->timestamps();

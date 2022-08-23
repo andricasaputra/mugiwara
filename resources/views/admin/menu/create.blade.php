@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="url">Is Active</label>
+                    <label for="url">Aktif/Non Aktif</label>
                     <select name="is_active" class="form-control">
                         <option value="1">Aktif</option>
                         <option value="Tidak Aktif"></option>
@@ -147,10 +147,10 @@
                 <input type="text" name="submenu[]" class="form-control mb-2" id="submenu${i}">
 
                 <label for="url">Link ${i}</label>
-                <input type="text" name="url[]" class="form-control">
+                <input type="text" name="url[]" class="form-control mb-2">
 
-                <label for="is_active">Aktif / Non aktif ${i}</label>
-                <select name="is_active[]" multiple class="form-control">
+                <label for="is_active_child">Aktif / Non aktif ${i}</label>
+                <select name="is_active_child[]" class="form-control mb-2">
                     <option value="1">Aktif</option>
                     <option value="">Non Aktif</option>
                 </select>

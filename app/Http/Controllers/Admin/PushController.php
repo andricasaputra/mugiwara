@@ -9,11 +9,14 @@ use Kreait\Firebase\Messaging\CloudMessage;
 class PushController extends Controller
 {
     public function index()
-    {$messaging = app('firebase.messaging');
+    {
+        $messaging = app('firebase.messaging');
 
-        $users = User::whereId('device_token')->get();
+        // $users = User::whereId('device_token')->get();
 
-        $deviceToken = NULL;
+        // $deviceToken = NULL;
+
+        $topic = 'test-topic';
 
         $data = [
             'title' => 'Ini data title dari backend',
@@ -25,8 +28,14 @@ class PushController extends Controller
             'body' => 'Ini notification body title dari backend'
         ];
 
-        $message = CloudMessage::withTarget('token', $deviceToken)
-            ->withData($data);
+        // $message = CloudMessage::withTarget('token', $deviceToken)
+        //     ->withData($data);
+
+        $topic = 'a-topic';
+
+        $message = CloudMessage::withTarget('topic', $topic)
+            ->withData($data) // optional
+        ;
 
         $res = $messaging->send($message);
 

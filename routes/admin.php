@@ -149,9 +149,9 @@ Route::name('admin.')->group(function() {
     Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
     Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
 
-    Route::get('order', [OrderController::class, 'index'])->name('order.index');
-    Route::get('order/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
-    Route::post('order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('orders.detail');
+    Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
 
     Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 

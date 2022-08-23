@@ -9,7 +9,13 @@ class ManajemanMenu extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'url',
+        'amount_child',
+        'is_active',
+        'created_at'
+    ];
 
     public function role()
     {
@@ -19,5 +25,10 @@ class ManajemanMenu extends Model
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function childs()
+    {
+        return $this->hasMany(ManajemenSubMenu::class);
     }
 }

@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             PostTableSeeder::class,
             PromoTableSeeder::class,
             RefundReasonTableSeeder::class,
+            ManajemenMenuTableSeeder::class,
         ]);
     }
 }

@@ -9,5 +9,14 @@ class ManajemenSubMenu extends Model
 {
     use HasFactory;
     
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'url',
+        'is_active',
+    ];
+
+    public function parent()
+    {
+        return $this->belongsTo(ManajemanMenu::class);
+    }
 }

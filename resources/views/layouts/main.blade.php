@@ -17,7 +17,7 @@
       @endrole
 
       @role('employee')
-        @include('layouts.sidebar')
+        @include('layouts.sidebar_new')
       @endrole  
       <!-- partial -->
       <div class="main-panel">

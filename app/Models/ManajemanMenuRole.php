@@ -9,5 +9,9 @@ class ManajemanMenuRole extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'menu_id',
+        "url",
+        'role_id',
+    ];
 }
