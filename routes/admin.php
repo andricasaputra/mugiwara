@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\PushController;
 use App\Http\Controllers\Admin\RefferalController;
 use App\Http\Controllers\Admin\RefundController;
 use App\Http\Controllers\Admin\RoleController;
@@ -173,6 +174,8 @@ Route::name('admin.')->group(function() {
     Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
 
     Route::resource('menus', ManajemenMenuController::class);
+
+    Route::get('push', [PushController::class, 'index']);
 
     require __DIR__.'/setting.php';
 

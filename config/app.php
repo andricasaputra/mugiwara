@@ -199,6 +199,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\UploadServiceProvider::class,
         App\Providers\PaymentServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
 
     ],
 

@@ -19,6 +19,7 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => ['required'],
             'password' => ['required'],
+            'device_token' => ['required'],
         ]);
         
 
@@ -31,6 +32,10 @@ class LoginController extends Controller
 
         $user = auth()->user();
 
+        $user->update([
+            'device_token' => $request->device_token
+        ]);
+
         return (new UserResource($user))->additional([
             'data' => [
                 'token' => $user->createToken('access_token')->plainTextToken,
@@ -40,6 +45,14 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $request->validate([
+            'device_token' => ['required'],
+        ]);
+
+        $request->user()->update([
+            'device_token' => NULL
+        ]);
+
         $request->user()->tokens()->delete();
     }
 }

@@ -8,14 +8,13 @@ use App\Models\ManajemanMenu;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class ManajemenMenuController extends Controller
 {
     public function index()
     {
         $menus = ManajemanMenu::with(['image', 'role'])->orderBy('id', 'asc')->get();
-
-        //dd($menus);
 
         return view('admin.menu.index')->withMenus($menus);
     }
@@ -40,30 +39,69 @@ class ManajemenMenuController extends Controller
             'role_id' => 'required'
         ]);
 
-        $menu = ManajemanMenu::create([
-            "name" => $request->name,
-            "url" => $request->url,
-            'is_active' => $request->is_active,
-        ]);
+        DB::beginTransaction();
 
-        foreach($request->role_id as $r){
-            $menu->role()->create(['role_id' => $r]);
+        try {
+
+            if($request->submenu){
+                $menu = ManajemanMenu::create([
+                    "name" => $request->name,
+                    "url" => "main"
+                ]);
+
+                $submenu = [];
+
+                foreach ($request->submenu as $key => $sub) {
+                   
+                    array_push($submenu, [
+                        'manajeman_menu_id' => $menu->id,
+                        'name' => $sub,
+                        'url' => $request->url[$key],
+                        'is_active' => $request->is_active,
+                    ]);
+                }
+
+                 dd($submenu);
+
+            } else {
+
+                $menu = ManajemanMenu::create([
+                    "name" => $request->name,
+                    "url" => $request->url,
+                    'is_active' => $request->is_active,
+                ]);
+            }
+
+            foreach($request->role_id as $r){
+                $menu->role()->create(['role_id' => $r]);
+            }
+
+            if($request->hasFile('icon_menu')){
+
+                $file = $request->file('icon_menu');
+
+                $factory  = app()->make(UploadServiceInterface::class);
+
+                $fileName = $factory->process($file);
+
+                $menu->image()->create([
+                    'image' => $fileName
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect(route('admin.menus.index'))->withSuccess('Berhasil Tambah Setting Manajemen Menu');
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            dd($e);
+            
         }
 
-        if($request->hasFile('icon_menu')){
-
-            $file = $request->file('icon_menu');
-
-            $factory  = app()->make(UploadServiceInterface::class);
-
-            $fileName = $factory->process($file);
-
-            $menu->image()->create([
-                'image' => $fileName
-            ]);
-        }
-
-        return redirect(route('admin.menus.index'))->withSuccess('Berhasil Tambah Setting Manajemen Menu');
+        
     }
 
     public function edit($id)
