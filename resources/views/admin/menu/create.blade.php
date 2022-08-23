@@ -148,6 +148,12 @@
 
                 <label for="url">Link ${i}</label>
                 <input type="text" name="url[]" class="form-control">
+
+                <label for="is_active">Aktif / Non aktif ${i}</label>
+                <select name="is_active[]" multiple class="form-control">
+                    <option value="1">Aktif</option>
+                    <option value="">Non Aktif</option>
+                </select>
             `);
         }
     });

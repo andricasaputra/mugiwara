@@ -25,7 +25,6 @@ class OfficeTableSeeder extends Seeder
                 'type' => Arr::random(['main_office', 'sub_office']),
                 'address' => $faker->address(),
                 'mobile_number' => $faker->phoneNumber,
-                'user_id' => $faker->numberBetween(2, 8),
                 'accomodation_id' => $i,
             ]);
         }

@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('manajeman_menus', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_id')->after('id')->nullable();
-            $table->unsignedBigInteger('child_id')->after('parent_id')->nullable();
+        Schema::create('office_users', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('office_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('manajeman_menus', function (Blueprint $table) {
-            $table->dropColumn('parent_id');
-            $table->dropColumn('child_id');
-        });
+        Schema::dropIfExists('office_users');
     }
 };

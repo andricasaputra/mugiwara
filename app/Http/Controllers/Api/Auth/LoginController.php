@@ -16,14 +16,16 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => ['required'],
             'password' => ['required'],
             'device_token' => ['required'],
         ]);
         
-
-        if (! auth()->attempt($credentials)) {
+        if (! auth()->attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+            ])) {
 
              return response()->json([
                 'message' => 'Identitas tersebut tidak cocok dengan data kami.'

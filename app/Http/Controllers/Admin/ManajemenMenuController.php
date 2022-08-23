@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\ManajemanMenu;
+use App\Models\ManajemanMenuRole;
+use App\Models\ManajemenSubMenu;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class ManajemenMenuController extends Controller
 {
@@ -44,6 +46,7 @@ class ManajemenMenuController extends Controller
         try {
 
             if($request->submenu){
+
                 $menu = ManajemanMenu::create([
                     "name" => $request->name,
                     "url" => "main"
@@ -61,7 +64,7 @@ class ManajemenMenuController extends Controller
                     ]);
                 }
 
-                 dd($submenu);
+                ManajemenSubMenu::insert($submenu);
 
             } else {
 
@@ -73,7 +76,12 @@ class ManajemenMenuController extends Controller
             }
 
             foreach($request->role_id as $r){
-                $menu->role()->create(['role_id' => $r]);
+                ManajemanMenuRole::updateOrCreate(
+                    [
+                        'menu_id' => $menu->id,
+                        'role_id' => $r
+                    ]
+                );
             }
 
             if($request->hasFile('icon_menu')){
