@@ -70,13 +70,13 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect(route('admin.order.index'))->withSuccess('Berhasil checkout tamu ruangan nomor ' . $room->room_number);
+            return redirect(route('admin.orders.index'))->withSuccess('Berhasil checkout tamu ruangan nomor ' . $room->room_number);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            return redirect(route('admin.order.index'))->withErrors('Gagal checkout ruangan, error ' . $e->getMessage());
+            return redirect(route('admin.orders.index'))->withErrors('Gagal checkout ruangan, error ' . $e->getMessage());
         }
 
         

@@ -24,7 +24,8 @@ class Order extends Model
         'discount_amount',
         'total_price',
         'check_out_date',
-        'order_status'
+        'order_status',
+        'total_guest'
     ];
 
     public function accomodation()

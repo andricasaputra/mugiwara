@@ -252,6 +252,29 @@ class ManajemenMenuTableSeeder extends Seeder
                 ],
                 'created_at' => now()
             ],
+
+            [
+                'name' => 'notifikasi',
+                'amount_child' => 2,
+                'sub_menu' => [
+                    [
+                        'name' => 'daftar notifikasi',
+                        'url' => 'notications',
+                        'is_active' => 1
+                    ],
+                    [
+                        'name' => 'push notifikasi',
+                        'url' => 'notifikasi/push',
+                        'is_active' => 1
+                    ],
+                ],
+                'icon' => 'berita.png',
+                'is_active' => 1,
+                'role_id' => [
+                      2
+                ],
+                'created_at' => now()
+            ],
         ];
 
         foreach ($default_menus as $menus) {

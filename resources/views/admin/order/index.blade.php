@@ -93,7 +93,7 @@
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.order.detail', $order->id) }}" class="btn btn-primary">Detail</a>
+                                                    	<a href="{{ route('admin.orders.detail', $order->id) }}" class="btn btn-primary">Detail</a>
 
                                                         @if($order->order_status == 'completed')
 
@@ -104,7 +104,7 @@
                                                         @else
                                                         	
                                                         	@if($order->payment && $order->payment?->status != 'PENDING')
-                                                        		<form action="{{ route('admin.order.checkout') }}" method="post">
+                                                        		<form action="{{ route('admin.orders.checkout') }}" method="post">
 
 	                                                        	@csrf
 

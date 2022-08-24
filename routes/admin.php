@@ -175,7 +175,13 @@ Route::name('admin.')->group(function() {
 
     Route::resource('menus', ManajemenMenuController::class);
 
-    Route::get('push', [PushController::class, 'index']);
+    Route::get('notifikasi/push', [PushController::class, 'index'])->name('notifications.push.index');
+
+    Route::get('notifikasi/push/create', [PushController::class, 'create'])->name('notifications.push.create');
+
+    Route::post('notifikasi/push', [PushController::class, 'store'])->name('notifications.push.store');
+
+    Route::delete('notifikasi/push', [PushController::class, 'destroy'])->name('notifications.push.destroy');
 
     require __DIR__.'/setting.php';
 

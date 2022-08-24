@@ -10,7 +10,7 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         if($request->category){
-            $notif = $request->user()->notifications->where('data.category', $request->category);
+            $notif = $request->user()->notifications->where('data.category', $request->category)->flatten(1);
         } else {
             $notif = $request->user()->notifications;
         }

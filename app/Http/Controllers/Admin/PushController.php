@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PushNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Messaging\CloudMessage;
 
@@ -10,35 +12,94 @@ class PushController extends Controller
 {
     public function index()
     {
-        $messaging = app('firebase.messaging');
+        $push = PushNotification::latest()->get();
 
-        // $users = User::whereId('device_token')->get();
+        $receivers = [];
 
-        // $deviceToken = NULL;
+        foreach($push as $p){
+            $receivers[] = json_decode($p->receivers);
+        }
 
-        $topic = 'test-topic';
+        $users = [];
 
-        $data = [
-            'title' => 'Ini data title dari backend',
-            'text' => 'Ini data text title dari backend'
-        ];
+        foreach($receivers as $key => $token){
 
-        $notification = [
-            'title' => 'Ini notification title dari backend',
-            'body' => 'Ini notification body title dari backend'
-        ];
+            if ($token[0] == 'all') {
+                $users[] = ['name' => 'all'];
+            }else{
+                $users[] = User::whereIn('device_token', $token)->get();
+            }
+        }
 
-        // $message = CloudMessage::withTarget('token', $deviceToken)
-        //     ->withData($data);
+        return view('admin.notifications.push.index')
+            ->withPush($push)
+            ->withUsers($users);
+    }
 
-        $topic = 'a-topic';
+    public function create()
+    {
+         $users = User::whereNotNull('device_token')->get();
 
-        $message = CloudMessage::withTarget('topic', $topic)
-            ->withData($data) // optional
-        ;
+        return view('admin.notifications.push.create')->withUsers($users);
+    }
 
-        $res = $messaging->send($message);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'text' => 'required',
+            'receiver' => 'required'
+        ]);
 
-        dd($res);
+        try {
+
+            $messaging = app('firebase.messaging');
+
+            $push = PushNotification::create([
+                'title' => $request->title,
+                'text' => $request->text,
+                'receivers' => json_encode($request->receiver),
+            ]);
+
+            if(@$request->receiver[0] == 'all'){
+
+                $receivers = User::whereNotNull('device_token')->get();
+
+                $deviceTokens = $receivers->pluck('device_token')->toArray();
+
+            } else {
+
+
+
+                $deviceTokens = $request->receiver;
+            }
+
+            //dd($deviceTokens);
+
+            $notification = [
+                'title' => $request->title,
+                'body' => $request->text,
+                'image' => url('storage/misc/capsuleinnlogo.png'),
+            ];
+
+            $message = CloudMessage::new()->withNotification($notification);
+
+            $sendReport = $messaging->sendMulticast($message, $deviceTokens);
+
+            return redirect(route('admin.notifications.push.index'))->withSuccess('Berhasil Mengirim Push Notifikasi');
+            
+        } catch (\Exception $e) {
+            return redirect(route('admin.notifications.push.index'))->withErrors('Gagal Mengirim Push Notifikasi, Error : ' . $e->getMessage());
+        }
+
+    }
+
+    public function destroy(Request $request)
+    {
+        $push = PushNotification::find($request->id);
+
+        $push->delete();
+
+        return redirect(route('admin.notifications.push.index'))->withSuccess('Berhasil Hapus Daya Push Notifikasi');
     }
 }
