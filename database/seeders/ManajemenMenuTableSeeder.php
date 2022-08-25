@@ -193,7 +193,7 @@ class ManajemenMenuTableSeeder extends Seeder
                 'sub_menu' => [
                     [
                         'name' => 'daftar voucher',
-                        'url' => 'product',
+                        'url' => 'voucher',
                         'is_active' => 1
                     ],
                 ],

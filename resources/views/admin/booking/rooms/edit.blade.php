@@ -50,6 +50,15 @@
                                             <label for="name">Nama Penginapan</label>
                                             <input name="name" type="text" class="form-control form-control-lg"  required value="{{ $room->accomodation->name }}" readonly>
                                         </div>
+                                         <div class="form-group">
+                                            <label for="status">Status Kamar</label>
+                                            <select name="status" class="form-control">
+                                                <option value="{{ $room->status }}">{{ ucwords($room->status) }}</option>
+                                                <option value="available">Available</option>
+                                                <option value="booked">Booked</option>
+                                                <option value="stayed">Stayed</option>
+                                            </select>
+                                        </div>
                                         @include('admin.booking.rooms.section1-edit')
                                     </div>
                                     <div class="mt-3">

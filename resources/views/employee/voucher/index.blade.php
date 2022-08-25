@@ -60,6 +60,8 @@
 
 @push('scripts')
 <script>
-    $('#mytable').DataTable();
+    $('#mytable').DataTable({
+            order : false
+        });
 </script>
 @endpush

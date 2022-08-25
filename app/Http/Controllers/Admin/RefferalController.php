@@ -10,7 +10,7 @@ class RefferalController extends Controller
 {
     public function index()
     {
-        $affiliates = Affiliate::with(['user', 'followers.user'])->get();
+        $affiliates = Affiliate::latest()->with(['user', 'followers.user'])->get();
 
         return view('admin.refferals.index')->withRefferals($affiliates);
     }

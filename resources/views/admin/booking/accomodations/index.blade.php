@@ -34,9 +34,9 @@
                                                 <tr>
                                                     <td>{{ $accomodation->name }}</td>
                                                     <td>{{ $accomodation->address }}</td>
-                                                    <td>{{ $accomodation->ratings_avg ?? 0 }}</td>
+                                                    <td>{{ $accomodation->reviews_avg_rating ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
-                                                    <td>{{ $accomodation->description }}</td>
+                                                    <td>{{ substr_replace($accomodation->description, "...", 30) }}</td>
                                                      
                                                     <td>
                                                         <div class="d-flex justify-content-center">

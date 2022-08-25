@@ -7,7 +7,39 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    {{-- <a href="{{ route('rooms.create') }}" class="btn btn-success">Tambah kamar</a> --}}
+                       <div>
+                            <form class="form-inline" action="{{ route('rooms.filter') }}" method="post">
+                              <div class="form-group mb-2">
+                                @csrf
+                                <label for="from" class="sr-only">Penginapan</label>
+                                <select name="accomodation_id" class="form-control">
+                                    <option value="all">Semua Penginapan</option>
+                                    @foreach($accomodations as $accomodation)
+                                        <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                <label for="type_id" class="sr-only">Tipe Kamar</label>
+                                <select name="type_id" class="form-control">
+                                    <option value="all">Semua Tipe</option>
+                                    @foreach($types as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                <label for="status" class="sr-only">status Kamar</label>
+                                <select name="status" class="form-control">
+                                    <option value="all">Semua Status</option>
+                                    <option value="booked">Booked</option>
+                                    <option value="stayed">Stayed</option>
+                                    <option value="available">Available</option>
+                                </select>
+                              </div>
+                              <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                            </form>
+                        </div>
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -24,10 +56,12 @@
                                                 <th>Nama Penginapan</th>
                                                 <th>Type</th>
                                                 <th>Maksimal Tamu</th>
+                                                <th>Status</th>
                                                 <th>Harga</th>
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>
                                                 <th>Fasilitas Kamar</th>
+                                                <th>Nomor Kamar</th>
                                                 <th>Deskripsi Kamar Kamar</th>
                                                 <th>Operation</th>
                                             </tr>
@@ -35,9 +69,11 @@
                                         <tbody>
                                             @forelse ($rooms as $room)
                                                 <tr>
-                                                    <td>{{ $room->accomodation->name }}</td>
-                                                    <td>{{ $room->type->name }}</td>
+                                                    <td>{{ $room->accomodation?->name }}</td>
+                                                    <td>{{ $room->type?->name }}</td>
+                                                   
                                                     <td>{{ $room->max_guest }} orang</td>
+                                                    <td>{{ ucwords($room->status) }}</td>
                                                     <td>{{ $room->price }}</td>
                                                     <td>{{ $room->discount_type }} <br> {{ $room->discount_amount }}</td>
                                                     <td>
@@ -63,15 +99,29 @@
 
                                                     </td>
                                                     <td>
-                                                        @foreach($room->facilities as $facility)
-                                                            <div>
+                                                        <div id="facilityCors" class="carousel slide" data-ride="carousel">
+                                                          <div class="carousel-inner">
 
-                                                                <img src="{{ asset('storage/facilities') .'/'. $facility->image}}" alt="facility" style="width : 30px">
-                                                                <p>{{ ucwords(str_replace("_", " ", $facility->name)) }}</p>
+                                                            @foreach($room->facilities as $facility)
+
+                                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                                                <img  class="d-block w-50" src="{{ asset('storage/facilities') .'/'. $facility->image }}" alt="Second slide" width="50">
+                                                                <p class="text-center">{{ $facility->name }}</p>
                                                             </div>
-                                                        @endforeach
+                                                            @endforeach
+                                                          </div>
+                                                          <a class="carousel-control-prev" href="#facilityCors" role="button" data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                          </a>
+                                                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                          </a>
+                                                        </div>
                                                     </td>
-                                                    <td>{{ $room->description }}</td>
+                                                     <td>{{ $room->room_number }}</td>
+                                                    <td>{{ substr_replace($room->description, "...", 50) }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $room->id) }}">Edit</a>
@@ -85,7 +135,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8">Belum ada data untuk ditampilkan</td> 
+                                                    <td colspan="10">Belum ada data untuk ditampilkan</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>

@@ -19,7 +19,7 @@ class FinanceController extends Controller
 
     public function index()
     {
-        $payments = Payment::whereHas('order', function($query){
+        $payments = Payment::latest()->whereHas('order', function($query){
             $query->where('accomodation_id', $this->getOffice());
         })->with(['user', 'order', 'payable', 'voucher'])->get();
 

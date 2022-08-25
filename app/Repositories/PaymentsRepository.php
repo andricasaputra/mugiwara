@@ -64,7 +64,6 @@ class PaymentsRepository
 
 		if(! $ewallet){
 			throw new \Exception("Pembayaran tidak ditemukan", 1);
-			
 		}
 
 		$ewallet->payment()->update(['status' => $status['status']]);

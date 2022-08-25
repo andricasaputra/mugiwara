@@ -93,26 +93,42 @@
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.orders.detail', $order->id) }}" class="btn btn-primary">Detail</a>
+                                                    	<a href="{{ route('admin.orders.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
+
+                                                        @if($order->order_status == 'booked')
+                                                             <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
+                                                        @endif
 
                                                         @if($order->order_status == 'completed')
 
                                                         	<button class="btn btn-success mt-2">Selesai</button>
 
                                                         @elseif($order->refund)
+
                                                         	<button class="btn btn-danger mt-2">Pengajuan Refund</button>
+
                                                         @else
-                                                        	
                                                         	@if($order->payment && $order->payment?->status != 'PENDING')
-                                                        		<form action="{{ route('admin.orders.checkout') }}" method="post">
 
-	                                                        	@csrf
+                                                                @if($order->order_status == 'booked')
 
-	                                                        	<input type="hidden" value="checkout" name="status">
+                                                                    <a href="{{ route('admin.orders.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
 
-	                                                        	<input type="hidden" value="{{ $order->id }}" name="order_id">
 
-	                                                        	<button type="submit" class="btn btn-danger mt-2">Checkout</button>
+                                                                @elseif($order->order_status == 'stayed')
+
+                                                                        <form action="{{ route('admin.orders.checkout') }}" method="post">
+
+                                                                        @csrf
+
+                                                                        <input type="hidden" value="checkout" name="status">
+
+                                                                        <input type="hidden" value="{{ $order->id }}" name="order_id">
+
+                                                                        <button type="submit" class="btn btn-danger mt-2">Checkout</button>
+
+                                                                @endif
+
                                                         	@endif
 
                                                         </form>
@@ -139,7 +155,7 @@
     </div>
 </div>
    
-@endsection()
+@endsection
 
 @section('scripts')
     <script>
@@ -152,6 +168,8 @@
             }
         });
 
-        $('#mytable').DataTable();
+        $('#mytable').DataTable({
+            order : false
+        });
     </script>
 @endsection()

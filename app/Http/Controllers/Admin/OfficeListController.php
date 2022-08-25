@@ -14,7 +14,7 @@ class OfficeListController extends Controller
 {
     public function index()
     {
-        $offices = Office::with(['users', 'accomodation'])->get();
+        $offices = Office::latest()->with(['users', 'accomodation'])->get();
 
         return view('admin.offices.index')->withOffices($offices);
     }
@@ -35,7 +35,8 @@ class OfficeListController extends Controller
         }
 
         $accomodations = Accomodation::whereNotIn('id', $acc)->get();
-        $employees = User::doesntHave('office')->employee()->get();
+        //$employees = User::doesntHave('office')->employee()->get();
+        $employees = User::employee()->get();
 
         if ($accomodations->isEmpty()) {
             return back()->withWarning('Daftar Pengiapa masih kosong, silahkan tambahkan data penginapan terlebuh dahulu');
@@ -85,49 +86,52 @@ class OfficeListController extends Controller
     public function edit(Office $office)
     {
         $users = User::whereType('user')->whereNotIn('id', [1, 2])->get();
+        $employees = User::doesntHave('office')->employee()->get();
         $accomodations = Accomodation::get();
 
         return view('admin.offices.edit')
             ->withUsers($users)
             ->withAccomodations($accomodations)
-            ->withOffice($office->load(['user', 'accomodation']));
+            ->withEmployees($employees)
+            ->withOffice($office->load(['users', 'accomodation']));
     }
 
     public function update(OfficeStoreRequest $request, Office $office)
     { 
+        DB::beginTransaction();
 
-        if($office->accomodation->id != $request->accomodation_id){
-
-            $check = Office::where('accomodation_id', $request->accomodation_id)->first();
-
-            if ($check) {
-                $check->delete();
-            }
+        try {
 
             $office->update([
               "name" => $request->name,
               "type" => $request->type,
               "address" => $request->address,
-              "user_id" => $request->user_id,
               "accomodation_id" => $request->accomodation_id,
             ]);
 
-        }else{
+            foreach($request->user_id as $id){
+                $office->users()->create([
+                    'user_id' => $id
+                ]);
+            }
 
-            $office->update([
-              "name" => $request->name,
-              "type" => $request->type,
-              "address" => $request->address,
-              "user_id" => $request->user_id,
-            ]);
+            DB::commit();
 
+            return redirect(route('offices.index'))->withSuccess('Berhasil Ubah Data Informasi Kantor');
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+             return redirect(route('offices.index'))->withErrors('BGagal Ubah Data Informasi Kantor, Error ' . $e->getMessage());
+            
         }
-
-        return redirect(route('offices.index'))->withSuccess('Berhasil Ubah Data Informasi Kantor');
     }
 
     public function destroy(Office $office)
     {
+        $office->users()->delete();
+
         $office->delete();
 
         return redirect(route('offices.index'))->withSuccess('Berhasil Hapus Data Informasi Kantor');

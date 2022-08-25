@@ -65,6 +65,7 @@ Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoo
 Route::resource('accomodations', AccomodationController::class);
 
 Route::resource('rooms', RoomController::class);
+Route::post('rooms/filter', [RoomController::class, 'filter'])->name('rooms.filter');
 Route::resource('facilities', FacilityController::class);
 Route::resource('room_types', RoomTypeController::class);
 Route::resource('booking', BookingController::class);
@@ -152,6 +153,10 @@ Route::name('admin.')->group(function() {
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('orders.detail');
     Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
+    Route::get('orders/checkin/{order}', [OrderController::class, 'checkinPage'])->name('orders.checkin.page');
+    Route::post('orders/checkin', [OrderController::class, 'checkin'])->name('orders.checkin');
+    Route::get('orders/edit/{order}', [OrderController::class, 'edit'])->name('orders.edit');
+    Route::put('orders/update/{order}', [OrderController::class, 'update'])->name('orders.update');
 
     Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 

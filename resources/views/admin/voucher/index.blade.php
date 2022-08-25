@@ -105,6 +105,8 @@
         console.log(id);
         $('#delete').find('input[name="id"]').val(id);
     });
-    $('#mytable').DataTable();
+    $('#mytable').DataTable({
+            order : false
+        });
 </script>
 @endpush

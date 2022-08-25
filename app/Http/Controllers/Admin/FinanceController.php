@@ -20,7 +20,7 @@ class FinanceController extends Controller
 
     public function index()
     {
-        $payments = Payment::with(['user', 'order', 'payable', 'voucher'])->get();
+        $payments = Payment::latest()->with(['user', 'order', 'payable', 'voucher'])->get();
 
         $getBalance = $this->getBalance();
 

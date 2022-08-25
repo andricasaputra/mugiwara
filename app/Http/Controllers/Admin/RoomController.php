@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Accomodation;
 use App\Models\Facility;
 use App\Models\Room;
 use App\Models\Type as RoomType;
@@ -19,9 +20,42 @@ class RoomController extends Controller
 
     public function index()
     {
+        $accomodations = Accomodation::all();
+        $types = RoomType::all();
+
         $rooms = Room::with(['images', 'type', 'accomodation', 'facilities'])->get();
 
-        return view('admin.booking.rooms.index')->withRooms($rooms);
+        return view('admin.booking.rooms.index')
+            ->withRooms($rooms)
+                ->withAccomodations($accomodations)
+                ->withtypes($types);
+    }
+
+     public function filter(Request $request)
+    {
+        $accomodations = Accomodation::all();
+        $types = RoomType::all();
+
+        $rooms = Room::query();
+
+        if($request->accomodation_id && $request->accomodation_id != 'all'){
+            $rooms = $rooms->where('accomodation_id', $request->accomodation_id);
+        }
+
+        if($request->type_id && $request->type_id != 'all'){
+            $rooms = $rooms->where('type_id', $request->type_id);
+        }
+
+        if($request->status && $request->status != 'all'){
+            $rooms = $rooms->where('status', $request->status);
+        }
+
+        //$rooms->with(['images', 'type', 'accomodation', 'facilities'])->get();
+
+        return view('admin.booking.rooms.index')
+                ->withRooms($rooms->get())
+                ->withAccomodations($accomodations)
+                ->withtypes($types);
     }
 
     public function create()
@@ -119,7 +153,8 @@ class RoomController extends Controller
               "max_guest" => $request->max_guest ,
               "price" => $request->price ,
               "discount_type" => $request->discount_type ,
-              "description_room" => $request->description_room
+              "description_room" => $request->description_room,
+              'status' => $request->status
             ]);
 
             $room->facilities()->sync($request->facility);

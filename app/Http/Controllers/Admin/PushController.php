@@ -51,6 +51,12 @@ class PushController extends Controller
             'receiver' => 'required'
         ]);
 
+        $check = User::whereNotNull('device_token')->get();
+
+        if(count($check) == 0){
+             return redirect(route('admin.notifications.push.index'))->withErrors('Maaf untuk saat ini tidak dapat mengirim notifikasi karena tidak ada device yang terdaftar');
+        }
+
         try {
 
             $messaging = app('firebase.messaging');

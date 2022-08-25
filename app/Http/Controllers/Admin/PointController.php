@@ -12,7 +12,7 @@ class PointController extends Controller
 {
     public function index()
     {
-        $accountPoints = AccountPoint::all();
+        $accountPoints = AccountPoint::latest()->get();
 
         $customers = Customer::where('type', 'customer')->get();
 

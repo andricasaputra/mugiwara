@@ -12,7 +12,7 @@ class VoucherController extends Controller
 {
     public function index()
     {
-        $vouchers = Voucher::when(request()->q, function($vouchers) {
+        $vouchers = Voucher::latest()->when(request()->q, function($vouchers) {
             $vouchers->where('name', 'like', '%'.request()->q.'%')->orWhere('description', 'like', '%'.request()->q.'%');
         })->latest()->get();
         

@@ -12,7 +12,7 @@ class RefundController extends Controller
 {
     public function index()
     {
-        return view('admin.refund.index')->withRefunds(Refund::with(['user', 'reason'])->get());
+        return view('admin.refund.index')->withRefunds(Refund::latest()->with(['user', 'reason'])->get());
     }
 
     public function show(Refund $refund)

@@ -46,7 +46,7 @@
                                                     <td>{{ $office->accomodation?->name }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-between">
-                                                            <a class="btn btn-info btn sm" href="{{ route('offices.edit', $office->id) }}">Edit</a>
+                                                            <a class="btn btn-info mr-2" href="{{ route('offices.edit', $office->id) }}">Edit</a>
                                                             <form action="{{ route('offices.destroy', $office->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -88,6 +88,8 @@
             }
         });
 
-        $('#mytable').DataTable();
+        $('#mytable').DataTable({
+            order : false
+        });
     </script>
 @endsection()

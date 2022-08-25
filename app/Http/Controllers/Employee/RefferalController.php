@@ -10,6 +10,6 @@ class RefferalController extends Controller
 {
     public function index()
     {
-        return view('admin.refferals.index')->withRefferals(Affiliate::all());
+        return view('admin.refferals.index')->withRefferals(Affiliate::latest()->get());
     }
 }

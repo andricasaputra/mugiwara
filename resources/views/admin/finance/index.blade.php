@@ -84,7 +84,11 @@
                                                     <td>{{ $payment->amount }} </td>
 
                                                     <td>
-                                                    	{{ $payment->voucher?->name ?? '-' }}
+                                                    	{{  $payment->voucher?->name ?? '-' }}
+
+                                                        <br>
+
+                                                        {{ $payment->voucher?->point_needed   }}
 
                                                     	<br>
 
@@ -138,6 +142,8 @@
             }
         });
 
-        $('#mytable').DataTable();
+        $('#mytable').DataTable({
+            order : false
+        });
     </script>
 @endsection()

@@ -195,7 +195,7 @@ class PaymentController extends Controller
         }
 
         //Update room status
-        $this->updateRoomStatus($order->room_id, $order->stay_day);
+        //$this->updateRoomStatus($order->room_id, $order->stay_day);
 
         return response()->json(['data' => $payment]);
     }
@@ -226,7 +226,7 @@ class PaymentController extends Controller
             }
 
             //Update room status
-            $this->updateRoomStatus($order->room_id, $order->stay_day);
+            //$this->updateRoomStatus($order->room_id, $order->stay_day);
             
             return response()->json(['data' => $payment]);
             
