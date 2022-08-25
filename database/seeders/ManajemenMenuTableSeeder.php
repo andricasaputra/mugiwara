@@ -138,6 +138,7 @@ class ManajemenMenuTableSeeder extends Seeder
                 'is_active' => 1,
                 'url' => 'point',
                 'role_id' => [
+                    1,
                     2
                 ],
                 'created_at' => now()
@@ -268,9 +269,10 @@ class ManajemenMenuTableSeeder extends Seeder
                         'is_active' => 1
                     ],
                 ],
-                'icon' => 'berita.png',
+                'icon' => 'notifikasi.png',
                 'is_active' => 1,
                 'role_id' => [
+                    1,
                       2
                 ],
                 'created_at' => now()

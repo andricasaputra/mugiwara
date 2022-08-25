@@ -19,14 +19,22 @@ class OfficeTableSeeder extends Seeder
     {
         $faker = app(Generator::class);
 
-        for ($i=1; $i < 11; $i++) { 
-            \App\Models\Office::create([
+        $no = 3;
+
+        for ($i=1; $i < 6; $i++) { 
+
+            $office = \App\Models\Office::create([
                 'name' => Arr::random(['Kantor ' . Random::generate(6, 'A-Z'), 'Kanotr' . Random::generate(6, 'A-Z')]),
                 'type' => Arr::random(['main_office', 'sub_office']),
                 'address' => $faker->address(),
                 'mobile_number' => $faker->phoneNumber,
                 'accomodation_id' => $i,
             ]);
+
+            $office->users()->create([
+                'user_id' => $no++,
+            ]);
+
         }
     }
 }

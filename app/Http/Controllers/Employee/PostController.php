@@ -12,16 +12,19 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->when(request()->q, function($posts) {
+        $posts = Post::where('user_id', auth()->id())->latest()->when(request()->q, function($posts) {
             $posts->where('title', 'like', '%'.request()->q.'%')->orWhere('body', 'like', '%'.request()->q.'%');
         })->get();
-        return view('admin.post.index', compact('posts'));
+        
+        return view('employee.post.index', compact('posts'));
     }
+
     public function create()
     {
         $categoryPosts = CategoryPost::all();
-        return view('admin.post.create', compact('categoryPosts'));
+        return view('employee.post.create', compact('categoryPosts'));
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -31,12 +34,14 @@ class PostController extends Controller
             'is_active' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg',
         ]);
+
         if($request->image){
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('posts/'.$namaImage, file_get_contents($img->getRealPath()));
         }
+
         Post::create([
             'user_id' => auth()->user()->id,
             'category_post_id' => $request->category_post_id,
@@ -46,20 +51,30 @@ class PostController extends Controller
             'image' => $namaImage,
             'is_active' => $request->is_active,
         ]);
-        return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil ditambahkan');
+
+        return redirect()->route('employee.post.index')->with('success', 'Data berita berhasil ditambahkan');
     }
     
     public function show($postId)
     {
+    
         $post = Post::find($postId);
-        return view('admin.post.show', compact('post'));
+
+        if($post->user_id != auth()->id()) abort(403);
+
+        return view('employee.post.show', compact('post'));
     }
+
     public function edit($postId)
     {
         $post = Post::find($postId);
+
+        if($post->user_id != auth()->id()) abort(403);
+
         $categoryPosts = CategoryPost::all();
-        return view('admin.post.edit', compact('post','categoryPosts'));
+        return view('employee.post.edit', compact('post','categoryPosts'));
     }
+
     public function update(Request $request)
     {
         $this->validate($request, [
@@ -69,14 +84,16 @@ class PostController extends Controller
             'is_active' => 'required',
             'image' => 'sometimes|mimes:jpeg,png,jpg',
         ]);
+
         $post = Post::find($request->id);
         if($request->image){
-            Storage::disk('public')->delete('data/'.$post->image);
+            Storage::disk('public')->delete('posts/'.$post->image);
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
-            Storage::disk('public')->put('data/'.$namaImage, file_get_contents($img->getRealPath()));
+            Storage::disk('public')->put('posts/'.$namaImage, file_get_contents($img->getRealPath()));
         }
+
         $post->update([
             'user_id' => auth()->user()->id,
             'category_post_id' => $request->category_post_id,
@@ -86,14 +103,18 @@ class PostController extends Controller
             'image' => $namaImage ?? $post->image,
             'is_active' => $request->is_active,
         ]);
-        return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil diubah');
+
+        return redirect()->route('employee.post.index')->with('success', 'Data berita berhasil diubah');
     }
     
     public function delete(Request $request)
     {
         $post = Post::find($request->id);
-        Storage::disk('public')->delete('data/'.$post->image);
+
+        if($post->user_id != auth()->id()) abort(403);
+
+        Storage::disk('public')->delete('posts/'.$post->image);
         $post->delete();
-        return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil dihapus');
+        return redirect()->route('employee.post.index')->with('success', 'Data berita berhasil dihapus');
     }
 }

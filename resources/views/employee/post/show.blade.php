@@ -44,7 +44,7 @@
                     </tr>
                 </table>
                 <br>
-                <a href="{{ route('admin.post.index') }}" class="btn btn-sm btn-danger">Kembali</a>
+                <a href="{{ route('employee.post.index') }}" class="btn btn-sm btn-danger">Kembali</a>
             </div>
             </div>
         </div>

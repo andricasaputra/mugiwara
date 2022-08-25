@@ -37,7 +37,12 @@
                                                     <td>{{ $office->type == 'main_office' ? 'Kanotr Utama' : 'Kantor Cabang' }}</td>
                                                     <td>{{ $office->address }}</td>
                                                     <td>{{ $office->mobile_number }}</td>
-                                                    <td>{{ $office->user?->name }}</td>
+                                                    <td>
+                                                        @foreach($office->users as $user)
+                                                            {{ \App\Models\User::find($user->user_id)?->name }} <br>
+                                                        @endforeach
+
+                                                    </td>
                                                     <td>{{ $office->accomodation?->name }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-between">

@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Form Tambah Artikel</h4>
-            <form action="{{ route('admin.post.store') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('employee.post.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 
                 <div class="form-group">
@@ -45,7 +45,7 @@
                 </div>
                 
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('admin.post.index') }}" class="btn btn-light">Kembali</a>
+                <a href="{{ route('employee.post.index') }}" class="btn btn-light">Kembali</a>
             </form>
             </div>
         </div>

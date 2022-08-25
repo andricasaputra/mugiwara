@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\Room;
 use App\Models\Setting;
 use App\Models\User;
+use App\Notifications\Admin\AdminPaymentStatusNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
 use App\Repositories\PaymentsType;
@@ -155,8 +156,6 @@ class PaymentController extends Controller
         // create payment to databse
         $create = $this->payment->create($payments, $order, $request);
 
-        //$this->createInvoices($create->toArray());
-
         return new PaymentResource($create);
     }
 
@@ -181,21 +180,17 @@ class PaymentController extends Controller
 
         $payment = $services->pay($request);
 
+        if (@$payment['error_code']) {
+            return response()->json([
+                'message' => 'Nomor Virtual Account Tidak Ditemukan'
+            ]);
+        }
+
         $payment = $this->payment->updateStatusVirtualAccount($payment['status'], $request);
 
         if($payment['status'] == 'COMPLETED'){
 
-            $request->user()->notify(new PaymentStatusNotification($order, $payment));
-
-            $admin = User::where('id',  2)->first();
-            $employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
-
-            // Notify admin and employee
-            $admin->notify(new PaymentStatusNotification($order, $payment));
-            
-            if($employee){
-                $employee->user?->notify(new PaymentStatusNotification($order, $payment));
-            }
+           $this->sendNotification($request, $order, $payment);
 
         }
 
@@ -227,18 +222,7 @@ class PaymentController extends Controller
 
             if($payment->status == 'SUCCEEDED'){
 
-                $request->user()->notify(new PaymentStatusNotification($order, $payment));
-
-                $admin = User::where('id',  2)->first();
-                $employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
-
-                // Notify admin and employee
-                $admin->notify(new PaymentStatusNotification($order, $payment));
-                
-                if($employee){
-                    $employee->user?->notify(new PaymentStatusNotification($order, $payment));
-
-                }
+               $this->sendNotification($request, $order, $payment);
             }
 
             //Update room status
@@ -288,21 +272,40 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function createInvoices($payment)
+    protected function sendNotification($request, $order, $payment)
     {
+        $customer_title = 'Pembayaran Berhasil!';
+        $customer_message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
 
-        Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
+        $request->user()->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
 
-        dd($payment);
+        $user_title = 'Terdapat Pembayaran Masuk';
+        $user_message = 'Pembayaran dengan Order ID ' . $order->id . ' Sukses. kunjungi halaman keuangan untuk detail lebih lanjut.';
 
+        $admin = User::admin()->first();
 
-        $params = ['external_id' => $payment->booking_code,
-            'payer_email' => 'sample_email@xendit.co',
-            'description' => 'Trip to Bali',
-            'amount' => 32000
-        ];
+        $office = Office::with('users')->where('accomodation_id',  $order->accomodation_id)->first();
 
-        $createInvoice = \Xendit\Invoice::create($params);
-        dd($createInvoice);
+        // Notify admin and employee
+        $admin->notify(
+            new AdminPaymentStatusNotification(
+                $order, $payment, $user_title, $user_message
+            )
+        );
+        
+        if(!is_null($office) && count($office?->users) > 0){
+
+            foreach($office->users as $employee){
+                $employee->user?->notify(
+                    new AdminPaymentStatusNotification(
+                        $order, $payment, $user_title, $user_message
+                    )
+                );
+            }
+        }
     }
 }

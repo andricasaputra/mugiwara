@@ -32,8 +32,15 @@
 
                   @if($child->is_active == 1)
 
-                    <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
+                   @if($child->name != 'transaksi' && $child->name != 'push notifikasi')
 
+                       <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
+
+                    @else
+
+                    @endif
+
+                   
                   @endif
 
                  @endforeach

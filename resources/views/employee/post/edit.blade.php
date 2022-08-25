@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Form Ubah Artikel</h4>
-            <form action="{{ route('admin.post.update') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('employee.post.update') }}" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="id" value="{{ $post->id }}">
                 @csrf
                 @method('PUT')
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="image">Gambar <small>Optional | Isi jika ingin diubah</small></label>
                     <div>
-                        <img src="{{ url('storage/posts/' . $post->image) }}" alt="">
+                        <img src="{{ url('storage/posts/' . $post->image) }}" alt="" width="100">
                     </div>
                     <input type="file" class="form-control" name="image" id="image">
                 </div>
@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('admin.post.index') }}" class="btn btn-light">Kembali</a>
+                <a href="{{ route('employee.post.index') }}" class="btn btn-light">Kembali</a>
             </form>
             </div>
         </div>

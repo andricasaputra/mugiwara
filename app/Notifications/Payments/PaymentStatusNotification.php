@@ -19,7 +19,9 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
      */
     public function __construct(
         protected \App\Models\Order $order, 
-        protected \App\Models\Payment $payment
+        protected \App\Models\Payment $payment,
+        protected $title = null,
+        protected $message = null
     )
     {
         //
@@ -64,12 +66,13 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Pembayaran Berhasil!',
-            'message' => 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!',
+            'title' => $this->title,
+            'message' => $this->message,
             'order' => $this->order,
             'payment' => $this->payment,
             'type' => 'common',
             'category' => 'pemberitahuan'
         ];
+    
     }
 }

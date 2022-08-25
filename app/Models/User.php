@@ -109,7 +109,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function office()
     {
-        return $this->hasOne(Office::class);
+        return $this->hasOne(OfficeUser::class);
     }
 
     public function isAdmin()

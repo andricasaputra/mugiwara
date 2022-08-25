@@ -119,7 +119,7 @@
                     </div>
 
                      <div class="d-flex justify-content-center">
-                            <a href="{{ route('admin.finance.index') }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('employee.finance.index') }}" class="btn btn-danger">Kembali</a>
                       </div>
                     
                 </div>
@@ -194,7 +194,7 @@
                     </div>
 
                      <div class="d-flex justify-content-center">
-                            <a href="{{ route('admin.finance.index') }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('employee.finance.index') }}" class="btn btn-danger">Kembali</a>
                       </div>
                     
                 </div>

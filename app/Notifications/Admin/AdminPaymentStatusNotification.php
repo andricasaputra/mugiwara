@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications\Orders;
+namespace App\Notifications\Admin;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class SendOrderCreatedNotifications extends Notification implements ShouldQueue
+class AdminPaymentStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -17,7 +17,12 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected \App\Models\Order $order, protected $title, protected $message)
+    public function __construct(
+        protected \App\Models\Order $order, 
+        protected \App\Models\Payment $payment,
+        protected $title = null,
+        protected $message = null
+    )
     {
         //
     }
@@ -42,15 +47,14 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                   ->greeting('Halo ' . ucfirst($notifiable->name))
-                    ->subject(Lang::get('Order Detail'))
-                    ->line(Lang::get('Terimkasih telah memesan kamar di ' . env('APP_NAME')))
-                    ->line(Lang::get('Kode Booking : ' . $this->order?->booking_code))
-                    ->line(Lang::get('Perkiraan waktu check in anda : ' . $this->order?->check_in_date))
-                    ->line(Lang::get('Jumlah hari menginap : ' . $this->order?->stay_day))
-                    ->action(Lang::get('Jumlah total tagihan Rp : ' . $this->order?->total_price), $url = '')
-                    ->line(Lang::get('Jika anda merasa tidak memesan, silahkan abaikan pesan ini.'))
-                    ->salutation(Lang::get('Terimakasih'));
+                    ->greeting('Halo ' . ucfirst($notifiable->name))
+                    ->subject(Lang::get(' Pembayaran Berhasil'))
+                    ->line(Lang::get('Terimkasih telah melakukan pembayaran untuk kode booking : ' . $this->order?->booking_code))
+                    ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
+                    ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
+                    ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
+                    ->line(Lang::get('Terimkasih atas kepercayaan anda.'))
+                    ->salutation(Lang::get(env('APP_NAME')));
     }
 
     /**
@@ -65,8 +69,10 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
             'title' => $this->title,
             'message' => $this->message,
             'order' => $this->order,
+            'payment' => $this->payment,
             'type' => 'common',
             'category' => 'pemberitahuan'
         ];
+    
     }
 }

@@ -69,12 +69,8 @@ class PushController extends Controller
 
             } else {
 
-
-
                 $deviceTokens = $request->receiver;
             }
-
-            //dd($deviceTokens);
 
             $notification = [
                 'title' => $request->title,
@@ -82,7 +78,14 @@ class PushController extends Controller
                 'image' => url('storage/misc/capsuleinnlogo.png'),
             ];
 
-            $message = CloudMessage::new()->withNotification($notification);
+            $data = [
+                'title' => $request->title,
+                'text' => $request->text,
+                'image' => url('storage/misc/capsuleinnlogo.png'),
+            ];
+
+            $message = CloudMessage::new()
+                        ->withNotification($notification);
 
             $sendReport = $messaging->sendMulticast($message, $deviceTokens);
 

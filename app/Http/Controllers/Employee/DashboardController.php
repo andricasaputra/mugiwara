@@ -12,13 +12,19 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+
+     protected function getOffice()
+    {
+        return auth()->user()->office?->office?->accomodation_id;
+    }
+
     public function index()
     {
         $all_point = Account::selectRaw('sum(point) as total_point, count(*) as total_account')->get();
 
-        $all_booking = Order::get();
+        $all_booking = Order::where('accomodation_id', $this->getOffice())->get();
 
-        $today_booking = Order::whereDate('created_at', today())->get();
+        $today_booking = Order::where('accomodation_id', $this->getOffice())->whereDate('created_at', today())->get();
 
         $pointin = AccountPoint::where('type', 'point_in')->get();
 
@@ -53,7 +59,7 @@ class DashboardController extends Controller
             $orders->selectRaw('count(id)  as data, DAYOFMONTH(created_at) as tanggal')->whereMonth('created_at', now()->format('m'));
         }
 
-        return $orders->groupBy('tanggal')->get();
+        return $orders->where('accomodation_id', $this->getOffice())->groupBy('tanggal')->get();
     }
 
     public function pointChart(Request $request)
@@ -129,8 +135,9 @@ class DashboardController extends Controller
         }
 
         return $payments
-                ->where('status', 'COMPLETED')
-                ->orWhere('status', 'SUCCEEDED')
+                ->whereHas('order', function($query){
+                    $query->where('accomodation_id', $this->getOffice());
+                })
                 ->groupBy('tanggal')
                 ->get();
     }

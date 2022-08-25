@@ -50,7 +50,7 @@
                                                 </td>
                                                 <td>{{ $accountPoint->type == 'point_in' ? 'Point Masuk' : 'Point Keluar'}}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.point.show', $accountPoint->id) }}" class="btn btn-sm btn-primary p-2">Kelola Poin</a>
+                                                    <a href="{{ route('employee.point.show', $accountPoint->id) }}" class="btn btn-sm btn-primary p-2">Detail</a>
                                                 </td>
                                             </tr>
                                             @endforeach

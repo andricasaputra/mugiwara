@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
+use App\Notifications\Admin\AdminOrderCreatedNotifications;
 use App\Notifications\Orders\SendOrderCreatedNotifications;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -119,18 +120,8 @@ class OrderRepository
 			$room->booked_untill = now()->addDays(1);
 			$room->save();
 
-			$request->user()->notify(new SendOrderCreatedNotifications($order));
-
-			$admin = User::where('id',  2)->first();
-			$employee = Office::with('user')->where('accomodation_id',  $order->accomodation_id)->first();
-
-			// Notify admin and employee
-			$admin->notify(new SendOrderCreatedNotifications($order));
+			$this->sendNotification($request, $order);
 			
-			if($employee){
-				$employee->user?->notify(new SendOrderCreatedNotifications($order));
-			}
-
 			DB::commit();
 
 			return $order;
@@ -139,7 +130,9 @@ class OrderRepository
 
 			DB::rollback();
 
-			throw new \Exception($e->getMessage());
+			return response()->json([
+				'message' => 'Error create order, Error : ' . $e->getMessage()
+			]);
 		}
 	}
 
@@ -169,6 +162,7 @@ class OrderRepository
 	}
 
 	public function createInvoice($args) {
+
         Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
 
         $date = new \DateTime();
@@ -206,5 +200,42 @@ class OrderRepository
         }
 
         return json_encode($response);
+    }
+
+    protected function sendNotification($request, $order)
+    {
+        $customer_title = 'Pesanan Kamar Segera Diproses';
+        $customer_message = 'Terimakasih telah melakukan pemesanan di Capsule Inn, Segera lakukan pembayaran sesuai tagihan yang ada.';
+
+        $user_title = 'Ada Pesanan Kamar Masuk';
+        $user_message = 'Seseorang baru saja memesan sebuah kamar, silahkan menuju halaman pemesanan untuk detail lebih lanjut';
+        
+       	$request->user()->notify(
+       		new SendOrderCreatedNotifications(
+       			$order, $customer_title, $customer_message
+       		)
+       	);
+
+       	$admin = User::admin()->first();
+
+		$office = Office::where('accomodation_id', $order->accomodation_id)->first();
+
+		// Notify admin and employee
+		$admin->notify(
+			new AdminOrderCreatedNotifications(
+				$order, $user_title, $user_message
+			)
+		);
+		
+		if(!is_null($office) && count($office?->users) > 0){
+
+			foreach($office->users as $employee){
+				$employee->user?->notify(
+					new AdminOrderCreatedNotifications(
+						$order, $user_title, $user_message
+					)
+				);
+			}
+		}
     }
 }

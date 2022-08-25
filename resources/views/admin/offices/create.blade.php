@@ -37,7 +37,7 @@
 
                         <div class="form-group">
                             <label for="user_id">Nama Karyawan</label>
-                            <select name="user_id" id="" class="form-control">
+                            <select name="user_id[]" id="" class="form-control js-example-tokenizer" multiple>
                                 @foreach($employees as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
@@ -64,5 +64,30 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('link')
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+@endsection
+
+@section('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+
+    $(document).ready(function() {
+
+        $(".js-example-tokenizer").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+    });
+
+    </script>
 
 @endsection()

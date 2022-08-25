@@ -19,6 +19,7 @@
                         <th>Kategori</th>
                         <th>Judul</th>
                         <th>Isi</th>
+                        <th>Author</th>
                         <th>Gambar</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -42,6 +43,9 @@
                             <td>{{ $post->title }}</td>
                             <td>
                                 {{ $string }}
+                            </td>
+                             <td>
+                                {{ ucwords($post->user?->name) }}
                             </td>
                             <td><a href="{{ Storage::disk('public')->url('posts/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('posts/'. $post->image) }}" width="100"></a></td>
                             <td>{{ $post->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>

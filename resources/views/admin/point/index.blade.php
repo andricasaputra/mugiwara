@@ -33,11 +33,14 @@
                                          <tbody>
                                             @foreach ($accountPoints as $accountPoint)
                                             <tr>
-                                                {{-- <td>{{ $accountPoint->voucher?->name }}</td> --}}
                                                 <td>{{ ucwords($accountPoint->description) }}</td>
+
                                                 <td>{{ ucwords($accountPoint->user?->name) }}</td>
+
                                                 <td>@currency($accountPoint->before)</td>
+
                                                 <td>@currency($accountPoint->after)</td>
+                                                
                                                 <td>
                                                     @if($accountPoint->type == 'point_out')
                                                         <span style="color: red; font-weight: bold">

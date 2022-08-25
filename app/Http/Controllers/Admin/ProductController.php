@@ -14,6 +14,7 @@ class ProductController extends Controller
         $products = Product::with('image')->when(request()->q, function($products) {
             $products->where('name', 'like', '%'.request()->q.'%');
         })->get();
+        
         return view('admin.product.index', compact('products'));
     }
     public function create()

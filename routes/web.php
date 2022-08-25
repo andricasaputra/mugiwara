@@ -1,35 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\GoogleApiController;
-use App\Http\Controllers\Employee\AccomodationController;
-use App\Http\Controllers\Employee\BookingController;
+use App\Http\Controllers\Employee\PointController;
 use App\Http\Controllers\Employee\CategoryPostController;
 use App\Http\Controllers\Employee\DashboardController;
-use App\Http\Controllers\Employee\FacilityController;
 use App\Http\Controllers\Employee\FinanceController;
 use App\Http\Controllers\Employee\NotificationController;
 use App\Http\Controllers\Employee\OfficeListController;
 use App\Http\Controllers\Employee\OrderController;
+use App\Http\Controllers\Employee\PaymentController;
 use App\Http\Controllers\Employee\PostController;
-use App\Http\Controllers\Employee\PrivacyPoliciesController;
 use App\Http\Controllers\Employee\ProductController;
 use App\Http\Controllers\Employee\RefferalController;
-use App\Http\Controllers\Employee\RoomController;
-use App\Http\Controllers\Employee\RoomTypeController;
-use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return redirect(route('login'));
@@ -57,9 +40,6 @@ Route::middleware('verified')->group(function(){
             Route::post('financechart', [DashboardController::class, 'financeChart'])->name('dashboard.financechart');
         });
 
-        Route::resource('booking', BookingController::class);
-        Route::resource('privacy', PrivacyPoliciesController::class);
-
         Route::get('orders', [OrderController::class, 'index'])->name('order.index');
         Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
         Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
@@ -75,7 +55,9 @@ Route::middleware('verified')->group(function(){
 
         Route::get('finance/transaction/detail/{id}', [FinanceController::class, 'transactionDetail'])->name('finance.transaction.detail');
 
-        Route::get('finance/invoices', [FinanceController::class, 'allInvoices'])->name('finance.invoices');
+        Route::get('finance/invoices/{payment}', [FinanceController::class, 'invoices'])->name('finance.invoices');
+
+        Route::post('payment/export/excel', [PaymentController::class, 'export'])->name('payment.export.excel');
 
         Route::prefix('post')->name('post.')->group(function() {
             Route::get('', [PostController::class, 'index'])->name('index');
@@ -98,31 +80,27 @@ Route::middleware('verified')->group(function(){
 
          Route::prefix('product')->name('product.')->group(function() {
             Route::get('', [ProductController::class, 'index'])->name('index');
-            Route::get('create', [ProductController::class, 'create'])->name('create');
-            Route::post('', [ProductController::class, 'store'])->name('store');
-            Route::get('{id}/edit', [ProductController::class, 'edit'])->name('edit');
-            Route::put('', [ProductController::class, 'update'])->name('update');
-            Route::delete('', [ProductController::class, 'delete'])->name('delete');
         });
 
          Route::prefix('voucher')->name('voucher.')->group(function() {
             Route::get('', [VoucherController::class, 'index'])->name('index');
-            Route::get('create', [VoucherController::class, 'create'])->name('create');
-            Route::post('', [VoucherController::class, 'store'])->name('store');
-            Route::get('{id}/edit', [VoucherController::class, 'edit'])->name('edit');
             Route::get('{id}/show', [VoucherController::class, 'show'])->name('show');
-            Route::put('', [VoucherController::class, 'update'])->name('update');
-            Route::delete('', [VoucherController::class, 'delete'])->name('delete');
         });
 
          Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');
 
          Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
+
+          Route::prefix('point')->name('point.')->group(function() {
+            Route::get('', [PointController::class, 'index'])->name('index');
+            Route::get('{id}/show', [PointController::class, 'show'])->name('show');
+        });
+
+        Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
+        Route::delete('notifications/delete', [NotificationController::class, 'destroy'])->name('notification.destroy');
+        Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
     });
 });
-
-
-
 
 require __DIR__.'/auth.php';
 

@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    protected function getOffice()
+    {
+        return auth()->user()->office?->office?->accomodation_id;
+    }
+
     public function index()
     {
         $all_point = Account::selectRaw('sum(point) as total_point, count(*) as total_account')->get();

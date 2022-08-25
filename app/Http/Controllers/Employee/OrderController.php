@@ -11,16 +11,20 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->where('accomodation_id', auth()->user()->office?->accomodation_id)->get();
+        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->where('accomodation_id', auth()->user()->office?->office?->accomodation_id)->get();
 
-        return view('admin.order.index')->withOrders($orders);
+        return view('employee.order.index')->withOrders($orders);
     }
 
     public function detail(Order $order)
     {
-        $orders = Order::with(['payment', 'user', 'accomodation', 'room.type'])->get();
+        if($order->accomodation_id != auth()->user()->office?->office?->accomodation_id){
+            abort(403);
+        }
 
-        return view('admin.order.detail')->withOrders($orders);
+       $order = $order->load(['payment.payable', 'payment.voucher', 'user', 'accomodation', 'room.type']);
+
+        return view('employee.order.detail')->withOrder($order);
     }
 
     public function checkout(Request $request)
@@ -44,17 +48,15 @@ class OrderController extends Controller
                 'booked_untill' => NULL,
             ]);
 
-            //dd($room);
-
             DB::commit();
 
-            return redirect(route('admin.order.index'))->withSuccess('Berhasil checkout tamu ruangan nomor ' . $room->room_number);
+            return redirect(route('employee.order.index'))->withSuccess('Berhasil checkout tamu ruangan nomor ' . $room->room_number);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            return redirect(route('admin.order.index'))->withErrors('Gagal checkout ruangan, error ' . $e->getMessage());
+            return redirect(route('employee.order.index'))->withErrors('Gagal checkout ruangan, error ' . $e->getMessage());
         }
 
         

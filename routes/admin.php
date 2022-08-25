@@ -171,6 +171,8 @@ Route::name('admin.')->group(function() {
     Route::resource('playstores', PlayStoreController::class);
     Route::resource('appstores', AppStoreController::class);
 
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
+    Route::delete('notifications/delete', [NotificationController::class, 'destroy'])->name('notification.destroy');
     Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
 
     Route::resource('menus', ManajemenMenuController::class);

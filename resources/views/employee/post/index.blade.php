@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
                 <h4 class="card-title align-items-center my-auto">Daftar Artikel</h4>
-                <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Artikel</a>
+                <a href="{{ route('employee.post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Artikel</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -47,8 +47,8 @@
                             <td>{{ $post->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
                                 <div class="d-flex flex-column">
-                                   <a href="{{ route('admin.post.edit', $post->id) }}" class="btn btn-warning btn-sm mb-3">Ubah</a>
-                                    <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
+                                   <a href="{{ route('employee.post.edit', $post->id) }}" class="btn btn-warning btn-sm mb-3">Ubah</a>
+                                    <a href="{{ route('employee.post.show', $post->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
                                     <a href="#" data-id="{{ $post->id }}" data-toggle="modal" data-target="#delete"
                                     class="btn btn-danger btn-sm mb-3">Hapus</a>
                                 </div>
@@ -81,7 +81,7 @@
                 Apakah Anda yakin ingin menghapus Artikel ini?
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.post.delete') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('employee.post.delete') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="id">

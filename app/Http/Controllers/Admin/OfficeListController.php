@@ -8,12 +8,13 @@ use App\Models\Accomodation;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OfficeListController extends Controller
 {
     public function index()
     {
-        $offices = Office::with(['user', 'accomodation'])->get();
+        $offices = Office::with(['users', 'accomodation'])->get();
 
         return view('admin.offices.index')->withOffices($offices);
     }
@@ -22,10 +23,10 @@ class OfficeListController extends Controller
     {
          $acc = [];
 
-         $offices = Office::with(['user', 'accomodation'])->get();
+         $offices = Office::with(['users', 'accomodation'])->get();
 
         foreach($offices as $office){
-            //dd($office->accomodation);
+
             if (is_null($office->accomodation)) {
                 continue;
             } else {
@@ -51,11 +52,34 @@ class OfficeListController extends Controller
 
     public function store(OfficeStoreRequest $request)
     {
+        DB::beginTransaction();
 
-        //dd($request->all());
-        $office = Office::create($request->all());
+        try {
 
-        return redirect(route('offices.index'))->withSuccess('Berhasil Tambah Data Informasi Kantor');
+            $office = Office::create([
+                "name" => $request->name,
+                "type" => $request->type,
+                "address" => $request->address,
+                "mobile_number" => $request->mobile_number,
+                "accomodation_id" => $request->accomodation_id,
+            ]);
+
+            foreach($request->user_id as $id){
+                $office->users()->create([
+                    'user_id' => $id
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect(route('offices.index'))->withSuccess('Berhasil Tambah Data Informasi Kantor');
+           
+       } catch (\Exception $e) {
+           
+            DB::rollback();
+
+            return redirect(route('offices.index'))->withErrors('Gagal Tambah Data Informasi Kantor, Error : ' . $e->getMessage());
+       }
     }
 
     public function edit(Office $office)

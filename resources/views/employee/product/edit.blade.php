@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Form Ubah Produk</h4>
-            <form action="{{ route('admin.product.update') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('employee.product.update') }}" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="id" value="{{ $product->id }}">
                 @csrf
                 @method('PUT')
@@ -41,7 +41,7 @@
                     </div>
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('admin.product.index') }}" class="btn btn-light">Kembali</a>
+                        <a href="{{ route('employee.product.index') }}" class="btn btn-light">Kembali</a>
                     </div>
                 </div>
             </form>

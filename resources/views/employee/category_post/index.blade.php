@@ -4,23 +4,12 @@
 @section('content')
 
 <div class="row">
-    {{-- <div class="col-12">
-        <form action="{{ route('admin.category_post.index') }}" method="get">
-            <div class="row">
-                <div class="input-group mb-3 col-3">
-                    <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="input-group-text">Cari</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
+
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
                 <h4 class="card-title align-items-center my-auto">Daftar Kategori Artikel</h4>
-                <a href="{{ route('admin.category_post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kategori Artikel</a>
+                <a href="{{ route('employee.category_post.create') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kategori Artikel</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -40,12 +29,14 @@
                             <td>
                                 <table>
                                     <tr>
-                                        <td><a href="{{ route('admin.category_post.edit', $category->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
+                                       @if($category->user_id == auth()->id())
+                                             <td><a href="{{ route('employee.category_post.edit', $category->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
                                         <td>
                                             <a href="#" 
                                             data-id="{{ $category->id }}" data-toggle="modal" data-target="#delete"
                                             class="btn btn-danger btn-sm">Hapus</a>
                                         </td>
+                                       @endif
                                     </tr>
                                 </table>
                             </td>
@@ -77,7 +68,7 @@
                 Apakah Anda yakin ingin menghapus Kategori Artikel ini?
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.category_post.delete') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('employee.category_post.delete') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="id">

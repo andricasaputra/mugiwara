@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                   {{--  <a href="{{ route('admin.order.point.create') }}" class="btn btn-success">Tambah Setting Poin</a> --}}
+                   {{--  <a href="{{ route('employee.order.point.create') }}" class="btn btn-success">Tambah Setting Poin</a> --}}
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -97,7 +97,7 @@
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.order.detail', $order->id) }}" class="btn btn-primary">Detail</a>
+                                                    	<a href="{{ route('employee.order.detail', $order->id) }}" class="btn btn-primary">Detail</a>
 
                                                         @if($order->order_status == 'completed')
 
@@ -108,7 +108,7 @@
                                                         @else
                                                         	
                                                         	@if($order->payment && $order->payment?->status != 'PENDING')
-                                                        		<form action="{{ route('admin.order.checkout') }}" method="post">
+                                                        		<form action="{{ route('employee.order.checkout') }}" method="post">
 
 	                                                        	@csrf
 

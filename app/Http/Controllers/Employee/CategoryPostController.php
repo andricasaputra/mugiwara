@@ -13,12 +13,15 @@ class CategoryPostController extends Controller
         $categoryPosts = CategoryPost::when(request()->q, function($categoryPosts) {
             $categoryPosts->where('name', 'like', '%'.request()->q.'%');
         })->get();
-        return view('admin.category_post.index', compact('categoryPosts'));
+
+        return view('employee.category_post.index', compact('categoryPosts'));
     }
+
     public function create()
     {
-        return view('admin.category_post.create');
+        return view('employee.category_post.create');
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -26,31 +29,41 @@ class CategoryPostController extends Controller
         ]);
         CategoryPost::create([
             'name' => $request->name,
+            'user_id' => auth()->id()
         ]);
-        return redirect()->route('admin.category_post.index')->with('success', 'Data kategori artikel berhasil ditambahkan');
+
+        return redirect()->route('employee.category_post.index')->with('success', 'Data kategori artikel berhasil ditambahkan');
     }
     
     public function edit($productId)
     {
         $categoryPost = CategoryPost::find($productId);
-        return view('admin.category_post.edit', compact('categoryPost'));
+
+        if($categoryPost->user_id != auth()->id()) abort('403');
+
+        return view('employee.category_post.edit', compact('categoryPost'));
     }
+
     public function update(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
         ]);
+
         $product = CategoryPost::find($request->id);
         $product->update([
             'name' => $request->name,
         ]);
-        return redirect()->route('admin.category_post.index')->with('success', 'Data kategori artikel berhasil diubah');
+
+        return redirect()->route('employee.category_post.index')->with('success', 'Data kategori artikel berhasil diubah');
     }
     
     public function delete(Request $request)
     {
         $product = CategoryPost::find($request->id);
+
         $product->delete();
-        return redirect()->route('admin.category_post.index')->with('success', 'Data kategori artikel berhasil dihapus');
+
+        return redirect()->route('employee.category_post.index')->with('success', 'Data kategori artikel berhasil dihapus');
     }
 }

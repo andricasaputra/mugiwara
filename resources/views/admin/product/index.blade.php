@@ -4,18 +4,6 @@
 @section('content')
 
 <div class="row">
-    {{-- <div class="col-12">
-        <form action="{{ route('admin.product.index') }}" method="get">
-            <div class="row">
-                <div class="input-group mb-3 col-3">
-                    <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="input-group-text">Cari</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
@@ -60,7 +48,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center">Tidak ada data</td>
+                            <td colspan="7" class="text-center">Tidak ada data</td>
                         </tr>
                         @endforelse
                     </tbody>

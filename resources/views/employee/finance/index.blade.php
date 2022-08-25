@@ -7,17 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-
                 	<div class="row">
-				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card card-tale">
-				          <div class="card-body">
-				            <p class="mb-4">Saldo Xendit</p>
-				            <p class="fs-30 mb-2">{{ $balance }}</p>
-				            {{-- <p>10.00% (30 days)</p> --}}
-				          </div>
-				        </div>
-				      </div>
 				      <div class="col-md-6 mb-4 stretch-card transparent">
 				        <div class="card card-dark-blue">
 				          <div class="card-body">
@@ -28,6 +18,23 @@
 				        </div>
 				      </div>
 				    </div>
+
+                    <hr>
+                        <div>
+                            <form class="form-inline" action="{{ route('employee.payment.export.excel') }}" method="post">
+                              <div class="form-group mb-2">
+                                @csrf
+                                <label for="from" class="sr-only">Dari</label>
+                                <input type="date" class="form-control-plaintext" name="from" required>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                <label for="to" class="sr-only">Sampai</label>
+                                <input type="date" class="form-control" name="to" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary mb-2">Export Excel</button>
+                            </form>
+                        </div>
+                    <hr>
 
                     <hr>
                     <div class="table-responsive">
@@ -84,7 +91,9 @@
 
                                                     <td>
 
-                                                    	<a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success">Detail</a>
+                                                    	<a href="{{ route('employee.finance.detail', $payment->id) }}" class="btn btn-success mb-2">Detail</a>
+
+                                                        <a href="{{ route('employee.finance.invoices', $payment->id) }}" class="btn btn-primary" target="_blank">Invoice</a>
 
                                                     </td>
                                                 </tr>

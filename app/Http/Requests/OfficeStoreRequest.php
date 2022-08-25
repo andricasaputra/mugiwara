@@ -13,7 +13,7 @@ class OfficeStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class OfficeStoreRequest extends FormRequest
             "type" => "required|string",
             "address" => "required|string",
             "mobile_number" => "required|string",
-            "user_id" => "required|string",
+            "user_id" => "required",
             "hotel_id" => "nullable|string"
         ];
     }

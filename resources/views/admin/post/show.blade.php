@@ -44,7 +44,11 @@
                     </tr>
                 </table>
                 <br>
+                @role('admin')
                 <a href="{{ route('admin.post.index') }}" class="btn btn-sm btn-danger">Kembali</a>
+                @else
+                 <a href="{{ route('employee.post.index') }}" class="btn btn-sm btn-danger">Kembali</a>
+                @endrole
             </div>
             </div>
         </div>
