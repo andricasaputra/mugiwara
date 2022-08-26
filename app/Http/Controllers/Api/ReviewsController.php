@@ -16,12 +16,13 @@ class ReviewsController extends Controller
             'order_id' => 'required'
         ]);
 
-        $check = Review::where('order_id', $request->order_id)->where('reviewable_id', $request->room_id)->where('user_id', $request->user()->id)->first();
+        $review = Review::where('order_id', $request->order_id)->where('reviewable_id', $request->room_id)->where('user_id', $request->user()->id)->first();
 
-        if($check){
+        if($review){
             return response()->json([
                 'data' => [
-                    'is_reviewable' => false
+                    'is_reviewable' => false,
+                    'review' => $review->load(['reviewable', 'user'])
                 ]
             ]);
         } 
