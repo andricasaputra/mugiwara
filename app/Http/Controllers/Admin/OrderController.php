@@ -90,25 +90,25 @@ class OrderController extends Controller
                 'booked_untill' => NULL,
             ]);
 
-            $admin = User::where('id', 2)->first();
+            //$admin = User::where('id', 2)->first();
 
-            $offices = Office::where('accomodation_id', $order->accomodation?->id)->get();
+            //$offices = Office::where('accomodation_id', $order->accomodation?->id)->get();
 
             $user = User::where('id', $order->user?->id)->first();
 
-            if ($offices) {
-                foreach($offices as $office){
-                    if($office->user){
-                        $office->user?->notify(new RoomReviewsNotification($order));
-                    }
-                }
-            }
+            // if ($offices) {
+            //     foreach($offices as $office){
+            //         if($office->user){
+            //             $office->user?->notify(new RoomReviewsNotification($order));
+            //         }
+            //     }
+            // }
 
             if($user){
                 $user->notify(new RoomReviewsNotification($order));
             }
 
-            $admin->notify(new RoomReviewsNotification($order));
+            //$admin->notify(new RoomReviewsNotification($order));
 
             DB::commit();
 

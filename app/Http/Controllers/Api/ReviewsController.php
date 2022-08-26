@@ -9,26 +9,43 @@ use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
 {
+    public function validateUser(Request $request)
+    {
+        $request->validate([
+            'room_id' => 'required',
+            'order_id' => 'required'
+        ]);
+
+        $check = Review::where('order_id', $request->order_id)->where('reviewable_id', $request->room_id)->where('user_id', $request->user()->id)->first();
+
+        if($check){
+            return response()->json([
+                'data' => [
+                    'is_reviewable' => false
+                ]
+            ]);
+        } 
+
+        return response()->json([
+            'data' => [
+                'is_reviewable' => true
+            ]
+        ]);
+    }
+
     public function create(Request $request)
     {
         $request->validate([
             'rating' => 'required',
-            'accomodation_id' => 'required',
-            'room_id' => 'required'
+            'room_id' => 'required',
+            'order_id' => 'required'
         ]);
-
-        $check = Review::where('reviewable_id', $request->room_id)->where('user_id', request()->user()->id)->first();
-
-        if($check){
-            return response()->json([
-                'message' => 'Anda sudah pernah melakukan review terhadap kamar ini'
-            ]);
-        }
 
         $review = Review::create([
             'reviewable_id' => $request->room_id,
             'reviewable_type' => Room::class,
             'user_id' => request()->user()->id,
+            'order_id' => $request->order_id,
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);

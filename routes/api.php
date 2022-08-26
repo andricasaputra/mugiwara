@@ -93,6 +93,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
         
         Route::post('reviews', [ReviewsController::class, 'create'])->name('api.review.create');
+        Route::post('reviews/validate', [ReviewsController::class, 'validateUser'])->name('api.review.validate');
         
     });
 

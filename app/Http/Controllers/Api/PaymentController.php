@@ -254,7 +254,7 @@ class PaymentController extends Controller
     {
         $setting = Setting::where('type', 'tax')->latest()->first();
 
-        if($setting->is_active == 1){
+        if($setting?->is_active == 1){
             return response()->json([
                 'data' => [
                     'is_active' => true,

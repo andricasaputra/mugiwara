@@ -7,6 +7,7 @@ use App\Models\PaymentList;
 use App\Models\Payments\Ewallet;
 use App\Models\Payments\VirtualAccount;
 use App\Models\Setting;
+use App\Models\Voucher;
 use App\Repositories\PaymentsType;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
@@ -28,6 +29,11 @@ class PaymentsRepository
 			$tax_amount = 0;
 		}
 
+		if(!is_null($request->voucher_id)){
+
+			$this->updateVoucher($request->voucher_id);
+		}
+
 		return $type->payment()->updateOrCreate(
 			[
 				'type_id' => $type->id,
@@ -45,7 +51,7 @@ class PaymentsRepository
 				'discount_amount' => $request->discount_amount ??= NULL,
 				'tax' => $tax_amount,
 				'status' => $payment['status'],
-				'expired_at' => now()->addHours($setting->value ?? 2),
+				'expired_at' => now()->addHours($setting?->value ?? 2),
 			]
 		);
 	}
@@ -128,4 +134,13 @@ class PaymentsRepository
 
        return PaymentList::where('is_active', 1)->get();
 	}
+
+	protected function updateVoucher($voucher_id)
+	{
+		$voucher = Voucher::find($voucher_id);
+
+		$voucher->update([
+			'uses_count' => $voucher->uses_count + 1,
+		]);
+	} 
 }
