@@ -94,7 +94,7 @@ class OrderController extends Controller
 
             $offices = Office::where('accomodation_id', $order->accomodation?->id)->get();
 
-            $customer = Customer::where('id', $order->user?->id)->first();
+            $user = User::where('id', $order->user?->id)->first();
 
             if ($offices) {
                 foreach($offices as $office){
@@ -104,8 +104,8 @@ class OrderController extends Controller
                 }
             }
 
-            if($customer){
-                $customer->notify(new RoomReviewsNotification($order));
+            if($user){
+                $user->notify(new RoomReviewsNotification($order));
             }
 
             $admin->notify(new RoomReviewsNotification($order));
