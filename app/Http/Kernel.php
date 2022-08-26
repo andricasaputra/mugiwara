@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'employee' => \App\Http\Middleware\IsEmployee::class,
         'mobile.verified' => \App\Http\Middleware\EnsureMobileNumberIsVerified::class,
         'banned' => \App\Http\Middleware\IsBanned::class,
+        'panel' => \App\Http\Middleware\CanAccessAdminPanel::class
     ];
 }

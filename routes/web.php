@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Employee\PointController;
 use App\Http\Controllers\Employee\CategoryPostController;
 use App\Http\Controllers\Employee\DashboardController;
 use App\Http\Controllers\Employee\FinanceController;
@@ -8,9 +7,11 @@ use App\Http\Controllers\Employee\NotificationController;
 use App\Http\Controllers\Employee\OfficeListController;
 use App\Http\Controllers\Employee\OrderController;
 use App\Http\Controllers\Employee\PaymentController;
+use App\Http\Controllers\Employee\PointController;
 use App\Http\Controllers\Employee\PostController;
 use App\Http\Controllers\Employee\ProductController;
 use App\Http\Controllers\Employee\RefferalController;
+use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,16 +19,13 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
-Route::middleware(['verified', 'employee'])->group(function(){
+Route::middleware(['verified', 'panel'])->group(function(){
 
     Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit.employee');
 
     Route::put('users/update/{user}', [UsersController::class, 'update'])->name('users.update.employee');
 
     Route::resource('offices', OfficeListController::class);
-    Route::get('accomodations_room/add/{accomodation}', [AccomodationController::class, 'add'])->name('accomodations.add');
-
-    Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoom'])->name('accomodations.store_room');
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
