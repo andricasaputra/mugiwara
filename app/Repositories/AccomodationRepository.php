@@ -74,6 +74,7 @@ class AccomodationRepository
             'discount_type' => $this->request->discount_type,
             'discount_amount' => $this->request->discount_amount ?? 0,
             'description' => $this->request->description_room,
+            'is_refunded' => $this->request->is_refunded,
         ]);
 	}
 

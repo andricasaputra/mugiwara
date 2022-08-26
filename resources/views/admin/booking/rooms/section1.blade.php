@@ -25,6 +25,14 @@
 </div>
 
 <div class="form-group">
+    <label for="images">Apakah Terdapat Refund?</label>
+    <select name="is_refunded" class="form-control">
+        <option value="1">Ya</option>
+        <option value="">Tidak</option>
+    </select>
+</div>
+
+<div class="form-group">
     <label for="images">Foto</label>
     <input name="images[]" multiple type="file" class="form-control form-control-lg"  required>
 </div>

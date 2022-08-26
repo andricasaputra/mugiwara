@@ -18,7 +18,7 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
-Route::middleware('verified')->group(function(){
+Route::middleware(['verified', 'employee'])->group(function(){
 
     Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit.employee');
 

@@ -62,6 +62,7 @@
                                                 <th>Gambar</th>
                                                 <th>Fasilitas Kamar</th>
                                                 <th>Nomor Kamar</th>
+                                                <th>Terdapat Refund?</th>
                                                 <th>Deskripsi Kamar Kamar</th>
                                                 <th>Operation</th>
                                             </tr>
@@ -121,6 +122,7 @@
                                                         </div>
                                                     </td>
                                                      <td>{{ $room->room_number }}</td>
+                                                     <td>{{ $room->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
                                                     <td>{{ substr_replace($room->description, "...", 50) }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">

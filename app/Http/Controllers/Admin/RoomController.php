@@ -154,7 +154,8 @@ class RoomController extends Controller
               "price" => $request->price ,
               "discount_type" => $request->discount_type ,
               "description_room" => $request->description_room,
-              'status' => $request->status
+              'status' => $request->status,
+              'is_refunded' => $request->is_refunded,
             ]);
 
             $room->facilities()->sync($request->facility);

@@ -17,6 +17,14 @@ class ReviewsController extends Controller
             'room_id' => 'required'
         ]);
 
+        $check = Review::where('reviewable_id', $request->room_id)->where('user_id', request()->user()->id)->first();
+
+        if($check){
+            return response()->json([
+                'message' => 'Anda sudah pernah melakukan review terhadap kamar ini'
+            ]);
+        }
+
         $review = Review::create([
             'reviewable_id' => $request->room_id,
             'reviewable_type' => Room::class,

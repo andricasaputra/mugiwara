@@ -12,7 +12,7 @@ use App\Http\Controllers\Auth\MobileNumberVerificationNotificationController;
 use App\Http\Controllers\Auth\VerifyMobileController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware('guest')->group(function () {
+Route::prefix('admin')->middleware(['guest'])->group(function () {
     
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])

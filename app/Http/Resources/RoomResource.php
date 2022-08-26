@@ -53,6 +53,7 @@ class RoomResource extends JsonResource
             'total_price' => $this->discount_type == 'percent' 
                 ? $this->price - ($this->price * ((int) $this->discount_amount / 100)) 
                 : $this->price - $this->discount_amount,
+            'is_refunded' => $this->is_refunded,
             'facilities' => FacilityResource::collection($this->whenLoaded('facilities')),
             'images' => ImageResource::collection($this->images),
             'reviews' => ReviewsResource::collection($this->reviews),

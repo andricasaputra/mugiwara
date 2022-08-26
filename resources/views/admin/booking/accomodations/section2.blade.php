@@ -43,6 +43,13 @@
 
 <div id="discount-container"></div>
 
+<div class="form-group">
+    <label for="images">Apakah Terdapat Refund?</label>
+    <select name="is_refunded" class="form-control">
+        <option value="1">Ya</option>
+        <option value="">Tidak</option>
+    </select>
+</div>
 
 <div class="form-group mt-2">
     <label for="price">Deskripsi Penginapan (optional)</label>

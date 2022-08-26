@@ -59,6 +59,14 @@
                                                 <option value="stayed">Stayed</option>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="is_refunded">Apakah Terdapat Refund</label>
+                                            <select name="is_refunded" class="form-control">
+                                                <option value="{{ $room->is_refunded }}">{{ $room->is_refunded == 1 ? 'Ya' : 'Tidak' }}</option>
+                                                <option value="1">Ya</option>
+                                                <option value="">Tidak</option>
+                                            </select>
+                                        </div>
                                         @include('admin.booking.rooms.section1-edit')
                                     </div>
                                     <div class="mt-3">

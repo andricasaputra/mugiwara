@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PushNotification;
 use App\Models\User;
+use App\Services\Firebase\SendMultiple;
+use App\Services\Firebase\SendMultipleAll;
+use App\Services\Firebase\SendSingle;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Contract\Messaging;
 use Kreait\Firebase\Messaging\CloudMessage;
 
 class PushController extends Controller
@@ -59,24 +63,13 @@ class PushController extends Controller
 
         try {
 
-            $messaging = app('firebase.messaging');
-
             $push = PushNotification::create([
                 'title' => $request->title,
                 'text' => $request->text,
                 'receivers' => json_encode($request->receiver),
             ]);
 
-            if(@$request->receiver[0] == 'all'){
-
-                $receivers = User::whereNotNull('device_token')->get();
-
-                $deviceTokens = $receivers->pluck('device_token')->toArray();
-
-            } else {
-
-                $deviceTokens = $request->receiver;
-            }
+            $tokens = [];
 
             $notification = [
                 'title' => $request->title,
@@ -84,16 +77,13 @@ class PushController extends Controller
                 'image' => url('storage/misc/capsuleinnlogo.png'),
             ];
 
-            $data = [
-                'title' => $request->title,
-                'text' => $request->text,
-                'image' => url('storage/misc/capsuleinnlogo.png'),
-            ];
-
-            $message = CloudMessage::new()
-                        ->withNotification($notification);
-
-            $sendReport = $messaging->sendMulticast($message, $deviceTokens);
+            if(count($request->receiver) > 1){
+                SendMultiple::send($request);
+            } elseif($request->receiver[0] == 'all'){
+                SendMultipleAll::send($request);
+            }else{
+                (new SendSingle)->send($request);
+            }
 
             return redirect(route('admin.notifications.push.index'))->withSuccess('Berhasil Mengirim Push Notifikasi');
             
