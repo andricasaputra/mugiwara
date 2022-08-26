@@ -99,6 +99,10 @@ class ProductController extends Controller
                 'point' => $point_after
             ]);
 
+            $product->update([
+                'stock' => $product->stock - 1
+            ]);
+
             //Terimaksih telah menukarkan point anda, Gunakan sebelum batas waktu yang sudah ditentukan
 
             $admin = User::admin()->first();

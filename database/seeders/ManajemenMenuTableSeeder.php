@@ -170,11 +170,16 @@ class ManajemenMenuTableSeeder extends Seeder
 
             [
                 'name' => 'produk',
-                'amount_child' => 1,
+                'amount_child' => 2,
                 'sub_menu' => [
                     [
                         'name' => 'daftar produk',
                         'url' => 'product',
+                        'is_active' => 1
+                    ],
+                     [
+                        'name' => 'daftar penukaran produk',
+                        'url' => 'product/redeem/list',
                         'is_active' => 1
                     ],
                 ],
@@ -189,11 +194,16 @@ class ManajemenMenuTableSeeder extends Seeder
 
             [
                 'name' => 'voucher',
-                'amount_child' => 1,
+                'amount_child' => 2,
                 'sub_menu' => [
                     [
                         'name' => 'daftar voucher',
                         'url' => 'voucher',
+                        'is_active' => 1
+                    ],
+                    [
+                        'name' => 'daftar penukaran voucher',
+                        'url' => 'voucher/redeem/list',
                         'is_active' => 1
                     ],
                 ],

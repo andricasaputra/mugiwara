@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductUser;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,5 +16,12 @@ class ProductController extends Controller
         })->get();
 
         return view('employee.product.index', compact('products'));
+    }
+
+    public function redeemList()
+    {
+        $products = ProductUser::latest()->with(['product', 'user'])->get();
+        
+        return view('admin.product.redeem_list.index', compact('products'));
     }
 }

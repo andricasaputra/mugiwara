@@ -29,6 +29,7 @@ use App\Http\Controllers\Api\ReviewsController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
+use App\Http\Controllers\Api\XenditCallbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,7 +78,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);
         Route::get('payments/tax', [PaymentController::class, 'tax']);
-        Route::get('payments/callback/success', [PaymentController::class, 'status']);
+        
         Route::post('payments/ewallet/create', [PaymentController::class, 'createEwallet']);
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
@@ -157,4 +158,6 @@ Route::get('promotions', [PromotionController::class, 'index']);
 Route::get('promotions/{promotion}', [PromotionController::class, 'show']);
 
 Route::post('rooms/list', [RoomController::class, 'list'])->name('api.rooms.list');
+
+Route::post('cb/payment/ewallet/success', [XenditCallbackController::class, 'ewallet']);
 

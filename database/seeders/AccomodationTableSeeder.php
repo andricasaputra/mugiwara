@@ -139,7 +139,7 @@ class AccomodationTableSeeder extends Seeder
                         'status' => $status,
                         'booked_untill' => $booked_until,
                         'stayed_untill' => $stayed_until,
-                        'price' => $price,
+                        'price' => 1000,
                         'description' => $faker->paragraph,
                         'discount_type' => $discount_type,
                         'discount_amount' => $discount

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductUser;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,6 +22,7 @@ class ProductController extends Controller
     {
         return view('admin.product.create');
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -97,5 +99,12 @@ class ProductController extends Controller
         $product = Product::find($request->id);
         $product->delete();
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil dihapus');
+    }
+
+    public function redeemList()
+    {
+        $products = ProductUser::latest()->with(['product', 'user'])->get();
+        
+        return view('admin.product.redeem_list.index', compact('products'));
     }
 }

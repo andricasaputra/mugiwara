@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -131,5 +132,12 @@ class VoucherController extends Controller
         Storage::disk('public')->delete('data/'.$voucher->image);
         $voucher->delete();
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil dihapus');
+    }
+
+    public function redeemList()
+    {
+        $vouchers = UserVoucher::latest()->with(['voucher.accountPoints', 'user'])->get();
+        
+        return view('admin.voucher.redeem_list.index', compact('vouchers'));
     }
 }
