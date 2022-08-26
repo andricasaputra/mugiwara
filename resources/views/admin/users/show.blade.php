@@ -21,11 +21,27 @@
                                 <td>:</td>
                                 <td>{{ $user->email }}</td>
                             </tr>
+                             <tr>
+                                <td>No HP</td>
+                                <td>:</td>
+                                <td>{{ $user->mobile_number }}</td>
+                            </tr>
+                            <tr>
+                                <td>Verifikaksi No HP</td>
+                                <td>:</td>
+                                <td>{{ $user->mobile_verified_at ?? 'Belum terverifikasi' }}</td>
+                            </tr>
                             <tr>
                              <tr>
                                 <td>Avatar</td>
                                 <td>:</td>
-                                <td><img src="{{ url('storage/avatars/' . $user->account?->avatar) }}" alt="avatar"></td>
+                                <td>
+                                    @if(is_null($user->google_id))   
+                                        <img src="{{ url('storage/avatars/' . $user->account?->avatar) }}" alt="avatar">
+                                    @else
+                                        <img src="{{ $user->account?->avatar }}" alt="avatar">
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gender</td>
