@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\PaymentMethodSettingController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlayStoreController;
 use App\Http\Controllers\Admin\PointController;
@@ -192,6 +193,8 @@ Route::name('admin.')->group(function() {
     Route::post('notifikasi/push', [PushController::class, 'store'])->name('notifications.push.store');
 
     Route::delete('notifikasi/push', [PushController::class, 'destroy'])->name('notifications.push.destroy');
+
+    Route::resource('payments_methods', PaymentMethodSettingController::class);
 
     require __DIR__.'/setting.php';
 
