@@ -17,7 +17,7 @@ class PaymentMethodController extends Controller
 
     public function show($name)
     {
-        $list = PaymentMethodList::where('name', 'like', '%' . $name . '%')->first();
+        $list = PaymentMethodList::where('name', 'like', '%' . $name . '%')->get();
 
         return response()->json([
             'data' => $list
