@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\PoinController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PrivacyController;
@@ -83,6 +84,10 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
         Route::post('payments/va/pay', [PaymentController::class, 'virtualAccountPay']);
+
+        Route::get('payment/methods', [PaymentMethodController::class, 'index']);
+
+        Route::get('payment/methods/{name}', [PaymentMethodController::class, 'show']);
 
         Route::get('refund/status/{refund}', [RefundController::class, 'status']);
         Route::get('refund/reason', [RefundController::class, 'reason']);
@@ -165,4 +170,7 @@ Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewal
 Route::post('cb/payment/ewallet/status/ovo', [XenditCallbackController::class, 'ovo']);
 
 Route::post('cb/payment/va/status', [XenditCallbackController::class, 'virtualAccount']);
+
+
+
 
