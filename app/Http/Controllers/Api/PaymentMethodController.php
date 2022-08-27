@@ -23,4 +23,13 @@ class PaymentMethodController extends Controller
             'data' => $list
         ]);
     }
+
+    public function detail($name, $type)
+    {
+        $list = PaymentMethodList::where('name', 'like', '%' . $name . '%')->where('type', 'like', '%' . $type . '%')->first();
+
+        return response()->json([
+            'data' => $list
+        ]);
+    }
 }

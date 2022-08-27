@@ -89,6 +89,8 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
         Route::get('payments/methods/{name}', [PaymentMethodController::class, 'show']);
 
+        Route::get('payments/methods/{name}/{type}', [PaymentMethodController::class, 'detail']);
+
         Route::get('refund/status/{refund}', [RefundController::class, 'status']);
         Route::get('refund/reason', [RefundController::class, 'reason']);
         Route::post('refund/{order}', [RefundController::class, 'refund']);
