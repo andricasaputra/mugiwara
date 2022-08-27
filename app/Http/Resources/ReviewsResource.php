@@ -21,6 +21,7 @@ class ReviewsResource extends JsonResource
             'avatar' => url('storage/avatars/' . $this->user?->account?->avatar),
             'comment' => $this->comment,
             'rating' => $this->rating,
+            'created_at' => $this->created_at,
         ];
     }
 }
