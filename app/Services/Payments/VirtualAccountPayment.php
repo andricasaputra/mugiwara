@@ -17,10 +17,10 @@ class VirtualAccountPayment implements PaymentServiceInterface
 		  $params = [ 
 		    "external_id" => 'va-' . Uuid::uuid4()->toString(),
 		    "bank_code" => $request->bank_code,
-		    "name" => $request->name
+		    "name" => $request->name,
+		    "is_closed" => true,
+   			"expected_amount" => $request->amount
 		  ];
-
-		  //dd(\Xendit\VirtualAccounts::create($params));
 
 		  return  \Xendit\VirtualAccounts::create($params);
 	}
