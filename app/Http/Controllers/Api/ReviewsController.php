@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccountPoint;
 use App\Models\Review;
 use App\Models\Room;
+use App\Notifications\ReviewAndStayPointNotification;
 use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
@@ -50,6 +52,33 @@ class ReviewsController extends Controller
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
+
+        $user = $request->user();
+
+        $setting = Setting::where('type', 'point_menginap')->first();
+
+        if($setting && $setting->is_active == 1){
+            
+             $user->notify(
+                new ReviewAndStayPointNotification($setting)
+            );
+
+            $pointBefore = $user->account?->point;
+            $pointAfter = $pointBefore + $setting?->value ?? 0;
+
+            $user->account()?->update([
+                'point' => $pointAfter
+            ]);
+
+            AccountPoint::create([
+                'user_id' => $user->id,
+                'review_id' => $review->id,
+                'before' => $pointBefore,
+                'after' => $pointAfter,
+                'mutation' => $setting?->value ?? 0,
+                'type' => 'point_in'
+            ]);
+        }
 
         return response()->json([
             'data' => $review,
