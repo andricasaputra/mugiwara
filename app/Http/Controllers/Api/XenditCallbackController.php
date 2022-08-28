@@ -36,18 +36,18 @@ class XenditCallbackController extends Controller
         ]);
 
         if($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
-            $ewallet?->payment->first()?->order()?->update([
+            $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel'
             ]);
 
-            $ewallet?->payment->first()?->order()?->room()->update([
+            $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',
                 'booked_untill' => NULL,
                 'stayed_untill' => NULL
             ]);
         }
 
-        $this->sendNotificationEwallet($ewallet?->payment->first()?->order, $ewallet?->payment->first(), $status);
+        $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
     }
 
     public function virtualAccount(Request $request)
@@ -80,7 +80,7 @@ class XenditCallbackController extends Controller
                 'amount' => $status?->amount
             ]);
 
-            $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status_payment);
+            $this->sendNotificationVa($va?->payment?->first()?->order, $va?->payment?->first(), $status_payment);
 
         } elseif(@$status?->status) {
 
@@ -89,7 +89,7 @@ class XenditCallbackController extends Controller
                 'amount' => $status?->amount
             ]);
 
-            $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status?->status);
+            $this->sendNotificationVa($va?->payment?->first()?->order, $va?->payment?->first(), $status?->status);
         }
     }
 

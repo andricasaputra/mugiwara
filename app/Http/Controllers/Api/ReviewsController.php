@@ -56,9 +56,9 @@ class ReviewsController extends Controller
 
         $user = $request->user();
 
-        $setting = Setting::where('type', 'point_menginap')->first();
+        $setting = Setting::where('name', 'point_menginap')->first();
 
-        if($setting && $setting->is_active == 1){
+        if($setting && $setting?->is_active == 1){
             
              $user->notify(
                 new ReviewAndStayPointNotification($setting)
