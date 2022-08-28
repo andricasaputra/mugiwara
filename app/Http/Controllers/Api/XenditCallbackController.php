@@ -40,7 +40,7 @@ class XenditCallbackController extends Controller
                 'order_status' => 'cancel'
             ]);
 
-            $ewallet?->payment->first()?->order?->room()->update([
+            $ewallet?->payment->first()?->order()?->room()->update([
                 'status' => 'available',
                 'booked_untill' => NULL,
                 'stayed_untill' => NULL
