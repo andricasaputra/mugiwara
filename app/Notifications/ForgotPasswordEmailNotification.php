@@ -48,7 +48,7 @@ class ForgotPasswordEmailNotification extends Notification implements ShouldQueu
             ->line(Lang::get('Masukkan kode OTP ini pada layar Handphone anda.'))
             ->line(Lang::get('Kode OTP anda adalah : '))
             ->action(Lang::get($this->user->otp_verify_code), $url = '')
-            ->line(Lang::get('Jika email anda sudah terverifikasi, silahkan abaikan pesan ini.'))
+            ->line(Lang::get('Jika anda tidak mereset password akun anda, silahkan abaikan pesan ini.'))
             ->salutation(Lang::get('Terimakasih'));
     }
 

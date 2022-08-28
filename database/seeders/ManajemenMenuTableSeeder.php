@@ -29,7 +29,7 @@ class ManajemenMenuTableSeeder extends Seeder
                         'is_active' => 1
                     ],
                     [
-                        'name' => 'pelanggan]',
+                        'name' => 'pelanggan',
                         'url' => 'customers',
                         'is_active' => 1
                     ],

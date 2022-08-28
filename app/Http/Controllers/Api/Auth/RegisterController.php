@@ -44,7 +44,7 @@ class RegisterController extends Controller
                 'gender' => $request->gender,
                 'birth_date' => $request->birth_date,
                 'refferral_code' => Random::generate(6, 'A-Z'),
-                'avatar' => $request->gender == 'pria' ? 'avatars/default_man.png' : 'avatars/default_woman.png',
+                'avatar' => $request->gender == 'pria' ? 'default_man.png' : 'default_woman.png',
                 'point' => 0
             ]);
 
