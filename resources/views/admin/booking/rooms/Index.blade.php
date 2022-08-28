@@ -126,6 +126,9 @@
                                                     <td>{{ substr_replace($room->description, "...", 50) }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
+
+                                                            <a class="btn btn-primary btn-sm mr-2" href="{{ route('rooms.reviews.index', $room->id) }}">Reviews</a>
+
                                                             <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $room->id) }}">Edit</a>
                                                             <form action="{{ route('rooms.destroy', $room->id) }}" method="POST">
                                                                 @csrf

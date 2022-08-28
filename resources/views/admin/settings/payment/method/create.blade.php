@@ -9,7 +9,7 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Form Tambah Setting Play Store</h4>
+            <h4 class="card-title">Form Tambah Cara Pembayaran</h4>
             <form action="{{ route('admin.payments_methods.store') }}" method="post">
                 @csrf
 

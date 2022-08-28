@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\PushController;
 use App\Http\Controllers\Admin\RefferalController;
 use App\Http\Controllers\Admin\RefundController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
@@ -67,6 +68,9 @@ Route::resource('accomodations', AccomodationController::class);
 
 Route::resource('rooms', RoomController::class);
 Route::post('rooms/filter', [RoomController::class, 'filter'])->name('rooms.filter');
+Route::get('rooms/reviews/{room}', [ReviewController::class, 'index'])->name('rooms.reviews.index');
+Route::get('rooms/reviews/edit/{room}/{review}', [ReviewController::class, 'edit'])->name('rooms.reviews.edit');
+Route::put('rooms/reviews/update/{room}/{review}', [ReviewController::class, 'update'])->name('rooms.reviews.update');
 Route::resource('facilities', FacilityController::class);
 Route::resource('room_types', RoomTypeController::class);
 Route::resource('booking', BookingController::class);

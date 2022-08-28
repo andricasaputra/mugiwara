@@ -15,7 +15,7 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Setting Metode Pembayaran</p>
+                                <p class="card-title">Setting Cara Pembayaran</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table text-left" style="width:100%">
