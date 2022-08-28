@@ -41,7 +41,7 @@ class XenditCallbackController extends Controller
             ]);
 
             $ewallet?->payment->first()?->order?->room()->update([
-                'staus' => 'available',
+                'status' => 'available',
                 'booked_untill' => NULL,
                 'stayed_untill' => NULL
             ]);
