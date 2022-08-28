@@ -42,7 +42,6 @@ class XenditCallbackController extends Controller
     {
 
         $data = json_encode($request->all());
-        \Log::info($data);
 
         $callback = CallbackXendit::create([
             'payload' => $data
@@ -70,24 +69,10 @@ class XenditCallbackController extends Controller
                 'amount' => $status?->amount
             ]);
 
+            \Log::info($va?->payment);
+
             $this->sendNotificationVa($va?->payment?->order, $va?->payment, $status_payment);
         }
-    }
-
-    private function vaConfirmCallback($data)
-    {
-
-        $username = env('XENDIT_SECRET_KEY') . ":";
-        $password = "";
-
-        $data = ['amount' => $data->amount];
-
-        $response = Http::asForm()
-            ->accept('application/json')
-            ->withBasicAuth($username, $password)
-            ->post('https://api.xendit.co/callback_virtual_accounts/external_id='.$data->external_id.'/simulate_payment', $data);
-
-        return $response->json();
     }
 
     protected function sendNotificationEwallet($order, $payment, $status)
