@@ -116,7 +116,7 @@ class PaymentsRepository
             $check = PaymentList::where('business_id', $list['business_id'])
             			->where('name', $list['name'])->first();
 
-            if(! $check){
+            //if(! $check){
             	PaymentList::create([
             		'business_id' => $list['business_id'],
             		'name' => $list['name'],
@@ -129,7 +129,7 @@ class PaymentsRepository
             		'is_active' => true,
             		'image' => $list['image'] ??  NULL,
             	]);
-            }
+            //}
        }
 
        return PaymentList::where('is_active', 1)->get();
