@@ -49,6 +49,8 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
+        \Log::info($data);
+
         if($status?->payment_id){
 
             $va = VirtualAccount::where('external_id', $status->external_id)->first();
@@ -69,7 +71,7 @@ class XenditCallbackController extends Controller
                 'amount' => $status?->amount
             ]);
 
-            \Log::info($va?->payment);
+            
 
             $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status_payment);
         }
