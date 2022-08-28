@@ -35,7 +35,7 @@ class XenditCallbackController extends Controller
             'amount' => $status?->data?->charge_amount,
         ]);
 
-        $this->sendNotification($ewallet?->payment?->order, $ewallet?->payment, $status);
+        $this->sendNotificationEwallet($ewallet?->payment?->order, $ewallet?->payment, $status);
     }
 
     public function virtualAccount(Request $request)
@@ -50,37 +50,104 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-        $va = VirtualAccount::where('external_id', $status->external_id)->first();
+        if($status?->payment_id){
 
-        if(! $va){
-            throw new \Exception("Pembayaran tidak ditemukan", 1);
-            
+            $va = VirtualAccount::where('external_id', $status->external_id)->first();
+
+            if(! $va){
+                throw new \Exception("Pembayaran tidak ditemukan", 1);
+                
+            }
+
+            $va->update([
+                'payload' => $data
+            ]);
+
+            $status_payment = 'COMPLETED';
+
+            $va->payment()->update(
+                ['status' => $status_payment,
+                'amount' => $status?->amount
+            ]);
+
+            $this->sendNotificationVa($va?->payment?->order, $va?->payment, $status_payment);
         }
-
-        $va->update([
-            'payload' => $data
-        ]);
-
-        $va->payment()->update(['status' => $status]);
-
-        $this->sendNotification($va?->payment?->order, $va?->payment, $status);
     }
 
-    protected function sendNotification($order, $payment, $status)
+    private function vaConfirmCallback($data)
     {
 
-        if($status?->data?->status == 'SUCCEEDED' || $status?->data?->status == 'COMPLETED'){
+        $username = env('XENDIT_SECRET_KEY') . ":";
+        $password = "";
+
+        $data = ['amount' => $data->amount];
+
+        $response = Http::asForm()
+            ->accept('application/json')
+            ->withBasicAuth($username, $password)
+            ->post('https://api.xendit.co/callback_virtual_accounts/external_id='.$data->external_id.'/simulate_payment', $data);
+
+        return $response->json();
+    }
+
+    protected function sendNotificationEwallet($order, $payment, $status)
+    {
+
+        if($status?->data?->status == 'SUCCEEDED'){
             $pembayaran = 'Berhasil';
             $message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
         }elseif($status?->data?->status == 'FAILED'){
             $pembayaran = 'Gagal';
             $message = 'Mohon Maaf Pembayaran Anda Belum Berhasil. Silahkan Lakukan Kembali Pembayaran Dengan Metode Pembayaran Yang Telah Dipilih!';
-        }elseif($status?->data?->status == 'EXPIRED'){
+        }elseif($status?->data?->status == 'EXPIRED' || $status?->data?->status == 'INACTIVE'){
             $pembayaran = 'Expired';
             $message = 'Mohon Maaf Pembayaran Anda Kadaluarsa.';
         }else{
             $pembayaran = 'Pending';
             $message = 'Segera Lakukan Pembayaran Untuk Segera Menikmati Fasilitas Hotel Kami.';
+        }
+
+        $customer_title = 'Pembayaran ' . $pembayaran . '!';
+        $customer_message = $message;
+
+        $payment?->user?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $user_title = 'Terdapat Pembayaran ' . $pembayaran;
+        $user_message = 'Pembayaran dengan Order ID ' . $order->id . ' ' . $pembayaran  . ' kunjungi halaman keuangan untuk detail lebih lanjut.';
+
+        $admin = User::admin()->first();
+
+        $office = Office::with('users')->where('accomodation_id',  $order->accomodation_id)->first();
+
+        // Notify admin and employee
+        $admin->notify(
+            new AdminPaymentStatusNotification(
+                $order, $payment, $user_title, $user_message
+            )
+        );
+        
+        if(!is_null($office) && count($office?->users) > 0){
+
+            foreach($office->users as $employee){
+                $employee->user?->notify(
+                    new AdminPaymentStatusNotification(
+                        $order, $payment, $user_title, $user_message
+                    )
+                );
+            }
+        }
+    }
+
+    protected function sendNotificationVa($order, $payment, $status)
+    {
+
+        if($status == 'COMPLETED'){
+            $pembayaran = 'Berhasil';
+            $message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
         }
 
         $customer_title = 'Pembayaran ' . $pembayaran . '!';
