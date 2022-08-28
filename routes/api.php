@@ -169,8 +169,6 @@ Route::post('rooms/list', [RoomController::class, 'list'])->name('api.rooms.list
 
 Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewallet']);
 
-Route::post('cb/payment/ewallet/status/ovo', [XenditCallbackController::class, 'ovo']);
-
 Route::post('cb/payment/va/status', [XenditCallbackController::class, 'virtualAccount']);
 
 
