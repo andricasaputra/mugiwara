@@ -35,7 +35,7 @@ class XenditCallbackController extends Controller
             'amount' => $status?->data?->charge_amount,
         ]);
 
-        $this->sendNotificationEwallet($ewallet?->payment?->order, $ewallet?->payment, $status);
+        $this->sendNotificationEwallet($ewallet?->payment->first()?->order, $ewallet?->payment->first(), $status);
     }
 
     public function virtualAccount(Request $request)
@@ -71,7 +71,7 @@ class XenditCallbackController extends Controller
 
             \Log::info($va?->payment);
 
-            $this->sendNotificationVa($va?->payment?->order, $va?->payment, $status_payment);
+            $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status_payment);
         }
     }
 
