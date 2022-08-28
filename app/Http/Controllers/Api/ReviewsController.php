@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AccountPoint;
 use App\Models\Review;
 use App\Models\Room;
+use App\Models\Setting;
 use App\Notifications\ReviewAndStayPointNotification;
 use Illuminate\Http\Request;
 
