@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('callback_xendits', function (Blueprint $table) {
             $table->id();
-            $table->json('payload');
+            $table->longText('payload');
             $table->timestamps();
         });
     }
