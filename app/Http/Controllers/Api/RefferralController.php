@@ -117,9 +117,12 @@ class RefferralController extends Controller
                ],
             ]);
             
-            $customer = User::find($account->user?->id);
+            $user = User::find($account->user?->id);
+            $customer = Customer::find($account->user?->id);
 
             Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+
+            Notification::send($user, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
             Notification::send($customer, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
