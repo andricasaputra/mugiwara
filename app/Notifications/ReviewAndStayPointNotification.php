@@ -56,7 +56,7 @@ class ReviewAndStayPointNotification extends Notification
     {
         return [
             'title' => 'Point Bertambah!',
-            'body' => 'Selamat anda mendapatkan ' . $this->setting?->value ?? 0 . ' point setelah menginap dan mengisi review, kami tunggu kedatangan anda selanjutnya!',
+            'message' => 'Selamat anda mendapatkan ' . $this->setting?->value ?? 0 . ' point setelah menginap dan mengisi review, kami tunggu kedatangan anda selanjutnya!',
             'type' => 'point',
             'category' => 'common'
         ];
