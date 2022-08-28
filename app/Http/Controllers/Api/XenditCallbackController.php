@@ -40,7 +40,6 @@ class XenditCallbackController extends Controller
 
     public function virtualAccount(Request $request)
     {
-
         $data = json_encode($request->all());
 
         $callback = CallbackXendit::create([
@@ -49,31 +48,36 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-        \Log::info($data);
+        $va = VirtualAccount::where('external_id', $status->external_id)->first();
 
-        if($status?->payment_id){
+        if(! $va){
+            throw new \Exception("Pembayaran tidak ditemukan", 1);
+            
+        }
 
-            $va = VirtualAccount::where('external_id', $status->external_id)->first();
+        $va->update([
+            'payload' => $data
+        ]);
 
-            if(! $va){
-                throw new \Exception("Pembayaran tidak ditemukan", 1);
-                
-            }
-
-            $va->update([
-                'payload' => $data
-            ]);
+        if(@$status?->payment_id){
 
             $status_payment = 'COMPLETED';
 
-            $va->payment()->update(
-                ['status' => $status_payment,
+            $va->payment()->update([
+                'status' => $status_payment,
                 'amount' => $status?->amount
             ]);
 
-            
-
             $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status_payment);
+
+        } elseif(@$status?->status) {
+
+            $va->payment()->update([
+                'status' => $status?->status,
+                'amount' => $status?->amount
+            ]);
+
+            $this->sendNotificationVa($va?->payment->first()?->order, $va?->payment->first(), $status?->status);
         }
     }
 
