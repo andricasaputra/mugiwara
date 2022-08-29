@@ -8,8 +8,10 @@ use App\Http\Resources\Post as ResourcesPost;
 use App\Http\Resources\Voucher as ResourcesVoucher;
 use App\Models\Account;
 use App\Models\AccountPoint;
+use App\Models\Customer;
 use App\Models\Point;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\UserVoucher;
 use App\Models\Voucher;
 use App\Notifications\PointRedeemSuccessNotification;
@@ -97,7 +99,14 @@ class PoinController extends Controller
                 'point' => $pointAfter
             ]);
 
-            $request->user()->notify(
+            $customer = Customer::find($request->user()->id);
+            $user = User::find($request->user()->id);
+
+            $user?->notify(
+                new PointRedeemSuccessNotification($accountPoin, $voucher)
+            );
+
+            $customer?->notify(
                 new PointRedeemSuccessNotification($accountPoin, $voucher)
             );
 

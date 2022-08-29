@@ -70,6 +70,7 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
             'message' => $this->message,
             'order' => $this->order,
             'payment' => $this->payment,
+            'detail' => $this->payment->payable,
             'type' => 'common',
             'category' => 'pemberitahuan'
         ];

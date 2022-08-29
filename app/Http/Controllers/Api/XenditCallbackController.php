@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CallbackXendit;
+use App\Models\Customer;
 use App\Models\Office;
 use App\Models\Payments\Ewallet;
 use App\Models\Payments\VirtualAccount;
@@ -40,11 +41,14 @@ class XenditCallbackController extends Controller
                 'order_status' => 'cancel'
             ]);
 
-            $ewallet?->payment?->first()?->order?->room()->update([
+            $update = $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',
                 'booked_untill' => NULL,
                 'stayed_untill' => NULL
             ]);
+
+            \Log::info($ewallet?->payment?->first()?->order?->room);
+            \Log::info($update);
         }
 
         $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
@@ -104,7 +108,7 @@ class XenditCallbackController extends Controller
             $message = 'Mohon Maaf Pembayaran Anda Belum Berhasil. Silahkan Lakukan Kembali Pembayaran Dengan Metode Pembayaran Yang Telah Dipilih!';
         }elseif($status?->data?->status == 'EXPIRED' || $status?->data?->status == 'INACTIVE'){
             $pembayaran = 'Expired';
-            $message = 'Mohon Maaf Pembayaran Anda Kadaluarsa.';
+            $message = 'Mohon Maaf Pembayaran Anda Sudah Kadaluarsa.';
         }else{
             $pembayaran = 'Pending';
             $message = 'Segera Lakukan Pembayaran Untuk Segera Menikmati Fasilitas Hotel Kami.';
@@ -113,7 +117,16 @@ class XenditCallbackController extends Controller
         $customer_title = 'Pembayaran ' . $pembayaran . '!';
         $customer_message = $message;
 
-        $payment?->user?->notify(
+        $customer = Customer::find($payment?->user?->id);
+        $user = User::find($payment?->user?->id);
+
+        $user?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $customer?->notify(
             new PaymentStatusNotification(
                 $order, $payment, $customer_title, $customer_message
             )
@@ -151,12 +164,27 @@ class XenditCallbackController extends Controller
         if($status == 'COMPLETED'){
             $pembayaran = 'Berhasil';
             $message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
+        }elseif($status == 'INACTIVE'){
+            $pembayaran = 'Expired';
+            $message = 'Mohon Maaf Pembayaran Anda Sudah Kadaluarsa.';
+        }else{
+            $pembayaran = 'Gagal';
+            $message = 'Mohon maaf pembayaran yang anda lakukan gagal!';
         }
 
         $customer_title = 'Pembayaran ' . $pembayaran . '!';
         $customer_message = $message;
 
-        $payment?->user?->notify(
+        $customer = Customer::find($payment?->user?->id);
+        $user = User::find($payment?->user?->id);
+
+        $user?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $customer?->notify(
             new PaymentStatusNotification(
                 $order, $payment, $customer_title, $customer_message
             )

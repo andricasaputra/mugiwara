@@ -41,7 +41,42 @@ class UserOrderResource extends JsonResource
             "created_at" => $this->created_at,
             "booking_status" => $status,
             'order_status' => $this->order_status,
-            "payment" => $this->payment,
+            "payment" => [
+                'id' => $this->payment?->id,
+                'payment_type' => $this->payment?->payable_type == "App\\Models\\Payments\\Ewallet" ? 'EWALLET' : 'VIRTUAL_ACCOUNT',
+                'order_id' => $this->payment?->order_id,
+                'booking_code' => $this->payment?->booking_code,
+                'currency' => $this->payment?->currency,
+                'amount' => $this->payment?->amount,
+                'discount_type' => $this->payment?->discount_type,
+                'discount_amount' => $this->payment?->discount_amount,
+                'tax' => $this->payment?->tax,
+                'status' => $this->payment?->status,
+                
+                $this->mergeWhen($this->payment?->payable_type == "App\\Models\\Payments\\VirtualAccount", [
+                    'external_id' => $this->payment?->payable?->external_id,
+                    'bank_code' => $this->payment?->payable?->bank_code,
+                    'image' => $this->payment?->payable?->bank_code != NULL ? url('storage/payments/' . strtolower($this->payment?->payable?->bank_code) . '.png') : NULL, 
+                    'merchant_code' => $this->payment?->payable?->merchant_code,
+                    'account_number' => $this->payment?->payable?->account_number,
+                    'name' => $this->payment?->payable?->name,
+                    'payment_time' => $this->payment?->payable?->payment_time,
+                    'expiration_date' => $this->payment?->payable?->expiration_date,
+                ]),
+
+                $this->mergeWhen($this->payment?->payable_type == "App\\Models\\Payments\\Ewallet", [
+                    'ewallet_id' => $this->payment?->payable?->ewallet_id,
+                    'channel_code' => $this->payment?->payable?->channel_code,
+                    'image' => $this->payment?->payable?->channel_code != NULL ? url('storage/payments/' . strtolower(str_replace("ID_", "", $this->payment?->payable?->channel_code)) . '.png') : NULL, 
+                    'mobile_number' => $this->payment?->payable?->mobile_number,
+                    'payment_time' => $this->payment?->payable?->payment_time,
+                ]),
+
+                'created_at' => $this->payment?->created_at,
+                'created_at' => $this->payment?->created_at,
+                'expired_at' => $this->payment?->expired_at,
+                'voucher' => $this->payment?->voucher,
+            ],
             "room" => new RoomResource($this->room),
             "refund" => $this->refund,
         ];

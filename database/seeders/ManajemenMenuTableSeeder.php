@@ -270,7 +270,7 @@ class ManajemenMenuTableSeeder extends Seeder
                 'sub_menu' => [
                     [
                         'name' => 'daftar notifikasi',
-                        'url' => 'notications',
+                        'url' => 'notifications',
                         'is_active' => 1
                     ],
                     [

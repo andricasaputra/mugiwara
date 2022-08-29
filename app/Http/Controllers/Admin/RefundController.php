@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Refund;
 use App\Models\User;
 use App\Notifications\RefundStatusNotification;
@@ -53,7 +54,11 @@ class RefundController extends Controller
             'Pengajuan refund ' . $status
         );
 
-        $refund->user->notify($notification_user);
+        $customer = Customer::find($refund->user?->id);
+        $user = User::find($refund->user?->id);
+
+        $user?->notify($notification_user);
+        $customer?->notify($notification_user);
 
         $admin->notify($notification_admin); 
 

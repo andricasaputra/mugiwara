@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentEwalletRequest;
 use App\Http\Requests\PaymentVirtualAccountRequest;
 use App\Http\Resources\PaymentResource;
+use App\Models\Customer;
 use App\Models\Office;
 use App\Models\Order;
 use App\Models\Room;
@@ -277,7 +278,16 @@ class PaymentController extends Controller
         $customer_title = 'Pembayaran Berhasil!';
         $customer_message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
 
-        $request->user()->notify(
+        $customer = Customer::find($request->user()->id);
+        $user = User::find($request->user()->id);
+
+        $user?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $customer?->notify(
             new PaymentStatusNotification(
                 $order, $payment, $customer_title, $customer_message
             )

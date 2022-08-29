@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Employee\CategoryPostController;
 use App\Http\Controllers\Employee\DashboardController;
 use App\Http\Controllers\Employee\FinanceController;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect(route('login'));
 });
+
+Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
 

@@ -129,7 +129,7 @@ class AccomodationTableSeeder extends Seeder
                     }else{
                         $price = $price_3;
                         $discount_type = 'flat';
-                        $discount = 200000;
+                        $discount = 200;
                     }
 
                     $room = [

@@ -40,7 +40,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return new UserOrderResource($order->load(['refund', 'payment.voucher', 'accomodation.room', 'room' => function($query){
+        return new UserOrderResource($order->load(['refund', 'payment.voucher', 'payment.payable', 'accomodation.room', 'room' => function($query){
             $query->withCount('reviews')->withAvg('reviews', 'rating');
         }]));
     }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\PaymentTypenterface;
 use App\Models\Accomodation;
+use App\Models\Customer;
 use App\Models\Office;
 use App\Models\Order;
 use App\Models\Payment;
@@ -209,8 +210,17 @@ class OrderRepository
 
         $user_title = 'Ada Pesanan Kamar Masuk';
         $user_message = 'Seseorang baru saja memesan sebuah kamar, silahkan menuju halaman pemesanan untuk detail lebih lanjut';
+
+        $customer = Customer::find($request->user()->id);
+        $user = User::find($request->user()->id);
         
-       	$request->user()->notify(
+       	$user?->notify(
+       		new SendOrderCreatedNotifications(
+       			$order, $customer_title, $customer_message
+       		)
+       	);
+
+       	$customer?->notify(
        		new SendOrderCreatedNotifications(
        			$order, $customer_title, $customer_message
        		)

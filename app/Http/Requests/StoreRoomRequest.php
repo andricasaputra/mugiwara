@@ -35,7 +35,7 @@ class StoreRoomRequest extends FormRequest
             'room_image.*' => Rule::filepond([
                 'required',
                 'image',
-                'max:3000'
+                'max:5000'
             ])
         ];
     }

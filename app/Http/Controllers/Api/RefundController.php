@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Refund;
 use App\Models\RefundReason;
@@ -81,7 +82,11 @@ class RefundController extends Controller
                 'Terdapat pengajuan refund'
             );
 
-            $request->user()->notify($notification_user);
+            $customer = Customer::find($request->user()->id);
+            $user = User::find($request->user()->id);
+
+            $user?->notify($notification_user);
+            $customer?->notify($notification_user);
 
             $admin->notify($notification_admin); 
 

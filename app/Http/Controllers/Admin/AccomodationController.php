@@ -89,6 +89,26 @@ class AccomodationController extends Controller
     {
         DB::beginTransaction();
 
+        $check = Room::where('accomodation_id', $request->accomodation_id)->where('type_id', $request->type_id)->first();
+
+        if($check){
+
+            $price = (int) preg_replace('/[^0-9]/', '', $request->price);
+
+
+            if($check->price != $price){
+
+                return back()->withErrors("Harga kamar pada tipe {$check->type?->name} seharusnya adalah {$check->price}");
+
+            }elseif($check->discount_type != $request->discount_type){
+
+                $dscount = $check->discount_type ?? 'kosong'; 
+
+                return back()->withErrors("Diskon kamar pada tipe {$check->type?->name} seharusnya adalah {$dscount}");
+            }
+
+        }
+
         try {
 
             $this->repository->setRequest($request);

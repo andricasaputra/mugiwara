@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AccountPoint;
+use App\Models\Customer;
 use App\Models\Review;
 use App\Models\Room;
 use App\Models\Setting;
+use App\Models\User;
 use App\Notifications\ReviewAndStayPointNotification;
 use Illuminate\Http\Request;
 
@@ -54,15 +56,22 @@ class ReviewsController extends Controller
             'comment' => $request->comment,
         ]);
 
-        $user = $request->user();
-
         $setting = Setting::where('name', 'point_menginap')->first();
 
         if($setting && $setting?->is_active == 1){
+
+            $customer = Customer::find($request->user()->id);
+            $user = User::find($request->user()->id);
             
-             $user->notify(
+            $user?->notify(
                 new ReviewAndStayPointNotification($setting)
             );
+
+            $customer?->notify(
+                new ReviewAndStayPointNotification($setting)
+            );
+
+            $user = $request->user();
 
             $pointBefore = $user->account?->point;
             $pointAfter = $pointBefore + $setting?->value ?? 0;

@@ -63,7 +63,7 @@ class AccountUserController extends Controller
     public function updatePhotoProfile(Request $request)
     {
         $request->validate([
-            'photo_profile' => 'required|image|mimes:jpg,jpeg,png'
+            'photo_profile' => 'required|image|mimes:jpg,jpeg,png|max:4000'
         ]);
 
         if(! $request->hasFile('photo_profile')){

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as ResourcesPost;
 use App\Http\Resources\Product as ResourcesProduct;
 use App\Models\AccountPoint;
+use App\Models\Customer;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductUser;
@@ -119,7 +120,11 @@ class ProductController extends Controller
                 'Terdapat penukaran merchandise!'
             );
 
-            $request->user()->notify($notification_user);
+            $customer = Customer::find($request->user()->id);
+            $user = User::find($request->user()->id);
+
+            $user?->notify($notification_user);
+            $customer?->notify($notification_user);
 
             $admin->notify($notification_admin); 
 

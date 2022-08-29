@@ -74,7 +74,7 @@ Route::put('rooms/reviews/update/{room}/{review}', [ReviewController::class, 'up
 Route::resource('facilities', FacilityController::class);
 Route::resource('room_types', RoomTypeController::class);
 Route::resource('booking', BookingController::class);
-Route::resource('privacy', PrivacyPoliciesController::class);
+Route::resource('privacy', PrivacyPoliciesController::class)->except('show');
 
 Route::name('admin.')->group(function() {
 
