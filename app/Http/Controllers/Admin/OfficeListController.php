@@ -106,6 +106,7 @@ class OfficeListController extends Controller
               "name" => $request->name,
               "type" => $request->type,
               "address" => $request->address,
+              "mobile_number" => $request->mobile_number,
               "accomodation_id" => $request->accomodation_id,
             ]);
 

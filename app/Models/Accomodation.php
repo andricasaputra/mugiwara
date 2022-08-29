@@ -30,6 +30,11 @@ class Accomodation extends Model
         return $this->belongsTo(Regency::class);
     }
 
+    public function districts()
+    {
+        return $this->belongsTo(District::class);
+    }
+
     public function ratings()
     {
         return $this->hasMany(AccomodationRatings::class);

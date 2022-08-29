@@ -147,7 +147,7 @@ class AccomodationController extends Controller
         $districts = District::where('regency_id', $accomodation->regency_id)->get();
 
         return view('admin.booking.accomodations.edit')
-            ->withAccomodation($accomodation->load('regency'))
+            ->withAccomodation($accomodation->load(['regency.districts']))
             ->withProvinces($provinces)
             ->withRegencies($regencies)
             ->withDistricts($districts);

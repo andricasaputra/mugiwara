@@ -40,12 +40,21 @@
                         <div class="form-group">
                             <label for="user_id">Nama Karyawan</label>
                             <select name="user_id[]" id="" class="form-control js-example-tokenizer" multiple>
+                                @php
+                                    $t = [];
+                                @endphp
                                 @foreach($office->users as $u)
+                                @php
+                                    array_push($t, $u->user?->id);
+                                @endphp
                                     <option value="{{ $u->user?->id }}" selected>{{ $u->user?->name }}</option>
                                 @endforeach
                                 
                                 @foreach($users as $user)
+                                    @if(!in_array($user->id, $t))
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endif
+                                    
                                 @endforeach
                             </select>
                         </div>

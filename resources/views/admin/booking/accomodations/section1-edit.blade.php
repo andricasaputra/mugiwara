@@ -1,5 +1,4 @@
 @csrf
-
 <div class="form-group">
     <label for="type_id">Nama penginapan</label>
     <input name="name" type="text" class="form-control" value="{{ $accomodation->name }}">
@@ -28,7 +27,7 @@
 <div class="form-group">
     <label for="city">Kecamatan</label>
     <select name="districts_id" class="form-control districts" id="js-example-basic-single-districts" style="width: 100%;">
-        <option selected value="{{ $accomodation->district?->id }}">{{ $accomodation->district?->name }}</option>
+        <option selected value="{{ $accomodation->districts?->id }}">{{ $accomodation->districts?->name }}</option>
         @foreach($districts as $district)
             <option value="{{ $district->id }}">{{ $district->name }}</option>
         @endforeach
@@ -55,7 +54,7 @@
 
 <div class="form-group mt-2">
     <label for="price">Deskripsi Penginapan (optional)</label>
-    <textarea class="form-control" name="description" cols="30" rows="6">{{ $accomodation->description_acc }}</textarea>
+    <textarea class="form-control" name="description" cols="30" rows="6">{{ $accomodation->description }}</textarea>
 </div>
 
 
