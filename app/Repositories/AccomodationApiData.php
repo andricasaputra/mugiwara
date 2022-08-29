@@ -17,9 +17,7 @@ trait AccomodationApiData
 					 $accomodations =  $query->whereNotNull('discount_type');
 				}
 
-				if(request()->category == 'popule'){
-					 $accomodations =  $query->where('reviews_avg_rating', '>' , 4);
-				}
+				
 
 				if(request()->status){
 			
@@ -73,6 +71,10 @@ trait AccomodationApiData
 			 $accomodations =  $accomodations
 			 ->having('reviews_avg_rating', '>=', request()->rating)
 			 ->having('reviews_avg_rating', '<', request()->rating + 1);
+		}
+
+		if(request()->category == 'populer'){
+			 $accomodations =  $query->where('reviews_avg_rating', '>' , 4);
 		}
 
 		if(request()->category == 'trending'){
