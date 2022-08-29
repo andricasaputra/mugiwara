@@ -13,11 +13,18 @@ class PromotionController extends Controller
     {
         $promotion = Promotion::with(['images'])->latest()->first();
 
-        return new PromotionResource($promotion);
+        if($promotion){
+            return new PromotionResource($promotion);
+        }
+
+        return response()->json([
+            'data' => []
+        ]);
     }
 
     public function show(Promotion $promotion)
     {
+
         return new PromotionResource($promotion);
     }
 }
