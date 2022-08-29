@@ -21,8 +21,18 @@ class AccountPoint extends Model
         return $this->belongsTo(Voucher::class, 'voucher_id');
     }
 
-     public function affiliate()
+    public function affiliate()
     {
         return $this->belongsTo(Affiliate::class, 'affiliate_id');
+    }
+
+    public function review()
+    {
+        return $this->belongsTo(Review::class, 'review_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

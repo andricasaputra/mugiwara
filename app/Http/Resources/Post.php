@@ -16,8 +16,8 @@ class Post extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => $this->categoryPost->name,
-            'postedBy' => $this->user->name,
+            'category' => $this->categoryPost?->name,
+            'postedBy' => $this->user?->name,
             'title' => $this->title,
             'body' => $this->body,
             'slug' => $this->slug,

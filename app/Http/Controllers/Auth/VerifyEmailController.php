@@ -25,14 +25,14 @@ class VerifyEmailController extends Controller
         
         if ($request->user()->hasVerifiedEmail()) {
 
-            return redirect()->intended($home.'?verified=1');
+            return redirect($home)->withErrors('Email Anda Sudah Terverifikasi Silahkan Login');
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended($home.'?verified=1');
+        return redirect($home)->withSuccess('Selamat Verifikasi Email Sukses!');
     }
 
     public function resend(Request $request)

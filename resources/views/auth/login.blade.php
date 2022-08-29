@@ -27,6 +27,7 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              @include('inc.message')
               <div class="brand-logo text-center">
                 <img src="{{ asset('assets/images/capsuleinnlogo.png') }}" alt="logo" style="width: 50%;">
               </div>
