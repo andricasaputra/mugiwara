@@ -85,20 +85,7 @@
   <script>
     let active = $('.active');
 
-    $('.nav-link ,active').click(function(e){
-      e.preventDefault()
-
-      if($(this).text() == 'Transaksi'){
-        $('li.nav-item').removeClass('active')
-        console.log($(this).text())
-      }
-
-      
-    })
-
-   //console.log($(active[0]).text())
-
-    // $(active[1]).removeClass('active');
-    // active[2].remove();
+    $('li.nav-item').removeClass('active')
+        $('div.collapse').removeClass('show')
   </script>
 @endsection
