@@ -111,7 +111,7 @@ class OfficeListController extends Controller
             ]);
 
             foreach($request->user_id as $id){
-                $office->users()->create([
+                $office->users()->update([
                     'user_id' => $id
                 ]);
             }
