@@ -87,11 +87,7 @@
 
     
 
-    active.each(function(a, key){
-      if(a != 0){
-        console.log(a)
-      }
-    });
+   console.log($(active[0]).text())
 
     // $(active[1]).removeClass('active');
     // active[2].remove();

@@ -11,6 +11,7 @@ use App\Models\AccountPoint;
 use App\Models\Customer;
 use App\Models\Point;
 use App\Models\Post;
+use App\Models\ProductUser;
 use App\Models\User;
 use App\Models\UserVoucher;
 use App\Models\Voucher;
@@ -131,7 +132,10 @@ class PoinController extends Controller
     public function list()
     {
         return response()->json([
-            'data' => UserVoucher::with(['user:id,name', 'voucher'])->get()
+            'data' => [
+                'voucher' => UserVoucher::with(['user:id,name', 'voucher'])->get(),
+                'product' => ProductUser::with(['user', 'product'])->get()
+            ]
         ]);
     }
 
