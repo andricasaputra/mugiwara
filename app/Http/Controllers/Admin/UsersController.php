@@ -75,6 +75,8 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
+        $user->office?->delete();
+
         $user->delete();
 
         return back()->withSuccess('Berhasil hapus karyawan');
