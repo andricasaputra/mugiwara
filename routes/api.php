@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::post('orders/create', [OrderController::class, 'create']);
         Route::post('orders/checkout', [OrderController::class, 'checkout']);
         Route::get('orders/ticket/{order}', [OrderController::class, 'ticket']);
+        Route::post('orders/update/status', [OrderController::class, 'updateStatus']);
         
         Route::get('payments/lists', [PaymentController::class, 'lists']);
         Route::get('payments/tax', [PaymentController::class, 'tax']);

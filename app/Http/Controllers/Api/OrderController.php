@@ -9,6 +9,7 @@ use App\Http\Resources\UserOrderResource;
 use App\Models\Order;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -45,9 +46,46 @@ class OrderController extends Controller
         }]));
     }
 
-    public function checkout(Request $request)
+    public function updateStatus(Request $request)
     {
+        DB::beginTransaction();
 
+        try {
+
+            $request->validate([
+                'order_id' => 'required'
+            ]);
+
+            $order = Order::findOrFail($request->order_id);
+
+            $order->update([
+                'order_status' => 'cancel'
+            ]);
+
+            $order->payment()->update([
+                'status' => 'EXPIRED'
+            ]);
+
+            $order->room()->update([
+                'status' => 'available',
+                'booked_untill' => NULL,
+                'stayed_untill' => NULL
+            ]);
+
+            DB::commit();
+
+            return new UserOrderResource($order->load(['refund', 'payment.voucher', 'payment.payable', 'accomodation.room', 'room' => function($query){
+                $query->withCount('reviews')->withAvg('reviews', 'rating');
+            }]));
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json([
+                'message' => 'Gagal update data, Error : ' . $e->getMessage()
+            ]);
+        }
     }
 
     public function ticket(Order $order)
