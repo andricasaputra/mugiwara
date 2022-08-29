@@ -5,7 +5,7 @@
 </div>
 
 <div class="form-group">
-    <label for="city">Pilih Provinsi</label>
+    <label for="city">Provinsi</label>
     <select name="province_id" class="form-control province" id="js-example-basic-single" style="width: 100%;">
         @foreach($provinces as $province)
             <option value="{{ $province->id }}">{{ $province->name }}</option>

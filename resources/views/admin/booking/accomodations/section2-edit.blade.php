@@ -41,7 +41,7 @@
         <option value="{{ $room->discount_type }}">{{ ucfirst($room->discount_type )}}</option>
         <option value="">Kosongkan jika tidak diisi</option>
         <option value="flat">Flat</option>
-        <option value="persen">Persen</option>
+        <option value="percent">Persen</option>
     </select>
 </div>
 

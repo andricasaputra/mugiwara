@@ -32,7 +32,9 @@
 
                   @if($child->is_active == 1)
 
-                    <li class="nav-item"> <a class="nav-link" href="{{ url('admin/' . $child->url) }}">{{ ucwords($child->name) }}</a></li>
+                    <li class="nav-item"> 
+                      <a class="nav-link" href="{{ url('admin/' . $child->url) }}">{{ ucwords($child->name) }}</a>
+                    </li>
 
                   @endif
 
@@ -78,3 +80,20 @@
 
   </ul>
 </nav>
+
+@section('scripts')
+  <script>
+    let active = $('.active');
+
+    
+
+    active.each(function(a, key){
+      if(key != 0){
+        console.log(a)
+      }
+    });
+
+    // $(active[1]).removeClass('active');
+    // active[2].remove();
+  </script>
+@endsection
