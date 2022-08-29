@@ -45,7 +45,7 @@ class Accomodation extends Model
         return $this->hasManyThrough(
             Review::class,
             Room::class,
-            'id',
+            'accomodation_id',
             'reviewable_id', 
             'id',
             'id'

@@ -24,8 +24,8 @@ trait AccomodationApiData
 
 				if(request()->rating){
 					 $accomodations =  $query
-					 ->having('room.reviews_avg_rating', '>=', request()->rating)
-					 ->having('room.reviews_avg_rating', '<', request()->rating + 1);
+					 ->having('reviews_avg_rating', '>=', request()->rating)
+					 ->having('reviews_avg_rating', '<', request()->rating + 1);
 				}
 
 				$query->withCount('reviews')->withAvg('reviews', 'rating');
