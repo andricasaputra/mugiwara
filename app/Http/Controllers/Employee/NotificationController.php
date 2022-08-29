@@ -18,9 +18,9 @@ class NotificationController extends Controller
     {
         $notification = auth()->user()->notifications()->where('id', $id)->first();
 
-        if ($notification->type == 'App\Notifications\Orders\SendOrderCreatedNotifications') {
-            $route = route('employee.orders.index');
-        } elseif($notification->type == 'App\Notifications\Payments\PaymentStatusNotification'){
+        if ($notification->type == 'App\Notifications\Admin\AdminOrderCreatedNotifications') {
+            $route = route('employee.order.index');
+        } elseif($notification->type == 'App\Notifications\Admin\AdminPaymentStatusNotification'){
             $route = route('employee.finance.index');
         } elseif($notification->type == 'App\Notifications\RefundRequestNotification'){
             $route = route('employee.refund.index');

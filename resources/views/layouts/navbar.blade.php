@@ -77,7 +77,7 @@
               <hr>
 
               <div class="row text-center d-flex justify-content-center">
-                  <a href="{{ route('admin.notification.index') }}" class="text-center">Lihat semua</a>
+                  <a href="{{ route('employee.notification.index') }}" class="text-center">Lihat semua</a>
               </div>
 
               @endif
