@@ -70,10 +70,11 @@ class ProductController extends Controller
                 ]);
             }
 
-            if($account?->point < $product->point_needed){
+            if($product->point_needed > $account->point){
                 return response()->json([
-                    'message' => 'Point anda tidak cukup untuk menukarakan produk ini'
-                ]);
+                    'status' => 'error',
+                    'message' => 'Poin anda tidak cukup untuk menukarkan produk ini',
+                ], 400);
             }
 
             $trx_number = Random::generate(15, 1234567890);

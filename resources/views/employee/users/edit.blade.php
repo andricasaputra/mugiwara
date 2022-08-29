@@ -72,6 +72,8 @@
                             @endforeach
                         </select>
                     </div>
+
+                     @endrole
                 
                     <div class="password_container"></div>
 
@@ -79,11 +81,9 @@
                          <label><input type="checkbox" name="with_password" class="change_password"> Ubah User Password </label>
                     </div>
 
-                    @endrole
-
                     {{ Form::submit('Ubah', array('class' => 'btn btn-primary')) }}
 
-                    <a class="btn btn-danger" href="{{ route('users.employee') }}">Back</a>
+                    <a class="btn btn-danger" href="{{ route('dashboard') }}">Back</a>
 
                     {{ Form::close() }}
                 </div>
