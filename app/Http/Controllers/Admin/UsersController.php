@@ -79,7 +79,17 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return back()->withSuccess('Berhasil hapus karyawan');
+        return back()->withSuccess('Berhasil hapus data');
     }
+
+    public function destroyCustomer(Request $request)
+    {
+        $customer  = User::findOrFail($request->user_id);
+
+        $customer->account()?->delete();
+        $customer->delete();
+
+        return back()->withSuccess('Berhasil hapus data');
+    }   
 
 }

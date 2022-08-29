@@ -61,6 +61,8 @@ Route::post('users/banned/', [UsersController::class, 'banned'])->name('users.ba
 
 Route::post('users/release', [UsersController::class, 'release'])->name('users.banned.release');
 
+Route::delete('users/customer/destroy', [UsersController::class, 'destroyCustomer'])->name('customers.destroy');
+
 Route::resource('offices', OfficeListController::class);
 Route::get('accomodations_room/add/{accomodation}', [AccomodationController::class, 'add'])->name('accomodations.add');
 Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoom'])->name('accomodations.store_room');

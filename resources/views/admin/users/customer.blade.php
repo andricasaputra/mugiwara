@@ -62,10 +62,13 @@
                                                         </form>
                                                     @endif
 
-                                                    <form action="">
+                                                    <form action="{{ route('customers.destroy') }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+
+                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                                        <button type="submit" class="btn btn-danger mt-2 confirm">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>
