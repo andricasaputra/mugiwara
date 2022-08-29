@@ -48,13 +48,13 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request)
     {
+        $request->validate([
+            'order_id' => 'required'
+        ]);
+
         DB::beginTransaction();
 
         try {
-
-            $request->validate([
-                'order_id' => 'required'
-            ]);
 
             $order = Order::findOrFail($request->order_id);
 

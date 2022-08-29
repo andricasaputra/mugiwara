@@ -19,7 +19,8 @@ class VirtualAccountPayment implements PaymentServiceInterface
 		    "bank_code" => $request->bank_code,
 		    "name" => $request->name,
 		    "is_closed" => true,
-   			"expected_amount" => $request->amount
+   			"expected_amount" => $request->amount,
+   			"expiration_date" => now()->addHours(2)
 		  ];
 
 		  return  \Xendit\VirtualAccounts::create($params);

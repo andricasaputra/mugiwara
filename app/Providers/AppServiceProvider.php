@@ -29,8 +29,6 @@ class AppServiceProvider extends ServiceProvider
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
         Blade::directive('currency', function ( $expression ) { return "<?php echo number_format($expression,0,',','.'); ?>"; });
-
         Paginator::useBootstrapFive();
-        //Paginator::useBootstrapFour();
     }
 }
