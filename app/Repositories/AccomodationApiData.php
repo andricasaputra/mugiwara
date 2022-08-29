@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\Accomodation;
-use Illuminate\Pipeline\Pipeline;
 use App\Http\Pipelines\QueryFilters\Take;
+use App\Models\Accomodation;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pipeline\Pipeline;
 
 trait AccomodationApiData
 {   
@@ -74,7 +75,12 @@ trait AccomodationApiData
 		}
 
 		if(request()->category == 'populer'){
-			 $accomodations =  $query->where('reviews_avg_rating', '>' , 4);
+
+			$count = Order::where('order_status', 'completed')->groupBy('accomodation_id')->get()->count();
+
+			$accomodations =  $accomodations->whereHas('orders',function($q) use($count){
+				$q->where('order_status', 'completed');
+			});
 		}
 
 		if(request()->category == 'trending'){
