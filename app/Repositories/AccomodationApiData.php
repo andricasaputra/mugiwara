@@ -76,9 +76,9 @@ trait AccomodationApiData
 
 		if(request()->category == 'populer'){
 
-			$count = Order::where('order_status', 'completed')->groupBy('accomodation_id')->get()->count();
+			// $count = Order::where('order_status', 'completed')->groupBy('accomodation_id')->get()->count();
 
-			$accomodations =  $accomodations->whereHas('orders',function($q) use($count){
+			$accomodations =  $accomodations->whereHas('orders',function($q) {
 				$q->where('order_status', 'completed');
 			});
 		}
