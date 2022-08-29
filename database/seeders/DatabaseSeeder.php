@@ -19,20 +19,20 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserTableSeeder::class,
-            CustomerSeeder::class,
+            //CustomerSeeder::class,
             CategoryPostSeeder::class,
             //PostSeeder::class,
-            SliderSeeder::class,
+            //SliderSeeder::class,
             FacilityTableSeeder::class,
             TypeTableSeeder::class,
             //ProductSeeder::class,
             VoucherSeeder::class,
             AccessTokenSeeder::class,
-            AccomodationTableSeeder::class,
-            OfficeTableSeeder::class,
-            PostTableSeeder::class,
-            PromoTableSeeder::class,
-            RefundReasonTableSeeder::class,
+            //AccomodationTableSeeder::class,
+            //OfficeTableSeeder::class,
+            //PostTableSeeder::class,
+            //PromoTableSeeder::class,
+            //RefundReasonTableSeeder::class,
             ManajemenMenuTableSeeder::class,
         ]);
     }
