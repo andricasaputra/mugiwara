@@ -38,8 +38,7 @@ class UserRepository
                 $user->update([
                     'name' => $request->name,
                     'mobile_number' => $request->mobile_number,
-                    'password' => bcrypt($request->password),
-                    'e_password' => Crypt::encrypt($request->password)
+                    'password' => bcrypt($request->password)
                 ]);
 
                 if($user->email != $request->email){

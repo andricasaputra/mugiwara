@@ -56,7 +56,17 @@
                     <div class="form-group">
                       <label for="photo_profile">Avatar</label>
                       <div>
-                          <img src="{{ url('storage/avatars/' . $user->account?->avatar) }}" alt="avatar" width="100">
+
+                        @if($user->account?->avatar)
+
+                            <img src="{{ url('storage/avatars/' . $user->account?->avatar) }}" alt="avatar" width="100">
+
+                        @else
+
+                            <img src="{{ url('storage/avatars/default_man.png') }}" alt="avatar" width="100">
+
+                        @endif
+                         
                       </div>
                       <input type="file" name="photo_profile" class="form-control">
                     </div>
