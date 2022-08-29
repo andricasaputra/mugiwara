@@ -41,4 +41,13 @@ class NotificationController extends Controller
 
         return redirect(route('admin.notification.index'))->withSuccess('Berhasil Hapus Data');
     }
+
+    public function destroyAll(Request $request)
+    {
+        $notification = auth()->user()->notifications();
+
+        $notification->delete();
+
+        return redirect(route('admin.notification.index'))->withSuccess('Berhasil Hapus Data');
+    }
 }

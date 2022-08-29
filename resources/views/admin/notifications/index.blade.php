@@ -10,8 +10,20 @@
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
+                           
                           <div class="col-md-12 grid-margin stretch-card">
+
                             <div class="card">
+                                <div class="d-flex justify-content-end">
+                                   <div>
+                                        <form action="{{ route('admin.notification.destroy.all') }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger">Hapus semua</button>
+                                        </form>
+                                    </div>
+                                </div>
                               <div class="card-body">
                                 @include('inc.message')
                                 <p class="card-title">Daftar Notifikasi</p>

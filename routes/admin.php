@@ -186,6 +186,7 @@ Route::name('admin.')->group(function() {
 
     Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
     Route::delete('notifications/delete', [NotificationController::class, 'destroy'])->name('notification.destroy');
+    Route::delete('notifications/delete/all', [NotificationController::class, 'destroyAll'])->name('notification.destroy.all');
     Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
 
     Route::resource('menus', ManajemenMenuController::class);
