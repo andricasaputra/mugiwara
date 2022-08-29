@@ -54,6 +54,7 @@ class ReviewsController extends Controller
             'order_id' => $request->order_id,
             'rating' => $request->rating,
             'comment' => $request->comment,
+            'description' => 'Selesai menginap',
         ]);
 
         $setting = Setting::where('name', 'point_menginap')->first();
