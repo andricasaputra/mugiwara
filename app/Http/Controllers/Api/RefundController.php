@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Refund;
 use App\Models\RefundReason;
 use App\Models\User;
+use App\Notifications\RefundRequestEmailNotification;
 use App\Notifications\RefundRequestNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,6 +88,13 @@ class RefundController extends Controller
 
             $user?->notify($notification_user);
             $customer?->notify($notification_user);
+
+            $user?->notify(
+                new RefundRequestEmailNotification(
+                    $refund,
+                    'Anda telah mengajukan permohonan refund, permohonan anda akan segera kami proses'
+                )
+            );
 
             $admin->notify($notification_admin); 
 

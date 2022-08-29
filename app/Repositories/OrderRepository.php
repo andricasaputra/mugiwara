@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
 use App\Notifications\Admin\AdminOrderCreatedNotifications;
+use App\Notifications\Orders\OrderDetailEmailNotification;
 use App\Notifications\Orders\SendOrderCreatedNotifications;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -213,6 +214,12 @@ class OrderRepository
 
         $customer = Customer::find($request->user()->id);
         $user = User::find($request->user()->id);
+
+        $user?->notify(
+       		new OrderDetailEmailNotification(
+       			$order
+       		)
+       	);
         
        	$user?->notify(
        		new SendOrderCreatedNotifications(

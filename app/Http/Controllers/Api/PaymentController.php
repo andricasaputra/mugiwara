@@ -191,7 +191,7 @@ class PaymentController extends Controller
 
         if($payment['status'] == 'COMPLETED'){
 
-           $this->sendNotification($request, $order, $payment);
+           //$this->sendNotification($request, $order, $payment);
 
         }
 
@@ -223,7 +223,7 @@ class PaymentController extends Controller
 
             if($payment->status == 'SUCCEEDED'){
 
-               $this->sendNotification($request, $order, $payment);
+               //$this->sendNotification($request, $order, $payment);
             }
 
             //Update room status

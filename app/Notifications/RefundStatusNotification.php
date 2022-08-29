@@ -33,7 +33,7 @@ class RefundStatusNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -44,14 +44,6 @@ class RefundStatusNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->greeting('Halo ' . ucfirst($notifiable->name))
-                    ->subject(Lang::get('Status Refund'))
-                    ->line(Lang::get('Order ID : ' . $this->refund->order?->id))
-                    ->line(Lang::get('Kode Booking : ' . $this->refund->order?->booking_code))
-                    ->line(Lang::get('Permohonan refund anda ' . $this->refund->status))
-                    ->line(Lang::get($this->message))
-                    ->salutation(Lang::get('Terimakasih'));
     }
 
     /**

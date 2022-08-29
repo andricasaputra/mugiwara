@@ -35,7 +35,7 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -46,15 +46,6 @@ class PaymentStatusNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->greeting('Halo ' . ucfirst($notifiable->name))
-                    ->subject(Lang::get(' Pembayaran Berhasil'))
-                    ->line(Lang::get('Terimkasih telah melakukan pembayaran untuk kode booking : ' . $this->order?->booking_code))
-                    ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
-                    ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
-                    ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
-                    ->line(Lang::get('Terimkasih atas kepercayaan anda.'))
-                    ->salutation(Lang::get(env('APP_NAME')));
     }
 
     /**

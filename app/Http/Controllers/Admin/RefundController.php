@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Refund;
 use App\Models\User;
+use App\Notifications\RefundStatusEmailNotification;
 use App\Notifications\RefundStatusNotification;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,13 @@ class RefundController extends Controller
 
         $user?->notify($notification_user);
         $customer?->notify($notification_user);
+
+        $user?->notify(
+            new RefundStatusEmailNotification(
+                $refund,
+                $message
+            )
+        );
 
         $admin->notify($notification_admin); 
 

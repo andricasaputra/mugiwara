@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Notifications\Orders;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Lang;
 
-class SendOrderCreatedNotifications extends Notification implements ShouldQueue
+class RefundStatusEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -17,7 +16,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected \App\Models\Order $order, protected $title, protected $message)
+    public function __construct(protected \App\Models\Refund $refund, protected $message)
     {
         //
     }
@@ -30,7 +29,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -41,6 +40,14 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+       return (new MailMessage)
+                ->greeting('Halo ' . ucfirst($notifiable->name))
+                ->subject(Lang::get('Status Refund'))
+                ->line(Lang::get('Order ID : ' . $this->refund->order?->id))
+                ->line(Lang::get('Kode Booking : ' . $this->refund->order?->booking_code))
+                ->line(Lang::get('Permohonan refund anda ' . $this->refund->status))
+                ->line(Lang::get($this->message))
+                ->salutation(Lang::get('Terimakasih'));
     }
 
     /**
@@ -52,11 +59,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => $this->title,
-            'message' => $this->message,
-            'order' => $this->order,
-            'type' => 'common',
-            'category' => 'pemberitahuan'
+            //
         ];
     }
 }

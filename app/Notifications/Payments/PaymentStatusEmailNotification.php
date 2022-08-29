@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Notifications\Orders;
+namespace App\Notifications\Payments;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Lang;
 
-class SendOrderCreatedNotifications extends Notification implements ShouldQueue
+class PaymentStatusEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -17,7 +16,12 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected \App\Models\Order $order, protected $title, protected $message)
+    public function __construct(
+        protected \App\Models\Order $order, 
+        protected \App\Models\Payment $payment,
+        protected $title = null,
+        protected $message = null
+    )
     {
         //
     }
@@ -30,7 +34,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -41,6 +45,15 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        return (new MailMessage)
+                ->greeting('Halo ' . ucfirst($notifiable->name))
+                ->subject(Lang::get($this->title))
+                ->line(Lang::get($this->message))
+                ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
+                ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
+                ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
+                ->line(Lang::get('Terimkasih.'))
+                ->salutation(Lang::get(env('APP_NAME')));
     }
 
     /**
@@ -52,11 +65,7 @@ class SendOrderCreatedNotifications extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => $this->title,
-            'message' => $this->message,
-            'order' => $this->order,
-            'type' => 'common',
-            'category' => 'pemberitahuan'
+            //
         ];
     }
 }

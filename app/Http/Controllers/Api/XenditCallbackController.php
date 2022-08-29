@@ -10,6 +10,7 @@ use App\Models\Payments\Ewallet;
 use App\Models\Payments\VirtualAccount;
 use App\Models\User;
 use App\Notifications\Admin\AdminPaymentStatusNotification;
+use App\Notifications\Payments\PaymentStatusEmailNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use Illuminate\Http\Request;
 
@@ -121,6 +122,12 @@ class XenditCallbackController extends Controller
         $user = User::find($payment?->user?->id);
 
         $user?->notify(
+            new PaymentStatusEmailNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $user?->notify(
             new PaymentStatusNotification(
                 $order, $payment, $customer_title, $customer_message
             )
@@ -177,6 +184,12 @@ class XenditCallbackController extends Controller
 
         $customer = Customer::find($payment?->user?->id);
         $user = User::find($payment?->user?->id);
+
+        $user?->notify(
+            new PaymentStatusEmailNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
 
         $user?->notify(
             new PaymentStatusNotification(
