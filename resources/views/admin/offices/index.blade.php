@@ -34,7 +34,7 @@
                                             @forelse ($offices as $office)
                                                 <tr>
                                                     <td>{{ $office->name }}</td>
-                                                    <td>{{ $office->type == 'main_office' ? 'Kanotr Utama' : 'Kantor Cabang' }}</td>
+                                                    <td>{{ $office->type == 'main_office' ? 'Kantor Utama' : 'Kantor Cabang' }}</td>
                                                     <td>{{ $office->address }}</td>
                                                     <td>{{ $office->mobile_number }}</td>
                                                     <td>
