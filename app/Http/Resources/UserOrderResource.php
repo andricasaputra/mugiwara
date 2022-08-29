@@ -29,6 +29,7 @@ class UserOrderResource extends JsonResource
         }
 
         return [
+            'id' => $this->id,
             "check_in_date" => $this->check_in_date,
             "check_in_time" =>$this->check_in_time,
             "stay_day" => $this->stay_day,
