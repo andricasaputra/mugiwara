@@ -54,7 +54,7 @@
                   <a href="{{ route('password.request') }}" class="auth-link text-black">Lupa password?</a>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <a href="{{ route('privacy.show', 1) }}" target="_blank">Kabijakan privasi</a>
+                  <a href="{{ route('privacy.show', 1) }}" target="_blank">Kebijakan privasi</a>
                 </div>
                 {{-- <div class="mb-2">
                   <button type="button" class="btn btn-block btn-facebook auth-form-btn">
