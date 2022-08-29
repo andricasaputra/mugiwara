@@ -13,19 +13,19 @@
       $menus = \App\Models\ManajemanMenu::with(['image', 'role', 'childs'])->oldest('id')->get();
     @endphp
 
-    @foreach($menus as $menu)
+    @foreach($menus as  $key => $menu)
 
       @if($menu->is_active == 1 && in_array(2, $menu->role?->pluck('role_id')->toArray()))
 
         @if(count($menu->childs) > 0)
 
          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#{{ strtolower(str_replace(" ", "", $menu->name)) }}" aria-expanded="false" aria-controls="{{ strtolower(str_replace(" ", "", $menu->name)) }}">
+            <a class="nav-link" data-toggle="collapse" href="#{{ str_replace(" ", "", $menu->name) . $key }}" aria-expanded="false" aria-controls="{{ str_replace(" ", "", $menu->name) . $key }}">
               <i><img src="{{ url('storage/icons/' . $menu->image?->image) }}" alt="icon"></i>
               <span class="menu-title ml-2">{{ ucwords($menu->name) }}</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="{{ strtolower(str_replace(" ", "", $menu->name)) }}">
+            <div class="collapse" id="{{ str_replace(" ", "", $menu->name) . $key }}">
               <ul class="nav flex-column sub-menu">
 
                  @foreach($menu->childs as $child)

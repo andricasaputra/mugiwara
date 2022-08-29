@@ -35,11 +35,19 @@ class UserRepository
 
             if ($request->has('password')) {
 
-                $user->update([
-                    'name' => $request->name,
-                    'mobile_number' => $request->mobile_number,
-                    'password' => bcrypt($request->password)
-                ]);
+                if($user->mobile_number != $request->mobile_number){
+                    $user->update([
+                        'name' => $request->name,
+                        'mobile_number' => $request->mobile_number,
+                        'password' => bcrypt($request->password)
+                    ]);
+                }else{
+                    $user->update([
+                        'name' => $request->name,
+                        'password' => bcrypt($request->password)
+                    ]);
+                }
+
 
                 if($user->email != $request->email){
 
@@ -56,11 +64,16 @@ class UserRepository
 
             } else {
 
-                $user->update([
-                    'name' => $request->name,
-                    
-                    'mobile_number' => $request->mobile_number,
-                ]);
+                if($user->mobile_number != $request->mobile_number){
+                    $user->update([
+                        'name' => $request->name,
+                        'mobile_number' => $request->mobile_number,
+                    ]);
+                }else{
+                        $user->update([
+                        'name' => $request->name,
+                    ]);
+                }
 
                 if($user->email != $request->email){
 

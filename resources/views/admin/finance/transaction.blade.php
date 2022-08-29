@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-block">
 
-                	<div class="row">
+                    <div class="row">
 
                     <hr>
                     <div class="table-responsive">
@@ -45,13 +45,13 @@
                                                     <td>{{ $transaction['id'] }}</td>
 
                                                     <td>
-                                                    	{{ $transaction['channel_category'] }} 
+                                                        {{ $transaction['channel_category'] }} 
                                                     </td>
 
                                                     <td>{{ $transaction['channel_code'] }} </td>
 
                                                     <td>
-                                                    	{{ $transaction['reference_id'] }}
+                                                        {{ $transaction['reference_id'] }}
                                                     </td>
 
                                                     <td>{{ $transaction['account_identifier'] }} </td>
@@ -67,7 +67,7 @@
 
                                                     <td>
 
-                                                    	<a href="{{ route('admin.finance.transaction.detail', $transaction['id']) }}" class="btn btn-success">Detail</a>
+                                                        <a href="{{ route('admin.finance.transaction.detail', $transaction['id']) }}" class="btn btn-success">Detail</a>
 
                                                     </td>
                                                 </tr>
@@ -100,45 +100,3 @@
 </div>
    
 @endsection
-
-@section('link')
-    <style>
-        .pagination {
-          display: inline-block;
-        }
-
-        .pagination a {
-          color: black;
-          float: left;
-          padding: 8px 16px;
-          text-decoration: none;
-        }
-
-        .pagination a.active {
-          background-color: #4CAF50;
-          color: white;
-          border-radius: 5px;
-        }
-
-        .pagination a:hover:not(.active) {
-          background-color: #ddd;
-          border-radius: 5px;
-        }
-</style>
-@endsection
-
-
-
-@section('scripts')
-    <script>
-        $('.confirm').on('click', function (e) {
-            if (confirm('Apakah anda yakin akan menghapus data ini?')) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-
-    </script>
-@endsection()

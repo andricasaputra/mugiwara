@@ -137,7 +137,7 @@ Route::name('admin.')->group(function() {
         Route::put('', [ProductController::class, 'update'])->name('update');
         Route::delete('', [ProductController::class, 'delete'])->name('delete');
 
-        Route::get('redeem/list', [ProductController::class, 'redeemList'])->name('redeem.list');
+        Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
     });
     
     Route::prefix('voucher')->name('voucher.')->group(function() {
@@ -148,7 +148,7 @@ Route::name('admin.')->group(function() {
         Route::get('{id}/show', [VoucherController::class, 'show'])->name('show');
         Route::put('', [VoucherController::class, 'update'])->name('update');
         Route::delete('', [VoucherController::class, 'delete'])->name('delete');
-        Route::get('redeem/list', [VoucherController::class, 'redeemList'])->name('redeem.list');
+        Route::get('redeem/lists', [VoucherController::class, 'redeemList'])->name('redeem.list');
     });
 
     Route::resource('promotion', PromotionController::class);
