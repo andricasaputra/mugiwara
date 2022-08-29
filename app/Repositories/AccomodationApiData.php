@@ -17,6 +17,10 @@ trait AccomodationApiData
 					 $accomodations =  $query->whereNotNull('discount_type');
 				}
 
+				if(request()->category == 'popule'){
+					 $accomodations =  $query->whereNotNull('reviews_avg_rating', '>' , 4);
+				}
+
 				if(request()->status){
 			
 					 $accomodations = $query->where('status', request()->status);
