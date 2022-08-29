@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             TypeTableSeeder::class,
             //ProductSeeder::class,
             VoucherSeeder::class,
-            AccessTokenSeeder::class,
+            //AccessTokenSeeder::class,
             //AccomodationTableSeeder::class,
             //OfficeTableSeeder::class,
             //PostTableSeeder::class,
