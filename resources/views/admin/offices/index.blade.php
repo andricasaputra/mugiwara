@@ -22,12 +22,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Kantor</th>
-                                                <th>Type</th>
+                                                <th>Tipe</th>
                                                 <th>Alamat</th>
                                                 <th>Nomor HP</th>
                                                 <th>Karyawan</th>
                                                 <th>Penginapan</th>
-                                                <th>Operation</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

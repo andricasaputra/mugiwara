@@ -64,7 +64,7 @@
                                                 <th>Nomor Kamar</th>
                                                 <th>Terdapat Refund?</th>
                                                 <th>Deskripsi Kamar Kamar</th>
-                                                <th>Operation</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

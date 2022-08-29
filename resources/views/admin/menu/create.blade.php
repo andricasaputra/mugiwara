@@ -56,7 +56,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('admin.playstores.index') }}" class="btn btn-light">Kembali</a>
+                <a href="{{ route('admin.menus.index') }}" class="btn btn-light">Kembali</a>
             </form>
             </div>
         </div>

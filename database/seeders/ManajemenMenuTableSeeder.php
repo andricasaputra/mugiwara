@@ -179,7 +179,7 @@ class ManajemenMenuTableSeeder extends Seeder
                     ],
                      [
                         'name' => 'daftar penukaran produk',
-                        'url' => 'product/redeem/list',
+                        'url' => 'product/redeem/lists',
                         'is_active' => 1
                     ],
                 ],
@@ -203,7 +203,7 @@ class ManajemenMenuTableSeeder extends Seeder
                     ],
                     [
                         'name' => 'daftar penukaran voucher',
-                        'url' => 'voucher/redeem/list',
+                        'url' => 'voucher/redeem/lists',
                         'is_active' => 1
                     ],
                 ],

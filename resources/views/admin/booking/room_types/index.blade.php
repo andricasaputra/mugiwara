@@ -15,7 +15,7 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Daftar type ruangan</p>
+                                <p class="card-title">Daftar tipe ruangan</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table table-striped text-center" style="width:100%">
@@ -23,7 +23,7 @@
                                             <tr>
                                                 <th>Tipe Ruangan</th>
                                                 <th>Deskripsi</th>
-                                                <th>Operation</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

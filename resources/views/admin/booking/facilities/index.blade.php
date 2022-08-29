@@ -24,7 +24,7 @@
                                                 <th>Fasilitas</th>
                                                 <th>Deskripsi</th>
                                                 <th>Icon</th>
-                                                <th>Operation</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

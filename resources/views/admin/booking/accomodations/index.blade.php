@@ -26,7 +26,7 @@
                                                 <th>Rating</th>
                                                 <th>Jumlah Kamar</th>
                                                 <th>Deskripsi Penginapan</th>
-                                                <th>Operation</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

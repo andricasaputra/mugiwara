@@ -146,13 +146,14 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
     });
 
     Route::get('offices', [OfficeController::class, 'index']);
-    Route::get('privacy', [PrivacyController::class, 'index']);
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::get('notifications/categories', [NotificationController::class, 'categories']);
     Route::get('notifications/{id}', [NotificationController::class, 'show']);
     Route::post('notifications/markasread/{id}', [NotificationController::class, 'markAsRead']);
     
 });
+
+Route::get('privacy', [PrivacyController::class, 'index']);
 
 Route::get('provinces', [RegencyController::class, 'showProvinces']);
 

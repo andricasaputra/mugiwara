@@ -29,7 +29,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
