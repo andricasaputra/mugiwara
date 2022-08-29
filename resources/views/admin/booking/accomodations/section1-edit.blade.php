@@ -7,7 +7,7 @@
 
 <div class="form-group">
     <label for="city">Pilih Provinsi</label>
-    <select name="province_id" class="form-control province" id="js-example-basic-single" style="width: 100%;">
+    <select name="province_id" class="form-control province" id="js-example-basic-single" style="width: 100%; height:">
         <option selected value="{{ $accomodation->province->id }}">{{ $accomodation->province->name }}</option>
         @foreach($provinces as $province)
             <option value="{{ $province->id }}">{{ $province->name }}</option>
@@ -57,6 +57,12 @@
     <label for="price">Deskripsi Penginapan (optional)</label>
     <textarea class="form-control" name="description" cols="30" rows="6">{{ $accomodation->description_acc }}</textarea>
 </div>
+
+@section('scripts')
+    <script>
+        $('textarea').css({ height : '100px'})
+    </script>
+@endsection
 
 
 

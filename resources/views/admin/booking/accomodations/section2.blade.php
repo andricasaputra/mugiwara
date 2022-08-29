@@ -37,7 +37,7 @@
     <select name="discount_type" id="discount_type" class="form-control">
         <option value="">Kosongkan jika tidak diisi</option>
         <option value="flat">Flat</option>
-        <option value="persen">Persen</option>
+        <option value="percent">Persen</option>
     </select>
 </div>
 

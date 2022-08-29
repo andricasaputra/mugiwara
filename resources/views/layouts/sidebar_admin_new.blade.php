@@ -88,7 +88,7 @@
     
 
     active.each(function(a, key){
-      if(key != 0){
+      if(a != 0){
         console.log(a)
       }
     });
