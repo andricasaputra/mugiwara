@@ -50,4 +50,13 @@ class NotificationController extends Controller
 
         return redirect(route('admin.notification.index'))->withSuccess('Berhasil Hapus Data');
     }
+
+    public function markAsReadAll(Request $request)
+    {
+        $notification = auth()->user()->notifications->map(function($n) {
+                            $n->markAsRead();
+                        });
+
+        return redirect(route('admin.notification.index'))->withSuccess('Berhasil Baca Semua Data');
+    }
 }

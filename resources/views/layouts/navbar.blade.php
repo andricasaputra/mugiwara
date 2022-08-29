@@ -76,8 +76,10 @@
 
               <hr>
 
-              <div class="row text-center d-flex justify-content-center">
+              <div class="row text-center d-flex justify-content-around">
                   <a href="{{ route('employee.notification.index') }}" class="text-center">Lihat semua</a>
+
+                  <a href="{{ route('employee.notification.markasread.all') }}" class="text-center">Baca semua</a>
               </div>
 
               @endif

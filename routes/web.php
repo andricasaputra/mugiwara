@@ -93,7 +93,8 @@ Route::middleware(['verified', 'panel'])->group(function(){
          Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');
 
          Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
-
+         Route::get('notifications/readall/mark', [NotificationController::class, 'markAsReadAll'])->name('notification.markasread.all');
+          Route::delete('notifications/delete/all', [NotificationController::class, 'destroyAll'])->name('notification.destroy.all');
           Route::prefix('point')->name('point.')->group(function() {
             Route::get('', [PointController::class, 'index'])->name('index');
             Route::get('{id}/show', [PointController::class, 'show'])->name('show');
