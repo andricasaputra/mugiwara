@@ -68,7 +68,7 @@ class UsersController extends Controller
 
     public function detail(User $user)
     {
-        $user = $user->load(['account', 'office.accomodation:id,name']);
+        $user = $user->load(['account', 'office.office.accomodation:id,name']);
 
         return view('admin.users.show')->withUser($user);  
     }
