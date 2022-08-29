@@ -84,19 +84,22 @@ class RefferralController extends Controller
                 $point = $point->value;
             }
 
+            $pointBefore1 = $acc1->point;
+            $pointBefore2 = $acc2->point;
+
             $acc1->update([
-                'point' => $acc1->point + $point
+                'point' => $pointBefore1 + $point
             ]);
 
             $acc2->update([
-                'point' => $acc2->point + $point
+                'point' => $pointBefore2 + $point
             ]);
 
              AccountPoint::insert([
                [
                     'user_id' => $request->user()->id,
                     'affiliate_id' => $affilliate->id,
-                    'before' => $acc1->point,
+                    'before' => $pointBefore1,
                     'after' => $acc1->point + $point,
                     'mutation' => $point,
                     'type' => 'point_in',
@@ -107,7 +110,7 @@ class RefferralController extends Controller
                [
                     'user_id' => $account->user?->id,
                     'affiliate_id' => $affilliate->id,
-                    'before' => $acc2->point,
+                    'before' => $pointBefore2,
                     'after' => $acc2->point + $point,
                     'mutation' => $point,
                     'type' => 'point_in',
