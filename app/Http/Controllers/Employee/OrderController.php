@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\RoomReviewsNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +50,17 @@ class OrderController extends Controller
                 'stayed_untill' => NULL,
                 'booked_untill' => NULL,
             ]);
+
+            $user = User::where('id', $order->user?->id)->first();
+            $customer = Customer::where('id', $order->user?->id)->first();
+
+            if($user){
+                $user->notify(new RoomReviewsNotification($order));
+            }
+
+            if($customer){
+                $customer->notify(new RoomReviewsNotification($order));
+            }
 
             DB::commit();
 
