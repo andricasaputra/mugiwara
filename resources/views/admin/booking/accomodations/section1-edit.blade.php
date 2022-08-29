@@ -58,11 +58,6 @@
     <textarea class="form-control" name="description" cols="30" rows="6">{{ $accomodation->description_acc }}</textarea>
 </div>
 
-@section('scripts')
-    <script>
-        $('textarea').css({ height : '100px'})
-    </script>
-@endsection
 
 
 
