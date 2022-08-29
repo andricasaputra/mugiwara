@@ -39,21 +39,21 @@ class UserTableSeeder extends Seeder
         $superadmin->assignRole('admin');
         $admin->assignRole('admin');
 
-        $users = \App\Models\User::factory(5)->create();
+        //$users = \App\Models\User::factory(5)->create();
 
-        $users->each(fn ($user) => $user->assignRole('employee'));
+        //$users->each(fn ($user) => $user->assignRole('employee'));
 
-        $users->each(function($user) {
+        // $users->each(function($user) {
 
-            $gender = Arr::random(['pria', 'wanita']);
+        //     $gender = Arr::random(['pria', 'wanita']);
 
-            return $user->account()->create([
-               'gender' => $gender,
-               'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
-               'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
-               'refferral_code' => Random::generate(6, 'A-Z'),
-               'point' => random_int(50000, 200000),
-            ]);
-        });
+        //     return $user->account()->create([
+        //        'gender' => $gender,
+        //        'birth_date' => Carbon::now()->subDays(rand(0, 7))->format('Y-m-d'),
+        //        'avatar' => $gender == 'pria' ? 'default_man.png' : 'default_woman.png',
+        //        'refferral_code' => Random::generate(6, 'A-Z'),
+        //        'point' => random_int(50000, 200000),
+        //     ]);
+        // });
     }
 }
