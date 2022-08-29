@@ -90,7 +90,6 @@ class AccomdationController extends Controller
                         $query->where('type_id', $type->id);
                     }])->where('accomodation_id', $request->accomodation_id)
                     ->where('order_status', '!=' , 'cancel')
-                    ->orWhere('order_status', '!=' , 'completed')
                     ->where('check_in_date', $request->start_date)
                     ->orWhere('check_in_date', $request->end_date)
                     ->get();
