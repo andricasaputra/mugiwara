@@ -35,15 +35,18 @@ class UserRepository
 
             $check = User::where('mobile_number', $request->mobile_number)->first();
 
-            if($check && $check->id != auth()->id()){
+            if($user->mobile_number != $request->mobile_number){
+                if($check && $check->id != auth()->id()){
 
-                if(! auth()->user()->isAdmin()){
-                    return redirect(route('dashboard'))->withErrors('Isian nomer hp sudah ada sebelumnya');
+                    if(! auth()->user()->isAdmin()){
+                        return redirect(route('dashboard'))->withErrors('Isian nomer hp sudah ada sebelumnya');
+                    }
+
+                    return redirect(route('users.employee'))->withErrors('Isian nomer hp sudah ada sebelumnya');
                 }
+            }   
 
-                return redirect(route('users.employee'))->withErrors('Isian nomer hp sudah ada sebelumnya');
-            }
-
+            
             if ($request->has('password')) {
 
                 if($user->mobile_number != $request->mobile_number){

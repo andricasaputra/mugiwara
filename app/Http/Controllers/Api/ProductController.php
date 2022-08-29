@@ -89,6 +89,7 @@ class ProductController extends Controller
 
             $accountPoints = AccountPoint::create([
                 'user_id' => $request->user()->id,
+                'product_id' => $product->id,
                 'before' => $account->point,
                 'after' =>  $point_after,
                 'mutation' => $product->point_needed,

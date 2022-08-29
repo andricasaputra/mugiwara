@@ -60,8 +60,35 @@
                 </div>
             </div>
         </div>
-        @else
+        @elseif(!is_null($accountPoint->review))
             <div class="col-lg-7 col-sm-12">
+            <div class="card">
+                <div class="card-header">Review Menginap</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td>Rating</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->review?->rating }}</td>
+                            </tr>
+                            <tr>
+                                <td>Komentar</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->review?->comment }}</td>
+                            </tr>
+                            <tr>
+                                <td>Waktu Review</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->review?->created_at->format('d-m-Y') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @elseif(!is_null($accountPoint->affiliate))
+        <div class="col-lg-7 col-sm-12">
             <div class="card">
                 <div class="card-header">Penukaran Kode Refferal</div>
                 <div class="card-body">
@@ -81,6 +108,33 @@
                                 <td>Waktu Penukaran</td>
                                 <td>:</td>
                                 <td>{{ $accountPoint->affiliate?->created_at->format('d-m-Y') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @elseif(!is_null($accountPoint->product))
+           <div class="col-lg-7 col-sm-12">
+            <div class="card">
+                <div class="card-header">Penukaran Produk</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td>Nama Produk</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->product?->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Deskripsi</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->product?->description }}</td>
+                            </tr>
+                            <tr>
+                                <td>Waktu Penukaran</td>
+                                <td>:</td>
+                                <td>{{ $accountPoint->product?->created_at->format('d-m-Y') }}</td>
                             </tr>
                         </table>
                     </div>
