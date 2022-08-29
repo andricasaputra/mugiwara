@@ -18,7 +18,7 @@
                                 <p class="card-title">Manajemen Menu</p>
                                 <div class="row">
                                   <div class="col-12">
-                                    <table id="custom-table" class="display expandable-table text-center" style="width:100%">
+                                    <table id="myTable" class="display expandable-table text-center" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Nama</th>
@@ -133,6 +133,10 @@
         $(".js-example-tokenizer").select2({
             tags: true,
             tokenSeparators: [',', ' ']
+        });
+
+        $('#myTable').DataTable({
+            order : false
         });
 
     });

@@ -87,12 +87,15 @@ class RefferralController extends Controller
             $pointBefore1 = $acc1->point;
             $pointBefore2 = $acc2->point;
 
+            $pointAfter1 = $pointBefore1 + $point;
+            $pointAfter2 = $pointBefore2 + $point;
+
             $acc1->update([
-                'point' => $pointBefore1 + $point
+                'point' => $pointAfter1
             ]);
 
             $acc2->update([
-                'point' => $pointBefore2 + $point
+                'point' => $pointAfter2
             ]);
 
              AccountPoint::insert([
@@ -100,7 +103,7 @@ class RefferralController extends Controller
                     'user_id' => $request->user()->id,
                     'affiliate_id' => $affilliate->id,
                     'before' => $pointBefore1,
-                    'after' => $acc1->point + $point,
+                    'after' => $pointAfter1,
                     'mutation' => $point,
                     'type' => 'point_in',
                     'description' => 'penukaran kode refferral',
@@ -111,7 +114,7 @@ class RefferralController extends Controller
                     'user_id' => $account->user?->id,
                     'affiliate_id' => $affilliate->id,
                     'before' => $pointBefore2,
-                    'after' => $acc2->point + $point,
+                    'after' => $pointAfter2,
                     'mutation' => $point,
                     'type' => 'point_in',
                     'description' => 'penukaran kode refferral',

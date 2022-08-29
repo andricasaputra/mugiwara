@@ -42,7 +42,7 @@ class RoomResource extends JsonResource
                 "discount_type" => $this->discount_type,
 
                 $this->mergeWhen($this->discount_type == 'percent', [
-                   "discount_percent" =>  (int) $this->discount_amount / 100
+                   "discount_percent" =>  $this->discount_amount
                 ]),
 
                 "discount_amount" => $this->discount_type == 'percent' 
