@@ -52,10 +52,6 @@
                                                     	<br>
 
                                                     	Tipe : <b>{{ $order->room?->type?->name }}</b>
-
-                                                    	<br>
-
-                                                    	Nomor : <b>{{ $order->room?->room_number }}</b>
                                                     </td>
 
                                                     <td>
