@@ -56,5 +56,5 @@
 
 <div class="form-group mt-2">
     <label for="price">Deskripsi Penginapan (optional)</label>
-    <textarea class="form-control" name="description_room" cols="30" rows="6">{{ $room->description_room }}</textarea>
+    <textarea class="form-control" name="description_room" cols="30" rows="6">{{ $room->description }}</textarea>
 </div>

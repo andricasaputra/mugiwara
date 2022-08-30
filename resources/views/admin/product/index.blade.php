@@ -21,7 +21,7 @@
                         <th>Stok</th>
                         <th>Point Yang Dibutuhkan</th>
                         <th>Gambar</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>

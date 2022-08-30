@@ -22,7 +22,7 @@
                         <th>Tipe</th>
                         <th>Image</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>

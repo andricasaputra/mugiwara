@@ -103,7 +103,7 @@
                 <br>
 
                 <div class="d-flex justify-content-center">
-                    <a href="{{ route('admin.voucher.index') }}" class="btn btn-sm btn-danger mr-2">Kembali</a>
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-danger mr-2">Kembali</a>
                     <form action="{{ route('admin.orders.checkin') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $order->id }}">

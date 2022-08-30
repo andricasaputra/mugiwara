@@ -21,6 +21,11 @@
                                 <td>{{ $customer->user->email }}</td>
                             </tr>
                             <tr>
+                                <td>No HP</td>
+                                <td>:</td>
+                                <td>{{ $customer->user?->mobile_number }}</td>
+                            </tr>
+                            <tr>
                                 <td>Poin</td>
                                 <td>:</td>
                                 <td>@currency($customer->point)</td>
