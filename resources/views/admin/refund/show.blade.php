@@ -28,6 +28,16 @@
                         <td>{{ $refund->user->name }}</td>
                     </tr>
                     <tr>
+                        <td>Tipe Pembayaran</td>
+                        <td>:</td>
+                        <td>{{ $refund->order?->payment?->payable_type == 'App\Models\Payments\VirtualAccount' ? 'Virtual Account' : 'Ewallet' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Metode Pembayaran</td>
+                        <td>:</td>
+                        <td>{{ $refund->order?->payment?->payable_type == 'App\Models\Payments\Ewallet' ? $order->payment?->payable?->channel_code : $refund->order?->payment?->payable?->bank_code }} </td>
+                    </tr>
+                    <tr>
                         <td>Jumlah</td>
                         <td>:</td>
                         <td>{{ $refund->payment?->amount }}</td>
