@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <a href="{{ route('admin.refund.reason.index') }}" class="btn btn-success">Kelola Alasan Refund</a>
+                    {{-- <a href="{{ route('admin.refund.reason.index') }}" class="btn btn-success">Kelola Alasan Refund</a> --}}
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
