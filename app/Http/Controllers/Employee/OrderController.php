@@ -30,6 +30,47 @@ class OrderController extends Controller
         return view('employee.order.detail')->withOrder($order);
     }
 
+    public function checkinPage(Order $order)
+    {
+        $order = $order->load(['payment.payable', 'payment.voucher', 'user', 'accomodation', 'room.type']);
+
+        $rooms = Room::where('accomodation_id', $order->accomodation_id)->where('type_id', $order->room?->type?->id)->where('status', 'available')->get();
+
+        return view('employee.order.checkin')
+            ->withOrder($order)
+            ->withRooms($rooms);
+    }
+
+     public function checkin(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $order = Order::findOrFail($request->id);
+
+            $order->update([
+                'order_status' => 'stayed'
+            ]);
+
+            $order->room()->update([
+                'status' => 'stayed',
+                'stayed_untill' => \Carbon\Carbon::parse($order->check_in_date)->addDays($order->stay_day)
+            ]);
+
+            DB::commit();
+
+            return redirect(route('employee.orders.index'))->withSuccess('Berhasil checkin tamu ruangan nomor ' . $order->room->room_number);
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return redirect(route('employee.orders.index'))->withErrors('Gagal checkin ruangan, error ' . $e->getMessage());
+            
+        }
+    }
+
     public function checkout(Request $request)
     {
         DB::beginTransaction();

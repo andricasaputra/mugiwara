@@ -103,17 +103,24 @@
                                                         	<button class="btn btn-danger mt-2">Pengajuan Refund</button>
                                                         @else
                                                         	
-                                                        	@if($order->payment && $order->payment?->status != 'PENDING')
-                                                        		<form action="{{ route('employee.order.checkout') }}" method="post">
+                                                        	@if($order->order_status == 'booked')
 
-	                                                        	@csrf
+                                                                    <a href="{{ route('employee.order.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
 
-	                                                        	<input type="hidden" value="checkout" name="status">
 
-	                                                        	<input type="hidden" value="{{ $order->id }}" name="order_id">
+                                                                @elseif($order->order_status == 'stayed')
 
-	                                                        	<button type="submit" class="btn btn-danger mt-2">Checkout</button>
-                                                        	@endif
+                                                                        <form action="{{ route('employee.order.checkout') }}" method="post">
+
+                                                                        @csrf
+
+                                                                        <input type="hidden" value="checkout" name="status">
+
+                                                                        <input type="hidden" value="{{ $order->id }}" name="order_id">
+
+                                                                        <button type="submit" class="btn btn-danger mt-2">Checkout</button>
+
+                                                                @endif
 
                                                         </form>
                                                         @endif

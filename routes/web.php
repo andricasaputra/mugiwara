@@ -44,6 +44,8 @@ Route::middleware(['verified', 'panel'])->group(function(){
         Route::get('orders', [OrderController::class, 'index'])->name('order.index');
         Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
         Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+        Route::get('orders/checkin/{order}', [OrderController::class, 'checkinPage'])->name('order.checkin.page');
+        Route::post('orders/checkin', [OrderController::class, 'checkin'])->name('order.checkin');
 
         Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 
