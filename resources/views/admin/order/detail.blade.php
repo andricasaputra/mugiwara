@@ -136,7 +136,7 @@
                                 <tr>
                                     <td>{{ $order->payment?->voucher?->name }}</td>
                                     <td>{{ $order->payment?->voucher?->description }}</td>
-                                    <td>{{ $order->payment?->voucher?->discount_amount }}</td>
+                                    <td>{{ $order->payment?->voucher?->point_needed }}</td>
                                 </tr>
 
                             </tbody>
