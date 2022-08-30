@@ -55,6 +55,7 @@
                                         @include('admin.booking.accomodations.section1')
                                     </div>
                                     <div class="mt-3">
+                                        <a class="button btn-navigate-form-step" href="{{ route('accomodations.index') }}" >Cancel</a>
                                         <button class="button btn-navigate-form-step" type="button" step_number="2">Selanjutnya</button>
                                     </div>
                                 </section>
