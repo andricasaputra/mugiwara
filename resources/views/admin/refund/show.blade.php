@@ -35,7 +35,7 @@
                     <tr>
                         <td>Metode Pembayaran</td>
                         <td>:</td>
-                        <td>{{ $refund->order?->payment?->payable_type == 'App\Models\Payments\Ewallet' ? $order->payment?->payable?->channel_code : $refund->order?->payment?->payable?->bank_code }} </td>
+                        <td>{{ $refund->order?->payment?->payable_type == 'App\Models\Payments\Ewallet' ? $refund->order?->payment?->payable?->channel_code : $refund->order?->payment?->payable?->bank_code }} </td>
                     </tr>
                     <tr>
                         <td>Jumlah</td>
