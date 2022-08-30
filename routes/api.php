@@ -31,6 +31,8 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\XenditCallbackController;
+use App\Http\Controllers\Api\PlayStoreController;
+use App\Http\Controllers\Api\AppStoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -172,6 +174,9 @@ Route::post('rooms/list', [RoomController::class, 'list'])->name('api.rooms.list
 Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewallet']);
 
 Route::post('cb/payment/va/status', [XenditCallbackController::class, 'virtualAccount']);
+
+Route::get('playstore/link', [PlayStoreController::class, 'index']);
+Route::get('appstore/link', [AppStoreController::class, 'index']);
 
 
 

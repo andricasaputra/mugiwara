@@ -23,6 +23,7 @@
                             <textarea name="description" id="" cols="30" rows="2" class="form-control form-control-lg">{{ $room_type->description }}</textarea>
                         </div>
 
+                         <a class="button btn-navigate-form-step" href="{{ route('rooms.index') }}" >Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="{{ route('room_types.index') }}" class="btn btn-danger">Kembali</a>
                         
