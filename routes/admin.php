@@ -160,6 +160,13 @@ Route::name('admin.')->group(function() {
     Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
     Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
 
+     Route::get('refunds/reason', [RefundController::class, 'showReason'])->name('refund.reason.index');
+     Route::get('refunds/reason/create', [RefundController::class, 'createReason'])->name('refund.reason.create');
+     Route::get('refunds/reason/edit/{reason}', [RefundController::class, 'editReason'])->name('refund.reason.edit');
+     Route::post('refunds/reason/', [RefundController::class, 'storeReason'])->name('refund.reason.store');
+     Route::put('refunds/reason/{reason}', [RefundController::class, 'updateReason'])->name('refund.reason.update');
+     Route::delete('refunds/reason/destroy', [RefundController::class, 'destroyReason'])->name('refund.reason.destroy');
+
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('orders.detail');
     Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');

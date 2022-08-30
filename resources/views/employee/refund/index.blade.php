@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <a href="{{ route('admin.refund.reason.index') }}" class="btn btn-success">Kelola Alasan Refund</a>
+                    {{-- <a href="{{ route('employee.settings.refund.create') }}" class="btn btn-success">Tambah Setting Pajak</a> --}}
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -56,9 +56,9 @@
                                                     <td>{{ $refund->status }}</td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.refund.show', $refund->id) }}" class="btn btn-warning mb-3">Detail</a>
+                                                    	<a href="{{ route('employee.refund.show', $refund->id) }}" class="btn btn-warning mb-3">Detail</a>
 
-                                                        <a href="{{ route('admin.refund.action.page', $refund->id) }}" class="btn btn-success">Tindakan</a>
+                                                        <a href="{{ route('employee.refund.action.page', $refund->id) }}" class="btn btn-success">Tindakan</a>
 
                                                     </td>
                                                 </tr>

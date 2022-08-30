@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Refund;
-use App\Models\RefundReason;
 use App\Models\User;
 use App\Notifications\RefundStatusEmailNotification;
 use App\Notifications\RefundStatusNotification;
@@ -15,17 +14,17 @@ class RefundController extends Controller
 {
     public function index()
     {
-        return view('admin.refund.index')->withRefunds(Refund::latest()->with(['user', 'reason'])->get());
+        return view('employee.refund.index')->withRefunds(Refund::latest()->with(['user', 'reason'])->get());
     }
 
     public function show(Refund $refund)
     {
-        return view('admin.refund.show')->withRefund($refund->load(['reason', 'order', 'payment', 'user']));
+        return view('employee.refund.show')->withRefund($refund->load(['reason', 'order', 'payment', 'user']));
     }
 
     public function actionPage(Refund $refund)
     {
-        return view('admin.refund.action')->withRefund($refund);
+        return view('employee.refund.action')->withRefund($refund);
     }
 
     public function action(Request $request, Refund $refund)
@@ -70,51 +69,8 @@ class RefundController extends Controller
         );
 
         $admin->notify($notification_admin); 
+        auth()->user()->notify($notification_admin); 
 
-         return redirect(route('admin.refund.index'))->withSuccess('Berhasil Ubah Data Refund');
-    }
-
-    public function showReason()
-    {
-        return view('admin.refund.reason.index')->withReasons(RefundReason::latest()->get());
-    }
-
-    public function createReason()
-    {
-        return view('admin.refund.reason.create');
-    }
-
-    public function editReason(RefundReason $reason)
-    {
-        return view('admin.refund.reason.edit')->withReason($reason);
-    }
-
-    public function storeReason(Request $request)
-    {
-        RefundReason::create([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
-
-        return redirect(route('admin.refund.reason.index'))->withSuccess('Berhasil Tambah Data');
-    }
-
-    public function updateReason(Request $request, RefundReason $reason)
-    {
-        $reason->update([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
-
-        return redirect(route('admin.refund.reason.index'))->withSuccess('Berhasil Ubah Data');
-    }
-
-    public function destroyReason(Request $request)
-    {
-        $reason = RefundReason::find($request->id);
-
-        $reason->delete();
-
-        return redirect(route('admin.refund.reason.index'))->withSuccess('Berhasil Hapus Data');
+         return redirect(route('employee.refund.index'))->withSuccess('Berhasil Ubah Data Refund');
     }
 }

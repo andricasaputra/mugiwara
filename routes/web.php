@@ -12,6 +12,7 @@ use App\Http\Controllers\Employee\PointController;
 use App\Http\Controllers\Employee\PostController;
 use App\Http\Controllers\Employee\ProductController;
 use App\Http\Controllers\Employee\RefferalController;
+use App\Http\Controllers\Employee\RefundController;
 use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use Illuminate\Support\Facades\Route;
@@ -105,7 +106,12 @@ Route::middleware(['verified', 'panel'])->group(function(){
         Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
         Route::delete('notifications/delete', [NotificationController::class, 'destroy'])->name('notification.destroy');
         Route::get('notifications/{id}', [NotificationController::class, 'markAsRead'])->name('notification.markasread');
-    });
+
+        Route::get('refunds', [RefundController::class, 'index'])->name('refund.index');
+        Route::get('refunds/detail/{refund}', [RefundController::class, 'show'])->name('refund.show');
+        Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
+        Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
+        });
 });
 
 require __DIR__.'/auth.php';

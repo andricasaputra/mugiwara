@@ -93,7 +93,7 @@
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('employee.order.detail', $order->id) }}" class="btn btn-primary">Detail</a>
+                                                    	<a href="{{ route('employee.order.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
 
                                                         @if($order->order_status == 'completed')
 

@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <a href="{{ route('admin.refund.reason.index') }}" class="btn btn-success">Kelola Alasan Refund</a>
+                   <a href="{{ route('admin.refund.reason.create') }}" class="btn btn-success">Tambah Alasan Refund</a>
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -15,50 +15,35 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Daftar Pengajuan Refund</p>
+                                <p class="card-title">Daftar Alasan Refund</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table text-center" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Refund Number</th>
-                                                <th>Order ID</th>
-                                                <th>User</th>
-                                                <th>Tanggal Pengajuan</th>
-                                                <th>Jumlah Refund</th>
                                                 <th>Alasan</th>
-                                                <th>Detail Alasan</th>
-                                                <th>Status</th>
+                                                <th>Deskripsi</th>
                                                 <th>Action</th>
-                                            </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($refunds as $refund)
+                                            @forelse ($reasons as $reason)
                                         
                                                 <tr>
-                                                    <td>{{ $refund->refund_number }}</td>
+                                                    <td>{{ $reason->name }}</td>
 
-                                                    <td>{{ $refund->order?->id }}</td>
-
-                                                    <td>{{ $refund->user?->name }}</td>
+                                                    <td>{{ $reason->description }}</td>
 
                                                     <td>
-                                                        {{ \Carbon\Carbon::parse($refund->refund_request_date)->format('d-m-Y') }}
+                                                    	<a href="{{ route('admin.refund.reason.edit', $reason->id) }}" class="btn btn-warning mb-3">Edit</a>
 
-                                                    </td>
+                                                        <form action="{{ route('admin.refund.reason.destroy') }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
 
-                                                    <td>{{ $refund->order?->payment?->amount }}</td>
+                                                            <input type="hidden" name="id" value="{{ $reason->id }}">
 
-                                                    <td>{{ $refund->reason?->name }}</td>
-
-                                                    <td>{{ $refund->detail }}</td>
-
-                                                    <td>{{ $refund->status }}</td>
-
-                                                    <td>
-                                                    	<a href="{{ route('admin.refund.show', $refund->id) }}" class="btn btn-warning mb-3">Detail</a>
-
-                                                        <a href="{{ route('admin.refund.action.page', $refund->id) }}" class="btn btn-success">Tindakan</a>
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
 
                                                     </td>
                                                 </tr>

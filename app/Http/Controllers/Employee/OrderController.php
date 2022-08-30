@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Room;
 use App\Notifications\RoomReviewsNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,13 +61,13 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect(route('employee.orders.index'))->withSuccess('Berhasil checkin tamu ruangan nomor ' . $order->room->room_number);
+            return redirect(route('employee.order.index'))->withSuccess('Berhasil checkin tamu ruangan nomor ' . $order->room->room_number);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            return redirect(route('employee.orders.index'))->withErrors('Gagal checkin ruangan, error ' . $e->getMessage());
+            return redirect(route('employee.order.index'))->withErrors('Gagal checkin ruangan, error ' . $e->getMessage());
             
         }
     }
