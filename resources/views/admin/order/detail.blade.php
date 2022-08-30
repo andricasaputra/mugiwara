@@ -82,6 +82,11 @@
                                 <td>:</td>
                                 <td>{{ $order->check_out_date }}</td>
                             </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td>{{ $order->room?->status }}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>

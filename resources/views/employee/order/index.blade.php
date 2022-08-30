@@ -156,6 +156,8 @@
             }
         });
 
-        $('#mytable').DataTable();
+        $('#mytable').DataTable({
+            order : false
+        });
     </script>
 @endsection()
