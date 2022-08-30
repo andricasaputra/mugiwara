@@ -136,7 +136,7 @@
                                 <tr>
                                     <td>{{ $order->payment?->voucher?->name }}</td>
                                     <td>{{ $order->payment?->voucher?->description }}</td>
-                                    <td>{{ $order->payment?->voucher?->point_needed }}</td>
+                                    <td>{{ $order->payment?->voucher?->discount_type == 'percent' ? $order->payment?->voucher?->discount_percent . '%' : $order->payment?->voucher?->discount_amount }}</td>
                                 </tr>
 
                             </tbody>
