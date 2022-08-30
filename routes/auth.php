@@ -33,6 +33,10 @@ Route::prefix('admin')->middleware(['guest'])->group(function () {
                 ->name('password.update');
 });
 
+Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, 'verify'])
+                ->middleware(['auth', 'signed', 'throttle:6,1'])
+                ->name('verification.verify');
+
 Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('admin/register', [RegisteredUserController::class, 'create'])
@@ -49,9 +53,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('notify-verify-mobile', [MobileNumberVerificationNotificationController::class, '__invoke'])
                 ->name('verification.mobile');
 
-    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, 'verify'])
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
+   
 
     Route::get('verify-mobile/{id}', [VerifyMobileController::class, 'index'])
                 ->middleware(['throttle:4,1'])

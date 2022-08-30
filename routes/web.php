@@ -81,13 +81,13 @@ Route::middleware(['verified', 'panel'])->group(function(){
 
          Route::prefix('product')->name('product.')->group(function() {
             Route::get('', [ProductController::class, 'index'])->name('index');
-            Route::get('redeem/list', [ProductController::class, 'redeemList'])->name('redeem.list');
+            Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
         });
 
          Route::prefix('voucher')->name('voucher.')->group(function() {
             Route::get('', [VoucherController::class, 'index'])->name('index');
             Route::get('{id}/show', [VoucherController::class, 'show'])->name('show');
-            Route::get('redeem/list', [VoucherController::class, 'redeemList'])->name('redeem.list');
+            Route::get('redeem/lists', [VoucherController::class, 'redeemList'])->name('redeem.list');
         });
 
          Route::get('refferals', [RefferalController::class, 'index'])->name('refferals.index');

@@ -65,7 +65,7 @@
           <span class="menu-title">Setting</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="setting">
+        <div id="setting" class="collapse" >
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.point.index') }}"> Poin </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.payment') }}"> List Metode Pembayaran </a></li>
