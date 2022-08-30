@@ -177,7 +177,11 @@
                                     <td>:</td>
                                     <td>{{ $payment->payable->name }}</td>
                                 </tr>
-                                
+                                <tr>
+                                    <td>No HP</td>
+                                    <td>:</td>
+                                    <td>{{ $payment->order?->user?->mobile_number }}</td>
+                                </tr>
                                 <tr>
                                     <td>Payment Time</td>
                                     <td>:</td>
