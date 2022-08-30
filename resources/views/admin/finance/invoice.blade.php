@@ -151,8 +151,8 @@
 			<tr>
 				<td style="font-weight: bold; color: #9E733E">Jln. P. Antasari No. 82E, Kedamaian, Kec. <br> Sukabumi Kot Bandar Lampung <br> Lampung 35122</td>
 				<td style="font-weight: bold; color: #9E733E">
-					<img src="{{ public_path('assets/images/letter.png') }}" alt="wa" width="15"> help@capsuleinn.id <br>
-					<img src="{{ public_path('assets/images/wa.png') }}" alt="wa" width="15"> 0852-2453-2354
+					<img src="{{ public_path('assets/images/letter.png') }}" alt="wa" width="15"> developercapsuleinn@gmail.com <br>
+					<img src="{{ public_path('assets/images/wa.png') }}" alt="wa" width="15"> +62 853-7772-5030 
 				</td>
 			</tr>
 
