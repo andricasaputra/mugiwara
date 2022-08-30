@@ -32,7 +32,7 @@
 
                   @if($child->is_active == 1)
 
-                   @if($child->name != 'transaksi' && $child->name != 'push notifikasi')
+                   @if($child->name != 'transaksi' && $child->name != 'push notifikasi' && $child->name != 'alasan refund')
 
                        <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
 
