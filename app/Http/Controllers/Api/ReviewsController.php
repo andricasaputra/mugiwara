@@ -53,8 +53,7 @@ class ReviewsController extends Controller
             'user_id' => request()->user()->id,
             'order_id' => $request->order_id,
             'rating' => $request->rating,
-            'comment' => $request->comment,
-            'description' => 'Selesai menginap',
+            'comment' => $request->comment
         ]);
 
         $setting = Setting::where('name', 'point_menginap')->first();
@@ -87,7 +86,8 @@ class ReviewsController extends Controller
                 'before' => $pointBefore,
                 'after' => $pointAfter,
                 'mutation' => $setting?->value ?? 0,
-                'type' => 'point_in'
+                'type' => 'point_in',
+                'description' => 'Selesai menginap',
             ]);
         }
 
