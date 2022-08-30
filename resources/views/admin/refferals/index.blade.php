@@ -29,7 +29,7 @@
                             <td>{{ $key + 1 }}</td>
 
                             <td>{{ $refferal->user?->name }}</td>
-                            <td>{{ $refferal->refferral_code }}</td>
+                            <td>{{ $refferal->refferal_code }}</td>
                             <td>
                                 @foreach($refferal->followers as $follower)
                                     {{ $follower->user?->name }} <br>
