@@ -28,6 +28,11 @@
                         <td>{{ $refund->user->name }}</td>
                     </tr>
                     <tr>
+                        <td>No HP</td>
+                        <td>:</td>
+                        <td>{{ $refund->user->mobile_number }}</td>
+                    </tr>
+                    <tr>
                         <td>Tipe Pembayaran</td>
                         <td>:</td>
                         <td>{{ $refund->order?->payment?->payable_type == 'App\Models\Payments\VirtualAccount' ? 'Virtual Account' : 'Ewallet' }}</td>
