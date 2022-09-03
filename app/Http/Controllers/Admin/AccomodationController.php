@@ -51,18 +51,21 @@ class AccomodationController extends Controller
 
             $accomodation = $this->repository->storeAccomodation();
 
-            $room = $this->repository->storeRoom();
+            $rooms = $this->repository->storeRoom();
 
-            if($request->has('room_image')) 
+            foreach ($rooms as $key => $room) {
+
+                 if($request->has('room_image')) 
                 $this->files = $this->repository->uploadRoomImage();
 
-            $files = collect($this->files)->map(function($file){
-                return ['image' => $file['basename']];
-            })->all();
+                $files = collect($this->files)->map(function($file){
+                    return ['image' => $file['basename']];
+                })->all();
 
-           $room->facilities()->attach($request->facility);
+               $room->facilities()->attach($request->facility);
 
-            $room->images()->createMany($files);
+                $room->images()->createMany($files);
+            }
 
             DB::commit();
 

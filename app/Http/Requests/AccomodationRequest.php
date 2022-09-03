@@ -26,7 +26,7 @@ class AccomodationRequest extends FormRequest
     {
         return [
             'address' => 'required|string',
-            'room_number' => 'required|string',
+            'room_numbers' => 'required',
             'type_id' => 'required|numeric',
             'max_guest' => 'required|numeric',
             'facility' => 'required',

@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <a href="{{ route('accomodations.create') }}" class="btn btn-success">Tambah penginapan</a>
+                    <a href="{{ route('room_numbers.create') }}" class="btn btn-success">Tambah nomor kamar</a>
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -15,44 +15,35 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Daftar penginapan</p>
+                                <p class="card-title">Daftar nomor kamar</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table table-striped text-center" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Nama Penginapan</th>
-                                                <th>Alamat</th>
-                                                <th>Rating</th>
-                                                <th>Jumlah Kamar</th>
-                                                <th>Deskripsi Penginapan</th>
+                                                <th>Nomor</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($accomodations as $accomodation)
+                                            @forelse ($roomnumbers as $number)
+
                                                 <tr>
-                                                    <td>{{ $accomodation->name }}</td>
-                                                    <td>{{ $accomodation->address }}</td>
-                                                    <td>{{ $accomodation->reviews_avg_rating ?? 0 }}</td>
-                                                    <td>{{ $accomodation->room_count ?? 0 }}</td>
-                                                    <td>{{ substr_replace($accomodation->description, "...", 30) }}</td>
-                                                     
+                                                    <td>{{ $number->number }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
-                                                            <a class="btn-action btn btn-warning mr-2" href="{{ route('accomodations.add', $accomodation->id) }}">Tambah Kamar</a>
-                                                            <a class="btn-action btn btn-info mr-2" href="{{ route('accomodations.edit', $accomodation->id) }}">Edit</a>
-                                                            <form action="{{ route('accomodations.destroy', $accomodation->id) }}" method="POST">
+                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('room_numbers.edit', $number->id) }}">Edit</a>
+                                                            <form action="{{ route('room_numbers.destroy', $number->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn-action btn btn-danger confirm">Delete</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                             </form>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">Belum ada data untuk ditampilkan</td> 
+                                                    <td colspan="4">Belum ada data untuk ditampilkan</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -69,18 +60,7 @@
         </div>
     </div>
 </div>
-
-
    
-@endsection()
-
-@section('link')
-    <style>
-        .btn-action{
-            height: 30px !important;
-            width: 100px !important; 
-        }
-    </style>
 @endsection()
 
 @section('scripts')

@@ -67,7 +67,7 @@ class ManajemenMenuTableSeeder extends Seeder
 
             [
                 'name' => 'manajemen penginapan',
-                'amount_child' => 4,
+                'amount_child' => 5,
                 'sub_menu' => [
                     [
                         'name' => 'penginapan',
@@ -87,6 +87,11 @@ class ManajemenMenuTableSeeder extends Seeder
                     [
                         'name' => 'fasilitas',
                         'url' => 'facilities',
+                        'is_active' => 1
+                    ],
+                    [
+                        'name' => 'nomor kamar',
+                        'url' => 'room_numbers',
                         'is_active' => 1
                     ],
                 ],
@@ -133,10 +138,26 @@ class ManajemenMenuTableSeeder extends Seeder
             ],
             [
                 'name' => 'manajemen poin',
-                'amount_child' => 0,
+                'amount_child' => 3,
+                'sub_menu' => [
+                    [
+                        'name' => 'daftar tukar poin',
+                        'url' => 'point',
+                        'is_active' => 1
+                    ],
+                    [
+                        'name' => 'daftar merchandise',
+                        'url' => 'product',
+                        'is_active' => 1
+                    ],
+                    [
+                        'name' => 'daftar penukaran merchandise',
+                        'url' => 'product/redeem/lists',
+                        'is_active' => 1
+                    ],
+                ],
                 'icon' => 'point.png',
                 'is_active' => 1,
-                'url' => 'point',
                 'role_id' => [
                     1,
                     2
@@ -168,29 +189,29 @@ class ManajemenMenuTableSeeder extends Seeder
                 'created_at' => now()
             ],
 
-            [
-                'name' => 'produk',
-                'amount_child' => 2,
-                'sub_menu' => [
-                    [
-                        'name' => 'daftar produk',
-                        'url' => 'product',
-                        'is_active' => 1
-                    ],
-                     [
-                        'name' => 'daftar penukaran produk',
-                        'url' => 'product/redeem/lists',
-                        'is_active' => 1
-                    ],
-                ],
-                'icon' => 'produk.png',
-                'is_active' => 1,
-                'role_id' => [
-                     1,
-                    2
-                ],
-                'created_at' => now()
-            ],
+            // [
+            //     'name' => 'produk',
+            //     'amount_child' => 2,
+            //     'sub_menu' => [
+            //         [
+            //             'name' => 'daftar produk',
+            //             'url' => 'product',
+            //             'is_active' => 1
+            //         ],
+            //          [
+            //             'name' => 'daftar penukaran produk',
+            //             'url' => 'product/redeem/lists',
+            //             'is_active' => 1
+            //         ],
+            //     ],
+            //     'icon' => 'produk.png',
+            //     'is_active' => 1,
+            //     'role_id' => [
+            //          1,
+            //         2
+            //     ],
+            //     'created_at' => now()
+            // ],
 
             [
                 'name' => 'voucher',

@@ -1,8 +1,8 @@
 
-<div class="form-group">
+{{-- <div class="form-group">
     <label for="room_number">Nomor kamar</label>
     <input name="room_number" type="text" class="form-control form-control-lg"  required value="{{ old('room_number') }}">
-</div>
+</div> --}}
 
 <div class="form-group">
     <label for="type_id">Type kamar</label>
@@ -23,6 +23,15 @@
     <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
         @foreach($facilities as $facility)
             <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="room_numbers">Nomor Kamar</label>
+    <select name="room_numbers[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
+        @foreach($numbers as $number)
+            <option value="{{ $number->id }}">{{ $number->number }}</option>
         @endforeach
     </select>
 </div>

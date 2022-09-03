@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Room;
+use App\Models\RoomNumber;
 use App\Models\Type as RoomType;
 use RahulHaque\Filepond\Facades\Filepond;
 
@@ -43,8 +44,9 @@ class AccomodationRepository
         $regencies = Regency::query()->get();
         $provinces = Province::query()->get();
         $facilities = Facility::query()->get();
+        $numbers = RoomNumber::query()->get();
 
-        return compact('rooms', 'types', 'regencies', 'facilities', 'provinces');
+        return compact('rooms', 'types', 'regencies', 'facilities', 'provinces', 'numbers');
 	}
 
 	public function storeAccomodation()
@@ -65,17 +67,26 @@ class AccomodationRepository
 
 	public function storeRoom()
 	{
-		return Room::create([
-            'accomodation_id' => $this->accomodation->id,
-            'room_number' => $this->request->room_number,
-            'type_id' => $this->request->type_id,
-            'max_guest' => $this->request->max_guest,
-            'price' => (int) preg_replace('/[^0-9]/', '', $this->request->price),
-            'discount_type' => $this->request->discount_type,
-            'discount_amount' => $this->request->discount_amount ?? 0,
-            'description' => $this->request->description_room,
-            'is_refunded' => $this->request->is_refunded,
-        ]);
+
+		$newRooms = [];
+
+		for($i = 0 ; $i < count($this->request->room_numbers); $i++){
+			$newRooms[] = Room::create([
+	            'accomodation_id' => $this->accomodation->id,
+	            'room_number' => $this->request->room_numbers[$i],
+	            'type_id' => $this->request->type_id,
+	            'max_guest' => $this->request->max_guest,
+	            'price' => (int) preg_replace('/[^0-9]/', '', $this->request->price),
+	            'discount_type' => $this->request->discount_type,
+	            'discount_amount' => $this->request->discount_amount ?? 0,
+	            'description' => $this->request->description_room,
+	            'is_refunded' => $this->request->is_refunded,
+	        ]);
+		}
+
+		return $newRooms;
+
+		
 	}
 
 	public function uploadRoomImage()

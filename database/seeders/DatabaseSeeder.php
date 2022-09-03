@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserTableSeeder::class,
-            //CustomerSeeder::class,
+            CustomerSeeder::class,
             CategoryPostSeeder::class,
             //PostSeeder::class,
             //SliderSeeder::class,
             FacilityTableSeeder::class,
             TypeTableSeeder::class,
-            //ProductSeeder::class,
+            ProductSeeder::class,
             VoucherSeeder::class,
-            //AccessTokenSeeder::class,
+            AccessTokenSeeder::class,
             //AccomodationTableSeeder::class,
             //OfficeTableSeeder::class,
             //PostTableSeeder::class,

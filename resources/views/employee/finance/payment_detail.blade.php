@@ -100,7 +100,7 @@
                                 <tr>
                                     <td>Mobile Number</td>
                                     <td>:</td>
-                                    <td>{{ $payment->payablemobile_numbername }}</td>
+                                    <td>{{ $payment->payable->mobile_number }}</td>
                                 </tr>
                                 
                                 <tr>

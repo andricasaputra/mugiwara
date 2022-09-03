@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\RefundController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\RoomNumberController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
@@ -74,6 +75,7 @@ Route::get('rooms/reviews/{room}', [ReviewController::class, 'index'])->name('ro
 Route::get('rooms/reviews/edit/{room}/{review}', [ReviewController::class, 'edit'])->name('rooms.reviews.edit');
 Route::put('rooms/reviews/update/{room}/{review}', [ReviewController::class, 'update'])->name('rooms.reviews.update');
 Route::resource('facilities', FacilityController::class);
+Route::resource('room_numbers', RoomNumberController::class);
 Route::resource('room_types', RoomTypeController::class);
 Route::resource('booking', BookingController::class);
 Route::resource('privacy', PrivacyPoliciesController::class)->except('show');
