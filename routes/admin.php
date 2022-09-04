@@ -140,6 +140,7 @@ Route::name('admin.')->group(function() {
         Route::delete('', [ProductController::class, 'delete'])->name('delete');
 
         Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
+        Route::get('redeem/list/{redem_type}', [ProductController::class, 'redeemList/type'])->name('redeem.list.detail');
     });
     
     Route::prefix('voucher')->name('voucher.')->group(function() {

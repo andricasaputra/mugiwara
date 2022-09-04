@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            //'redem_type' => 'required'
+            'redeem_type' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -83,7 +83,7 @@ class ProductController extends Controller
             $product_user = ProductUser::create([
                 'user_id' => $request->user()->id,
                 'product_id' => $request->product_id,
-                //'redem_type' => $request->redem_type,
+                'redeem_type' => $request->redeem_type,
                 'transaction_number' => $trx_number ,
             ]);
 

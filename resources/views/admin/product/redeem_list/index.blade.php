@@ -21,7 +21,9 @@
                         <th>No HP</th>
                         <th>Produk Yang Ditukarkan</th>
                         <th>Point Yang Ditukarkan</th>
+                        <th>Metode Penukaran</th>
                         <th>Gambar</th>
+                        <th>Tindakan</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,7 +36,11 @@
                             <td>{{ $product->user?->mobile_number }}</td>
                             <td>{{ $product->product?->name }}</td>
                             <td>{{ $product->product?->point_needed }}</td>
+                            <td>{{ $product->redeem_type }}</td>
                             <td><img src="{{ url('storage/products/' . $product->product?->image?->image) }}" alt="product" width="100"></td>
+                             <td>
+                                <a href="{{ route(('admin.redeem.list.detail' }}" class="btn btn- success"> Tindakan </a>
+                             </td>
                         </tr>
                         @empty
                         <tr>
