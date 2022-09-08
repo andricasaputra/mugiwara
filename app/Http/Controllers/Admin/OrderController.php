@@ -16,7 +16,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::latest()->with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->get();
+        $orders = Order::join('rooms', 'orders.room_id', '=', 'rooms.id')->select("*")->with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->get();
 
         return view('admin.order.index')->withOrders($orders);
     }
@@ -59,13 +59,13 @@ class OrderController extends Controller
             DB::commit();
 
             return redirect(route('admin.orders.index'))->withSuccess('Berhasil checkin tamu ruangan nomor ' . $order->room->room_number);
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
 
             return redirect(route('admin.orders.index'))->withErrors('Gagal checkin ruangan, error ' . $e->getMessage());
-            
+
         }
     }
 
@@ -104,7 +104,7 @@ class OrderController extends Controller
             DB::commit();
 
             return redirect(route('admin.orders.index'))->withSuccess('Berhasil checkout tamu ruangan nomor ' . $room->room_number);
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
@@ -112,7 +112,7 @@ class OrderController extends Controller
             return redirect(route('admin.orders.index'))->withErrors('Gagal checkout ruangan, error ' . $e->getMessage());
         }
 
-        
+
     }
 
     public function edit(Order $order)
@@ -171,8 +171,8 @@ class OrderController extends Controller
             DB::commit();
 
             return redirect(route('admin.orders.index'))->withSuccess('Berhasil ubah data pesanan, silahkan lakukan update pada nomor kamar sebelumnya pada halaman manajemen penginapan bagian kamar jika ada perubahan status kamar');
-            
-            
+
+
         } catch (\Exception $e) {
 
             DB::rollback();
@@ -180,6 +180,6 @@ class OrderController extends Controller
             return redirect(route('admin.orders.index'))->withErrors('Gagal ubah data pesanan');
         }
 
-       
+
     }
 }
