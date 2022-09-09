@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 namespace App\Repositories;
 
@@ -86,7 +86,7 @@ class AccomodationRepository
 
 		return $newRooms;
 
-		
+
 	}
 
 	public function uploadRoomImage()
@@ -96,4 +96,9 @@ class AccomodationRepository
         return Filepond::field($this->request->room_image)
                         ->moveTo('rooms/' . $roomImageName);
 	}
+
+    public function tambah_kamar($id)
+    {
+        return 'tambah_kamar' . $id;
+    }
 }

@@ -107,14 +107,4 @@ class ProductController extends Controller
         
         return view('admin.product.redeem_list.index', compact('products'));
     }
-
-     public function redeemTypeList($reem_id)
-    {
-        $redeem = ProductUser::find($reem_id);
-        
-        return view('/create_redeem_list.type', compact('redeem'));
-    }
-
-
-    //create_redeem_list.type
 }

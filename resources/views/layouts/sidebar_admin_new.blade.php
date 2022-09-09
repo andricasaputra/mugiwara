@@ -32,7 +32,7 @@
 
                   @if($child->is_active == 1)
 
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/' . $child->url) }}">{{ ucwords($child->name) }}</a>
                     </li>
 
@@ -55,7 +55,7 @@
 
         @endif
 
-      @endif 
+      @endif
 
     @endforeach
 
@@ -65,6 +65,7 @@
           <span class="menu-title">Setting</span>
           <i class="menu-arrow"></i>
         </a>
+
         <div id="setting" class="collapse" >
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.point.index') }}"> Poin </a></li>
@@ -76,6 +77,13 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.payments_methods.index') }}"> Cara Pembayaran </a></li>
           </ul>
         </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('tukar_marchendise') }}">
+            <span class="menu-title">Tukar Marchandise</span>
+            <i class="menu-arrow"></i>
+        </a>
       </li>
 
   </ul>

@@ -37,10 +37,10 @@
                                                     <td>{{ $accomodation->reviews_avg_rating ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
                                                     <td>{{ substr_replace($accomodation->description, "...", 30) }}</td>
-                                                     
+
                                                     <td>
                                                         <div class="d-flex justify-content-center">
-                                                            <a class="btn-action btn btn-warning mr-2" href="{{ route('accomodations.add', $accomodation->id) }}">Tambah Kamar</a>
+                                                            {{-- <a class="btn-action btn btn-warning mr-2" href="{{ route('accomodations.add', $accomodation->id) }}">Tambah Kamar</a> --}}
                                                             <a class="btn-action btn btn-info mr-2" href="{{ route('accomodations.edit', $accomodation->id) }}">Edit</a>
                                                             <form action="{{ route('accomodations.destroy', $accomodation->id) }}" method="POST">
                                                                 @csrf
@@ -52,7 +52,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">Belum ada data untuk ditampilkan</td> 
+                                                    <td colspan="5">Belum ada data untuk ditampilkan</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -71,14 +71,14 @@
 </div>
 
 
-   
+
 @endsection()
 
 @section('link')
     <style>
         .btn-action{
             height: 30px !important;
-            width: 100px !important; 
+            width: 100px !important;
         }
     </style>
 @endsection()

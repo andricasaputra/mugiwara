@@ -23,6 +23,7 @@
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Kode Booking</th>
+                                                <th>Kamar</th>
                                                 <th>Tanggal Pesan</th>
                                                 <th>Akomodasi</th>
                                                 <th>Customer</th>
@@ -42,12 +43,14 @@
 
                                                     <td>{{ $order->booking_code }}</td>
 
+                                                    <td>{{ $order->room_number }}</td>
+
                                                     <td>
-                                                    	{{ $order->created_at->format('d-m-Y') }} 
+                                                    	{{ $order->created_at->format('d-m-Y') }}
                                                     </td>
 
                                                     <td>
-                                                    	{{ $order->accomodation?->name }} 
+                                                    	{{ $order->accomodation?->name }}
 
                                                     	<br>
 
@@ -55,24 +58,24 @@
                                                     </td>
 
                                                     <td>
-                                                    	{{ ucfirst($order->user->name) }} 
+                                                    	{{ ucfirst($order->user->name) }}
                                                     	<br>
-                                                    	{{ $order->user->email }} 
+                                                    	{{ $order->user->email }}
                                                     </td>
 
                                                     <td>
-                                                    	{{ \Carbon\Carbon::parse($order->check_in_date)->format('d-m-Y') }} 
+                                                    	{{ \Carbon\Carbon::parse($order->check_in_date)->format('d-m-Y') }}
                                                     	<br>
-                                                    	{{ $order->stay_day }} Hari 
+                                                    	{{ $order->stay_day }} Hari
                                                     </td>
 
                                                      <td>
-                                                    	{{ $order->room->price }} 
+                                                    	{{ $order->room->price }}
                                                     </td>
 
 
                                                     <td>
-                                                    	{{ $order->room->discount ?? 0 }} 
+                                                    	{{ $order->room->discount ?? 0 }}
                                                     </td>
 
                                                     <td>
@@ -85,11 +88,11 @@
                                                     		status : {{ $order->refund?->status }}
                                                     	@else
                                                     		{{ $order->payment?->status ?? 'Belum Dibayar' }}
-                                                    	@endif 
+                                                    	@endif
                                                     </td>
 
                                                      <td>
-                                                     	Rp {{ $order->payment?->amount ?? 0 }} 
+                                                     	Rp {{ $order->payment?->amount ?? 0 }}
                                                      </td>
 
                                                     <td>
@@ -137,7 +140,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="11">No order available</td> 
+                                                    <td colspan="11">No order available</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -154,7 +157,7 @@
         </div>
     </div>
 </div>
-   
+
 @endsection
 
 @section('scripts')

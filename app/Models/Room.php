@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id']; 
+    protected $guarded = ['id'];
 
     public function accomodation()
     {
