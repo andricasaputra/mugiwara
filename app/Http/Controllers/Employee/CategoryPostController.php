@@ -34,7 +34,7 @@ class CategoryPostController extends Controller
 
         return redirect()->route('employee.category_post.index')->with('success', 'Data kategori artikel berhasil ditambahkan');
     }
-    
+
     public function edit($productId)
     {
         $categoryPost = CategoryPost::find($productId);
@@ -57,7 +57,7 @@ class CategoryPostController extends Controller
 
         return redirect()->route('employee.category_post.index')->with('success', 'Data kategori artikel berhasil diubah');
     }
-    
+
     public function delete(Request $request)
     {
         $product = CategoryPost::find($request->id);
