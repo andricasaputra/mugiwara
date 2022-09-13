@@ -21,7 +21,6 @@
                         <th>No HP</th>
                         <th>Produk Yang Ditukarkan</th>
                         <th>Point Yang Ditukarkan</th>
-                        <th>Metode Penukaran</th>
                         <th>Gambar</th>
                         <th>Bukyi</th>
                         <th>Tindakan</th>
@@ -37,7 +36,6 @@
                             <td>{{ $product->user?->mobile_number }}</td>
                             <td>{{ $product->product?->name }}</td>
                             <td>{{ $product->product?->point_needed }}</td>
-                            <td>{{ $product->redeem_type }}</td>
                             <td><img src="{{ url('storage/products/' . $product->product?->image?->image) }}" alt="product" width="100"></td>
                             @if($product->redeem_type == 'pickup')
                                 <td><img src="{{ url('storage/products/pickups/' . $product?->image?->first()->image) }}" alt="product" width="100"></td>

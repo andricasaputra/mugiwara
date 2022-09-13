@@ -56,7 +56,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
     Route::post('auth/check-password', [UpdatePasswordController::class, 'check']);
     Route::post('auth/update-password', [UpdatePasswordController::class, 'update']);
-    
+
     /*Verifikasi Nomor HP*/
 
     // Menyamakan kode otp di databse dengan otp yang dikirim ke whatsapp
@@ -79,10 +79,10 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::post('orders/checkout', [OrderController::class, 'checkout']);
         Route::get('orders/ticket/{order}', [OrderController::class, 'ticket']);
         Route::post('orders/update/status', [OrderController::class, 'updateStatus']);
-        
+
         Route::get('payments/lists', [PaymentController::class, 'lists']);
         Route::get('payments/tax', [PaymentController::class, 'tax']);
-        
+
         Route::post('payments/ewallet/create', [PaymentController::class, 'createEwallet']);
         Route::post('payments/ewallet/update-status', [PaymentController::class, 'updateStatusEwallet']);
         Route::post('payments/va/create', [PaymentController::class, 'createVirtualAccount']);
@@ -98,13 +98,13 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::get('refund/reason', [RefundController::class, 'reason']);
         Route::post('refund/{order}', [RefundController::class, 'refund']);
         Route::post('refund/confirm/{order}', [RefundController::class, 'confirm']);
-        
+
         Route::get('refferrals/point', [RefferralController::class, 'getPointValue']);
         Route::post('refferrals/redeem', [RefferralController::class, 'redeem']);
-        
+
         Route::post('reviews', [ReviewsController::class, 'create'])->name('api.review.create');
         Route::post('reviews/validate', [ReviewsController::class, 'validateUser'])->name('api.review.validate');
-        
+
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout']);
@@ -140,7 +140,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::get('list', [PoinController::class, 'list'])->name('list');
          Route::get('list/detail/{id}', [PoinController::class, 'detail'])->name('detail');
     });
-    
+
     Route::prefix('account')->name('account.')->group(function() {
         Route::get('', [AccountUserController::class, 'index'])->name('index');
         Route::put('update', [AccountUserController::class, 'update'])->name('update');
@@ -152,7 +152,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
     Route::get('notifications/categories', [NotificationController::class, 'categories']);
     Route::get('notifications/{id}', [NotificationController::class, 'show']);
     Route::post('notifications/markasread/{id}', [NotificationController::class, 'markAsRead']);
-    
+
 });
 
 Route::get('privacy', [PrivacyController::class, 'index']);

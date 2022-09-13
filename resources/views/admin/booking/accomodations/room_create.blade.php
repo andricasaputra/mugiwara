@@ -35,7 +35,7 @@
 
                             @include('inc.message')
                             <!-- Step Wise Form Content -->
-                            <form action="{{ route('accomodations.store_room') }}" method="post">
+                            <form action="{{ route('accomodations.store_room'), 6 }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="image_type" value="room">
                                 <input type="hidden" name="accomodation_id" value="{{ $accomodation->id }}">
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                 </section>
-                                
+
                             </form>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
             disc.html(``);
         }
 
-        
+
     })
 </script>
 

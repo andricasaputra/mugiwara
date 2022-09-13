@@ -110,6 +110,7 @@ class ProductController extends Controller
         return view('admin.product.redeem_list.index', compact('products'));
     }
 
+
     public function redeemTypeList($redeem_type)
     {
         $redeem = ProductUser::with('image')->where('redeem_type', $redeem_type)->first();

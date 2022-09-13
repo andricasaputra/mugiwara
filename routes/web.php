@@ -36,7 +36,7 @@ Route::middleware(['verified', 'panel'])->group(function(){
     Route::name('employee.')->group(function() {
 
         Route::prefix('dashboard')->group(function() {
-            
+
             Route::post('orderchart', [DashboardController::class, 'orderChart'])->name('dashboard.orderchart');
             Route::post('pointchart', [DashboardController::class, 'pointChart'])->name('dashboard.pointchart');
             Route::post('financechart', [DashboardController::class, 'financeChart'])->name('dashboard.financechart');

@@ -24,7 +24,7 @@ class AccomodationController extends Controller
     protected array $fileName = [];
 
     public function __construct(protected AccomodationRepository $repository)
-    { 
+    {
     }
 
     public function index()
@@ -43,7 +43,6 @@ class AccomodationController extends Controller
 
     public function store(AccomodationRequest $request)
     {
-        DB::beginTransaction();
 
         try {
 
@@ -55,7 +54,7 @@ class AccomodationController extends Controller
 
             foreach ($rooms as $key => $room) {
 
-                 if($request->has('room_image')) 
+                 if($request->has('room_image'))
                 $this->files = $this->repository->uploadRoomImage();
 
                 $files = collect($this->files)->map(function($file){
@@ -67,10 +66,8 @@ class AccomodationController extends Controller
                 $room->images()->createMany($files);
             }
 
-            DB::commit();
-
             return redirect(route('accomodations.index'))->withSuccess('Berhasil tambah data');
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
@@ -90,6 +87,7 @@ class AccomodationController extends Controller
 
     public function storeRoom(StoreRoomRequest $request)
     {
+        return dd($request->all());
         DB::beginTransaction();
 
         $check = Room::where('accomodation_id', $request->accomodation_id)->where('type_id', $request->type_id)->first();
@@ -105,7 +103,7 @@ class AccomodationController extends Controller
 
             }elseif($check->discount_type != $request->discount_type){
 
-                $dscount = $check->discount_type ?? 'kosong'; 
+                $dscount = $check->discount_type ?? 'kosong';
 
                 return back()->withErrors("Diskon kamar pada tipe {$check->type?->name} seharusnya adalah {$dscount}");
             }
@@ -120,7 +118,7 @@ class AccomodationController extends Controller
 
             $room = $this->repository->storeRoom();
 
-            if($request->has('room_image')) 
+            if($request->has('room_image'))
                 $this->files = $this->repository->uploadRoomImage();
 
             $files = collect($this->files)->map(function($file){
@@ -134,7 +132,7 @@ class AccomodationController extends Controller
             DB::commit();
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil tambah data');
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
@@ -172,7 +170,7 @@ class AccomodationController extends Controller
             $accomodation->update($request->all());
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil ubah data');
-            
+
         } catch (\Exception $e) {
 
             return back()->withErrors('Gagal ubah data, error : ' . $e->getMessage());
@@ -183,7 +181,13 @@ class AccomodationController extends Controller
     {
         $accomodation->delete();
 
-        return redirect(route('accomodations.index'))->withSuccess('Berhasil hapus data'); 
+        return redirect(route('accomodations.index'))->withSuccess('Berhasil hapus data');
+    }
+
+    public function tambah_kamar(Request $request, $id)
+    {
+        $datas = $this->repository->tambah_kamar($id);
+        return dd($datas);
     }
 
 }

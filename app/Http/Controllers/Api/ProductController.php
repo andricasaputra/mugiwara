@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'redeem_type' => 'required'
+            //'redem_type' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -83,7 +83,7 @@ class ProductController extends Controller
             $product_user = ProductUser::create([
                 'user_id' => $request->user()->id,
                 'product_id' => $request->product_id,
-                'redeem_type' => $request->redeem_type,
+                //'redem_type' => $request->redem_type,
                 'transaction_number' => $trx_number ,
             ]);
 
@@ -135,7 +135,7 @@ class ProductController extends Controller
             DB::commit();
 
             return response()->json([
-                'data' => $product_user->load(['user', 'product']),
+                'data' => $product_user->load(['userp.image', 'product']),
                 'message' => 'Penukaran produk merchandise berhasil!, mohon menunggu, tim kami akan segera menghubungi anda untuk konfirmasi penukaran'
             ]);
                 

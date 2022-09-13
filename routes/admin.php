@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('roles', RoleController::class);
@@ -69,6 +70,8 @@ Route::get('accomodations_room/add/{accomodation}', [AccomodationController::cla
 Route::post('accomodations_room/add/', [AccomodationController::class, 'storeRoom'])->name('accomodations.store_room');
 Route::resource('accomodations', AccomodationController::class);
 
+Route::post('/tambah_kamar', [AccomodationController::class, 'tambah_kamar'])->name('tambah_kamar');
+
 Route::resource('rooms', RoomController::class);
 Route::post('rooms/filter', [RoomController::class, 'filter'])->name('rooms.filter');
 Route::get('rooms/reviews/{room}', [ReviewController::class, 'index'])->name('rooms.reviews.index');
@@ -79,6 +82,13 @@ Route::resource('room_numbers', RoomNumberController::class);
 Route::resource('room_types', RoomTypeController::class);
 Route::resource('booking', BookingController::class);
 Route::resource('privacy', PrivacyPoliciesController::class)->except('show');
+
+Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
+Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');
+Route::post('store_penukaran', [PenukaranMarchendiseController::class, 'store'])->name('store_penukaran');
+Route::get('hapus_penukaran/{id}', [PenukaranMarchendiseController::class, 'destroy'])->name('hapus_penukaran');
+Route::get('update_penukaran/{id}', [PenukaranMarchendiseController::class, 'update'])->name('update_penukaran');
+Route::get('edit_penukaran/{id}', [PenukaranMarchendiseController::class, 'edit'])->name('edit_penukaran');
 
 Route::name('admin.')->group(function() {
 
@@ -112,7 +122,7 @@ Route::name('admin.')->group(function() {
         Route::put('', [SliderController::class, 'update'])->name('update');
         Route::delete('', [SliderController::class, 'delete'])->name('delete');
     });
-    
+
 
     Route::prefix('type')->name('type.')->group(function() {
         Route::get('', [TypeController::class, 'index'])->name('index');
@@ -144,7 +154,7 @@ Route::name('admin.')->group(function() {
         Route::get('create/redeem/list/{redem_type}', [ProductController::class, 'uploadPage'])->name('redeem.list.upload.page');
         Route::post('create/redeem/list/', [ProductController::class, 'upload'])->name('redeem.list.upload');
     });
-    
+
     Route::prefix('voucher')->name('voucher.')->group(function() {
         Route::get('', [VoucherController::class, 'index'])->name('index');
         Route::get('create', [VoucherController::class, 'create'])->name('create');
