@@ -23,6 +23,7 @@
                         <th>Point Yang Ditukarkan</th>
                         <th>Metode Penukaran</th>
                         <th>Gambar</th>
+                        <th>Bukyi</th>
                         <th>Tindakan</th>
                     </tr>
                     </thead>
@@ -38,8 +39,14 @@
                             <td>{{ $product->product?->point_needed }}</td>
                             <td>{{ $product->redeem_type }}</td>
                             <td><img src="{{ url('storage/products/' . $product->product?->image?->image) }}" alt="product" width="100"></td>
+                            @if($product->redeem_type == 'pickup')
+                                <td><img src="{{ url('storage/products/pickups/' . $product?->image?->first()->image) }}" alt="product" width="100"></td>
+                            @else
+                                <td><img src="{{ url('storage/products/deliverys/' . $produc?->image?->first()->image) }}" alt="product" width="100"></td>
+                            @endif
+                            
                              <td>
-                                <a href="{{ route(('admin.redeem.list.detail' }}" class="btn btn- success"> Tindakan </a>
+                                <a href="{{ route('admin.product.redeem.list.detail', $product->redeem_type) }}" class="btn btn-danger"> Upload </a>
                              </td>
                         </tr>
                         @empty

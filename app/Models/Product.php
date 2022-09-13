@@ -15,8 +15,8 @@ class Product extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function user()
+    public function userp()
     {
-        return $this->hasMany(ProductUser::class);
+        return $this->hasOne(ProductUser::class);
     }
 }
