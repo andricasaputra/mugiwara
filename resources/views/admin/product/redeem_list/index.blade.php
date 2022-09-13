@@ -38,7 +38,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="text-center">Tidak ada data</td>
+                            {{-- <td colspan="7" class="text-center">Tidak ada data</td> --}}
                         </tr>
                         @endforelse
                     </tbody>
@@ -60,7 +60,7 @@
         $('#edit').find('input[name="id"]').val(id);
         $('#edit').find('input[name="name"]').val(name);
     });
-    
+
     $('#delete').on('show.bs.modal', (e) => {
         var id = $(e.relatedTarget).data('id');
         console.log(id);

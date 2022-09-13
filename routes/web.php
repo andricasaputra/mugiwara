@@ -15,15 +15,19 @@ use App\Http\Controllers\Employee\RefferalController;
 use App\Http\Controllers\Employee\RefundController;
 use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
+use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect(route('login'));
 });
 
+
+
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
+
 
     Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit.employee');
 
@@ -85,6 +89,13 @@ Route::middleware(['verified', 'panel'])->group(function(){
          Route::prefix('product')->name('product.')->group(function() {
             Route::get('', [ProductController::class, 'index'])->name('index');
             Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
+
+            Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
+            Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');
+            Route::post('store_penukaran', [PenukaranMarchendiseController::class, 'store'])->name('store_penukaran');
+            Route::get('hapus_penukaran/{id}', [PenukaranMarchendiseController::class, 'destroy'])->name('hapus_penukaran');
+            Route::get('update_penukaran/{id}', [PenukaranMarchendiseController::class, 'update'])->name('update_penukaran');
+            Route::get('edit_penukaran/{id}', [PenukaranMarchendiseController::class, 'edit'])->name('edit_penukaran');
         });
 
          Route::prefix('voucher')->name('voucher.')->group(function() {
@@ -112,6 +123,8 @@ Route::middleware(['verified', 'panel'])->group(function(){
         Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
         Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
         });
+
+
 });
 
 require __DIR__.'/auth.php';

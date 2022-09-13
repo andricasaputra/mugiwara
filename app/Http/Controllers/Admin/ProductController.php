@@ -15,7 +15,7 @@ class ProductController extends Controller
         $products = Product::with('image')->when(request()->q, function($products) {
             $products->where('name', 'like', '%'.request()->q.'%');
         })->get();
-        
+
         return view('admin.product.index', compact('products'));
     }
     public function create()
@@ -55,7 +55,7 @@ class ProductController extends Controller
 
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil ditambahkan');
     }
-    
+
     public function edit($productId)
     {
         $product = Product::find($productId)->load('image');
@@ -90,10 +90,10 @@ class ProductController extends Controller
                 'image' => $fileName
             ]);
         }
-        
+
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil diubah');
     }
-    
+
     public function delete(Request $request)
     {
         $product = Product::find($request->id);
@@ -104,7 +104,7 @@ class ProductController extends Controller
     public function redeemList()
     {
         $products = ProductUser::latest()->with(['product', 'user'])->get();
-        
+
         return view('admin.product.redeem_list.index', compact('products'));
     }
 }
