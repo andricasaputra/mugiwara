@@ -17,6 +17,7 @@ use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HubungiKamiController;
+use App\Http\Controllers\MitraGabungController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
