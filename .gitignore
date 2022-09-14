@@ -1,6 +1,17 @@
 /node_modules
 /public/hot
 /public/storage
+/public/avatars
+/public/data
+/public/facilities
+/public/icons
+/public/misc
+/public/payments
+/public/posts
+/public/products
+/public/promotions
+/public/rooms
+/public/vouchers
 /storage/*.key
 /vendor
 .env

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductUser;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     public function index(Request $request)
     {
+        $produvtUsers = ProductUser::all();
+        $products = ProductUser::latest()->with(['product', 'user'])->get();
         if($request->category){
             $notif = $request->user()->notifications->where('data.category', $request->category)->flatten(1);
         } else {
@@ -16,7 +19,9 @@ class NotificationController extends Controller
         }
 
         return response()->json([
-            'data' => $notif
+            // 'data' => $products
+            'data' => $notif,
+            // 'produvt_users' => $produvtUsers,
         ]);
     }
 

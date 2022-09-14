@@ -93,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function vouchers()
     {
         return $this->hasManyThrough(
-            Voucher::class, 
+            Voucher::class,
             AccountPoint::class,
             'user_id',
             'id',
@@ -119,7 +119,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin()
     {
-        return $this->hasRole('admin');
+        return $this->hasRxole('admin');
     }
 
     public function isNotAdmin() : bool

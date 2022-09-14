@@ -16,7 +16,7 @@ class VoucherController extends Controller
         $vouchers = Voucher::latest()->when(request()->q, function($vouchers) {
             $vouchers->where('name', 'like', '%'.request()->q.'%')->orWhere('description', 'like', '%'.request()->q.'%');
         })->latest()->get();
-        
+
         return view('employee.voucher.index', compact('vouchers'));
     }
 
@@ -29,8 +29,8 @@ class VoucherController extends Controller
     public function redeemList()
     {
         $vouchers = UserVoucher::latest()->with(['voucher.accountPoints', 'user'])->get();
-        
+
         return view('admin.voucher.redeem_list.index', compact('vouchers'));
     }
-  
+
 }
