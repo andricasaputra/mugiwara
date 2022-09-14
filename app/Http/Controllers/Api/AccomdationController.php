@@ -59,7 +59,7 @@ class AccomdationController extends Controller
                 ->put('available_room_count', $rooms->where('status', 'available')->count())
                 ->put('room_type_count', $room_type)
                 ->put('rooms', new RoomCollection($rooms));
-
+                
         return new ShowAccomodationResource($data);
     }
 
