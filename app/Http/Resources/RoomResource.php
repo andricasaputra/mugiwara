@@ -60,7 +60,7 @@ class RoomResource extends JsonResource
             'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
             'reviews_count' => $this->reviews_count,
             'reviews_avg_rating' => $this->reviews_avg_rating,
-            'total_order' => $this->room?->total_order
+            'total_order' => $this->total_order
         ];
     }
 }
