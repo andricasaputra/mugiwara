@@ -42,6 +42,7 @@ use App\Http\Controllers\KeteranganFiturController;
 use App\Http\Controllers\KeteranganSliderController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\MitraGabungController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\ProsesPendaftaranController;
@@ -55,6 +56,7 @@ use App\Http\Controllers\TeamHeaderController;
 use App\Http\Controllers\VisiMisiController;
 use App\Models\documentUnduh;
 use App\Models\KeteranganSlider;
+use App\Models\MitraGabung;
 use App\Models\SliderMitra;
 use App\Models\TambahSlider;
 use Illuminate\Support\Facades\Route;
@@ -432,6 +434,16 @@ Route::name('admin.')->group(function() {
         Route::post('store', [KeteranganSliderController::class, 'store'])->name('store.keteranganSlider');
         Route::post('update/{id}', [KeteranganSliderController::class, 'update'])->name('update.keteranganSlider');
         Route::get  ('delete/{id}', [KeteranganSliderController::class, 'destroy'])->name('delete.keteranganSlider');
+
+    });
+
+    Route::prefix('mitraGabung')->name('mitraGabung.')->group(function() {
+        Route::get('', [MitraGabungController::class, 'index'])->name('mitraGabung');
+        Route::get('create', [MitraGabungController::class, 'create'])->name('create.mitraGabung');
+        Route::get('edit/{id}', [MitraGabungController::class, 'edit'])->name('edit.mitraGabung');
+        Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitraGabung');
+        Route::post('update/{id}', [MitraGabungController::class, 'update'])->name('update.mitraGabung');
+        Route::get  ('delete/{id}', [MitraGabungController::class, 'destroy'])->name('delete.mitraGabung');
 
     });
 

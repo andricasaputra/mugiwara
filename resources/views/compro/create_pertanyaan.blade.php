@@ -9,7 +9,7 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
-            <h4 class="card-title">Edit Pertanyaan</h4>
+            <h4 class="card-title">Tambah Pertanyaan</h4>
             <form action="{{ route('admin.pertanyaan.store.pertanyaan') }}" method="post">
                 @csrf
                 <div class="row">
@@ -32,8 +32,12 @@
                         </div>
                     </div>
 
-
-                </form>
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="jawaban">Jawaban</label>
+                            <textarea name="jawaban" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
 
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>

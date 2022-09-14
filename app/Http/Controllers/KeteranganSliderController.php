@@ -91,7 +91,7 @@ class KeteranganSliderController extends Controller
      * @param  \App\Models\KeteranganSlider  $keteranganSlider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KeteranganSlider $keteranganSlider)
+    public function update(Request $request, KeteranganSlider $keteranganSlider, $id)
     {
         $validator = Validator::make($request->all(), [
             'heading' => 'required',

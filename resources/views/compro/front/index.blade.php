@@ -28,7 +28,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="#">Masuk</a>
+							<a class="nav-link only" href="/">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -73,16 +73,16 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4">
-						<h1 class="display-4">900+</h1>
-						<p>Telah banyak mitra kami yang terpercaya den berada di beberapa wilayah Indonesia, seperti bandar lampung, dan juga medan.</p>
+						<h1 class="display-4">{{ $data_jumlah_mitras }}+</h1>
+						<p>Telah banyak mitra kami yang terpercaya den berada di beberapa wilayah Indonesia, seperti bandar lampung, dan juga medan. data dari accomodation</p>
 					</div>
 					<div class="col-lg-4">
-						<h1 class="display-4">80547+</h1>
-						<p>Banyak pengguna telah termudahkan dengan adanya aplikasi CapsuleInn. tidak pelu takut kehabisan tempat saat bepergian.</p>
+						<h1 class="display-4">{{ $data_jumlah_users }}+</h1>
+						<p>Banyak pengguna telah termudahkan dengan adanya aplikasi CapsuleInn. tidak pelu takut kehabisan tempat saat bepergian. data dari users</p>
 					</div>
 					<div class="col-lg-4">
-						<h1 class="display-4">1547+</h1>
-						<p>Team support yang selalu up time 24 jam dengan lebih dari 1000 layanan perhari, dapat membantu menyelesaikan masalah pengguna.</p>
+						<h1 class="display-4">{{ $data_jumlah_customers }}+</h1>
+						<p>Team support yang selalu up time 24 jam dengan lebih dari 1000 layanan perhari, dapat membantu menyelesaikan masalah pengguna. dari data users => customer</p>
 					</div>
 				</div>
 			</div>
@@ -145,33 +145,12 @@
                     <div class="col-lg-4">
 						<div class="card-fitures">
                             <div class="icon-tag">
-                                {{-- {{ asset('images/compro/slider_fitur/' . $item->gambar) }} --}}
 								<img class="img-fluid" width="100" src="{{ asset('images/compro/slider_fitur/' . $item->gambar) }}">
 								<h3>{{ $item->heading }}</h3>
 							</div>
 							<p>{{ $item->keterangan }} </p>
 						</div>
 					</div>
-
-					{{-- <div class="col-lg-4">
-                        <div class="card-fitures">
-							<div class="icon-tag">
-								<img class="img-fluid" src="./assets/img/refun.png">
-								<h3>Refund</h3>
-							</div>
-							<p>Jika anda memiliki kendala atau alasan tertentu untuk melakukan pembatalan menginap disuatu hotel, anda bisa melakukan hal itu dan akan mendapatkan refund atau pengembalian dana, dengan syarat sebelumnya yaitu anda harus memberikan alasan batal booking dan syarat lainnya.</p>
-						</div>
-					</div>
-
-					<div class="col-lg-4">
-						<div class="card-fitures">
-							<div class="icon-tag">
-								<img class="img-fluid" src="./assets/img/referal.png">
-								<h3>Referal</h3>
-							</div>
-							<p>Dengan menggunakan kode referal anda akan mendapatkan poin dengan cara menyebarluaskan kode referal milik anda, semakin banyak orang yang memasukan kode referal milik anda maka akan semakin banyak pula poin dan keuntungan yang anda dapatkan.</p>
-						</div>
-					</div>  --}}
                     @endforeach
 				</div>
 
@@ -191,59 +170,26 @@
 					<div class="swiper slide-ratings">
 						<div class="swiper-wrapper">
 
-							<div class="swiper-slide">
-									<div class="card">
-										<div class="card-body">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sagittis suscipit neque quis lacus, dolor nisi viverra. In in et morbi ut vitae mi adipiscing. Purus diam sit blandit in. Semper etiam pharetra est dictum. Et aliquam cras ullamcorper tellus sed tellus mi. Quis aenean ac diam elementum quis amet. Facilisis sed odio massa, malesuada et imperdiet. Eu molestie integer suspendisse massa.</p>
-											<img class="img-fluid" src="./assets/img/avatar.png">
-											<h5>James Franci</h5>
-											<div class="ranting">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-											</div>
-											<p>Costumer</p>
-										</div>
-									</div>
-							</div>
+                            @foreach ($reviews as $item)
 
 							<div class="swiper-slide">
 									<div class="card">
 										<div class="card-body">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sagittis suscipit neque quis lacus, dolor nisi viverra. In in et morbi ut vitae mi adipiscing. Purus diam sit blandit in. Semper etiam pharetra est dictum. Et aliquam cras ullamcorper tellus sed tellus mi. Quis aenean ac diam elementum quis amet. Facilisis sed odio massa, malesuada et imperdiet. Eu molestie integer suspendisse massa.</p>
-											<img class="img-fluid" src="./assets/img/avatar.png">
-											<h5>James Franci</h5>
+											<p> {{ $item->comment }}</p>
+											<img class="img-fluid" src="{{ asset('storage/avatars/' .  $item->avatar) }}">
+											<h5>{{ $item->name }}</h5>
 											<div class="ranting">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
+												@for ($i = 0; $i < $item->rating; $i++)
+                                                    <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
+                                                @endfor
 											</div>
-											<p>Costumer</p>
+											<p>{{ $item->type }}</p>
 										</div>
 									</div>
 							</div>
 
-							<div class="swiper-slide">
-									<div class="card">
-										<div class="card-body">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sagittis suscipit neque quis lacus, dolor nisi viverra. In in et morbi ut vitae mi adipiscing. Purus diam sit blandit in. Semper etiam pharetra est dictum. Et aliquam cras ullamcorper tellus sed tellus mi. Quis aenean ac diam elementum quis amet. Facilisis sed odio massa, malesuada et imperdiet. Eu molestie integer suspendisse massa.</p>
-											<img class="img-fluid" src="./assets/img/avatar.png">
-											<h5>James Franci</h5>
-											<div class="ranting">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-												<img class="img-rating" src="./assets/img/bintang.png">
-											</div>
-											<p>Costumer</p>
-										</div>
-									</div>
-							</div>
+
+                            @endforeach
 
 						</div>
 						<div class="swiper-pagination"></div>

@@ -96,6 +96,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutKedua.aboutKedua') }}"> About Keudua </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.keteranganFitur.keteranganFitur') }}"> Keterangan Fitur </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderFitur.sliderFitur') }}"> Slider Fitur </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitraGabung.mitraGabung') }}"> Mitra Gabung </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sosmed.sosmed') }}"> Sosmed Footer </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.alamat.alamat') }}"> Alamat Footer </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li>

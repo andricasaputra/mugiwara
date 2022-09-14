@@ -17,7 +17,7 @@
 		<nav class="navbar navbar-expand-lg fixed-top">
 			<div class="container nav-flay">
 				<a class="navbar-brand" href="#">
-					<img src="./assets/img/logo.png">
+					<img src="{{ asset('/assets/img/logo.png') }}">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-						<a class="nav-link only" href="#">Masuk</a>
+						<a class="nav-link only" href="/">Masuk</a>
 					</div>
 				</div>
 			</div>
@@ -39,22 +39,23 @@
 			<div class="container">
 				<div class="form">
 					<h2>Raih Sukses Bersama CapsuleInn</h2>
+                    <form action="{{ route('store.mitraGabung') }}" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-lg-6">
-							<input class="input" type="text" name="name" placeholder="Nama Lengkap">
+							<input class="input" type="text" name="nama_lengkap" placeholder="Nama Lengkap">
 						</div>
 						<div class="col-lg-6">
 							<input class="input" type="email" name="email" placeholder="Email">
 						</div>
 						<div class="col-lg-6">
-							<input class="input" type="text" name="nope" placeholder="Nomor Telepon">
+							<input class="input" type="text" name="hp" placeholder="Nomor Telepon">
 						</div>
 						<div class="col-lg-6">
 							<input class="input" type="text" name="nik" placeholder="NIK">
 						</div>
 						<div class="col-lg-9">
-							<textarea class="text" name="tempat_tinggal" placeholder="Alamat Tempat Usaha"></textarea>
-							<textarea class="text" name="tempat_usaha" placeholder="Alamat Tinggal Anda"></textarea>
+							<textarea class="text" name="alamat_tinggal" placeholder="Alamat Tempat Usaha"></textarea>
+							<textarea class="text" name="alamat_usaha" placeholder="Alamat Tinggal Anda"></textarea>
 						</div>
 						<div class="col-lg-3">
 							<div class="files">
@@ -68,8 +69,9 @@
 						</div>
 					</div>
 					<div class="row justify-content-end">
-							<button class="btn" type="button">Kirim Berkas</button>
+                        <button class="btn" type="submit">Kirim Berkas</button>
 					</div>
+                    </form>
 				</div>
 			</div>
 		</section>

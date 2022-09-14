@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pertanyaan;
+use Dotenv\Validator as DotenvValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +42,7 @@ class PertanyaanController extends Controller
         $validator = Validator::make($request->all(), [
             'keterangan' => 'required',
             'kategori' => 'required',
+            'jawaban' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -52,6 +54,7 @@ class PertanyaanController extends Controller
             $pertanyaan = new Pertanyaan();
             $pertanyaan->keterangan = $request->keterangan;
             $pertanyaan->kategori = $request->kategori;
+            $pertanyaan->jawaban = $request->jawaban;
             $pertanyaan->save();
 
         } catch (\Throwable $th) {
@@ -96,6 +99,7 @@ class PertanyaanController extends Controller
         $validator = Validator::make($request->all(), [
             'keterangan' => 'required',
             'kategori' => 'required',
+            'jawaban' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -107,7 +111,8 @@ class PertanyaanController extends Controller
             $pertanyaan = Pertanyaan::find($id);
             $pertanyaan->keterangan = $request->keterangan;
             $pertanyaan->kategori = $request->kategori;
-            $pertanyaan->save();
+            $pertanyaan->jawaban = $request->kategori;
+            $pertanyaan->update();
 
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -129,4 +134,6 @@ class PertanyaanController extends Controller
 
         return redirect()->route('admin.pertanyaan.pertanyaan');
     }
+
+
 }

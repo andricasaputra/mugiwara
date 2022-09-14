@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\PlayStoreController;
 use App\Http\Controllers\Api\AppStoreController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HubungiKamiController;
+use App\Http\Controllers\MitraGabungController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,14 @@ Route::get('hotel/', [FrontController::class, 'hotel'])->name('hotel');
 Route::get('tentang_kami/', [FrontController::class, 'tentang'])->name('tentang');
 Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
 Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
+Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
+Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitraGabung');
+
+
+Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
+
+Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
+
 
 // Route::prefix('hubungiKami')->name('hubungiKami.')->group(function() {
     // Route::get('', [HubungiKamiController::class, 'index'])->name('hubungiKami');
@@ -53,7 +62,7 @@ Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
     // Route::post('update/{id}', [HubungiKamiController::class, 'update'])->name('update.hubungiKami');
     // Route::get  ('delete/{id}', [HubungiKamiController::class, 'destroy'])->name('delete.hubungiKami');
 
-// });
+    // });
 
 Route::post('auth/google/', [GoogleApiController::class, 'googleLogin']);
 

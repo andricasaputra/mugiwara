@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://capsuleinn.id/assets/css/vertical-layout-light/style.css">
@@ -29,7 +30,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link active" href="{{ route('bantuan') }}">Bantuan</a>
-						<a class="nav-link only" href="#">Masuk</a>
+						<a class="nav-link only" href="/">Masuk</a>
 					</div>
 				</div>
 			</div>
@@ -41,8 +42,8 @@
 					<div class="col-12">
 						<div class="content"></div>
 						<h1 class="display-4">Selesaikan semua pertanyaan dalam waktu singkat</h1>
-						<form action="" method="POST">
-							<input class="form-control" type="text" name="help" onkeyup="cariBantuan(this.value)" placeholder="Cari bantuan">
+						<form action="javascript:void(0)" method="postPOST">
+							<input class="form-control" type="text" name="help" id="inpCariBantuan" placeholder="Cari bantuan">
 							<i class="bi bi-search"></i>
 						</form>
 					</div>
@@ -55,20 +56,21 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<h2>Sering ditanyakan</h2>
-						<ul>
+                        <div id="seringDiTanyakan"></div>
+						<ul id="data">
                             @foreach ($pertanyaans as $item)
 
-                                <li><a href="">{{ $item->keterangan }}</a></li>
+                                <li><a href="/api/read_pertanyaan/{{ $item->id }}">{{ $item->keterangan }}</a></li>
 
                             @endforeach
 						</ul>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-6" id="pertanyaan_lain">
 						<h2>Pertanyaan lain</h2>
 						<ul>
                             @foreach ($pertanyaanLains as $item)
 
-                                <li><a href="">{{ $item->keterangan }}</a></li>
+                                <li><a href="/api/read_pertanyaan/{{ $item->id }}">{{ $item->keterangan }}</a></li>
 
                             @endforeach
 						</ul>
@@ -164,9 +166,48 @@
 	<script src="{{ asset('compro/assets/js/main.js') }}"></script>
 
     <script>
-       function cariBantuan(e) {
-        console.log(e)
-       }
+        $('#inpCariBantuan').on('keyup', function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let cari = $('#inpCariBantuan').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {"cari": cari},
+                url: "cari_bantuan/",
+                success : function(res){
+                    let cekData = res.data;
+                    let pertanyaans = res.pertanyaans;
+                    if(cekData == "kosong") {
+                        var html = "";
+                        for(let i = 0; i < pertanyaans.length; i++){
+                            html += "<ul><li><a href='/api/read_pertanyaan/"+ pertanyaans[i].id +"'>"+ pertanyaans[i].keterangan +"</a></li></ul>"
+                        }
+                        // $('#seringDiTanyakan').html(html)
+                        document.getElementById('pertanyaan_lain').style.display = 'block';
+                        document.getElementById('data').style.display = 'block';
+                        document.getElementById('seringDiTanyakan').style.display = 'none';
+                    }
+                    if(cekData == "tidak kosong"){
+
+                        var html = "";
+                        for(let i = 0; i < pertanyaans.length; i++){
+                            html += "<ul><li><a href='/api/read_pertanyaan/"+ pertanyaans[i].id +"'>"+ pertanyaans[i].keterangan +"</a></li></ul>"
+                            console.log(pertanyaans[i].keterangan)
+                        }
+                        document.getElementById('data').style.display = 'none';
+                        document.getElementById('pertanyaan_lain').style.display = 'none';
+                        $('#seringDiTanyakan').html(html)
+                    }
+                }
+            });
+        })
+
     </script>
 </body>
 </html>

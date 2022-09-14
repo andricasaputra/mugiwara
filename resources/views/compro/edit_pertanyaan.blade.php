@@ -32,6 +32,13 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="jawaban">Jawaban</label>
+                            <textarea name="jawaban" cols="30" rows="10">{{ $pertanyaans->keterangan }}</textarea>
+                        </div>
+                    </div>
+
 
                 </form>
 

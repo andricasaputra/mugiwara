@@ -16,7 +16,7 @@
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
 					<a class="navbar-brand" href="#">
-						<img src="./assets/img/logo.png">
+						<img src="{{ asset('/assets/img/logo.png') }}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -28,27 +28,27 @@
 							<a class="nav-link active" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="#">Masuk</a>
+							<a class="nav-link only" href="/">Masuk</a>
 						</div>
 					</div>
 				</div>
 		</nav>
+
+
 
 		<section id="hotel" class="hotel">
 			<div class="container">
 				<div class="row mb-5">
 					<div class="col-lg-8">
 						<div class="hotel-top">
-							<img class="img-fluid" src="./assets/img/hotel1.png">
+							<img class="img-fluid" src="{{ asset('storage/rooms/' .  $images->image) }}">
 							<div class="caps">
-								<h2>Rina Hotel Lampung</h2>
+								<h2>{{ $images->name }}</h2>
 								<div class="starts">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<span>4.9</span>
+                                    @for ($i = 0; $i < $images->rating; $i++)
+                                        <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
+                                    @endfor
+									<span>{{ $images->rating }}</span>
 								</div>
 							</div>
 						</div>
@@ -73,33 +73,37 @@
 					<div class="col-lg-3">
 						<h3>Kategori</h3>
 						<ul>
-							<li><button type="button" class="btn">Hotel terpopoler</button></li>
-							<li><button type="button" class="btn">Hotel terbaru</button></li>
-							<li><button type="button" class="btn">Hotel bintang lima</button></li>
-							<li><button type="button" class="btn">VIP hotel</button></li>
-							<li><button type="button" class="btn">Medium hotel</button></li>
+                            @foreach ($types as $item)
+
+                                <li><button type="button" class="btn">{{ $item->name }}</button></li>
+
+                            @endforeach
 						</ul>
 					</div>
 					<div class="col-lg-9 hotels">
+
+                        @foreach ($hotels as $item)
+
+
 						<div class="card">
-							<div class="card-img">
-								<img class="card-img-top" src="./assets/img/hotel2.png">
+                            <div class="card-img">
+								<img class="img-fluid" src="{{ asset('storage/rooms/' .  $item->image) }}">
 							</div>
 							<div class="card-body">
 								<div class="starts">
-									<span class="badge badge-secondary">VIP</span>
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<img class="start" src="./assets/img/bintang.png">
-									<span>4.5</span>
+									<span class="badge badge-secondary">{{ $item->name }}</span>
+									@for ($i = 0; $i < $item->rating; $i++)
+                                        <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
+                                    @endfor
+									<span>{{ $item->rating }}</span>
 								</div>
-								<h3>Hotel Santa Maria</h3>
+								<h3>{{ $item->nama_hotel }}</h3>
 							</div>
 						</div>
 
-						<div class="card">
+                        @endforeach
+
+						{{-- <div class="card">
 							<div class="card-img">
 								<img class="card-img-top" src="./assets/img/hotel3.png">
 							</div>
@@ -151,7 +155,7 @@
 								</div>
 								<h3>Hotel Novotel Lampung</h3>
 							</div>
-						</div>
+						</div>--}}
 					</div>
 				</div>
 			</div>

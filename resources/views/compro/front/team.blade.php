@@ -16,7 +16,7 @@
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
 					<a class="navbar-brand" href="#">
-						<img src="./assets/img/logo.png">
+						<img src="{{ asset('/assets/img/logo.png') }}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link active" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="#">Masuk</a>
+							<a class="nav-link only" href="/">Masuk</a>
 						</div>
 					</div>
 				</div>

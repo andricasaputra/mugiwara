@@ -17,7 +17,7 @@
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
 					<a class="navbar-brand" href="#">
-						<img src="{{ asset('compro/assets/img/booking.png') }}">
+						<img src="{{ asset('/assets/img/logo.png') }}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="#">Masuk</a>
+							<a class="nav-link only" href="/">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -48,22 +48,11 @@
 					<div class="swiper slide-mitra">
 						<div class="swiper-wrapper">
 
-							<div class="swiper-slide">
-								<img class="img-fluid" src="{{ asset('compro/assets/img/mitra1.png') }}">
-							</div>
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="{{ asset('compro/assets/img/mitra2.png') }}">
-							</div>
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="{{ asset('compro/assets/assets/img/mitra1.png') }}">
-							</div>
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="{{ asset('compro/assets/assets/img/mitra2.png') }}">
-							</div>
-
+                            @foreach ($images_rooms as $item)
+                                <div class="swiper-slide">
+                                    <img class="img-fluid" src="{{ asset('storage/rooms/' .  $item->image) }}">
+                                </div>
+                            @endforeach
 						</div>
 					</div>
 				</div>
