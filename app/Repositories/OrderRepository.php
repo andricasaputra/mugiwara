@@ -113,13 +113,15 @@ class OrderRepository
 				'discount_amount' => $discount_amount,
 				'total_price' => $total_price,
 				'check_out_date' => Carbon::parse($request->check_in_date)->addDays($request->stay_day),
-				'order_status' => 'booked'
+				'order_status' => 'booked',
+
 			]);
 
 			$room = Room::findOrFail($room->id);
 
 			$room->status = 'booked';
 			$room->booked_untill = now()->addDays(1);
+			$room->total_order = $room->order()->count() + 1;
 			$room->save();
 
 			$this->sendNotification($request, $order);

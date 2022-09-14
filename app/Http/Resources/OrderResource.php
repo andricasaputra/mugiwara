@@ -47,7 +47,8 @@ class OrderResource extends JsonResource
 
             'discount_amout' => $this->discount_amount,
             'total_price' => $this->total_price,
-            'order_status' => $this->order_status
+            'order_status' => $this->order_status,
+            'total_order' => $this->room?->total_order
         ];
     }
 }
