@@ -11,6 +11,7 @@ use App\Models\documentUnduh;
 use App\Models\KeteranganFitur;
 use App\Models\Kontak;
 use App\Models\Pertanyaan;
+use App\Models\Post;
 use App\Models\ProsesPendaftaran;
 use App\Models\Review;
 use App\Models\Slider;
@@ -48,6 +49,7 @@ class FrontController extends Controller
                     ->join('accounts', 'accounts.user_id', '=', 'users.id')
                     ->select('*')
                     ->get();
+        $posts = Post::all();
 
         return view('compro.front.index', [
             'sliders' => $sliders,
@@ -63,6 +65,7 @@ class FrontController extends Controller
             'data_jumlah_users' => $data_jumlah_users,
             'data_jumlah_customers' => $data_jumlah_customers,
             'reviews' => $reviews,
+            'posts' => $posts,
         ]);
     }
 
@@ -108,9 +111,9 @@ class FrontController extends Controller
                     ->leftjoin('images', 'images.id', '=', 'room_images.image_id')
                     ->join('types', 'types.id', '=', 'rooms.type_id')
                     ->select('accomodations.name as nama_hotel', 'reviews.rating', 'images.image', 'types.name', 'rooms.id')
-                    // ->select('images.image')
                     ->get();
-        $types = Type::all();        return view('compro.front.hotel', [
+        $types = Type::all();
+        return view('compro.front.hotel', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
@@ -199,6 +202,19 @@ class FrontController extends Controller
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'pertanyaans' => $pertanyaans,
+        ]);
+    }
+
+    public function readBerita($id) {
+        $posts = Post::find($id);
+        $alamats = Alamat::all();
+        $sosmeds = Sosmed::all();
+        $kontaks = Kontak::all();
+        return view('compro.front.read_berita', [
+            'alamats' => $alamats,
+            'sosmeds' => $sosmeds,
+            'kontaks' => $kontaks,
+            'posts' => $posts,
         ]);
     }
 

@@ -207,19 +207,24 @@
 					</div>
 				</div>
 				<div class="row">
+
+                    @foreach ($posts as $item)
+
 					<div class="col-lg-4">
-						<a href="./read.html">
+                        <a href="read_berita/{{$item->id}}">
 							<div class="card">
-								<div class="card-img-top">
-									<img class="img-fluid" src="./assets/img/berita1.png">
+                                <div class="card-img-top">
+                                    <img class="img-fluid" src="{{ asset('storage/posts/' .  $item->image) }}">
 								</div>
 								<div class="card-body">
-									<h5>Penataan kamar agar terlihat rapi dan menarik</h5>
-									<p>Apa saja trik menata kamar tidur yang bisa kamu terapkan agar kamarmu selalu tampil rapi dan sempurna? Simak artikel </p>
+									<h5>{{ $item->title }}</h5>
+									<p>{{ $item->body }}</p>
 								</div>
 							</div>
 						</a>
 					</div>
+
+                    @endforeach
 
 					<div class="col-lg-4">
 						<a href="./read.html">
