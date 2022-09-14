@@ -53,6 +53,7 @@ class RoomResource extends JsonResource
             'total_price' => $this->discount_type == 'percent' 
                 ? $this->price - ($this->price * ((int) $this->discount_amount / 100)) 
                 : $this->price - $this->discount_amount,
+            'total_order' => $this->total_order,
             'is_refunded' => $this->is_refunded,
             'facilities' => FacilityResource::collection($this->whenLoaded('facilities')),
             'images' => ImageResource::collection($this->images),
@@ -60,7 +61,7 @@ class RoomResource extends JsonResource
             'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
             'reviews_count' => $this->reviews_count,
             'reviews_avg_rating' => $this->reviews_avg_rating,
-            'total_order' => $this->total_order
+
         ];
     }
 }
