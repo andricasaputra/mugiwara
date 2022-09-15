@@ -11,6 +11,7 @@ use App\Http\Controllers\Employee\PaymentController;
 use App\Http\Controllers\Employee\PointController;
 use App\Http\Controllers\Employee\PostController;
 use App\Http\Controllers\Employee\ProductController;
+use App\Http\Controllers\Employee\ProductUserController;
 use App\Http\Controllers\Employee\RefferalController;
 use App\Http\Controllers\Employee\RefundController;
 use App\Http\Controllers\Employee\UsersController;
@@ -115,7 +116,10 @@ Route::middleware(['verified', 'panel'])->group(function(){
 
          Route::prefix('product')->name('product.')->group(function() {
             Route::get('', [ProductController::class, 'index'])->name('index');
-            Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
+           Route::get('redeem/lists', [ProductUserController::class, 'redeemList'])->name('redeem.list');
+            Route::get('redeem/list/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.detail');
+            Route::get('create/redeem/list/{redem_type}', [ProductUserController::class, 'edit'])->name('redeem.list.upload.page');
+            Route::post('create/redeem/list/', [ProductUserController::class, 'update'])->name('redeem.list.update');
 
             Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
             Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');

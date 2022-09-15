@@ -20,6 +20,7 @@ class ProductController extends Controller
 
         return view('admin.product.index', compact('products'));
     }
+
     public function create()
     {
         return view('admin.product.create');
@@ -63,6 +64,7 @@ class ProductController extends Controller
         $product = Product::find($productId)->load('image');
         return view('admin.product.edit', compact('product'));
     }
+
     public function update(Request $request)
     {
         $this->validate($request, [
@@ -101,52 +103,6 @@ class ProductController extends Controller
         $product = Product::find($request->id);
         $product->delete();
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil dihapus');
-    }
-
-    public function redeemList()
-    {
-        $products = ProductUser::latest()->with(['product', 'user'])->get();
-
-        return view('admin.product.redeem_list.index', compact('products'));
-    }
-
-
-    public function redeemTypeList($redeem_type)
-    {
-        $redeem = ProductUser::with('image')->where('redeem_type', $redeem_type)->first();
-        
-        return view('admin.product.redeem_list.create_redeem_list_type', compact('redeem'));
-    }
-
-    public function uploadPage($redeem_type)
-    {
-        if($redeem_type == 'pickup'){
-            $redeem = ProductUser::where('redeem_type', $redeem_type)->first();
-            dd($request->all());
-            return view('admin.product.redeem_list.uploads.pickup', compact('redeem'));
-        }else{
-            $redeem = ProductUser::where('redeem_type', $redeem_type)->first();
-            return view('admin.product.redeem_list.uploads.devlivery', compact('redeem'));
-        }
-    }
-
-    public function upload(Request $request)
-    {
-        $redeem = ProductUser::where('redeem_type', $request->redeem_type)->first();
-
-        if($request->hasFile('photo_pickup')){
-            $upload = new PhotoPickupUploadService;
-            $filename = $upload->process($request->file('photo_pickup'));
-        }else{
-            $upload = new PhotoDeliveryUploadService;
-           $filename = $upload->process($request->file('photo_delivery'));
-        }
-
-        $redeem->image()->create([
-            'image' => $filename
-        ]);
-
-        return redirect()->route('admin.product.redeem.list')->with('success', 'Berhasil Uppload Bukti');
     }
 
 }

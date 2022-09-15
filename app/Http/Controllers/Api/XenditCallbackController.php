@@ -13,6 +13,7 @@ use App\Notifications\Admin\AdminPaymentStatusNotification;
 use App\Notifications\Payments\PaymentStatusEmailNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class XenditCallbackController extends Controller
 {
@@ -26,6 +27,8 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
+        log::info($status);
+
         $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
 
         $ewallet?->update([
@@ -37,20 +40,18 @@ class XenditCallbackController extends Controller
             'amount' => $status?->data?->charge_amount,
         ]);
 
-        // if($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
-        //     $ewallet?->payment?->first()?->order()?->update([
-        //         'order_status' => 'cancel',
-        //         //'check_in_date' => NULL
-        //     ]);
+        if($status?->data?->status == 'SUCCEEDED'){
+            $ewallet?->payment?->first()?->order()?->update([
+                'order_status' => 'booked'
+            ]);
 
-        //     $update = $ewallet?->payment?->first()?->order?->room()->update([
-        //         'status' => 'available',
-        //         'booked_untill' => NULL,
-        //         'stayed_untill' => NULL
-        //     ]);
-        // }
+            $update = $ewallet?->payment?->first()?->order?->room()->update([
+                'status' => 'booked',
+                'booked_untill' => now()->addDays(1)
+            ]);
+        }
 
-        // $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+        $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
     }
 
     public function ovo(Request $request)

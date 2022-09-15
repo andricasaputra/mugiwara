@@ -41,7 +41,7 @@
                              <td>
                                 <a href="{{ route('admin.product.redeem.list.detail', $product->redeem_type) }}" class="btn btn-warning mb-2"> Edit </a>
                                 <br>
-                                <form action="{{ route('admin.product.redeem.list.delete') }}" method="post">
+                                <form action="" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="id" value="{{ $product->id }}">

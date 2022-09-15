@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            //'redem_type' => 'required'
+            'redeem_type' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -78,14 +78,37 @@ class ProductController extends Controller
                 ], 400);
             }
 
-            $trx_number = Random::generate(15, 1234567890);
+            if($request->redeem_type == 'pickup'){
 
-            $product_user = ProductUser::create([
-                'user_id' => $request->user()->id,
-                'product_id' => $request->product_id,
-                //'redem_type' => $request->redem_type,
-                'transaction_number' => $trx_number ,
-            ]);
+                $trx_number = Random::generate(12, 1234567890);
+
+                $product_user = ProductUser::create([
+                    'user_id' => $request->user()->id,
+                    'product_id' => $request->product_id,
+                    'redeem_type' => $request->redeem_type,
+                    'transaction_number' => $trx_number,
+                    'status' => NULL,
+                    'no_resi' => NULL 
+                ]);
+
+            }elseif($request->redeem_type == 'delivery'){
+
+                $product_user = ProductUser::create([
+                    'user_id' => $request->user()->id,
+                    'product_id' => $request->product_id,
+                    'redeem_type' => $request->redeem_type,
+                    'status' => NULL,
+                    'no_resi' => NULL 
+                ]);
+
+            }else{
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Redeem type not found!',
+                ], 404);
+
+            }
 
             $point_after = $account->point - $product->point_needed;
 
@@ -97,7 +120,7 @@ class ProductController extends Controller
                 'mutation' => $product->point_needed,
                 'type' => 'point_out',
                 'description' => 'Penukaran produk merchandise',
-                'transaction_number' => $trx_number ,
+                'transaction_number' => $trx_number ?? NULL,
             ]);
 
             $account->update([
@@ -107,8 +130,6 @@ class ProductController extends Controller
             $product->update([
                 'stock' => $product->stock - 1
             ]);
-
-            //Terimaksih telah menukarkan point anda, Gunakan sebelum batas waktu yang sudah ditentukan
 
             $admin = User::admin()->first();
 
@@ -135,7 +156,7 @@ class ProductController extends Controller
             DB::commit();
 
             return response()->json([
-                'data' => $product_user->load(['userp.image', 'product']),
+                'data' => $product_user->load(['user:id,email', 'image', 'product']),
                 'message' => 'Penukaran produk merchandise berhasil!, mohon menunggu, tim kami akan segera menghubungi anda untuk konfirmasi penukaran'
             ]);
                 

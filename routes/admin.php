@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\PointController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductUserController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\PushController;
 use App\Http\Controllers\Admin\RefferalController;
@@ -54,11 +55,11 @@ use App\Http\Controllers\TambahMenuController;
 use App\Http\Controllers\TambahSliderController;
 use App\Http\Controllers\TeamHeaderController;
 use App\Http\Controllers\VisiMisiController;
-use App\Models\documentUnduh;
 use App\Models\KeteranganSlider;
 use App\Models\MitraGabung;
 use App\Models\SliderMitra;
 use App\Models\TambahSlider;
+use App\Models\documentUnduh;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('roles', RoleController::class);
@@ -175,11 +176,11 @@ Route::name('admin.')->group(function() {
         Route::put('', [ProductController::class, 'update'])->name('update');
         Route::delete('', [ProductController::class, 'delete'])->name('delete');
 
-        Route::get('redeem/lists', [ProductController::class, 'redeemList'])->name('redeem.list');
-
-        Route::get('redeem/list/{redem_type}', [ProductController::class, 'redeemTypeList'])->name('redeem.list.detail');
-        Route::get('create/redeem/list/{redem_type}', [ProductController::class, 'uploadPage'])->name('redeem.list.upload.page');
-        Route::post('create/redeem/list/', [ProductController::class, 'upload'])->name('redeem.list.upload');
+        Route::get('redeem/lists', [ProductUserController::class, 'redeemList'])->name('redeem.list');
+        Route::get('redeem/list/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.detail');
+        Route::get('create/redeem/list/{redem_type}', [ProductUserController::class, 'edit'])->name('redeem.list.upload.page');
+        Route::post('create/redeem/list/', [ProductUserController::class, 'update'])->name('redeem.list.update');
+        Route::delete('create/redeem/list/', [ProductUserController::class, 'delete'])->name('redeem.list.delete');
 
         Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
         Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');
