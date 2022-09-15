@@ -78,9 +78,9 @@ class ProductController extends Controller
                 ], 400);
             }
 
-            if($request->redeem_type == 'pickup'){
+            $trx_number = Random::generate(12, 1234567890);
 
-                $trx_number = Random::generate(12, 1234567890);
+            if($request->redeem_type == 'pickup'){
 
                 $product_user = ProductUser::create([
                     'user_id' => $request->user()->id,
@@ -120,7 +120,7 @@ class ProductController extends Controller
                 'mutation' => $product->point_needed,
                 'type' => 'point_out',
                 'description' => 'Penukaran produk merchandise',
-                'transaction_number' => $trx_number ?? NULL,
+                'transaction_number' => $trx_number ?? Random::generate(12, 1234567890),
             ]);
 
             $account->update([
