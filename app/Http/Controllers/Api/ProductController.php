@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Post as ResourcesPost;
 use App\Http\Resources\Product as ResourcesProduct;
+use App\Http\Resources\ProductRedeemResource;
 use App\Models\AccountPoint;
 use App\Models\Customer;
 use App\Models\Post;
@@ -167,5 +168,13 @@ class ProductController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function updateStatus($produc_user_id)
+    {
+        $redeem = ProductUser::findOrFail($produc_user_id);
+
+        return new ProductRedeemResource($redeem->load(['user:id,name,email', 'product', 'image']));
+
     }
 }

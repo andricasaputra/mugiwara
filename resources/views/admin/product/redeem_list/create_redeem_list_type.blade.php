@@ -11,7 +11,7 @@
             @endif
             <h4 class="card-title">Upload Bukti</h4>
             <div class="card-body">
-                <form action="{{ route('admin.product.redeem.list.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                      <input type="hidden" name="redeem_type" value="{{ $redeem->redeem_type }}">
                     @if($redeem->redeem_type == 'pickup')
@@ -26,6 +26,12 @@
                         <input type="file" name="photo_pickup" class="form-control">
 
                     @else
+
+                        <label for="jenis_pengiriman">Jenis Pengiriman</label>
+                        <input type="text" name="jenis_pengiriman" class="form-control" required>
+
+                        <label for="no_resi">Nomor Resi</label>
+                        <input type="text" name="no_resi" class="form-control" required>
 
                         <label for="status">Status</label>
                         <select name="status" class="form-control">

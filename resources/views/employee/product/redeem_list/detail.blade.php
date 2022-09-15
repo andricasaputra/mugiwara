@@ -64,7 +64,7 @@
                     </tr>
                 </table>
                 <br>
-                <a href="{{ route('admin.product.redeem.list') }}" class="btn btn-sm btn-danger">Kembali</a>
+                <a href="{{ route('employee.product.redeem.list') }}" class="btn btn-sm btn-danger">Kembali</a>
             </div>
         </div>
     </div>

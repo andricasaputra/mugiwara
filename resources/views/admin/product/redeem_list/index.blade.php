@@ -39,7 +39,7 @@
                             
                             
                              <td>
-                                <a href="{{ route('admin.product.redeem.list.edit', $product->redeem_type == 'pickup' ? 'pickup' : 'delivery' ) }}" class="btn btn-warning mb-2"> Edit </a>
+                                <a href="{{ route('admin.product.redeem.list.edit', $product->id) }}" class="btn btn-warning mb-2"> Edit </a>
                                 <br>
                                  <a href="{{ route('admin.product.redeem.list.detail', $product->id) }}" class="btn btn-primary mb-2"> Detail </a>
                                 <br>

@@ -14,6 +14,7 @@ use App\Notifications\Payments\PaymentStatusEmailNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class XenditCallbackController extends Controller
 {
@@ -27,7 +28,7 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-        log::info($status);
+        Log::info($status);
 
         $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
 

@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('product_users', function (Blueprint $table) {
-            $table->wtring('no_resi')->nullable();
-            $table->string('status')->nullable();
+            $table->string('jenis_pengiriman')->nullable();
         });
     }
 
@@ -27,8 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('product_users', function (Blueprint $table) {
-            $table->dropColumn('no_resi');
-            $table->dropColumn('status');
+            $table->dropColumn('jenis_pengiriman');
         });
     }
 };

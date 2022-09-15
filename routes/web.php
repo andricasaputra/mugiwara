@@ -121,11 +121,15 @@ Route::middleware(['verified', 'panel'])->group(function(){
         });
 
          Route::prefix('product')->name('product.')->group(function() {
+
             Route::get('', [ProductController::class, 'index'])->name('index');
+            
            Route::get('redeem/lists', [ProductUserController::class, 'redeemList'])->name('redeem.list');
-            Route::get('redeem/list/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.detail');
+            Route::get('redeem/list/detail/{prodcut_id}', [ProductUserController::class, 'detail'])->name('redeem.list.detail');
+            Route::get('edit/redeem/list/{id}', [ProductUserController::class, 'edit'])->name('redeem.list.edit');
             Route::get('create/redeem/list/{redem_type}', [ProductUserController::class, 'edit'])->name('redeem.list.upload.page');
-            Route::post('create/redeem/list/', [ProductUserController::class, 'update'])->name('redeem.list.update');
+            Route::put('create/redeem/list/{id}', [ProductUserController::class, 'update'])->name('redeem.list.update');
+            Route::delete('create/redeem/list/', [ProductUserController::class, 'delete'])->name('redeem.list.delete');
 
             Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
             Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');

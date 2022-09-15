@@ -127,6 +127,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
         Route::get('', [ProductController::class, 'index'])->name('index');
         Route::get('{id}', [ProductController::class, 'show'])->name('show');
         Route::post('redeem', [ProductController::class, 'redeem']);
+        Route::get('update/{product_user_id}', [ProductController::class, 'updateStatus']);
     });
 
     Route::prefix('vouchers')->name('vouchers.')->group(function() {

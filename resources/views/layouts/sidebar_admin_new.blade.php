@@ -88,7 +88,7 @@
 
 
 
-        <div id="compro" class="collapse" >
+        {{-- <div id="compro" class="collapse" >
           <ul class="nav flex-column sub-menu">
             {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.compro.tambah.menu') }}"> Tambah Menu </a></li> --}}
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider.slider') }}"> Slider </a></li>
@@ -122,7 +122,9 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.pertanyaan.pertanyaan') }}"> Pertanyaan </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.hubungiKami.hubungiKami') }}"> Hubungi Kami </a></li>
           </ul>
-        </div>
+        </div> --}}
+
+        
       </li>
 
 
