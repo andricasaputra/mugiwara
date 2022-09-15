@@ -20,14 +20,13 @@ use App\Http\Controllers\MitraGabungController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
-<<<<<<< HEAD
-=======
+
+
 // Route::get('/', function () {
 //     return redirect(route('login'));
 // });
 
 
->>>>>>> 207ae9e5d5ec680c3cf91d3de22f21ae73ba188d
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
