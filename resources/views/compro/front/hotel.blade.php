@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://capsuleinn.id/assets/css/vertical-layout-light/style.css">
@@ -15,7 +16,7 @@
 
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{ route('front') }}">
 						<img src="{{ asset('/assets/img/logo.png') }}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +29,7 @@
 							<a class="nav-link active" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="/">Masuk</a>
+                            <a class="nav-link only" href="{{route('login')}}">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -55,10 +56,10 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="card">
-							<form action="" method="POST">
+							<form action="javascript:void(0)" method="POST">
 								<h2>Cek Ketersedian Kamar</h2>
-								<input type="text" name="kapan" placeholder="Cari Kamar">
-								<button class="btn" type="button">Cari Kamar</button>
+								<input type="date" name="kapan" id="kapan" placeholder="Cari Kamar">
+								<button class="btn" onclick="cariAvailable()" type="button">Cari Kamar</button>
 							</form>
 						</div>
 					</div>
@@ -73,19 +74,18 @@
 					<div class="col-lg-3">
 						<h3>Kategori</h3>
 						<ul>
+
                             @foreach ($types as $item)
 
-                                <li><button type="button" class="btn">{{ $item->name }}</button></li>
+                                <li><button type="button" onclick="cariHotelKategori('{{ $item->name }}')" class="btn">{{ $item->name }}</button></li>
 
                             @endforeach
 						</ul>
 					</div>
-					<div class="col-lg-9 hotels">
+					<div class="col-lg-9 hotels" id="card">
 
                         @foreach ($hotels as $item)
-
-
-						<div class="card">
+						<div class="card" id="card">
                             <div class="card-img">
 								<img class="img-fluid" src="{{ asset('storage/rooms/' .  $item->image) }}">
 							</div>
@@ -95,7 +95,7 @@
 									@for ($i = 0; $i < $item->rating; $i++)
                                         <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
                                     @endfor
-									<span>{{ $item->rating }}</span>
+									{{-- <span> {{ $item->rating }}</span> --}}
 								</div>
 								<h3>{{ $item->nama_hotel }}</h3>
 							</div>
@@ -205,5 +205,108 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script src="{{ asset('compro/assets/js/main.js') }}"></script>
+
+    <script>
+
+        function cariHotelKategori(e) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {"cari": e},
+                url: "{{ route('cariHotelKategori') }}",
+                success : function(res){
+                    if(res.data == 'ada') {
+                        let hotels = res.hotels
+                        var jml_start = "";
+                        for(let i = 0; i < hotels.length; i++){
+                            jml_start += hotels[i].rating
+                        }
+
+
+                        console.log(jml_start)
+                        let html_umar = ""
+                        for (let index = 0; index < 4; index++) {
+                            html_umar += `<img class="start" src="./assets/img/bintang.png">`
+
+                        }
+                        var html = "";
+                        let start = ""
+                        for(let i = 0; i < hotels.length; i++){
+                            for(let j = 0; j < hotels[i].rating; j++) {
+                               start += `<img class="start" src="./assets/img/bintang.png">`
+                            }
+                            html += `<div class="card">
+							<div class="card-img">
+								<img class="card-img-top" src="storage/rooms/`+ hotels[i].image +`">
+							</div>
+							<div class="card-body">
+								<div class="starts">
+                                    <span class="badge badge-secondary">`+ hotels[i].name +`</span>
+                                    `+start+`
+									<span>`+ hotels[0].rating +`</span>
+								</div>
+								<h3>`+ hotels[0].nama_hotel +`</h3>
+							</div>
+						</div>`
+                            console.log(hotels[i])
+                        }
+                        $('#card').html(html)
+                    }
+                }
+            });
+
+        }
+
+        function cariAvailable() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let kapan = $('#kapan').val();
+            var html = "";
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {"kapan": kapan},
+                url: "{{ route('cariAvailable') }}",
+                success : function(res){
+                    let room_availables = res.room_availables
+                    let start = ""
+                    for(let i = 0; i < room_availables.length; i++){
+                        for(let j = 0; j < hotels[i].rating; j++) {
+                            start += `<img class="start" src="./assets/img/bintang.png">`
+                        }
+                        html += `<div class="card">
+							<div class="card-img">
+								<img class="card-img-top" src="storage/rooms/`+ room_availables[i].image +`">
+							</div>
+							<div class="card-body">
+								<div class="starts">
+									<span class="badge badge-secondary">`+ room_availables[i].name +`</span>
+                                    `+ start +`
+									<span>`+ room_availables[0].rating +`</span>
+								</div>
+								<h3>`+ room_availables[0].rating +`</h3>
+							</div>
+						</div>`
+                    }
+                    $('#card').html(html)
+
+                }
+            });
+        }
+
+    </script>
 </body>
 </html>

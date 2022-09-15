@@ -16,7 +16,7 @@
 
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{ route('front') }}">
 						<img src="{{ asset('/assets/img/logo.png') }}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="/">Masuk</a>
+                            <a class="nav-link only" href="{{route('login')}}">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -105,7 +105,21 @@
 				<div class="row justify-content-center align-items-center">
 					<div class="col-lg-6 text-center">
 						<h1 class="display-4">Awali perubahan dari sekarang</h1>
-						<a class="btn" href="{{ route('gabung') }}">Gabung Sekarang</a>
+						<a class="btn"
+
+                            @foreach ($tombols as $item)
+                                @php
+                                    $status = $item->status
+                                @endphp
+                                @if ($status == "off")
+                                    href="javascript:void(0)"
+                                @endif
+                                @if ($status == "on")
+                                    href="{{ route('gabung') }}"
+                                @endif
+                            @endforeach
+
+                        href="{{ route('gabung') }}">Gabung Sekarang</a>
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,7 @@
 
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{ route('front') }}">
                         <img src="{{ asset('images/compro/sosmed/logo.png')}}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="/">Masuk</a>
+                            <a class="nav-link only" href="{{route('login')}}">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -207,21 +207,26 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-4">
-						<a href="./read.html">
+
+                    @foreach ($posts as $item)
+
+					<div class="col-lg-4 mt-3">
+                        <a href="read_berita/{{$item->id}}">
 							<div class="card">
-								<div class="card-img-top">
-									<img class="img-fluid" src="./assets/img/berita1.png">
+                                <div class="card-img-top">
+                                    <img class="img-fluid" src="{{ asset('storage/posts/' .  $item->image) }}">
 								</div>
 								<div class="card-body">
-									<h5>Penataan kamar agar terlihat rapi dan menarik</h5>
-									<p>Apa saja trik menata kamar tidur yang bisa kamu terapkan agar kamarmu selalu tampil rapi dan sempurna? Simak artikel </p>
+									<h5>{{ $item->title }}</h5>
+									<p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">{{ $item->descriptionbody }}</p>
 								</div>
 							</div>
 						</a>
 					</div>
 
-					<div class="col-lg-4">
+                    @endforeach
+
+					{{-- <div class="col-lg-4">
 						<a href="./read.html">
 							<div class="card">
 								<div class="card-img-top">
@@ -247,7 +252,7 @@
 								</div>
 							</div>
 						</a>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>
