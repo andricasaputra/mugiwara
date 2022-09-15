@@ -20,7 +20,7 @@ class ProductUserController extends Controller
 
     public function redeemTypeList($redeem_type)
     {
-        $redeem = ProductUser::with('image')->where('redeem_type', $redeem_type)->first();
+        $redeem = ProductUser::with('image')->where('redeem_type', $redeem_type)->firstOrFail();
         
         return view('admin.product.redeem_list.create_redeem_list_type', compact('redeem'));
     }
@@ -35,6 +35,13 @@ class ProductUserController extends Controller
             $redeem = ProductUser::where('redeem_type', $redeem_type)->first();
             return view('admin.product.redeem_list.uploads.devlivery', compact('redeem'));
         }
+    }
+
+    public function detail($product)
+    {
+        $redeem = ProductUser::findOrFail($product);
+        
+        return view('admin.product.redeem_list.detail')->withProduct($redeem->load(['user', 'product.image', 'image']));
     }
 
     public function update(Request $request)

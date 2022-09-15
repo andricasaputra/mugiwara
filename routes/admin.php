@@ -177,7 +177,9 @@ Route::name('admin.')->group(function() {
         Route::delete('', [ProductController::class, 'delete'])->name('delete');
 
         Route::get('redeem/lists', [ProductUserController::class, 'redeemList'])->name('redeem.list');
-        Route::get('redeem/list/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.detail');
+        Route::get('redeem/list/edit/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.edit');
+        Route::get('redeem/list/detail/{prodcut_id}', [ProductUserController::class, 'detail'])->name('redeem.list.detail');
+        Route::get('redeem/list/{redem_type}', [ProductUserController::class, 'redeemTypeList'])->name('redeem.list.edit');
         Route::get('create/redeem/list/{redem_type}', [ProductUserController::class, 'edit'])->name('redeem.list.upload.page');
         Route::post('create/redeem/list/', [ProductUserController::class, 'update'])->name('redeem.list.update');
         Route::delete('create/redeem/list/', [ProductUserController::class, 'delete'])->name('redeem.list.delete');

@@ -37,10 +37,18 @@
                         <input type="file" name="photo_delivery" class="form-control">
                     @endif
 
-                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    <div class="d-flex justify-content-center">
+
+                        <a href="{{ route('admin.product.redeem.list') }}" class="btn btn-sm btn-danger mt-3 mr-3">Kembali</a>
+
+                        <button type="submit" class="btn btn-sm btn-primary mt-3">Submit</button>
+                        
+                    </div>
+
+                    
                 </form>
                
-                <a href="{{ route('admin.product.redeem.list') }}" class="btn btn-sm btn-danger">Kembali</a>
+                
             </div>
         </div>
     </div>
