@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tambah_sliders', function (Blueprint $table) {
+        Schema::create('tombols', function (Blueprint $table) {
             $table->id();
-            $table->string('gambar');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tambah_sliders');
+        Schema::dropIfExists('tombols');
     }
 };

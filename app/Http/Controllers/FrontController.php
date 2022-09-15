@@ -14,17 +14,20 @@ use App\Models\Pertanyaan;
 use App\Models\Post;
 use App\Models\ProsesPendaftaran;
 use App\Models\Review;
+use App\Models\Room;
 use App\Models\Slider;
 use App\Models\SliderFitur;
 use App\Models\Sosmed;
 use App\Models\Syarat;
 use App\Models\TambahSlider;
 use App\Models\TeamHeader;
+use App\Models\Tombol;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\VisiMisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\For_;
 
 use function PHPSTORM_META\type;
 
@@ -49,7 +52,7 @@ class FrontController extends Controller
                     ->join('accounts', 'accounts.user_id', '=', 'users.id')
                     ->select('*')
                     ->get();
-        $posts = Post::all();
+        $posts = Post::paginate(3);
 
         return view('compro.front.index', [
             'sliders' => $sliders,
@@ -81,6 +84,7 @@ class FrontController extends Controller
         ->join('room_images', 'room_images.image_id', '=', 'images.id')
         ->select('images.image')
         ->get();
+        $tombols = Tombol::all();
         return view('compro.front.mitra', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
@@ -89,6 +93,7 @@ class FrontController extends Controller
             'prosesPendaftarans' => $prosesPendaftarans,
             'syarats' => $syarats,
             'images_rooms' => $images_rooms,
+            'tombols' => $tombols,
         ], compact('unduhs'));
     }
 
@@ -111,9 +116,18 @@ class FrontController extends Controller
                     ->leftjoin('images', 'images.id', '=', 'room_images.image_id')
                     ->join('types', 'types.id', '=', 'rooms.type_id')
                     ->select('accomodations.name as nama_hotel', 'reviews.rating', 'images.image', 'types.name', 'rooms.id')
+                    // ->where('rooms.status', '=', 'available')
                     ->get();
-        $types = Type::all();
-        return view('compro.front.hotel', [
+        $types = DB::table('reviews')
+                    ->join('rooms', 'rooms.id', '=', 'reviews.reviewable_id')
+                    ->leftjoin('room_images', 'room_images.room_id', '=', 'rooms.id')
+                    ->leftjoin('accomodations', 'accomodations.id', '=', 'rooms.accomodation_id')
+                    ->leftjoin('images', 'images.id', '=', 'room_images.image_id')
+                    ->join('types', 'types.id', '=', 'rooms.type_id')
+                    ->select('types.name')
+                    ->groupBy('types.name')
+                    ->get();
+            return view('compro.front.hotel', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
@@ -121,6 +135,27 @@ class FrontController extends Controller
             'hotels' => $hotels,
             'types' => $types,
         ]);
+    }
+
+    public function cariHotelKategori(Request $request) {
+
+        $cari = $request->get('cari');
+        $hotels = DB::table('reviews')
+                    ->join('rooms', 'rooms.id', '=', 'reviews.reviewable_id')
+                    ->leftjoin('room_images', 'room_images.room_id', '=', 'rooms.id')
+                    ->leftjoin('accomodations', 'accomodations.id', '=', 'rooms.accomodation_id')
+                    ->leftjoin('images', 'images.id', '=', 'room_images.image_id')
+                    ->join('types', 'types.id', '=', 'rooms.type_id')
+                    ->select('accomodations.name as nama_hotel', 'reviews.rating', 'images.image', 'types.name', 'rooms.id')
+                    // ->where('rooms.status', '=', 'available')
+                    ->where('types.name', '=', "$cari")
+                    ->get();
+        $data = [
+            'data' => 'ada',
+            'hotels' => $hotels,
+        ];
+
+        return response()->json($data);
     }
 
     public function tentang() {
@@ -210,12 +245,38 @@ class FrontController extends Controller
         $alamats = Alamat::all();
         $sosmeds = Sosmed::all();
         $kontaks = Kontak::all();
+        $lains = Post::paginate(3);
         return view('compro.front.read_berita', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'posts' => $posts,
+            'lains' => $lains,
         ]);
+    }
+
+    public function cariAvailable(Request $request, Room $room) {
+        $kapan = $request->get('kapan');
+
+
+        $rooms_available = $hotels = DB::table('reviews')
+                        ->join('rooms', 'rooms.id', '=', 'reviews.reviewable_id')
+                        ->leftjoin('room_images', 'room_images.room_id', '=', 'rooms.id')
+                        ->leftjoin('accomodations', 'accomodations.id', '=', 'rooms.accomodation_id')
+                        ->leftjoin('images', 'images.id', '=', 'room_images.image_id')
+                        ->join('types', 'types.id', '=', 'rooms.type_id')
+                        ->select('accomodations.name as nama_hotel', 'reviews.rating', 'images.image', 'types.name', 'rooms.id')
+                        // ->where('rooms.status', '=', 'available')
+                        ->get();
+
+        $data = [
+            'data' => 'ada',
+            'room_availables' => $rooms_available,
+        ];
+
+
+
+        return response()->json($data);
     }
 
 }

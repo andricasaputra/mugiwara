@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
@@ -141,6 +140,8 @@ Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitra
 
 
 Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
+Route::post('cari_hotel_kategori/', [FrontController::class, 'cariHotelKategori'])->name('cariHotelKategori');
+Route::post('cariAvailable/', [FrontController::class, 'cariAvailable'])->name('cariAvailable');
 
 Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
 

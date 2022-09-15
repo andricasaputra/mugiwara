@@ -15,7 +15,7 @@
 
 		<nav class="navbar navbar-expand-lg fixed-top">
 				<div class="container nav-flay">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{ route('front') }}">
                         <img src="{{ asset('images/compro/sosmed/logo.png')}}">
 					</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link" href="{{ route('bantuan') }}">Bantuan</a>
-							<a class="nav-link only" href="/">Masuk</a>
+                            <a class="nav-link only" href="{{route('login')}}">Masuk</a>
 						</div>
 					</div>
 				</div>
@@ -210,7 +210,7 @@
 
                     @foreach ($posts as $item)
 
-					<div class="col-lg-4">
+					<div class="col-lg-4 mt-3">
                         <a href="read_berita/{{$item->id}}">
 							<div class="card">
                                 <div class="card-img-top">
@@ -218,7 +218,7 @@
 								</div>
 								<div class="card-body">
 									<h5>{{ $item->title }}</h5>
-									<p>{{ $item->body }}</p>
+									<p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">{{ $item->descriptionbody }}</p>
 								</div>
 							</div>
 						</a>
@@ -226,7 +226,7 @@
 
                     @endforeach
 
-					<div class="col-lg-4">
+					{{-- <div class="col-lg-4">
 						<a href="./read.html">
 							<div class="card">
 								<div class="card-img-top">
@@ -252,7 +252,7 @@
 								</div>
 							</div>
 						</a>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</section>

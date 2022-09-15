@@ -57,7 +57,7 @@ class ManajemenMenuController extends Controller
                 $submenu = [];
 
                 foreach ($request->submenu as $key => $sub) {
-                   
+
                     array_push($submenu, [
                         'manajeman_menu_id' => $menu->id,
                         'name' => $sub,
@@ -102,16 +102,16 @@ class ManajemenMenuController extends Controller
             DB::commit();
 
             return redirect(route('admin.menus.index'))->withSuccess('Berhasil Tambah Setting Manajemen Menu');
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
 
             dd($e);
-            
+
         }
 
-        
+
     }
 
     public function edit($id)
@@ -157,7 +157,7 @@ class ManajemenMenuController extends Controller
                 $submenu = [];
 
                 foreach ($request->submenu as $key => $sub) {
-                   
+
                     array_push($submenu, [
                         'manajeman_menu_id' => $menu->id,
                         'name' => $sub,
@@ -200,7 +200,7 @@ class ManajemenMenuController extends Controller
                         'menu_id' => $menu->id,
                         'role_id' => $r
                     ]);
-                    
+
                 } else{
 
                     ManajemanMenuRole::whereNull('role_id')->first()->delete();
@@ -223,16 +223,16 @@ class ManajemenMenuController extends Controller
             DB::commit();
 
            return redirect(route('admin.menus.index'))->withSuccess('Berhasil Ubah Setting Manajemen Menu');
-            
+
         } catch (\Exception $e) {
 
             DB::rollback();
 
             dd($e);
-            
+
         }
 
-        
+
     }
 
     public function destroy($id)

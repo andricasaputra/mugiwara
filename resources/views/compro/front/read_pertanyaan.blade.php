@@ -16,7 +16,7 @@
 
 		<nav class="navbar navbar-expand-lg fixed-top">
 			<div class="container nav-flay">
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="{{ route('front') }}">
 					<img src="{{ asset('compro/assets//img/logo.png') }}">
 
 				</a>
@@ -30,7 +30,7 @@
 							<a class="nav-link" href="{{ route('hotel') }}">Hotel</a>
 							<a class="nav-link" href="{{ route('tentang') }}">Tentang Kami</a>
 							<a class="nav-link active" href="{{ route('bantuan') }}">Bantuan</a>
-						<a class="nav-link only" href="/">Masuk</a>
+                            <a class="nav-link only" href="{{route('login')}}">Masuk</a>
 					</div>
 				</div>
 			</div>
