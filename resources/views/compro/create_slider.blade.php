@@ -16,20 +16,6 @@
 
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
-                            <label for="heading">Heading</label>
-                            <input type="text" class="form-control" name="heading">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="form-group">
                             <label for="gambar">Gambar</label>
                             <input type="file" class="form-control" name="gambar">
                         </div>

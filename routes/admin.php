@@ -53,6 +53,7 @@ use App\Http\Controllers\SyaratController;
 use App\Http\Controllers\TambahMenuController;
 use App\Http\Controllers\TambahSliderController;
 use App\Http\Controllers\TeamHeaderController;
+use App\Http\Controllers\TombolController;
 use App\Http\Controllers\VisiMisiController;
 use App\Models\documentUnduh;
 use App\Models\KeteranganSlider;
@@ -459,6 +460,8 @@ Route::name('admin.')->group(function() {
         Route::get  ('delete/{id}', [HubungiKamiController::class, 'destroy'])->name('delete.hubungiKami');
 
     });
+
+    Route::get('tombol', [TombolController::class, 'update'])->name('tombol');
 
     require __DIR__.'/setting.php';
 

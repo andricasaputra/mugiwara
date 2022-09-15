@@ -15,9 +15,19 @@ use App\Http\Controllers\Employee\RefferalController;
 use App\Http\Controllers\Employee\RefundController;
 use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\MitraGabungController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
+<<<<<<< HEAD
+=======
+// Route::get('/', function () {
+//     return redirect(route('login'));
+// });
+
+
+>>>>>>> 207ae9e5d5ec680c3cf91d3de22f21ae73ba188d
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
@@ -120,6 +130,34 @@ Route::middleware(['verified', 'panel'])->group(function(){
 
 
 });
+
+Route::get('/', [FrontController::class, 'index'])->name('front');
+Route::get('jadi_mitra/', [FrontController::class, 'jadi_mitra'])->name('jadi.mitra');
+Route::get('hotel/', [FrontController::class, 'hotel'])->name('hotel');
+Route::get('tentang_kami/', [FrontController::class, 'tentang'])->name('tentang');
+Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
+Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
+Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
+Route::get('read_berita/{id}', [FrontController::class, 'readBerita'])->name('readBerita');
+Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitraGabung');
+
+
+Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
+Route::post('cari_hotel_kategori/', [FrontController::class, 'cariHotelKategori'])->name('cariHotelKategori');
+Route::post('cariAvailable/', [FrontController::class, 'cariAvailable'])->name('cariAvailable');
+
+Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
+
+
+// Route::prefix('hubungiKami')->name('hubungiKami.')->group(function() {
+    // Route::get('', [HubungiKamiController::class, 'index'])->name('hubungiKami');
+    // Route::get('create', [HubungiKamiController::class, 'create'])->name('create.hubungiKami');
+    // Route::get('edit/{id}', [HubungiKamiController::class, 'edit'])->name('edit.hubungiKami');
+    Route::post('hub', [HubungiKamiController::class, 'store'])->name('store.hubungi');
+    // Route::post('update/{id}', [HubungiKamiController::class, 'update'])->name('update.hubungiKami');
+    // Route::get  ('delete/{id}', [HubungiKamiController::class, 'destroy'])->name('delete.hubungiKami');
+
+    // });
 
 require __DIR__.'/auth.php';
 

@@ -15,8 +15,6 @@ return new class extends Migration
     {
         Schema::create('tambah_sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('heading');
-            $table->string('keterangan');
             $table->string('gambar');
             $table->timestamps();
         });

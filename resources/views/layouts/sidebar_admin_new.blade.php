@@ -86,6 +86,8 @@
           <i class="menu-arrow"></i>
         </a>
 
+
+
         <div id="compro" class="collapse" >
           <ul class="nav flex-column sub-menu">
             {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.compro.tambah.menu') }}"> Tambah Menu </a></li> --}}
@@ -97,6 +99,17 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.keteranganFitur.keteranganFitur') }}"> Keterangan Fitur </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderFitur.sliderFitur') }}"> Slider Fitur </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitraGabung.mitraGabung') }}"> Mitra Gabung </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.tombol') }}"> Recruitment
+
+                @php
+                use App\Models\Tombol;
+                    $tombols = Tombol::all();
+                    foreach ($tombols as $tombol) {
+                        echo $tombol["status"];
+                    }
+                @endphp
+
+            </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sosmed.sosmed') }}"> Sosmed Footer </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.alamat.alamat') }}"> Alamat Footer </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li>
