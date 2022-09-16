@@ -140,6 +140,7 @@ class FrontController extends Controller
         $playstores = PlayStoreLink::latest()->get();
         $appstores = AppStoreLink::latest()->get();
         $tombols = Tombol::latest()->get();
+        // $ratings = select sum(rating)/count(id) from reviews GROUP by order_id;
 
             return view('compro.front.hotel', [
             'alamats' => $alamats,
@@ -167,10 +168,12 @@ class FrontController extends Controller
                     // ->where('rooms.status', '=', 'available')
                     ->where('types.name', '=', "$cari")
                     ->get();
+        // $ratings = Review::select('rating')->get();
 
         $data = [
             'data' => 'ada',
             'hotels' => $hotels,
+            // 'ratings' => $ratings,
         ];
 
         return response()->json($data);

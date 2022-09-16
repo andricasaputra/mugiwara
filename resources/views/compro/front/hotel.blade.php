@@ -48,31 +48,32 @@
                 </ul>
             </div>
             <div class="col-lg-9 hotels" id="card">
-                @foreach ($hotels as $item)
-                <div class="card">
-                    <div class="card-img">
-                        <img class="card-img-top" src="{{ asset('storage/rooms/' .  $item->image) }}">
-                    </div>
-                    <div class="btn-action mt-2" style="margin-left: 60px">
-                        @foreach ($playstores as $items)
-                            <a href="{{ $items->url }}" type="button" class="btn btn-sm mx-2"><img width="10" src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-                        @endforeach
-                        @foreach ($appstores as $items)
-                            <a href="{{ $items->url }}" type="button" class="btn btn-sm mx-2"><img width="10" src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-                        @endforeach
-                </div>
 
-                    <div class="card-body">
-                        <div class="starts">
-                            <span class="badge badge-secondary">{{ $item->name }}</span>
-                                @for ($i = 0; $i < $item->rating; $i++)
-                                    <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
-                                @endfor
-                            <span>{{ $item->rating }}</span>
+                {{-- ============ --}}
+                @foreach ($hotels as $item)
+                    <div class="card">
+                        <div class="card-img">
+                            <img class="card-img-top" src="{{ asset('storage/rooms/' .  $item->image) }}">
+                            <div class="link-action">
+                                @foreach ($playstores as $items)
+                                    <a href="{{ $items->url }}" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+                                @endforeach
+                                @foreach ($playstores as $items)
+                                    <a href="{{ $items->url }}" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+                                @endforeach
+                            </div>
                         </div>
-                        <h3>{{ $item->nama_hotel }}</h3>
+                        <div class="card-body">
+                            <div class="starts">
+                                <span class="badge badge-secondary">{{ $item->name }}</span>
+                                @for ($i = 0; $i < $item->rating; $i++)
+                                    <img class="start" src="./assets/img/bintang.png">
+                                @endfor
+                                <span>{{ $item->rating }}</span>
+                            </div>
+                            <h3>{{ $item->nama_hotel }}</h3>
+                        </div>
                     </div>
-                </div>
                 @endforeach
 
                 {{-- <div class="card">
@@ -151,10 +152,11 @@
             success : function(res){
                 if(res.data == 'ada') {
                     let hotels = res.hotels
+                    let ratings = res.ratings
                     var jml_start = "";
-                    for(let i = 0; i < hotels.length; i++){
-                        jml_start += hotels[i].rating
-                    }
+                    var rating = "";
+
+
 
 
                     console.log(jml_start)
@@ -166,31 +168,36 @@
                     var html = "";
                     let start = ""
                     for(let i = 0; i < hotels.length; i++){
-                        for(let j = 0; j < hotels[i].rating; j++) {
-                           start += `<img class="start" src="./assets/img/bintang.png">`
+                        for(let j = 0; j < ratings.length; j++){
+                            rating += `<img class="start" src="./assets/img/bintang.png">`
                         }
                         html += `<div class="card">
-                        <div class="card-img">
-                            <img class="card-img-top" src="storage/rooms/`+ hotels[i].image +`">
+                    <div class="card-img">
+                        <img class="card-img-top" src="storage/rooms/`+ hotels[i].image +`">
+                    </div>
+                    <div class="btn-action mt-2" style="margin-left: 60px">
+                        @foreach ($playstores as $items)
+                            <a href="{{ $items->url }}" type="button" class="btn btn-sm btn-redirect"><img width="10" src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+                        @endforeach
+                        @foreach ($appstores as $items)
+                            <a href="{{ $items->url }}" type="button" class="btn btn-sm btn-redirect"><img width="10" src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+                        @endforeach
+                </div>
 
-                            <div class="btn-action mt-2 " style="margin-left: 60px">
-                                    @foreach ($playstores as $items)
-                                        <a href="{{ $items->url }}" type="button" class="btn btn-sm mx-2"><img width="10" src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-                                    @endforeach
-                                    @foreach ($appstores as $items)
-                                        <a href="{{ $items->url }}" type="button" class="btn btn-sm mx-2"><img width="10" src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-                                    @endforeach
-                            </div>
+                    <div class="card-body">
+                        <div class="starts">
+                            <span class="badge badge-secondary">`+ hotels[i].name +`</span>
+                                @for ($i = 0; $i < $item->rating; $i++)
+                                    <img class="img-rating" src="{{ asset('assets/img/bintang.png') }}">
+                                @endfor
+                            <span>`+ hotels[0].rating +`</span>
                         </div>
-                        <div class="card-body">
-                            <div class="starts">
-                                <span class="badge badge-secondary">`+ hotels[i].name +`</span>
-                                `+start+`
-                                <span>`+ hotels[0].rating +`</span>
-                            </div>
-                            <h3>`+ hotels[0].nama_hotel +`</h3>
-                        </div>
-                    </div>`
+                        <h3>`+ hotels[0].nama_hotel +`</h3>
+                    </div>
+                </div>`
+
+
+
                     }
                     $('#card').html(html)
                 }

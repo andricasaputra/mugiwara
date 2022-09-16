@@ -452,7 +452,7 @@ dl, ol, ul {
   margin-bottom: 15px;
   width: 80px;
   height: 80px;
-  border-radius: 50px;
+  border-radius: 50px;  
 }
 .ratings .container .row .card .card-body h5{
   margin-bottom: 5px;
@@ -683,8 +683,39 @@ dl, ol, ul {
   color: var(--hsr-primary);
   margin-bottom: 25px;
 }
-.list-hotel .card .card-img-top{
+.list-hotel .card{
+  position: relative;
   border-radius: 20px;
+  overflow: hidden;
+}
+.list-hotel .hotels .card:hover .link-action{
+  background-color: rgba(0, 0, 0, .6);
+}
+.list-hotel .hotels .card:hover .link-action .btn-redirect{
+  transform: none;
+}
+.list-hotel .card .card-img{
+  position: relative;
+}
+.list-hotel .hotels .card .link-action{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+}
+.list-hotel .hotels .card .link-action .btn-redirect{
+  transform: translatey(100vh);
+  transition: all .4s ease-in-out;
+}
+.list-hotel .hotels .card .link-action .btn-redirect img{
+  width: 25px;
 }
 .list-hotel .card .card-body{
   padding-left: 0;
@@ -704,6 +735,7 @@ dl, ol, ul {
   flex-flow: wrap;
   column-gap: 20px;
   row-gap: 0;
+  justify-content: center;
 }
 .list-hotel .hotels .card{
   width: calc(50% - 20px) !important;
