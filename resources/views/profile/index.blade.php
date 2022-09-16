@@ -11,30 +11,19 @@
 						<h1>CapsuleInn, Hotel dan penginapan</h1>
 						<p>CapsuleInn adalah sebuah aplikasi atau platform yang digunakan untuk melakukan pemesanan hotel dengan mudah. CapsuleInn menawarkan kemudahan mencari hotel dan memberikan banyak fasilitas untuk mendukung kenyamanan  pelanggan.</p>
 						<div class="btn-action">
-							<button type="button" class="btn mx-lg-2"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></button>
-							<button type="button" class="btn mx-lg-2"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></button>
+							<a id="appstore"  href="#" class="btn mx-lg-2"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+							<a id="playstore" href="#" class="btn mx-lg-2"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>a
 						</div>
 					</div>
 					<div class="col-lg-5">
 						<div class="swiper mySwiper">
 							<div class="swiper-wrapper">
 								@foreach($sliders as $slider)
+
 									<div class="swiper-slide">
-										<img class="img-fluid" src="{{ asset('images/') }}" />
+										<img class="img-fluid" src="{{ asset('images/compro/slider/' . $slider->gambar ) }}" />
 									</div>
 								@endforeach
-								{{-- <div class="swiper-slide">
-									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-2.jpg" />
-								</div>
-								<div class="swiper-slide">
-									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-3.jpg" />
-								</div>
-								<div class="swiper-slide">
-									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-4.jpg" />
-								</div>
-								<div class="swiper-slide">
-									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-5.jpg" />
-								</div> --}}
 							</div>
 						</div>
 					</div>

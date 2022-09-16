@@ -182,8 +182,8 @@ Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewal
 
 Route::post('cb/payment/va/status', [XenditCallbackController::class, 'virtualAccount']);
 
-Route::get('playstore/link', [PlayStoreController::class, 'index']);
-Route::get('appstore/link', [AppStoreController::class, 'index']);
+Route::get('playstore/link', [PlayStoreController::class, 'index'])->name('playstorelink');
+Route::get('appstore/link', [AppStoreController::class, 'index'])->name('appstorelink');
 
 
 

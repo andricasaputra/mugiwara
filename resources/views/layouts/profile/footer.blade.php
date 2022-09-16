@@ -4,5 +4,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script src="{{ asset('assets/profile/js/main.js') }}"></script>
+<script>
+
+	function getPlayStore(){
+
+		$.ajax({
+			url : '{{ route('playstorelink') }}',
+			success: function({ data }){
+				window.open(data.url)
+			}
+		});
+	}
+
+	function getAppStore(){
+
+		$.ajax({
+			url : '{{ route('appstorelink') }}',
+			success: function({ data }){
+				window.open(data.url)
+			}
+		});
+	}
+
+	$('#playstore').click(function(e){
+		e.preventDefault();
+		getPlayStore();
+	});
+
+
+	$('#appstore').click(function(e){
+		e.preventDefault();
+		getAppStore();
+	});
+</script>
 </body>
 </html>

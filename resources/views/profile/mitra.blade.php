@@ -66,7 +66,7 @@
 				<div class="row justify-content-center align-items-center">
 					<div class="col-lg-6 text-center">
 						<h1 class="display-4">Awali perubahan dari sekarang</h1>
-						<a class="btn" href="./register.html">Gabung Sekarang</a>
+						<a class="btn" href="{{ route('profile.register') }}">Gabung Sekarang</a>
 					</div>
 				</div>
 			</div>

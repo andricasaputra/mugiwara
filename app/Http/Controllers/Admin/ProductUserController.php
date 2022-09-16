@@ -65,6 +65,8 @@ class ProductUserController extends Controller
                 $redeem->jenis_pengiriman = $request->jenis_pengiriman;
                 $redeem->save();
 
+                DB::commit();
+
             }elseif($request->photo_delivery && $request->hasFile('photo_delivery')){
 
                 $upload = new PhotoDeliveryUploadService;
@@ -79,9 +81,9 @@ class ProductUserController extends Controller
                 $redeem->status = $request->status;
                 $redeem->jenis_pengiriman = $request->jenis_pengiriman;
                 $redeem->save();
-            }
 
-            DB::commit();
+                DB::commit();
+            }
 
             return redirect()->route('admin.product.redeem.list')->with('success', 'Berhasil Perbarui Data');
             

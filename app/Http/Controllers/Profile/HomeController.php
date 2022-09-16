@@ -12,20 +12,8 @@ class HomeController extends Controller
     {
         $sliders = TambahSlider::all();
 
-        $slideimages = [];
-        $headings = [];
-        $descriptions = [];
-
-        foreach ($sliders as $key => $slider) {
-            $slideimages[] = $slider->gambar;
-            $headings[] = $slider->heading;
-            $descriptions[] = $slider->keterangan;
-        }
-
         return view('profile.index')
-            ->withSliders($slideimages)
-             ->withHeadingss($headings)
-              ->withDescriptions($descriptions);
+            ->withSliders($sliders);
     }
 
     public function mitra()

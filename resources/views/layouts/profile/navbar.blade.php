@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container nav-flay">
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="{{ route('profile.home') }}">
 					<img src="./assets/img/logo.png">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
