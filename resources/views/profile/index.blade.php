@@ -18,9 +18,11 @@
 					<div class="col-lg-5">
 						<div class="swiper mySwiper">
 							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<img class="img-fluid" src="./assets/img/avatar.png" />
-								</div>
+								@foreach($sliders as $slider)
+									<div class="swiper-slide">
+										<img class="img-fluid" src="{{ asset('images/') }}" />
+									</div>
+								@endforeach
 								{{-- <div class="swiper-slide">
 									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-2.jpg" />
 								</div>
