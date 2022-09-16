@@ -59,8 +59,8 @@ class ProductUserController extends Controller
                     'image' => $filename
                 ]);
 
-                $redeem->transaction_number = $request->no_resi;
-                $redeem->no_resi = $request->no_resi;
+                $redeem->transaction_number = $redeem->transaction_number ?? Random::generate(10, 1234567890);
+                $redeem->no_resi = $redeem->transaction_number;
                 $redeem->status = $request->status;
                 $redeem->jenis_pengiriman = $request->jenis_pengiriman;
                 $redeem->save();
