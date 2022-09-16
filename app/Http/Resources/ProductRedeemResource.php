@@ -16,7 +16,7 @@ class ProductRedeemResource extends JsonResource
     {
         return [
             'transaction_number' => $this->transaction_number,
-            'status' => $this->status == 1 ? 'dikirim' : 'diambil ditempat',
+            'status' => $this->status,
             'jenis_pengiriman' => $this->jenis_pengiriman,
             'user' => [
                 'id' => $this->user->id,
