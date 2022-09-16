@@ -168,12 +168,12 @@ class FrontController extends Controller
                     // ->where('rooms.status', '=', 'available')
                     ->where('types.name', '=', "$cari")
                     ->get();
-        // $ratings = Review::select('rating')->get();
+        $ratings = Review::select('rating')->get();
 
         $data = [
             'data' => 'ada',
             'hotels' => $hotels,
-            // 'ratings' => $ratings,
+            'ratings' => $ratings,
         ];
 
         return response()->json($data);
