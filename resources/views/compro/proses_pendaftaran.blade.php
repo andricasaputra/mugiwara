@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
                 <h4 class="card-title align-items-center my-auto"> Proses Pendaftaran</h4>
-                <a href="{{ route('admin.prosesPendaftaran.create.prosesPendaftaran') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Kontak</a>
+                <a href="{{ route('admin.prosesPendaftaran.create.prosesPendaftaran') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Proses Pendaftaran</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
