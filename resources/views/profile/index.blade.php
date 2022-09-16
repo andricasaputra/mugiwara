@@ -12,7 +12,7 @@
 						<p>CapsuleInn adalah sebuah aplikasi atau platform yang digunakan untuk melakukan pemesanan hotel dengan mudah. CapsuleInn menawarkan kemudahan mencari hotel dan memberikan banyak fasilitas untuk mendukung kenyamanan  pelanggan.</p>
 						<div class="btn-action">
 							<a id="appstore"  href="#" class="btn mx-lg-2"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-							<a id="playstore" href="#" class="btn mx-lg-2"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>a
+							<a id="playstore" href="#" class="btn mx-lg-2"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
 						</div>
 					</div>
 					<div class="col-lg-5">
