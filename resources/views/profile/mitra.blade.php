@@ -76,4 +76,4 @@
 
 	</div>
 
-	@include('layouts.profile.header')
+	@include('layouts.profile.footer')

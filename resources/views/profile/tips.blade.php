@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="./assets/css/main.css">
-	<link rel="stylesheet" href="./assets/css/responsiv.css">
-	<title>Tips</title>
-</head>
-<body>
+@include('layouts.profile.header')
 
 	<div class="page-wrapper">
 
@@ -105,53 +93,8 @@
 			</div>
 		</section>
 
-		<footer id="footer" class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6">
-						<img class="img-fluid" src="./assets/img/logo.png">
-						<p>Jl. P. Antasari, Kedamaian, Kec. Kedamaian, Kota Bandar Lampung, Lampung 35122</p>
-					</div>
-					<div class="col-lg-2">
-						<h6 class="footer-title">Halaman</h6>
-						<ul>
-							<li>Beranda</li>
-							<li>Jadi Mitra</li>
-							<li>Hotel</li>
-							<li>Tentang Kami</li>
-							<li>Bantuan</li>
-						</ul>
-					</div>
-					<div class="col-lg-4">
-						<h6 class="footer-title">Kontak</h6>
-						<ul>
-							<li>+62 853-7772-5030</li>
-							<li>developercapsuleinn@gmail.com</li>
-						</ul>
-
-						<h6 class="footer-title mt-5">Sosial Media</h6>
-						<div>
-							<a class="sosial" href="#"><i class="bi bi-facebook"></i></a>
-							<a class="sosial" href="#"><i class="bi bi-instagram"></i></a>
-							<a class="sosial" href="#"><i class="bi bi-twitter"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="row copyright">
-					<span>Copyright © CapsuleInn. All Rights Reserved</span>
-					<span>|</span>
-					<span>Creator by <a href="https://khusniridh0.github.io/creator/" target="_blank">Khusni Ridho</a></span>
-				</div>
-			</div>
-		</footer>
+		@include('layouts.profile.bottom')
 
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-	<script src="./assets/js/main.js"></script>
-</body>
-</html>
+@include('layouts.profile.footer')
