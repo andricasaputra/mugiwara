@@ -39,13 +39,9 @@ class TambahSliderController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'gambar' => 'required'
+        $request->validate([
+            'gambar' => 'required|image'
         ]);
-
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         try {
 

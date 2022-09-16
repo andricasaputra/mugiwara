@@ -9,6 +9,7 @@ use App\Uploads\PhotoDeliveryUploadService;
 use App\Uploads\PhotoPickupUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 
 class ProductUserController extends Controller
 {
@@ -58,6 +59,8 @@ class ProductUserController extends Controller
                     'image' => $filename
                 ]);
 
+                $redeem->transaction_number = $request->no_resi;
+
             }elseif($request->photo_delivery && $request->hasFile('photo_delivery')){
 
                 $upload = new PhotoDeliveryUploadService;
@@ -66,9 +69,11 @@ class ProductUserController extends Controller
                 $redeem->image()->create([
                     'image' => $filename
                 ]);
+
+                $redeem->transaction_number = Random::generate(12, 1234567890);
             }
            
-            $redeem->transaction_number = $request->no_resi;
+            
             $redeem->no_resi = $request->no_resi;
             $redeem->status = $request->status;
             $redeem->jenis_pengiriman = $request->jenis_pengiriman;
