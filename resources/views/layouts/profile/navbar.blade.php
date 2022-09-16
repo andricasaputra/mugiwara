@@ -8,7 +8,7 @@
 				</button>
 				<div class="collapse navbar-collapse justify-content-end" id="navbar">
 					<div class="navbar-nav">
-						<a class="nav-link" href="{{ route('profile.home') }}">Beranda</a>
+						<a class="nav-link active" href="{{ route('profile.home') }}">Beranda</a>
 						<a class="nav-link" href="{{ route('profile.mitra') }}">Jadi Mitra</a>
 						<a class="nav-link" href="{{ route('profile.hotel') }}">Hotel</a>
 						<a class="nav-link" href="{{ route('profile.tentang') }}">Tentang Kami</a>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="offcanvas-body">
 				<div class="navbar-nav">
-					<a class="nav-link" href="{{ route('profile.home') }}}">Beranda</a>
+					<a class="nav-link active" href="{{ route('profile.home') }}}">Beranda</a>
 					<a class="nav-link" href="{{ route('profile.mitra') }}">Jadi Mitra</a>
 					<a class="nav-link" href="{{ route('profile.hotel') }}">Hotel</a>
 					<a class="nav-link" href="{{ route('profile.tentang') }}">Tentang Kami</a>
