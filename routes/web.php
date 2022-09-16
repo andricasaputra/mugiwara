@@ -24,12 +24,6 @@ use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
 
-
-// Route::get('/', function () {
-//     return redirect(route('login'));
-// });
-
-
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 Route::middleware(['verified', 'panel'])->group(function(){
@@ -133,23 +127,23 @@ Route::middleware(['verified', 'panel'])->group(function(){
 
 });
 
-Route::get('/', [FrontController::class, 'index'])->name('front');
-Route::get('jadi_mitra/', [FrontController::class, 'jadi_mitra'])->name('jadi.mitra');
-Route::get('hotel/', [FrontController::class, 'hotel'])->name('hotel');
-Route::get('tentang_kami/', [FrontController::class, 'tentang'])->name('tentang');
-Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
-Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
-Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
-Route::get('read_berita/{id}', [FrontController::class, 'readBerita'])->name('readBerita');
-Route::get('download/{id}', [FrontController::class, 'download'])->name('download');
-Route::post('store', [MitraRegisterController::class, 'store'])->name('store.mitraGabung');
+// Route::get('/', [FrontController::class, 'index'])->name('front');
+// Route::get('jadi_mitra/', [FrontController::class, 'jadi_mitra'])->name('jadi.mitra');
+// Route::get('hotel/', [FrontController::class, 'hotel'])->name('hotel');
+// Route::get('tentang_kami/', [FrontController::class, 'tentang'])->name('tentang');
+// Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
+// Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
+// Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
+// Route::get('read_berita/{id}', [FrontController::class, 'readBerita'])->name('readBerita');
+// Route::get('download/{id}', [FrontController::class, 'download'])->name('download');
+// Route::post('store', [MitraRegisterController::class, 'store'])->name('store.mitraGabung');
 
 
-Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
-Route::post('cari_hotel_kategori/', [FrontController::class, 'cariHotelKategori'])->name('cariHotelKategori');
-Route::post('cariAvailable/', [FrontController::class, 'cariAvailable'])->name('cariAvailable');
+// Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
+// Route::post('cari_hotel_kategori/', [FrontController::class, 'cariHotelKategori'])->name('cariHotelKategori');
+// Route::post('cariAvailable/', [FrontController::class, 'cariAvailable'])->name('cariAvailable');
 
-Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
+// Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
 
 Route::resource('playstores', PlayStoreController::class);
 Route::resource('appstores', AppStoreController::class);

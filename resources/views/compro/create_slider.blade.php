@@ -16,6 +16,20 @@
 
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
+                            <label for="judul">Judul</label>
+                            <input type="text" class="form-control" name="judul">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
                             <label for="gambar">Gambar</label>
                             <input type="file" class="form-control" name="gambar">
                         </div>

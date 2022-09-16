@@ -14,7 +14,7 @@
                 <p>Mereka adalah orang orang hebat yang bisa merubah masalah menjadi solusi, dengan menghadirkan aplikasi CapsuleInn. memudahkan pencarian tempat menginap dimanapun lokasi anda di Indonesia.</p>
             </div>
             <div class="col-lg-5">
-                <img class="img-fluid" src="{{ asset('assets/img/' . $teams->gambar) }}">
+                <img class="img-fluid" src="{{ asset('assets/img/' . $teams?->gambar) }}">
             </div>
         </div>
     </div>
@@ -28,12 +28,12 @@
 
             <div class="col-lg-4 list-teams-list">
                 <div class="card">
-                    <img class="card-img-top" src="{{ asset('images/compro/team_header/'. $item->gambar) }}">
+                    <img class="card-img-top" src="{{ asset('images/compro/team_header/'. $item?->gambar ?? '') }}">
                     <div class="card-body">
-                        <h2>{{ $item->heading }}</h2>
-                        <h5>{{ $item->jabatan }}</h5>
+                        <h2>{{ $item?->heading }}</h2>
+                        <h5>{{ $item?->jabatan }}</h5>
                         <div>
-                            <i class="bi bi-{{ $item->gambar_sosmed }}"></i>
+                            <i class="bi bi-{{ $item?->gambar_sosmed }}"></i>
                         </div>
                     </div>
                 </div>
@@ -49,12 +49,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <img class="img-fluid" src="{{ asset('images/compro/team_header/'. $teams->gambar) }}">
+                <img class="img-fluid" src="{{ asset('images/compro/team_header/'. $teams?->gambar) }}">
             </div>
             <div class="col-lg-6">
-                <h2>{{ $teams->heading }}</h2>
-                <h5>{{ $teams->jabatan }}</h5>
-                <p>{{ $teams->keterangan }}</p>
+                <h2>{{ $teams?->heading }}</h2>
+                <h5>{{ $teams?->jabatan }}</h5>
+                <p>{{ $teams?->keterangan }}</p>
             </div>
         </div>
     </div>

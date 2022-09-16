@@ -1,6 +1,6 @@
 
 @extends('layouts.main')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 @section('content')
 <div class="row">
     <div class="col-12 grid-margin stretch-card">
@@ -59,15 +59,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
                             <label for="gambar_sosmed">Gambar Sosmed</label>
-                            <select class="form-control" name="gambar_sosmed" required>
-                                <option>Pilih</option>
-                                <option value="whatsapp">Whatsapp</option>
-                                <option value="twitter">Twitter</option>
-                                <option value="facebook">Facebook</option>
-                                <option value="instagram">Instagram</option>
-                                <option value="youtube">Youtube</option>
-                                <option value="tiktok">Tiktok</option>
-                            </select>
+                            <input type="file" class="form-control" name="gambar_sosmed" required>
                         </div>
                     </div>
 

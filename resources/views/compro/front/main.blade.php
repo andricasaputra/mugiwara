@@ -34,6 +34,7 @@
                             <div class="navbar-nav">
                                 <a class="nav-link {{ (request()->segment(1) == '') ? 'active' : '' }}" href="{{ route('front') }}">Beranda</a>
                                 @php
+                                		$status = 'off';
                                         foreach ($tombols as $tombolku) {
                                             $status =  $tombolku["status"];
                                         }
