@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('product_users', function (Blueprint $table) {
-            $table->wtring('no_resi')->nullable();
+            $table->string('no_resi')->nullable();
             $table->string('status')->nullable();
         });
     }

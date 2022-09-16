@@ -21,7 +21,7 @@
 								<div class="swiper-slide">
 									<img class="img-fluid" src="./assets/img/avatar.png" />
 								</div>
-								<div class="swiper-slide">
+								{{-- <div class="swiper-slide">
 									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-2.jpg" />
 								</div>
 								<div class="swiper-slide">
@@ -32,7 +32,7 @@
 								</div>
 								<div class="swiper-slide">
 									<img class="img-fluid" src="https://swiperjs.com/demos/images/nature-5.jpg" />
-								</div>
+								</div> --}}
 							</div>
 						</div>
 					</div>
