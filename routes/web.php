@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AppStoreController;
+use App\Http\Controllers\Admin\PlayStoreController;
 use App\Http\Controllers\Admin\PrivacyPoliciesController;
 use App\Http\Controllers\Employee\CategoryPostController;
 use App\Http\Controllers\Employee\DashboardController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\MitraGabungController;
+use App\Http\Controllers\MitraRegisterController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
@@ -136,7 +139,8 @@ Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
 Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
 Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
 Route::get('read_berita/{id}', [FrontController::class, 'readBerita'])->name('readBerita');
-Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitraGabung');
+Route::get('download/{id}', [FrontController::class, 'download'])->name('download');
+Route::post('store', [MitraRegisterController::class, 'store'])->name('store.mitraGabung');
 
 
 Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
@@ -144,6 +148,9 @@ Route::post('cari_hotel_kategori/', [FrontController::class, 'cariHotelKategori'
 Route::post('cariAvailable/', [FrontController::class, 'cariAvailable'])->name('cariAvailable');
 
 Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
+
+Route::resource('playstores', PlayStoreController::class);
+Route::resource('appstores', AppStoreController::class);
 
 
 // Route::prefix('hubungiKami')->name('hubungiKami.')->group(function() {

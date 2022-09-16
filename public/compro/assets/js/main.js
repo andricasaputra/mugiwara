@@ -8,24 +8,34 @@ let mySwiper = new Swiper(".mySwiper", {
   }
 });
 
-// var swiper = new Swiper(".slide-avatar", {
-//   slidesPerView: 1,
-//   spaceBetween: 20,
-//   centeredSlides: false,
-//   loop: true, 
-//   autoplay: {
-//     delay: 5000,
-//     disableOnInteraction: false,
-//   },
-//   pagination: {
-//     el: ".swiper-pagination",
-//     clickable: true,
-//   },
-// });
+let slideNews = new Swiper(".slide-news", {
+  slidesPerView: 3,
+  spaceBetween: 20,
+  breakpoints: {
+          360: {
+            slidesPerView: 1,
+          },
+          769: {
+            slidesPerView: 3,
+          },
+        },
+  loop: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+});
 
 let mitra = new Swiper(".slide-mitra", {
-  slidesPerView: "auto",
   spaceBetween: 20,
+  breakpoints: {
+          360: {
+            slidesPerView: 1,
+          },
+          769: {
+            slidesPerView: "auto",
+          },
+        },
   loop: true,
   autoplay: {
     delay: 5000,
@@ -70,3 +80,5 @@ $('.file input').change(function (event) {
 $('.files input').change(function (event) {
   $('.files .infos p').html($(this).val().split("\\").pop())
 })
+
+document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')

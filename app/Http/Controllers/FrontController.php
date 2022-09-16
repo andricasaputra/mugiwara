@@ -7,10 +7,12 @@ use App\Models\AboutKedua;
 use App\Models\AboutPertama;
 use App\Models\Accomodation;
 use App\Models\Alamat;
+use App\Models\AppStoreLink;
 use App\Models\documentUnduh;
 use App\Models\KeteranganFitur;
 use App\Models\Kontak;
 use App\Models\Pertanyaan;
+use App\Models\PlayStoreLink;
 use App\Models\Post;
 use App\Models\ProsesPendaftaran;
 use App\Models\Review;
@@ -51,10 +53,17 @@ class FrontController extends Controller
                     ->join('users', 'reviews.user_id', '=', 'users.id')
                     ->join('accounts', 'accounts.user_id', '=', 'users.id')
                     ->select('*')
+                    ->where('reviews.rating', '=', 5)
                     ->get();
         $posts = Post::paginate(3);
+        $playstores = PlayStoreLink::latest()->get();
+        $appstores = AppStoreLink::latest()->get();
+        $tombols = Tombol::latest()->get();
+
 
         return view('compro.front.index', [
+            'playstores' => $playstores,
+            'appstores' => $appstores,
             'sliders' => $sliders,
             'aboutPertamas' => $aboutPertamas,
             'aboutKeduas' => $aboutKeduas,
@@ -69,6 +78,7 @@ class FrontController extends Controller
             'data_jumlah_customers' => $data_jumlah_customers,
             'reviews' => $reviews,
             'posts' => $posts,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -79,7 +89,7 @@ class FrontController extends Controller
         $sliderMitras = Slider::all();
         $prosesPendaftarans = ProsesPendaftaran::all();
         $syarats = Syarat::all();
-        $unduhs = documentUnduh::select('file')->get();
+        $unduhs = documentUnduh::select('id')->get();
         $images_rooms = DB::table('images')
         ->join('room_images', 'room_images.image_id', '=', 'images.id')
         ->select('images.image')
@@ -127,6 +137,10 @@ class FrontController extends Controller
                     ->select('types.name')
                     ->groupBy('types.name')
                     ->get();
+        $playstores = PlayStoreLink::latest()->get();
+        $appstores = AppStoreLink::latest()->get();
+        $tombols = Tombol::latest()->get();
+
             return view('compro.front.hotel', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
@@ -134,6 +148,9 @@ class FrontController extends Controller
             'images' => $images_one,
             'hotels' => $hotels,
             'types' => $types,
+            'playstores' => $playstores,
+            'appstores' => $appstores,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -150,6 +167,7 @@ class FrontController extends Controller
                     // ->where('rooms.status', '=', 'available')
                     ->where('types.name', '=', "$cari")
                     ->get();
+
         $data = [
             'data' => 'ada',
             'hotels' => $hotels,
@@ -166,13 +184,15 @@ class FrontController extends Controller
         $teams = TeamHeader::where('jabatan', 'founder')->first();
         $visis = VisiMisi::where('kategori', 'visi')->get();
         $misis = VisiMisi::where('kategori', 'misi')->get();
+        $tombols = Tombol::latest()->get();
         return view('compro.front.team', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'teamHeaders' => $teamHeaders,
             'visis' => $visis,
-            'misis' => $misis
+            'misis' => $misis,
+            'tombols' => $tombols,
         ], compact('teams'));
     }
 
@@ -182,12 +202,14 @@ class FrontController extends Controller
         $kontaks = Kontak::all();
         $pertanyaans = Pertanyaan::where('kategori', 'pertanyaan')->get();
         $pertanyaanLains = Pertanyaan::where('kategori', 'lain-lain')->get();
+        $tombols = Tombol::latest()->get();
         return view('compro.front.bantuan', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'pertanyaans' => $pertanyaans,
             'pertanyaanLains' => $pertanyaanLains,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -214,10 +236,12 @@ class FrontController extends Controller
         $alamats = Alamat::all();
         $sosmeds = Sosmed::all();
         $kontaks = Kontak::all();
+        $tombols = Tombol::latest()->get();
         return view('compro.front.register', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -232,11 +256,13 @@ class FrontController extends Controller
         $alamats = Alamat::all();
         $sosmeds = Sosmed::all();
         $kontaks = Kontak::all();
+        $tombols = Tombol::latest()->get();
         return view('compro.front.read_pertanyaan', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'pertanyaans' => $pertanyaans,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -246,12 +272,14 @@ class FrontController extends Controller
         $sosmeds = Sosmed::all();
         $kontaks = Kontak::all();
         $lains = Post::paginate(3);
+        $tombols = Tombol::latest()->get();
         return view('compro.front.read_berita', [
             'alamats' => $alamats,
             'sosmeds' => $sosmeds,
             'kontaks' => $kontaks,
             'posts' => $posts,
             'lains' => $lains,
+            'tombols' => $tombols,
         ]);
     }
 
@@ -269,6 +297,8 @@ class FrontController extends Controller
                         // ->where('rooms.status', '=', 'available')
                         ->get();
 
+
+
         $data = [
             'data' => 'ada',
             'room_availables' => $rooms_available,
@@ -278,5 +308,11 @@ class FrontController extends Controller
 
         return response()->json($data);
     }
+
+    public function download($id){
+        $model_file = documentUnduh::findOrFail($id);
+        $file = public_path() . '/images/compro/document_unduh/' . $model_file->file;//Mencari file dari model yang sudah dicari
+        return response()->download($file, $model_file->file_name); //Download file yang dicari berdasarkan nama file
+   }
 
 }
