@@ -29,7 +29,12 @@
                         @forelse($products as $key => $product)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td>{{ $product->transaction_number ?? ($product->no_resi ?? 'Belum Terbit Resi') }}</td>
+                             @if($product->redeem_type == 'pickup')
+                                 <td>{{ $product->transaction_number }}</td>
+                             @else
+                                <td>{{ $product->no_resi }}</td>
+                             @endif
+                        
                             <td>{{ $product->user?->name }}</td>
                             <td>{{ $product->user?->email }}</td>
                             <td>{{ $product->redeem_type == 'pickup' ? 'Ambil Sendiri' : 'Di Kirim' }}</td>
