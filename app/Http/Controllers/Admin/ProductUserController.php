@@ -74,7 +74,7 @@ class ProductUserController extends Controller
                 ]);
 
                 $redeem->transaction_number = $redeem->transaction_number ?? Random::generate(12, 1234567890);
-                $redeem->no_resi = $redeem->transaction_number;
+                $redeem->no_resi = $redeem->no_resi;
                 $redeem->status = $request->status;
                 $redeem->jenis_pengiriman = $request->jenis_pengiriman;
                 $redeem->save();
