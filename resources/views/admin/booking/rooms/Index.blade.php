@@ -61,27 +61,27 @@
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>
                                                 <th>Fasilitas Kamar</th>
-                                                <th>Nomor Kamar</th>
+                                                <th>Jumlah Kamar</th>
                                                 <th>Terdapat Refund?</th>
                                                 <th>Deskripsi Kamar Kamar</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($rooms as $room)
+
                                                 <tr>
-                                                    <td>{{ $room->accomodation?->name }}</td>
-                                                    <td>{{ $room->type?->name }}</td>
+                                                    <td>{{ $rooms->first()?->accomodation?->name }}</td>
+                                                    <td>{{ $rooms->first()?->type?->name }}</td>
                                                    
-                                                    <td>{{ $room->max_guest }} orang</td>
-                                                    <td>{{ ucwords($room->status) }}</td>
-                                                    <td>{{ $room->price }}</td>
-                                                    <td>{{ $room->discount_type }} <br> {{ $room->discount_amount }}</td>
+                                                    <td>{{ $rooms->first()?->max_guest }} orang</td>
+                                                    <td>{{ ucwords($rooms->first()?->status) }}</td>
+                                                    <td>{{ $rooms->first()?->price }}</td>
+                                                    <td>{{ $rooms->first()?->discount_type }} <br> {{ $rooms->first()?->discount_amount }}</td>
                                                     <td>
                                                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($room->images as $image)   
+                                                            @foreach($rooms->first()?->images as $image)   
 
                                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                                                 <img  class="d-block w-100" src="{{ asset('/storage/rooms/') .'/'. $image->image }}" alt="Second slide">
@@ -103,7 +103,7 @@
                                                         <div id="facilityCors" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($room->facilities as $facility)
+                                                            @foreach($rooms->first()?->facilities as $facility)
 
                                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                                                 <img  class="d-block w-50" src="{{ asset('storage/facilities') .'/'. $facility->image }}" alt="Second slide" width="50">
@@ -121,16 +121,20 @@
                                                           </a>
                                                         </div>
                                                     </td>
-                                                     <td>{{ $room->room_number }}</td>
-                                                     <td>{{ $room->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
-                                                    <td>{{ substr_replace($room->description, "...", 50) }}</td>
+                                                     <td>
+                                               
+                                                            {{ $rooms->count() }}
+                                                   
+                                                     </td>
+                                                     <td>{{ $rooms->first()?->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
+                                                    <td>{{ substr_replace($rooms->first()?->description, "...", 50) }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
 
-                                                            <a class="btn btn-primary btn-sm mr-2" href="{{ route('rooms.reviews.index', $room->id) }}">Reviews</a>
+                                                            <a class="btn btn-primary btn-sm mr-2" href="{{ route('rooms.reviews.index', $rooms->first()?->id) }}">Reviews</a>
 
-                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $room->id) }}">Edit</a>
-                                                            <form action="{{ route('rooms.destroy', $room->id) }}" method="POST">
+                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $rooms->first()?->id) }}">Edit</a>
+                                                            <form action="{{ route('rooms.destroy', $rooms->first()?->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -138,11 +142,8 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="10">Belum ada data untuk ditampilkan</td> 
-                                                </tr>
-                                            @endforelse
+ 
+                     
                                         </tbody>
                                     </table>
                               </div>

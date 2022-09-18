@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="{{ asset('/assets/profile/css/main.css') }}">
 	<link rel="stylesheet" href="{{ asset('/assets/profile/css/responsiv.css') }}">
+	<link rel="icon" type="image/png" href="{{ asset('/assets/images/logo_capsuleinn.png') }}"/>
 	<title>Beranda</title>
 </head>
 <body>
