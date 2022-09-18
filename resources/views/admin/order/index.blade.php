@@ -18,7 +18,7 @@
                                 <p class="card-title">Daftar Pemesanan</p>
                                 <div class="row">
                                   <div class="col-12">
-                                    <table id="mytable" class="display expandable-table text-center" style="width:100%">
+                                    <table id="mytable" class="display expandable-table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
@@ -37,13 +37,14 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($orders as $order)
+
                                                 <tr>
 
                                                     <td>{{ $order->id }}</td>
 
                                                     <td>{{ $order->booking_code }}</td>
 
-                                                    <td>{{ $order->room_number }}</td>
+                                                    <td>{{ $order->room?->room_number }}</td>
 
                                                     <td>
                                                     	{{ $order->created_at->format('d-m-Y') }}
@@ -172,7 +173,7 @@
         });
 
         $('#mytable').DataTable({
-            order : false
+            order: false
         });
     </script>
 @endsection()

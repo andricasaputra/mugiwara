@@ -16,7 +16,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::join('rooms', 'orders.room_id', '=', 'rooms.id')->select("*")->with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->get();
+        $orders = Order::latest()->with(['payment', 'user', 'accomodation', 'room.type', 'refund'])->get();
 
         return view('admin.order.index')->withOrders($orders);
     }

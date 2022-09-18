@@ -70,7 +70,8 @@ class AccomodationRepository
 
 		$newRooms = [];
 
-		for($i = 0 ; $i < count($this->request->room_numbers); $i++){
+		for($i = 0; $i < count($this->request->room_numbers); $i++){
+
 			$newRooms[] = Room::create([
 	            'accomodation_id' => $this->accomodation->id,
 	            'room_number' => $this->request->room_numbers[$i],

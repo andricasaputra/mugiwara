@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('channel_code');
             $table->string('payment_time')->nullable();
             $table->string('mobile_number');
-            $table->string('success_redirect_url')->nullable();
-            $table->string('desktop_web_checkout_url')->nullable();
-            $table->string('mobile_web_checkout_url')->nullable();
-            $table->string('callback_url')->nullable();
+            $table->text('success_redirect_url')->nullable();
+            $table->text('desktop_web_checkout_url')->nullable();
+            $table->text('mobile_web_checkout_url')->nullable();
+            $table->text('callback_url')->nullable();
             $table->json("payload");
             $table->timestamps();
         });
