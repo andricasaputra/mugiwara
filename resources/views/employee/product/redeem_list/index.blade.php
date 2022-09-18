@@ -39,9 +39,9 @@
                             
                             
                              <td>
-                                <a href="{{ route('admin.product.redeem.list.edit', $product->id) }}" class="btn btn-warning mb-2"> Edit </a>
+                                <a href="{{ route('employee.product.redeem.list.edit', $product->id) }}" class="btn btn-warning mb-2"> Edit </a>
                                 <br>
-                                 <a href="{{ route('admin.product.redeem.list.detail', $product->id) }}" class="btn btn-primary mb-2"> Detail </a>
+                                 <a href="{{ route('employee.product.redeem.list.detail', $product->id) }}" class="btn btn-primary mb-2"> Detail </a>
                              </td>
                         </tr>
                         @empty

@@ -20,7 +20,7 @@ class RoomController extends Controller
 
     public function index()
     {
-        $accomodations = Accomodation::all();
+        $accomodations = Accomodation::with('room.type')->get();
         $types = RoomType::all();
 
         $rooms = Room::with(['images', 'type', 'accomodation', 'facilities'])->get();
