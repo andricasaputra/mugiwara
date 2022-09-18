@@ -124,7 +124,7 @@
                                                     </td>
                                                      <td>
                                                
-                                                            {{ $rooms?->count() }}
+                                                            {{ $accomodation->room?->count() }}
                                                    
                                                      </td>
                                                      <td>{{ $accomodation->room?->first()?->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
