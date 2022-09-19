@@ -8,6 +8,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="{{ asset('/assets/profile/css/main.css') }}">
 	<link rel="stylesheet" href="{{ asset('/assets/profile/css/responsiv.css') }}">
-	<title>Beranda</title>
+	<title>{{$title !== '' ? $title : 'CapsuleInn'}}</title>
 </head>
 <body>

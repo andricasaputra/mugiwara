@@ -90,6 +90,9 @@
 
         <div id="compro" class="collapse" >
           <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda.beranda') }}"> Beranda </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-informasi.beranda-informasi') }}"> Beranda Informasi </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-tentang.slider-tentang') }}"> Slider Tentang </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.compro.tambah.menu') }}"> Tambah Menu </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider.slider') }}"> Slider </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutAwal.aboutAwal') }}"> Keterangan Slider </a></li>

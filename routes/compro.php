@@ -16,8 +16,12 @@ use App\Http\Controllers\SliderFiturController;
 use App\Http\Controllers\SliderMitraController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\SyaratController;
+use App\Http\Controllers\TambahBerandaController;
+use App\Http\Controllers\TambahBerandaInformasiController;
+use App\Http\Controllers\TambahFiturController;
 use App\Http\Controllers\TambahMenuController;
 use App\Http\Controllers\TambahSliderController;
+use App\Http\Controllers\TambahSliderTentangController;
 use App\Http\Controllers\TeamHeaderController;
 use App\Http\Controllers\TombolController;
 use App\Http\Controllers\VisiMisiController;
@@ -39,6 +43,33 @@ Route::prefix('compro')->name('compro.')->group(function() {
         Route::post('update/{id}', [TambahMenuController::class, 'update'])->name('update.menu');
         Route::get  ('delete/{id}', [TambahMenuController::class, 'destroy'])->name('delete.menu');
 
+    });
+
+    Route::prefix('beranda')->name('beranda.')->group(function() {
+        Route::get('', [TambahBerandaController::class, 'index'])->name('beranda');
+        Route::get('create', [TambahBerandaController::class, 'create'])->name('create.beranda');
+        Route::post('store', [TambahBerandaController::class, 'store'])->name('store.beranda');
+        Route::post('delete', [TambahBerandaController::class, 'destroy'])->name('delete.beranda');
+        Route::get('edit/{id}', [TambahBerandaController::class, 'edit'])->name('edit.beranda');
+        Route::post('update', [TambahBerandaController::class, 'update'])->name('update.beranda');
+    });
+
+    Route::prefix('beranda-informasi')->name('beranda-informasi.')->group(function() {
+        Route::get('', [TambahBerandaInformasiController::class, 'index'])->name('beranda-informasi');
+        Route::get('create', [TambahBerandaInformasiController::class, 'create'])->name('create.beranda-informasi');
+        Route::post('store', [TambahBerandaInformasiController::class, 'store'])->name('store.beranda-informasi');
+        Route::post('delete', [TambahBerandaInformasiController::class, 'destroy'])->name('delete.beranda-informasi');
+        Route::get('edit/{id}', [TambahBerandaInformasiController::class, 'edit'])->name('edit.beranda-informasi');
+        Route::post('update', [TambahBerandaInformasiController::class, 'update'])->name('update.beranda-informasi');
+    });
+
+    Route::prefix('slider-tentang')->name('slider-tentang.')->group(function() {
+        Route::get('', [TambahSliderTentangController::class, 'index'])->name('slider-tentang');
+        Route::get('create', [TambahSliderTentangController::class, 'create'])->name('create.slider-tentang');
+        Route::post('store', [TambahSliderTentangController::class, 'store'])->name('store.slider-tentang');
+        Route::post('delete', [TambahSliderTentangController::class, 'destroy'])->name('delete.slider-tentang');
+        Route::get('edit/{id}', [TambahSliderTentangController::class, 'edit'])->name('edit.slider-tentang');
+        Route::post('update', [TambahSliderTentangController::class, 'update'])->name('update.slider-tentang');
     });
 
     Route::prefix('slider')->name('slider.')->group(function() {

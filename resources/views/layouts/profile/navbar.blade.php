@@ -8,11 +8,11 @@
 				</button>
 				<div class="collapse navbar-collapse justify-content-end" id="navbar">
 					<div class="navbar-nav">
-						<a class="nav-link active" href="{{ route('profile.home') }}">Beranda</a>
-						<a class="nav-link" href="{{ route('profile.mitra') }}">Jadi Mitra</a>
-						<a class="nav-link" href="{{ route('profile.hotel') }}">Hotel</a>
-						<a class="nav-link" href="{{ route('profile.tentang') }}">Tentang Kami</a>
-						<a class="nav-link" href="{{ route('profile.bantuan') }}">Bantuan</a>
+						<a class="nav-link {{Route::is('profile.home') ? 'active' : ''}}" href="{{ route('profile.home') }}">Beranda</a>
+						<a class="nav-link {{Route::is('profile.mitra') ? 'active' : ''}}" href="{{ route('profile.mitra') }}">Jadi Mitra</a>
+						<a class="nav-link {{Route::is('profile.hotel') ? 'active' : ''}}" href="{{ route('profile.hotel') }}">Hotel</a>
+						<a class="nav-link {{Route::is('profile.tentang') ? 'active' : ''}}" href="{{ route('profile.tentang') }}">Tentang Kami</a>
+						<a class="nav-link {{Route::is('profile.bantuan') ? 'active' : ''}}" href="{{ route('profile.bantuan') }}">Bantuan</a>
 						<a class="nav-link only" href="https://capsuleinn.id/admin/login">Masuk</a>
 					</div>
 				</div>
