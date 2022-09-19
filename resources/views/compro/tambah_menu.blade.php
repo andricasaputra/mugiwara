@@ -8,8 +8,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title align-items-center my-auto">Menu Compro</h4>
-                <a href="{{ route('admin.compro.create.menu') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Menu Compro</a>
+                <h4 class="card-title align-items-center my-auto">Menu</h4>
+                <a href="{{ route('admin.menu.create.menu') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Menu</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,6 +20,7 @@
                         <th>Nama Menu</th>
                         <th>Url</th>
                         <th>Child</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -36,9 +37,10 @@
                             <td> {{ $item->nama_menu }}</td>
                             <td> {{ $item->url_menu }}</td>
                             <td> {{ $item->child_menu }}</td>
+                            <td> {{ $item->status ? 'Aktif' : 'Non-Aktif' }} </td>
                             <td>
-                                <a class="btn btn-danger btn-sm" href="{{ route('admin.compro.delete.menu', $item->id) }}">Hapus</a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.compro.edit.menu', $item->id) }}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{{ route('admin.menu.delete.menu', $item->id) }}">Hapus</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.menu.edit.menu', $item->id) }}">Edit</a>
                             </td>
                         </tr>
 

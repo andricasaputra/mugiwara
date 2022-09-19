@@ -90,31 +90,37 @@
 
         <div id="compro" class="collapse" >
           <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.menu.menu') }}"> Menu </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda.beranda') }}"> Beranda </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-informasi.beranda-informasi') }}"> Beranda Informasi </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-tentang.slider-tentang') }}"> Slider Tentang </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.compro.tambah.menu') }}"> Tambah Menu </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda.beranda') }}"> Overview </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitra-section.mitra-section') }}"> Mitra </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitra-registran.mitra-registran') }}"> Mitra Registran </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-informasi.beranda-informasi') }}"> Informasi </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider.slider') }}"> Slider </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutAwal.aboutAwal') }}"> Keterangan Slider </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-tentang.slider-tentang') }}"> Slider Tentang </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderFitur.sliderFitur') }}"> Slider Fitur </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-mitra.slider-mitra') }}"> Slider Mitra </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.pendaftaran.pendaftaran') }}"> Pendaftaran </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.syarat-dokumen.syarat-dokumen') }}"> Syarat & Dokumen </a></li>
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutAwal.aboutAwal') }}"> Keterangan Slider </a></li> -->
             {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.keteranganSlider.keteranganSlider') }}"> Keterangan Slider </a></li> --}}
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutPertama.aboutPertama') }}"> About Pertama </a></li>
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutPertama.aboutPertama') }}"> About Pertama </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutKedua.aboutKedua') }}"> About Keudua </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.keteranganFitur.keteranganFitur') }}"> Keterangan Fitur </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderFitur.sliderFitur') }}"> Slider Fitur </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitraGabung.mitraGabung') }}"> Mitra Gabung </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.tombol') }}"> Recruitment
             </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sosmed.sosmed') }}"> Sosmed Footer </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.alamat.alamat') }}"> Alamat Footer </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li> -->
             {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderMitra.sliderMitra') }}"> Slider Mitra </a></li> --}}
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.prosesPendaftaran.prosesPendaftaran') }}"> Proses Pendaftaran </a></li>
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.prosesPendaftaran.prosesPendaftaran') }}"> Proses Pendaftaran </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.syarat.syarat') }}"> Syarat Pendaftaran </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.documentUnduh.documentUnduh') }}"> Document Unduh </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.teamHeader.teamHeader') }}"> Team Header </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.visiMisi.visiMisi') }}"> Visi dan Misi </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.pertanyaan.pertanyaan') }}"> Pertanyaan </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.hubungiKami.hubungiKami') }}"> Hubungi Kami </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.hubungiKami.hubungiKami') }}"> Hubungi Kami </a></li> -->
           </ul>
         </div>
 

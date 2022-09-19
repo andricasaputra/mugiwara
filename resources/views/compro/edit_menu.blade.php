@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Edit Menu</h4>
-            <form action="{{ route('admin.compro.update.menu', $menu_compros->id) }}" method="post">
+            <form action="{{ route('admin.menu.update.menu', $menu_compros->id) }}" method="post">
                 @csrf
                 <div class="row">
 
@@ -28,6 +28,15 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-control" required>
+                                <option value="1" {{$menu_compros->status ? 'selected' : ''}}>Aktif</option>
+                                <option value="0" {{!$menu_compros->status ? 'selected' : ''}}>Non-Aktif</option>
+                            </select>
+                        </div>
+                    </div>
                 </form>
 
                     <div class="container-fluid">

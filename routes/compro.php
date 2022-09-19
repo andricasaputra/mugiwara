@@ -9,6 +9,9 @@ use App\Http\Controllers\KeteranganSliderController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\MitraGabungController;
+use App\Http\Controllers\MitraRegistranController;
+use App\Http\Controllers\MitraSectionController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\ProsesPendaftaranController;
@@ -16,11 +19,13 @@ use App\Http\Controllers\SliderFiturController;
 use App\Http\Controllers\SliderMitraController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\SyaratController;
+use App\Http\Controllers\SyaratDokumenController;
 use App\Http\Controllers\TambahBerandaController;
 use App\Http\Controllers\TambahBerandaInformasiController;
 use App\Http\Controllers\TambahFiturController;
 use App\Http\Controllers\TambahMenuController;
 use App\Http\Controllers\TambahSliderController;
+use App\Http\Controllers\TambahSliderMitraController;
 use App\Http\Controllers\TambahSliderTentangController;
 use App\Http\Controllers\TeamHeaderController;
 use App\Http\Controllers\TombolController;
@@ -34,9 +39,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function() {
 
-Route::prefix('compro')->name('compro.')->group(function() {
-
-        Route::get('', [TambahMenuController::class, 'index'])->name('tambah.menu');
+    Route::prefix('menu')->name('menu.')->group(function() {
+        Route::get('', [TambahMenuController::class, 'index'])->name('menu');
         Route::get('create', [TambahMenuController::class, 'create'])->name('create.menu');
         Route::get('edit/{id}', [TambahMenuController::class, 'edit'])->name('edit.menu');
         Route::post('store', [TambahMenuController::class, 'store'])->name('store.menu');
@@ -52,6 +56,15 @@ Route::prefix('compro')->name('compro.')->group(function() {
         Route::post('delete', [TambahBerandaController::class, 'destroy'])->name('delete.beranda');
         Route::get('edit/{id}', [TambahBerandaController::class, 'edit'])->name('edit.beranda');
         Route::post('update', [TambahBerandaController::class, 'update'])->name('update.beranda');
+    });
+
+    Route::prefix('mitra-section')->name('mitra-section.')->group(function() {
+        Route::get('', [MitraSectionController::class, 'index'])->name('mitra-section');
+        Route::get('create', [MitraSectionController::class, 'create'])->name('create.mitra-section');
+        Route::post('store', [MitraSectionController::class, 'store'])->name('store.mitra-section');
+        Route::post('delete', [MitraSectionController::class, 'destroy'])->name('delete.mitra-section');
+        Route::get('edit/{id}', [MitraSectionController::class, 'edit'])->name('edit.mitra-section');
+        Route::post('update', [MitraSectionController::class, 'update'])->name('update.mitra-section');
     });
 
     Route::prefix('beranda-informasi')->name('beranda-informasi.')->group(function() {
@@ -72,15 +85,44 @@ Route::prefix('compro')->name('compro.')->group(function() {
         Route::post('update', [TambahSliderTentangController::class, 'update'])->name('update.slider-tentang');
     });
 
+    Route::prefix('slider-mitra')->name('slider-mitra.')->group(function() {
+        Route::get('', [TambahSliderMitraController::class, 'index'])->name('slider-mitra');
+        Route::get('create', [TambahSliderMitraController::class, 'create'])->name('create.slider-mitra');
+        Route::post('store', [TambahSliderMitraController::class, 'store'])->name('store.slider-mitra');
+        Route::post('delete', [TambahSliderMitraController::class, 'destroy'])->name('delete.slider-mitra');
+    });
+
+    Route::prefix('mitra-registran')->name('mitra-registran.')->group(function() {
+        Route::get('', [MitraRegistranController::class, 'index'])->name('mitra-registran');
+        Route::get('compose/{id}', [MitraRegistranController::class, 'compose'])->name('compose.mitra-registran');
+        Route::post('compose', [MitraRegistranController::class, 'submitCompose'])->name('submit.compose.mitra-registran');
+    });
+
+    Route::prefix('pendaftaran')->name('pendaftaran.')->group(function() {
+        Route::get('', [PendaftaranController::class, 'index'])->name('pendaftaran');
+        Route::get('create', [PendaftaranController::class, 'create'])->name('create.pendaftaran');
+        Route::post('store', [PendaftaranController::class, 'store'])->name('store.pendaftaran');
+        Route::post('delete', [PendaftaranController::class, 'destroy'])->name('delete.pendaftaran');
+        Route::get('edit/{id}', [PendaftaranController::class, 'edit'])->name('edit.pendaftaran');
+        Route::post('update', [PendaftaranController::class, 'update'])->name('update.pendaftaran');
+    });
+
+    Route::prefix('syarat-dokumen')->name('syarat-dokumen.')->group(function() {
+        Route::get('', [SyaratDokumenController::class, 'index'])->name('syarat-dokumen');
+        Route::get('create', [SyaratDokumenController::class, 'create'])->name('create.syarat-dokumen');
+        Route::post('store', [SyaratDokumenController::class, 'store'])->name('store.syarat-dokumen');
+        Route::post('delete', [SyaratDokumenController::class, 'destroy'])->name('delete.syarat-dokumen');
+        Route::get('edit/{id}', [SyaratDokumenController::class, 'edit'])->name('edit.syarat-dokumen');
+        Route::post('update', [SyaratDokumenController::class, 'update'])->name('update.syarat-dokumen');
+    });
+
     Route::prefix('slider')->name('slider.')->group(function() {
-    	
         Route::get('', [TambahSliderController::class, 'index'])->name('slider');
         Route::get('create', [TambahSliderController::class, 'create'])->name('create.slider');
         Route::get('edit/{id}', [TambahSliderController::class, 'edit'])->name('edit.slider');
         Route::post('store', [TambahSliderController::class, 'store'])->name('store.slider');
         Route::post('update/{id}', [TambahSliderController::class, 'update'])->name('update.slider');
         Route::get  ('delete/{id}', [TambahSliderController::class, 'destroy'])->name('delete.slider');
-
     });
 
     Route::prefix('aboutPertama')->name('aboutPertama.')->group(function() {

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SliderMitra extends Model
+class Pendaftaran extends Model
 {
-    protected $table = 'slider_mitras';
+    protected $table = 'pendaftaran';
     protected $guarded = ['id'];
 }

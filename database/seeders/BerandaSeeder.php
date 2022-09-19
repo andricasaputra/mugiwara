@@ -58,7 +58,7 @@ class BerandaSeeder extends Seeder
         $beranda = new Beranda;
         $beranda->title = 'Dengan membaca anda dapat menambah informasi';
         $beranda->description = '-';
-        $beranda->section = 5;
+        $beranda->section = 6;
         $beranda->status = 1;
         $beranda->created_by = 1;
         $beranda->save();

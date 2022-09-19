@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Tambah Menu</h4>
-            <form action="{{ route('admin.compro.store.menu') }}" method="post">
+            <form action="{{ route('admin.menu.store.menu') }}" method="post">
                 @csrf
                 <div class="row">
 
