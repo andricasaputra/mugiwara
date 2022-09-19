@@ -48,10 +48,11 @@ class AdminPaymentStatusNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->greeting('Halo ' . ucfirst($notifiable->name))
-                    ->subject(Lang::get(' Pembayaran Berhasil'))
-                    ->line(Lang::get('Terimkasih telah melakukan pembayaran untuk kode booking : ' . $this->order?->booking_code))
-                    ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
-                    ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
+                    ->subject(Lang::get($this->title))
+                    ->line(Lang::get($this->message))
+                    ->line(Lang::get('Berikut detail informasi pembayaran oleh pelanggan anda : '))
+                    ->line(Lang::get('Nama Pelanggan : ' . $notifiable->name))
+                    ->line(Lang::get('Total Tagihan Rp : ' . $this->payment?->amount))
                     ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
                     ->line(Lang::get('Terimakasih atas kepercayaan anda.'))
                     ->salutation(Lang::get(env('APP_NAME')));

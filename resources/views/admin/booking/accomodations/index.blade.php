@@ -32,13 +32,14 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($accomodations as $accomodation)
+
                                                 <tr>
                                                     <td>{{ $accomodation->name }}</td>
                                                     <td>{{ $accomodation->address }}</td>
                                                     <td>{{ $accomodation->reviews_avg_rating ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
                                                     <td>
-                                                        <img src="{{ asset('storage/accomodations/' . $accomodation->image?->image) }}" alt="penginapan" width="100">
+                                                        <img src="{{ asset('storage/rooms/' . $accomodation->room?->first()?->images?->first()?->image) }}" alt="penginapan" width="100">
                                                     </td>
                                                     <td>{{ substr_replace($accomodation->description, "...", 30) }}</td>
 
@@ -56,7 +57,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">Belum ada data untuk ditampilkan</td>
+                                                    <td colspan="7">Belum ada data untuk ditampilkan</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
