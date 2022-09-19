@@ -46,8 +46,8 @@ width: 100% !important;
 </table>
 </td>
 </tr>
-{{-- 
-{{ $footer ?? '' }} --}}
+
+{{ $footer ?? '' }}
 </table>
 </td>
 </tr>
