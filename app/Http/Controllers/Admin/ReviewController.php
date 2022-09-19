@@ -3,29 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accomodation;
 use App\Models\Review;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    public function index(Room $room)
+    public function index(Accomodation $accomodation)
     {
-        $reviews = Review::whereHas('reviewable', function($query) use($room) {
-            $query->where('reviewable_id', $room->id);
+        $reviews = Review::whereHas('reviewable', function($query) use($accomodation) {
+            $query->whereIn('reviewable_id', $accomodation?->room?->pluck('id'));
         })->paginate(5);
 
         return view('admin.booking.rooms.review.index')
             ->withReviews($reviews)
-            ->withRoom($room);
+            ->withAccomodation($accomodation)
+            ->withRoom($accomodation->room);
     }
 
-    public function edit(Room $room, Review $review)
+    public function edit(Accomodation $accomodation, Review $review)
     {
-        return view('admin.booking.rooms.review.edit') ->withRoom($room)->withReview($review);
+        return view('admin.booking.rooms.review.edit') ->withAccomodation($accomodation)->withReview($review);
     }
 
-    public function update(Request $request, Room $room, Review $review)
+    public function update(Request $request, Accomodation $accomodation, Review $review)
     {
         $request->validate([
             'rating' => 'required',
@@ -34,6 +36,6 @@ class ReviewController extends Controller
 
         $review->update($request->all());
 
-        return redirect(route('rooms.reviews.index', $room->id))->withSuccess('Berhasil Perbarui Review');
+        return redirect(route('rooms.reviews.index', $accomodation->id))->withSuccess('Berhasil Perbarui Review');
     }
 }
