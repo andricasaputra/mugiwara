@@ -37,6 +37,11 @@ class AccomodationRequest extends FormRequest
                 'required',
                 'image',
                 'max:3000'
+            ]),
+            'accomodation_image.*' => Rule::filepond([
+                'required',
+                'image',
+                'max:3000'
             ])
         ];
     }

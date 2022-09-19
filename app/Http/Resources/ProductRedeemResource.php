@@ -15,7 +15,7 @@ class ProductRedeemResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'transaction_number' => $this->transaction_number,
+            'transaction_number' => $this->redeem_type == 'pickup' ? $this->transaction_number : $this->no_resi,
             'status' => $this->status,
             'jenis_pengiriman' => $this->jenis_pengiriman,
             'user' => [

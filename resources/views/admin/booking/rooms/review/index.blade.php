@@ -61,7 +61,7 @@
                                         <div class="card">
                                           <div class="card-body">
                                             <div class="card-header d-flex justify-content-end">
-                                                <a href="{{ route('rooms.reviews.edit', [$room->id, $review->id]) }}">Edit</a>
+                                                <a href="{{ route('rooms.reviews.edit', [$accomodation->id, $review->id]) }}">Edit</a>
                                             </div>
                                             <h6 class="card-title">
                                                 <img src="{{ url('storage/avatars/' . $review->user?->account?->avatar) }}" alt="avatar" style="border-radius: 50%"  width="50">

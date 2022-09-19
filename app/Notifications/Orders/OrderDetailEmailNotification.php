@@ -44,11 +44,12 @@ class OrderDetailEmailNotification extends Notification implements ShouldQueue
         return (new MailMessage)
            ->greeting('Halo ' . ucfirst($notifiable->name))
             ->subject(Lang::get('Order Detail'))
-            ->line(Lang::get('Terimkasih telah memesan kamar di ' . env('APP_NAME')))
+            ->line(Lang::get('Selamat, anda telah berhasil melakukan pemesanan kamar dihotel ' . $this->order?->accmodation?->name))
+            ->line(Lang::get('Berikut ini adalah detail pemesanan anda : '))
             ->line(Lang::get('Kode Booking : ' . $this->order?->booking_code))
-            ->line(Lang::get('Perkiraan waktu check in anda : ' . $this->order?->check_in_date))
-            ->line(Lang::get('Jumlah hari menginap : ' . $this->order?->stay_day))
-            ->action(Lang::get('Jumlah total tagihan Rp : ' . $this->order?->total_price), $url = '')
+            ->line(Lang::get('Waktu Check in : ' . $this->order?->check_in_date))
+            ->line(Lang::get('Waktu Menginap : ' . $this->order?->stay_day))
+            ->action(Lang::get('Total Tagihan Anda Rp : ' . $this->order?->total_price), $url = '')
             ->line(Lang::get('Jika anda merasa tidak memesan, silahkan abaikan pesan ini.'))
             ->salutation(Lang::get('Terimakasih'));
     }

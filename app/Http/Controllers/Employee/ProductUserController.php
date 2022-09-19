@@ -49,30 +49,44 @@ class ProductUserController extends Controller
 
             $redeem = ProductUser::find($id);
 
-            if($request->photo_pickup && $request->hasFile('photo_pickup')){
+             if($request->redeem_type == 'pickup'){
 
-                $upload = new PhotoPickupUploadService;
-                $filename = $upload->process($request->file('photo_pickup'));
+                if($request->photo_pickup && $request->hasFile('photo_pickup')){
+                    $upload = new PhotoPickupUploadService;
+                    $filename = $upload->process($request->file('photo_pickup'));
 
-                $redeem->image()->create([
-                    'image' => $filename
-                ]);
+                    $redeem->image()->create([
+                        'image' => $filename
+                    ]);
+                }
 
-            }elseif($request->photo_delivery && $request->hasFile('photo_delivery')){
+                $redeem->transaction_number = $redeem->transaction_number ?? Random::generate(10, 1234567890);
+                $redeem->no_resi = $redeem->transaction_number;
+                $redeem->status = $request->status;
+                $redeem->jenis_pengiriman = $request->jenis_pengiriman;
+                $redeem->save();
 
-                $upload = new PhotoDeliveryUploadService;
-                $filename = $upload->process($request->file('photo_delivery'));
+                DB::commit();
 
-                $redeem->image()->create([
-                    'image' => $filename
-                ]);
+            }elseif($request->redeem_type == 'delivery'){
+
+                if($request->photo_delivery && $request->hasFile('photo_delivery')){
+                    $upload = new PhotoDeliveryUploadService;
+                    $filename = $upload->process($request->file('photo_delivery'));
+
+                    $redeem->image()->create([
+                        'image' => $filename
+                    ]);
+                }
+                
+                $redeem->transaction_number = $redeem->no_resi ?? $request->no_resi;
+                $redeem->no_resi = $request->no_resi;
+                $redeem->status = $request->status;
+                $redeem->jenis_pengiriman = $request->jenis_pengiriman;
+                $redeem->save();
+
+                DB::commit();
             }
-           
-            $redeem->transaction_number = $request->no_resi;
-            $redeem->no_resi = $request->no_resi;
-            $redeem->status = $request->status;
-            $redeem->jenis_pengiriman = $request->jenis_pengiriman;
-            $redeem->save();
 
             DB::commit();
 

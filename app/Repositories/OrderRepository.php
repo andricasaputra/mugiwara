@@ -208,8 +208,9 @@ class OrderRepository
 
     protected function sendNotification($request, $order)
     {
-        $customer_title = 'Pesanan Kamar Segera Diproses';
-        $customer_message = 'Terimakasih telah melakukan pemesanan di Capsule Inn, Segera lakukan pembayaran sesuai tagihan yang ada.';
+
+        $customer_title = 'Pesanan Kamar Berhasil';
+        $customer_message = "Selamat, anda telah berhasil melakukan pemesanan kamar dihotel {$order->accomodation?->name}.";
 
         $user_title = 'Ada Pesanan Kamar Masuk';
         $user_message = 'Seseorang baru saja memesan sebuah kamar, silahkan menuju halaman pemesanan untuk detail lebih lanjut';

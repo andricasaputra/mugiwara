@@ -43,6 +43,7 @@ class AccomodationController extends Controller
 
     public function store(AccomodationRequest $request)
     {
+        DB::beginTransaction();
 
         try {
 
@@ -51,6 +52,18 @@ class AccomodationController extends Controller
             $accomodation = $this->repository->storeAccomodation();
 
             $rooms = $this->repository->storeRoom();
+
+            if($request->has('accomodation_image')){
+
+                $accomodation_images = $this->repository->uploadAccomodationImage();
+
+               foreach($accomodation_images as $accomodation_image){
+
+                    $accomodation->image()->create([
+                        'image' => $accomodation_image['basename']
+                    ]);
+               }
+            }
 
             foreach ($rooms as $key => $room) {
 
@@ -65,6 +78,8 @@ class AccomodationController extends Controller
 
                 $room->images()->createMany($files);
             }
+
+            DB::commit();
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil tambah data');
 

@@ -53,7 +53,7 @@ class AdminPaymentStatusNotification extends Notification implements ShouldQueue
                     ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
                     ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
                     ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
-                    ->line(Lang::get('Terimkasih atas kepercayaan anda.'))
+                    ->line(Lang::get('Terimakasih atas kepercayaan anda.'))
                     ->salutation(Lang::get(env('APP_NAME')));
     }
 

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+  <link rel="icon" type="image/png" href="{{ asset('/assets/images/logo_capsuleinn.png') }}"/>
 
   @yield('link')
 </head>
