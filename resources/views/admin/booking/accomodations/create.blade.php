@@ -37,7 +37,7 @@
                                         <span class="form-stepper-circle text-muted">
                                             <span>3</span>
                                         </span>
-                                        <div class="label text-muted">Foto Kamar</div>
+                                        <div class="label text-muted">Foto Penginapan & Kamar</div>
                                     </a>
                                 </li>
                             </ul>
@@ -72,8 +72,16 @@
                                     </div>
                                 </section>
                                 <!-- Step 3 Content, default hidden on page load. -->
-                                <section id="step-3" class="form-step d-none">
-                                    <h2 class="font-normal">Foto Kamar</h2>
+                                <section id="step-3" class="form-step d-none mb-4">
+                                    <br><br>
+                                     <h3 class="font-normal">Foto Penginapan</h3>
+                                    <!-- Step 3 input fields -->
+                                    <div class="mt-3">
+                                        <input type="file" id="accomodation_image" name="accomodation_image[]" class="form-control" required/>
+                                        <p class="help-block">{{ $errors->first('accomodation_image.*') }}</p>
+                                    </div>
+
+                                    <h3 class="font-normal">Foto Kamar</h3>
                                     <!-- Step 3 input fields -->
                                     <div class="mt-3">
                                         <input type="file" name="room_image[]" multiple required/>
@@ -166,7 +174,10 @@
         }
     });
 
+    
     FilePond.create(document.querySelector('input[name="room_image[]"]'), {chunkUploads: true});
+    FilePond.create(document.querySelector('#accomodation_image'), {chunkUploads: true});
+
 
 
 </script>

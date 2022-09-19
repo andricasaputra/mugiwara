@@ -25,6 +25,7 @@
                                                 <th>Alamat</th>
                                                 <th>Rating</th>
                                                 <th>Jumlah Kamar</th>
+                                                <th>Gambar</th>
                                                 <th>Deskripsi Penginapan</th>
                                                 <th>Action</th>
                                             </tr>
@@ -36,6 +37,9 @@
                                                     <td>{{ $accomodation->address }}</td>
                                                     <td>{{ $accomodation->reviews_avg_rating ?? 0 }}</td>
                                                     <td>{{ $accomodation->room_count ?? 0 }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/accomodations/' . $accomodation->image?->image) }}" alt="penginapan" width="100">
+                                                    </td>
                                                     <td>{{ substr_replace($accomodation->description, "...", 30) }}</td>
 
                                                     <td>

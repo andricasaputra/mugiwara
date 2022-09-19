@@ -13,6 +13,7 @@ trait AccomodationApiData
 	public function all()
 	{
         $accomodations = Accomodation::with([
+        	'image',
         	'room' => function($query){
         		if(request()->category == 'rekomendasi'){
 					 $accomodations =  $query->whereNotNull('discount_type');

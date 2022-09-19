@@ -90,6 +90,14 @@ class AccomodationRepository
 
 	}
 
+	public function uploadAccomodationImage()
+	{
+		$accomodationImageName = 'accomodation-' . $this->accomodation->name;
+
+        return Filepond::field($this->request->accomodation_image)
+                        ->moveTo('accomodations/' . $accomodationImageName);
+	}
+
 	public function uploadRoomImage()
 	{
 		$roomImageName = 'room-' . $this->accomodation->id;

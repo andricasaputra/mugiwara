@@ -123,14 +123,19 @@ class RefferralController extends Controller
                ],
             ]);
             
-            $user = User::find($account->user?->id);
-            $customer = Customer::find($account->user?->id);
+            $user1 = User::find($account->user?->id);
+            $customer1 = Customer::find($account->user?->id);
 
-            Notification::send($request->user(), new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+            $user2 = User::find($request->user()->id);
+            $customer2 = Customer::find($request?->user()?->id);
 
-            Notification::send($user, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+            Notification::send($user1, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
-            Notification::send($customer, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+            Notification::send($customer1, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+
+            Notification::send($user2, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
+
+            Notification::send($customer2, new ReferralCodeUsedNotification('Selamat anda mendapatkan tambahan poin senilai ' . $point . ' dari pemakaian kode refferral ' . $request->refferral_code));
 
             DB::commit();
 

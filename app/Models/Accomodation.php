@@ -56,4 +56,9 @@ class Accomodation extends Model
             'id'
         );
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

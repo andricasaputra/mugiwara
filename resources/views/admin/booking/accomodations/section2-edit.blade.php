@@ -1,4 +1,4 @@
-@dd($room)
+
 <div class="form-group">
     <label for="room_number">Nomor kamar</label>
    
