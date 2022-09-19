@@ -82,9 +82,9 @@ Route::post('/tambah_kamar', [AccomodationController::class, 'tambah_kamar'])->n
 
 Route::resource('rooms', RoomController::class);
 Route::post('rooms/filter', [RoomController::class, 'filter'])->name('rooms.filter');
-Route::get('rooms/reviews/{room}', [ReviewController::class, 'index'])->name('rooms.reviews.index');
-Route::get('rooms/reviews/edit/{room}/{review}', [ReviewController::class, 'edit'])->name('rooms.reviews.edit');
-Route::put('rooms/reviews/update/{room}/{review}', [ReviewController::class, 'update'])->name('rooms.reviews.update');
+Route::get('rooms/reviews/{accomodation}', [ReviewController::class, 'index'])->name('rooms.reviews.index');
+Route::get('rooms/reviews/edit/{accomodation}/{review}', [ReviewController::class, 'edit'])->name('rooms.reviews.edit');
+Route::put('rooms/reviews/update/{accomodation}/{review}', [ReviewController::class, 'update'])->name('rooms.reviews.update');
 Route::resource('facilities', FacilityController::class);
 Route::resource('room_numbers', RoomNumberController::class);
 Route::resource('room_types', RoomTypeController::class);

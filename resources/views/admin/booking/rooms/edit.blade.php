@@ -35,7 +35,7 @@
                             </ul>
                             <!-- Step Wise Form Content -->
                             @include('inc.message')
-                            <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="{{ route('rooms.update', $room->id) }}">
+                            <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="{{ route('rooms.update', $accomodation?->id) }}">
 
                                 @method('PUT')
                                 @csrf
@@ -48,12 +48,12 @@
                                     <div class="mt-3">
                                         <div class="form-group">
                                             <label for="name">Nama Penginapan</label>
-                                            <input name="name" type="text" class="form-control form-control-lg"  required value="{{ $room->accomodation->name }}" readonly>
+                                            <input name="name" type="text" class="form-control form-control-lg"  required value="{{ $accomodation->name }}" readonly>
                                         </div>
                                          <div class="form-group">
                                             <label for="status">Status Kamar</label>
                                             <select name="status" class="form-control">
-                                                <option value="{{ $room->status }}">{{ ucwords($room->status) }}</option>
+                                                <option value="{{ $accomodation->room->first()?->status }}">{{ ucwords($accomodation->room->first()?->status) }}</option>
                                                 <option value="available">Available</option>
                                                 <option value="booked">Booked</option>
                                                 <option value="stayed">Stayed</option>
@@ -62,7 +62,7 @@
                                         <div class="form-group">
                                             <label for="is_refunded">Apakah Terdapat Refund</label>
                                             <select name="is_refunded" class="form-control">
-                                                <option value="{{ $room->is_refunded }}">{{ $room->is_refunded == 1 ? 'Ya' : 'Tidak' }}</option>
+                                                <option value="{{ $accomodation->room->first()?->is_refunded }}">{{ $accomodation->room->first()?->is_refunded == 1 ? 'Ya' : 'Tidak' }}</option>
                                                 <option value="1">Ya</option>
                                                 <option value="">Tidak</option>
                                             </select>

@@ -69,23 +69,28 @@
                                         </thead>
                                         <tbody>
                                             @foreach($accomodations as $accomodation)
+                                             
                                                 <tr>
                                                     <td>{{ $accomodation?->name }}</td>
-                                                    <td>{{ $rooms->first()?->type?->name }}</td>
+                                                    <td>{{ $accomodation?->room?->first()?->type?->name }}</td>
                                                    
-                                                    <td>{{ $rooms->first()?->max_guest }} orang</td>
-                                                    <td>{{ ucwords($rooms->first()?->status) }}</td>
-                                                    <td>{{ $rooms->first()?->price }}</td>
-                                                    <td>{{ $rooms->first()?->discount_type }} <br> {{ $rooms->first()?->discount_amount }}</td>
+                                                    <td>{{ $accomodation?->room?->first()?->max_guest }} orang</td>
+                                                    <td>{{ ucwords($accomodation?->room?->first()?->status) }}</td>
+                                                    <td>{{ $accomodation?->room?->first()?->price }}</td>
+                                                    <td>{{ $accomodation?->room?->first()?->discount_type }} <br> {{ $accomodation?->room?->first()?->discount_amount }}</td>
                                                     <td>
                                                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($rooms->first()?->images as $image)   
+                                                            @foreach($accomodation?->room->pluck('images') as $images)   
+
+                                                            @foreach($images as $image)   
 
                                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                                                 <img  class="d-block w-100" src="{{ asset('/storage/rooms/') .'/'. $image->image }}" alt="Second slide">
                                                             </div>
+                                                            @endforeach
+
                                                             @endforeach
                                                           </div>
                                                           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -103,7 +108,7 @@
                                                         <div id="facilityCors" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($rooms->first()?->facilities as $facility)
+                                                            @foreach($accomodation?->room?->first()?->facilities as $facility)
 
                                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                                                 <img  class="d-block w-50" src="{{ asset('storage/facilities') .'/'. $facility->image }}" alt="Second slide" width="50">
@@ -126,15 +131,15 @@
                                                             {{ $accomodation->room?->count() }}
                                                    
                                                      </td>
-                                                     <td>{{ $rooms->first()?->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
-                                                    <td>{{ substr_replace($rooms->first()?->description, "...", 50) }}</td>
+                                                     <td>{{ $accomodation?->room?->first()?->is_refunded == 1 ? 'Ya' : 'Tidak' }}</td>
+                                                    <td>{{ substr_replace($accomodation?->room?->first()?->description, "...", 50) }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
 
-                                                            <a class="btn btn-primary btn-sm mr-2" href="{{ route('rooms.reviews.index', $rooms->first()?->id) }}">Reviews</a>
+                                                            <a class="btn btn-primary btn-sm mr-2" href="{{ route('rooms.reviews.index', $accomodation?->id) }}">Reviews</a>
 
-                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $rooms->first()?->id) }}">Edit</a>
-                                                            <form action="{{ route('rooms.destroy', $rooms->first()?->id) }}" method="POST">
+                                                            <a class="btn btn-info btn-sm mr-2" href="{{ route('rooms.edit', $accomodation?->id) }}">Edit</a>
+                                                            <form action="{{ route('rooms.destroy', $accomodation?->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>

@@ -10,7 +10,7 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             <h4 class="card-title">Form Ubah Review</h4>
-            <form action="{{ route('rooms.reviews.update', [$room->id, $review->id]) }}" method="post">
+            <form action="{{ route('rooms.reviews.update', [$accomodation->id, $review->id]) }}" method="post">
                 @csrf
                 @method('PUT')
 
@@ -32,7 +32,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('rooms.reviews.index', $room->id) }}" class="btn btn-light">Kembali</a>
+                <a href="{{ route('rooms.reviews.index', $accomodation->id) }}" class="btn btn-light">Kembali</a>
             </form>
             </div>
         </div>
