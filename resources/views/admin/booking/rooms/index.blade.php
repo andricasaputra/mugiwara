@@ -108,13 +108,15 @@
                                                         <div id="facilityCors" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($accomodation?->room?->first()?->facilities as $facility)
+                                                            @forelse($accomodation?->room?->first()?->facilities ?? [] as $facility)
 
                                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                                                 <img  class="d-block w-50" src="{{ asset('storage/facilities') .'/'. $facility->image }}" alt="Second slide" width="50">
                                                                 <p class="text-center">{{ $facility->name }}</p>
                                                             </div>
-                                                            @endforeach
+                                                            @empty
+                                                                Tidak ada Data Kamar
+                                                            @endforelse
                                                           </div>
                                                           <a class="carousel-control-prev" href="#facilityCors" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
