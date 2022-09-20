@@ -14,7 +14,7 @@
                         <div>
                             <a href="{{ route('admin.register') }}" class="btn btn-success">Tambah Karyawan</a>
                             <a href="{{ route('roles.index') }}" class="btn btn-warning pull-right">Role</a>
-                            <a href="{{ route('permissions.index') }}" class="btn btn-warning pull-right">Hak Akses</a>
+                           {{--  <a href="{{ route('permissions.index') }}" class="btn btn-warning pull-right">Hak Akses</a> --}}
                         </div>
 
 
