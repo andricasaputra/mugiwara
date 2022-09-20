@@ -8,9 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
 use App\Models\Facility;
 use App\Models\Room;
+use App\Models\RoomNumber;
 use App\Models\Type as RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RahulHaque\Filepond\Facades\Filepond;
 
 class RoomController extends Controller
 {
@@ -113,11 +115,13 @@ class RoomController extends Controller
         $types = RoomType::all();
         $facilities = Facility::all();
         $accomodation = Accomodation::findOrFail($id);
+        $numbers = RoomNumber::query()->get();
 
         return view('admin.booking.rooms.edit')
             ->withAccomodation($accomodation->load(['room.type', 'room.facilities']))
             ->withTypes($types)
-             ->withFacilities($facilities);
+             ->withFacilities($facilities)
+             ->withNumbers($numbers);
     }
 
     public function update(Request $request, $id)
@@ -134,39 +138,48 @@ class RoomController extends Controller
             ]);
 
 
-
             $accomodation = Accomodation::findOrFail($id);
             $rooms = $accomodation->room;
 
-            foreach ($rooms as $key => $room) {
+            foreach ($request->room_numbers as $key => $num) {
 
-                if($request->hasFile('images')){
 
-                    $this->files = $request->file('images');
+                $create = Room::updateOrCreate(
+
+                    [
+                        "accomodation_id" => $accomodation->id,
+                        "room_number" => $num,
+                        "type_id" => $request->type_id ,
+                    ],
+                    [
+                          "max_guest" => $request->max_guest ,
+                          "price" => $request->price ,
+                          "discount_type" => $request->discount_type ,
+                          "description_room" => $request->description_room,
+                          'status' => $request->status,
+                          'is_refunded' => $request->is_refunded,
+                    ]
+                );
+
+                if($request->has('room_image')){
+
+                    $imageName = $this->uploadRoomImage($request, $accomodation);
+
+                    $this->files = $request->room_image;
                     $this->upload  = app()->make(UploadServiceInterface::class);
 
-                    $this->upload();
+                    if(isset($imageName[$key])){
+                        
+                        $create->images()->create([
+                            'image' => $imageName[$key]['basename']
+                        ]);
+                    }
 
-                    $files = collect($this->fileName)->map(function($file){
-                        return ['image' => $file];
-                    })->all();
-
-                    $room->images()->createMany($files);
                 }
 
-                $room->update([
-                  "name" => $request->name,
-                  "room_number" => $request->room_number,
-                  "type_id" => $request->type_id ,
-                  "max_guest" => $request->max_guest ,
-                  "price" => $request->price ,
-                  "discount_type" => $request->discount_type ,
-                  "description_room" => $request->description_room,
-                  'status' => $request->status,
-                  'is_refunded' => $request->is_refunded,
-                ]);
+                //dd($create);
 
-                $room->facilities()->sync($request->facility);
+                $create->facilities()->sync($request->facility);
                 
             }
 
@@ -198,6 +211,14 @@ class RoomController extends Controller
         foreach($this->files as $file){
             $this->fileName[] = $this->upload->process($file);
         }
+    }
+
+    public function uploadRoomImage($request, $accomodation)
+    {
+        $roomImageName = 'room-' . $accomodation->id;
+
+        return Filepond::field($request->room_image)
+                        ->moveTo('rooms/' . $roomImageName);
     }
 
 }

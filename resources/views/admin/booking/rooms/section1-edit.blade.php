@@ -1,8 +1,14 @@
 
 <div class="form-group">
-    <label for="room_number">Nomor kamar</label>
-   
-    <input name="room_number" type="text" class="form-control form-control-lg"  required value="{{ $accomodation->room?->first()?->room_number }}">
+    <label for="room_numbers">Nomor Kamar</label>
+    <select name="room_numbers[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
+        @foreach($accomodation->room as $room)
+         <option value="{{ $room->room_number }}" selected>{{ $room->room_number }}</option>
+        @endforeach
+        @foreach($numbers as $number)
+            <option value="{{ $number->id }}">{{ $number->number }}</option>
+        @endforeach
+    </select>
 </div>
 
 <div class="form-group">
@@ -23,7 +29,7 @@
 <div class="form-group">
     <label for="price">Fasilitas Kamar</label>
     <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
-        @foreach($accomodation->room?->first()?->facilities as $room_faility)
+        @foreach($accomodation->room?->first()?->facilities ?? [] as $room_faility)
             <option selected value="{{ $room_faility->id }}">{{ $room_faility->name }}</option>
         @endforeach
         @foreach($facilities as $facility)

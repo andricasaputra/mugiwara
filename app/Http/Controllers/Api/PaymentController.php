@@ -294,7 +294,7 @@ class PaymentController extends Controller
         );
 
         $user_title = 'Terdapat Pembayaran Masuk';
-        $user_message = 'Pembayaran dengan Order ID ' . $order->id . ' Sukses. kunjungi halaman keuangan untuk detail lebih lanjut.';
+        $user_message = "Proses pembayaran kamar yang dipesan  Capsule lnn Hotel cabang Kemiling telah berhasil dilakukan.";
 
         $admin = User::admin()->first();
 
