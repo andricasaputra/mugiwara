@@ -27,7 +27,7 @@
 						<ul>
 							@if(count($pertanyaan)!=0)
 								@foreach($pertanyaan as $k => $p)
-								<li><a href="./tips.html">{{$p->keterangan}}</a></li>
+								<li><a href="{{route('profile.bantuan.pertanyaan.detail', $p->id)}}">{{$p->keterangan}}</a></li>
 								@endforeach
 							@endif
 						</ul>
