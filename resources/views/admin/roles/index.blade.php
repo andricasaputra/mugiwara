@@ -22,7 +22,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Role</th>
-                                                <th>Permissions</th>
+                                                {{-- <th>Permissions</th> --}}
                                                 <th>Operation</th>
                                             </tr>
                                         </thead>
@@ -32,7 +32,7 @@
 
                                                     <td>{{ $role->name }}</td>
 
-                                                    <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
+                                                  {{--   <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td> --}}{{-- Retrieve array of permissions associated to a role and convert to string --}}
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                         <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info btn-xs" style="margin-right: 3px;">Edit</a>
