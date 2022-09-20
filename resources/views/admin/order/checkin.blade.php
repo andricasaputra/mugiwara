@@ -78,13 +78,25 @@
                     <tr>
                         <td>Diskon Kamar</td>
                         <td>:</td>
-                        <td>{{ $order->room?->discount_amount ?? 0 }}</td>
+                        <td>
+                            @if($order->room?->discount_type == 'percent')
+                                {{ $order->room?->discount_amount ?? 0 }} %
+                            @else
+                                {{ $order->room?->discount_amount ?? 0 }}
+                            @endif
+                        </td>
                     </tr>
 
                     <tr>
                         <td>Diskon Voucher</td>
                         <td>:</td>
-                        <td>{{ $order->voucher?->point_needed ?? 0 }}</td>
+                        <td>
+                            @if($order->voucher?->discount_type == 'percent')
+                                {{ $order->voucher?->discount_percent ?? 0 }} %
+                            @else
+                                {{ $order->voucher?->discount_amount ?? 0 }}
+                            @endif
+                        </td>
                     </tr>
 
                     <tr>
