@@ -40,24 +40,20 @@
 			@endforeach	
 		@endif
 
+		@if(count($overview) != 0)
 		<section id="calculed" class="calculed">
 			<div class="container">
 				<div class="row">
+					@foreach($overview as $k => $o)
 					<div class="col-lg-4 items-calculed">
-						<h1 class="display-4">900+</h1>
-						<p>Telah banyak mitra kami yang terpercaya den berada di beberapa wilayah Indonesia, seperti bandar lampung, dan juga medan.</p>
+						<h1 class="display-4">{{$o->count}}</h1>
+						<p>{{$o->description}}</p>
 					</div>
-					<div class="col-lg-4 items-calculed">
-						<h1 class="display-4">80547+</h1>
-						<p>Banyak pengguna telah termudahkan dengan adanya aplikasi CapsuleInn. tidak pelu takut kehabisan tempat saat bepergian.</p>
-					</div>
-					<div class="col-lg-4 items-calculed">
-						<h1 class="display-4">1547+</h1>
-						<p>Team support yang selalu up time 24 jam dengan lebih dari 1000 layanan perhari, dapat membantu menyelesaikan masalah pengguna.</p>
-					</div>
+					@endforeach
 				</div>
 			</div>
 		</section>
+		@endif
 
 		@if(count($beranda) != 0)
 			@foreach($beranda as $b)

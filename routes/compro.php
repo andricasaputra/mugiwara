@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\BerandaOverviewController;
 use App\Http\Controllers\DocumentUnduhController;
+use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\HubungiKamiController;
 use App\Http\Controllers\KeteranganFiturController;
 use App\Http\Controllers\KeteranganSliderController;
@@ -39,6 +41,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function() {
 
+    Route::prefix('general-settings')->name('general-settings.')->group(function(){
+        Route::get('', [GeneralSettingsController::class, 'index'])->name('general-settings');
+        Route::post('store', [GeneralSettingsController::class, 'store'])->name('store.general-settings');
+    });
+
     Route::prefix('menu')->name('menu.')->group(function() {
         Route::get('', [TambahMenuController::class, 'index'])->name('menu');
         Route::get('create', [TambahMenuController::class, 'create'])->name('create.menu');
@@ -56,6 +63,15 @@ Route::name('admin.')->group(function() {
         Route::post('delete', [TambahBerandaController::class, 'destroy'])->name('delete.beranda');
         Route::get('edit/{id}', [TambahBerandaController::class, 'edit'])->name('edit.beranda');
         Route::post('update', [TambahBerandaController::class, 'update'])->name('update.beranda');
+    });
+
+    Route::prefix('beranda-overview')->name('beranda-overview.')->group(function() {
+        Route::get('', [BerandaOverviewController::class, 'index'])->name('beranda-overview');
+        Route::get('create', [BerandaOverviewController::class, 'create'])->name('create.beranda-overview');
+        Route::post('store', [BerandaOverviewController::class, 'store'])->name('store.beranda-overview');
+        Route::post('delete', [BerandaOverviewController::class, 'destroy'])->name('delete.beranda-overview');
+        Route::get('edit/{id}', [BerandaOverviewController::class, 'edit'])->name('edit.beranda-overview');
+        Route::post('update', [BerandaOverviewController::class, 'update'])->name('update.beranda-overview');
     });
 
     Route::prefix('mitra-section')->name('mitra-section.')->group(function() {
@@ -302,7 +318,7 @@ Route::name('admin.')->group(function() {
         Route::get('edit/{id}', [HubungiKamiController::class, 'edit'])->name('edit.hubungiKami');
         Route::post('update/{id}', [HubungiKamiController::class, 'update'])->name('update.hubungiKami');
         Route::get  ('delete/{id}', [HubungiKamiController::class, 'destroy'])->name('delete.hubungiKami');
-
+        Route::post('store', [HubungiKamiController::class, 'store'])->name('store.hubungiKami');
     });
 
     Route::get('tombol', [TombolController::class, 'update'])->name('tombol');

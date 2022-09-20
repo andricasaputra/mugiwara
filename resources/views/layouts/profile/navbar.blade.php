@@ -1,7 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container nav-flay">
 				<a class="navbar-brand" href="{{ route('profile.home') }}">
-					<img src="./assets/img/logo.png">
+					@if(!is_null($settings))
+						@if(!is_null($settings->logo))
+							<img src="{{url('images/compro/logo/' . $settings->logo)}}">
+						@else
+							<img src="{{url('assets/img/logo.png')}}">
+						@endif	
+					@else
+						<img class="img-fluid" src="{{url('assets/img/logo.png')}}">
+					@endif
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
 					<span class="navbar-toggler-icon"></span>
@@ -23,7 +31,13 @@
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="offcanvasExampleLabel">
 					<a class="navbar-brand" href="#">
-					<img src="./assets/img/logo.png">
+					@if(!is_null($settings))
+						@if(!is_null($settings->logo))
+							<img src="{{url('images/compro/logo/' . $settings->logo)}}">
+						@else
+							<img src="{{url('assets/img/logo.png')}}">
+						@endif	
+					@endif
 				</a>
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

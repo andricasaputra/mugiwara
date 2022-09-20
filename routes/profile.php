@@ -16,5 +16,9 @@ Route::name('profile.')->group(function(){
 	Route::get('/register', [RegisterController::class, 'showregister'])->name('register');
 	Route::post('/register/submit', [RegisterController::class, 'submitRegister'])->name('register.submit');
 
+	Route::get('/accomodation/top', [HomeController::class, 'accomodationTop'])->name('accomodation.top');
+	Route::post('/room/check', [HomeController::class, 'roomCheck'])->name('room.check');
+
+	Route::get('/bantuan/pertanyaan/{id}', [HomeController::class, 'pertanyaanDetail'])->name('bantuan.pertanyaan.detail');;
 });
 
