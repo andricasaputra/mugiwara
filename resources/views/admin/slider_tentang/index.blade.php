@@ -35,10 +35,10 @@
                                     <td>{{$slider->role}}</td>
                                     <td>{{$slider->status ? 'Aktif' : 'Non-Aktif'}}</td>
                                     <td>
+                                        <a href="{{ route('admin.slider-tentang.edit.slider-tentang', $slider->id) }}" class="btn btn-warning btn-sm">Ubah</a>
                                         <a href="#" 
                                                     data-id="{{ $slider->id }}" data-toggle="modal" data-target="#delete"
                                                     class="btn btn-danger btn-sm">Hapus</a>
-                                        <a href="{{ route('admin.slider-tentang.edit.slider-tentang', $slider->id) }}" class="btn btn-warning btn-sm">Ubah</a>
                                     </td>
                                 </tr>
                             @empty

@@ -10,12 +10,16 @@
 					<div class="col-10">
 						<div class="content"></div>
 						<h1 class="display-4">Selesaikan semua pertanyaan dalam waktu singkat</h1>
-						<form action="" method="POST">
-							<input class="form-control" type="text" name="help" placeholder="Cari bantuan">
+							<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan">
 							<i class="bi bi-search"></i>
-						</form>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<section class="bantuan-list">
+			<div class="container result-search">
+				
 			</div>
 		</section>
 
@@ -95,4 +99,53 @@
 
 	</div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+		$('.help-input').on('keypress', function(e) {
+			let payload = {
+				param: $(this).val()
+			}
+
+			if(e.which == 13) {
+				$('.bantuan-list-items').remove();
+				let html = `
+				<div class="col-lg-6 bantuan-list-items">
+					<h2>Hasil Pencarian</h2>
+					<ul class="list-hasil-search">
+					</ul>
+				</div>
+				`
+				$('.result-search').append(html)
+				$('html, body').animate({
+					scrollTop: $(".result-search").offset().top
+				}, 2000);
+				$.ajax({
+					type: "post",
+					data: payload,
+					url: "{{ route('profile.bantuan.pertanyaan.search') }}",
+					success: function(res) {
+						$('.bantuan-list-items').remove();
+						$('.result-search').append(html)
+						if(res.data.length>0){
+							res.data.map((i)=>{
+								let val = i
+								let route = `{{route('profile.bantuan.pertanyaan.detail', ":id")}}`
+								route = route.replace(':id', val.id);
+								let li = `<li><a href="${route}">${val.keterangan}</a></li>`
+								$('.list-hasil-search').append(li)
+							})
+						}
+					}
+				})
+			}
+		})
+	})
+</script>
 @include('layouts.profile.footer')

@@ -1,19 +1,26 @@
 @include('layouts.profile.header')
 	<div class="page-wrapper">
 @include('layouts.profile.navbar')
-		<section id="team" class="team">
-			<div class="container">
-				<div class="row justify-content-between">
-					<div class="col-lg-6">
-						<h1>Tim Pendiri CapsuleInn</h1>
-						<p>Mereka adalah orang orang hebat yang bisa merubah masalah menjadi solusi, dengan menghadirkan aplikasi CapsuleInn. memudahkan pencarian tempat menginap dimanapun lokasi anda di Indonesia.</p>
+
+		@if(count($tentang))
+			@foreach($tentang as $k => $v)
+				@if($v->section == 1)
+				<section id="team" class="team">
+					<div class="container">
+						<div class="row justify-content-between">
+							<div class="col-lg-6">
+								<h1>{{$v->title}}</h1>
+								<p>{{$v->description}}</p>
+							</div>
+							<div class="col-lg-5">
+								<img class="img-fluid" src="{{url('images/compro/tentang/' . $v->image)}}">
+							</div>
+						</div>
 					</div>
-					<div class="col-lg-5">
-						<img class="img-fluid" src="./assets/img/team.png">
-					</div>
-				</div>
-			</div>
-		</section>
+				</section>
+				@endif
+			@endforeach
+		@endif
 
 		@if(count($team)!=0)
 			@foreach($team as $k => $t)

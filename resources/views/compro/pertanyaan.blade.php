@@ -37,7 +37,7 @@
                             <td> {{ $item->kategori }}</td>
                             <td> {{ $item->jawaban }}</td>
                             <td>
-                                <a class="btn btn-Primary btn-sm" href="{{ route('admin.pertanyaan.edit.pertanyaan', $item->id) }}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.pertanyaan.edit.pertanyaan', $item->id) }}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.pertanyaan.delete.pertanyaan', $item->id) }}">Hapus</a>
                             </td>
                         </tr>

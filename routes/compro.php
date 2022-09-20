@@ -30,6 +30,7 @@ use App\Http\Controllers\TambahSliderController;
 use App\Http\Controllers\TambahSliderMitraController;
 use App\Http\Controllers\TambahSliderTentangController;
 use App\Http\Controllers\TeamHeaderController;
+use App\Http\Controllers\TentangController;
 use App\Http\Controllers\TombolController;
 use App\Http\Controllers\VisiMisiController;
 use App\Models\KeteranganSlider;
@@ -63,6 +64,15 @@ Route::name('admin.')->group(function() {
         Route::post('delete', [TambahBerandaController::class, 'destroy'])->name('delete.beranda');
         Route::get('edit/{id}', [TambahBerandaController::class, 'edit'])->name('edit.beranda');
         Route::post('update', [TambahBerandaController::class, 'update'])->name('update.beranda');
+    });
+    
+    Route::prefix('beranda-tentang')->name('beranda-tentang.')->group(function() {
+        Route::get('', [TentangController::class, 'index'])->name('beranda-tentang');
+        Route::get('create', [TentangController::class, 'create'])->name('create.beranda-tentang');
+        Route::post('store', [TentangController::class, 'store'])->name('store.beranda-tentang');
+        Route::post('delete', [TentangController::class, 'destroy'])->name('delete.beranda-tentang');
+        Route::get('edit/{id}', [TentangController::class, 'edit'])->name('edit.beranda-tentang');
+        Route::post('update', [TentangController::class, 'update'])->name('update.beranda-tentang');
     });
 
     Route::prefix('beranda-overview')->name('beranda-overview.')->group(function() {

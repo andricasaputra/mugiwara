@@ -39,6 +39,19 @@
 		</div>
 	</section>
 
+	<section id="list-hotel" class="list-hotel mb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 res-check-left">
+					
+				</div>
+				<div class="col-lg-9 hotels res-check-right">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section id="list-hotel" class="list-hotel">
 		<div class="container">
 			<div class="row">
@@ -52,94 +65,8 @@
 						@endif
 					</ul>
 				</div>
-				<div class="col-lg-9 hotels">
-					<div class="card">
-						<div class="card-img">
-							<img class="card-img-top" src="./assets/img/hotel2.png">
-							<div class="link-action">
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="starts">
-								<span class="badge badge-secondary">VIP</span>
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<span>4.5</span>
-							</div>
-							<h3>Hotel Santa Maria</h3>
-						</div>
-					</div>
-
-					<div class="card">
-						<div class="card-img">
-							<img class="card-img-top" src="./assets/img/hotel3.png">
-							<div class="link-action">
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="starts">
-								<span class="badge badge-secondary">VIP</span>
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<span>4.6</span>
-							</div>
-							<h3>Hotel Emersia</h3>
-						</div>
-					</div>
-
-					<div class="card">
-						<div class="card-img">
-							<img class="card-img-top" src="./assets/img/hotel4.png">
-							<div class="link-action">
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="starts">
-								<span class="badge badge-secondary">VIP</span>
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<span>4.3</span>
-							</div>
-							<h3>Hotel Sheraton</h3>
-						</div>
-					</div>
-
-					<div class="card">
-						<div class="card-img">
-							<img class="card-img-top" src="./assets/img/hotel5.png">
-							<div class="link-action">
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-								<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="starts">
-								<span class="badge badge-secondary">VIP</span>
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<img class="start" src="./assets/img/bintang.png">
-								<span>4.8</span>
-							</div>
-							<h3>Hotel Novotel Lampung</h3>
-						</div>
-					</div>
+				<div class="col-lg-9 hotels hotels-init">
+					
 				</div>
 			</div>
 		</div>
@@ -164,21 +91,74 @@
 			url: "{{route('profile.accomodation.top')}}",
 			method: "get",
 			success: function(res){
-				console.log(res);
+				if(res.accomodationById.length>0){
+					res.accomodationById.map((i) => {
+						let card = `
+							<div class="card">
+								<div class="card-img">
+									<img class="card-img-top" src="./assets/img/hotel4.png">
+									<div class="link-action">
+										<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+										<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="starts">
+										<span class="badge badge-secondary">VIP</span>
+										<img class="start" src="./assets/img/bintang.png">
+										<span>4.3</span>
+									</div>
+									<h3>${i.name}</h3>
+								</div>
+							</div>
+						`
+						$('.hotels-init').append(card);
+					})
+				}
 			}
 		})
 
 		$('.btn-cari-kamar').on('click', function(){
 			let date = $('.date-input').val();
 			let payload = {
-				date: date
+				date: date,
 			}
+			$('.title-check').remove();
+			let html = `
+				<h2 class="title-check">Ketersediaan Kamar</h2>
+				`
+			$('.res-check-left').append(html)
 			$.ajax({
 				url: "{{route('profile.room.check')}}",
 				method: "post",
 				data: payload,
 				success: function(res){
-					console.log(res);
+					if(res.data.length>0){
+						res.data.map((i)=>{
+							let image = `{{url('storage/rooms/:image')}}`
+							image = image.replace(':image', i.image);
+							let card = `
+								<div class="card">
+									<div class="card-img">
+										<img class="card-img-top" src="${image}">
+										<div class="link-action">
+											<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+											<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="starts">
+											<span class="badge badge-secondary">VIP</span>
+											<img class="start" src="./assets/img/bintang.png">
+											<span>${Math.round(i.reviews_avg_rating)}</span>
+										</div>
+										<h3>${i.name}</h3>
+									</div>
+								</div>
+							`
+							$('.res-check-right').append(card)
+						})
+					}
 				}
 			})
 		})

@@ -19,6 +19,7 @@ Route::name('profile.')->group(function(){
 	Route::get('/accomodation/top', [HomeController::class, 'accomodationTop'])->name('accomodation.top');
 	Route::post('/room/check', [HomeController::class, 'roomCheck'])->name('room.check');
 
+	Route::post('/bantuan/pertanyaan/search', [HomeController::class, 'pertanyaanSearch'])->name('bantuan.pertanyaan.search');
 	Route::get('/bantuan/pertanyaan/{id}', [HomeController::class, 'pertanyaanDetail'])->name('bantuan.pertanyaan.detail');;
 });
 

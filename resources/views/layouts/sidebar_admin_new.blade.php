@@ -93,6 +93,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.general-settings.general-settings') }}"> General </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.menu.menu') }}"> Menu </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda.beranda') }}"> Beranda </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-tentang.beranda-tentang') }}"> Tentang </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-overview.beranda-overview') }}"> Overview </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitra-section.mitra-section') }}"> Mitra </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitra-registran.mitra-registran') }}"> Mitra Registran </a></li>
