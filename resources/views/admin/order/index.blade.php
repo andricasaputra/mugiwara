@@ -37,7 +37,7 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($orders as $order)
-                                            @dd($order->room)
+
 
                                                 <tr>
 
