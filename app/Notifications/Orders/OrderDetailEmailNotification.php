@@ -49,7 +49,7 @@ class OrderDetailEmailNotification extends Notification implements ShouldQueue
             ->line(Lang::get('Kode Booking : ' . $this->order?->booking_code))
             ->line(Lang::get('Waktu Check in : ' . $this->order?->check_in_date))
             ->line(Lang::get('Waktu Menginap : ' . $this->order?->stay_day))
-            ->action(Lang::get('Harga Per Malam Rp : ' . $this->order?->accomodation?->room?->price), $url = '')
+            ->action(Lang::get('Harga Per Malam Rp : ' . $this->order?->normal_price), $url = '')
             ->line(Lang::get('Jika anda merasa tidak memesan, silahkan abaikan pesan ini.'))
             ->salutation(Lang::get('Terimakasih'));
     }
