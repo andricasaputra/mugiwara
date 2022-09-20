@@ -105,9 +105,9 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.syarat-dokumen.syarat-dokumen') }}"> Syarat & Dokumen </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.visiMisi.visiMisi') }}"> Visi & Misi </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.teamHeader.teamHeader') }}"> Team Header </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sosmed.sosmed') }}"> Sosmed Footer </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.alamat.alamat') }}"> Alamat Footer </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li>
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sosmed.sosmed') }}"> Sosmed Footer </a></li> -->
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.alamat.alamat') }}"> Alamat Footer </a></li> -->
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.kontak.kontak') }}"> Kontak </a></li> -->
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.hubungiKami.hubungiKami') }}"> Hubungi Kami </a></li>
             <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.aboutAwal.aboutAwal') }}"> Keterangan Slider </a></li> -->
             {{-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.keteranganSlider.keteranganSlider') }}"> Keterangan Slider </a></li> --}}

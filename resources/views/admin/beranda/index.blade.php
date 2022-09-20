@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="myTable" class="table table-hover display expandable-table">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -35,16 +35,10 @@
                             <td>{{$b->section}}</td>
                             <td>{{$b->status ? 'Aktif' : 'Non-Aktif'}}</td>
                             <td>
-                                <table>
-                                    <tr>
-                                        <td><a href="{{ route('admin.beranda.edit.beranda', $b->id) }}" class="btn btn-warning btn-sm">Ubah</a></td>
-                                        <td>
-                                            <a href="#" 
+                                <a href="{{ route('admin.beranda.edit.beranda', $b->id) }}" class="btn btn-warning btn-sm">Ubah</a>
+                                <a href="#" 
                                             data-id="{{ $b->id }}" data-toggle="modal" data-target="#delete"
                                             class="btn btn-danger btn-sm">Hapus</a>
-                                        </td>
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                         @empty
@@ -101,6 +95,10 @@
         var id = $(e.relatedTarget).data('id');
         console.log(id);
         $('#delete').find('input[name="id"]').val(id);
+    });
+
+    $('#myTable').DataTable({
+        order : false
     });
 </script>
 @endpush

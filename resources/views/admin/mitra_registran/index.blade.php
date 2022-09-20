@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="myTable" class="table table-hover display expandable-table">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -54,3 +54,11 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $('#myTable').DataTable({
+        order : false
+    });
+</script>
+@endpush

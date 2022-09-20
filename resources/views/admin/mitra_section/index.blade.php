@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="myTable" class="table table-hover display expandable-table">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -88,6 +88,10 @@
         var id = $(e.relatedTarget).data('id');
         console.log(id);
         $('#delete').find('input[name="id"]').val(id);
+    });
+
+    $('#myTable').DataTable({
+        order : false
     });
 </script>
 @endpush
