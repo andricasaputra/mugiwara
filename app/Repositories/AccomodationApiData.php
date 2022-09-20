@@ -11,7 +11,7 @@ use Illuminate\Pipeline\Pipeline;
 trait AccomodationApiData
 {   
 	public function all()
-	{
+	{	
         $accomodations = Accomodation::with([
         	'image',
         	'room' => function($query){

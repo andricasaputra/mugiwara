@@ -17,14 +17,14 @@
                         {{ Form::text('name', null, array('class' => 'form-control')) }}
                     </div>
 
-                    <h5><b>Assign Permissions</b></h5>
+                    {{-- <h5><b>Assign Permissions</b></h5>
 
                     <div class='form-group'>
                         @foreach ($permissions as $permission)
                             {{ Form::checkbox('permissions[]',  $permission->id ) }}
                             {{ Form::label($permission->name, ucfirst($permission->name)) }}<br>
                         @endforeach
-                    </div>
+                    </div> --}}
 
                     {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
                     <a class="btn btn-danger" href="{{ route('roles.index') }}">Back</a>

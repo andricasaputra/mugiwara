@@ -44,12 +44,13 @@ class AdminOrderCreatedNotifications extends Notification implements ShouldQueue
         return (new MailMessage)
                    ->greeting('Halo ' . ucfirst($notifiable->name))
                     ->subject(Lang::get('Order Detail'))
-                    ->line(Lang::get('Terimkasih telah memesan kamar di ' . env('APP_NAME')))
+                    ->line(Lang::get('Proses pemesanan  kamar yang dipesan ' . env('APP_NAME') . ' ' . $this->order?->accomodation?->name))
+                    ->line(Lang::get('Berikut detail informasi pemesanan oleh pelanggan anda :'))
+                    ->line(Lang::get('Nama Pelanggan  : ' . $this->order?->user?->name))
                     ->line(Lang::get('Kode Booking : ' . $this->order?->booking_code))
-                    ->line(Lang::get('Perkiraan waktu check in anda : ' . $this->order?->check_in_date))
-                    ->line(Lang::get('Jumlah hari menginap : ' . $this->order?->stay_day))
-                    ->action(Lang::get('Jumlah total tagihan Rp : ' . $this->order?->total_price), $url = '')
-                    ->line(Lang::get('Jika anda merasa tidak memesan, silahkan abaikan pesan ini.'))
+                    ->line(Lang::get('Waktu Menginap : ' . $this->order?->stay_day))
+                    ->action(Lang::get('Total tagihan Rp : ' . $this->order?->total_price), $url = '')
+                    ->line(Lang::get('Silahkan lakukan pemeriksaan kembali untuk mengantisipasi adanya kesalahan.'))
                     ->salutation(Lang::get('Terimakasih'));
     }
 
