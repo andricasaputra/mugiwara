@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     public function mitra()
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $mitraSection = MitraSection::all();
         $sliderMitra = SliderMitra::all();
@@ -94,7 +94,7 @@ class HomeController extends Controller
 
     public function hotel()
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $kategori = Type::all();
         $accomodationTopRate = DB::table('accomodation_ratings')
@@ -123,7 +123,7 @@ class HomeController extends Controller
 
     public function tentang()
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $visiMisi = VisiMisi::all();
         $team = TeamHeader::all();
@@ -142,7 +142,7 @@ class HomeController extends Controller
 
     public function bantuan()
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $pertanyaan = Pertanyaan::where('kategori', 'pertanyaan')->limit(7)->get();
         $lainnya = Pertanyaan::where('kategori', 'lain-lain')->limit(7)->get();
@@ -159,7 +159,7 @@ class HomeController extends Controller
 
     public function detailInformasi($id)
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $informasi = TambahBerandaInformasi::find($id);
         $settings = GeneralSettings::first();
@@ -292,7 +292,7 @@ class HomeController extends Controller
     public function pertanyaanDetail($id)
     {
         $pertanyaan = Pertanyaan::find($id);
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $settings = GeneralSettings::first();
         return view('profile.detail_pertanyaan', [
