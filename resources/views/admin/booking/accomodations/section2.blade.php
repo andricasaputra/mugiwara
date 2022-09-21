@@ -15,7 +15,7 @@
 
 <div class="form-group">
     <label for="price">Maksimal Jumlah Tamu</label>
-    <input name="max_guest" type="number" class="form-control form-control-lg"  required value="{{ old('max_guest') }}">
+    <input name="max_guest" type="number" class="form-control form-control-lg" minlength="1" min="1" required value="{{ old('max_guest') }}">
 </div>
 
 <div class="form-group">
@@ -31,7 +31,7 @@
     <label for="room_numbers">Nomor Kamar</label>
     <select name="room_numbers[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
         @foreach($numbers as $number)
-            <option value="{{ $number->id }}">{{ $number->number }}</option>
+            <option value="{{ $number->number }}">{{ $number->number }}</option>
         @endforeach
     </select>
 </div>

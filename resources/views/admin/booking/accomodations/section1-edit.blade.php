@@ -57,6 +57,21 @@
     <textarea class="form-control" name="description" cols="30" rows="6">{{ $accomodation->description }}</textarea>
 </div>
 
+<div class="form-group mt-2">
+    <label for="price">Is Active</label>
+   <select name="is_active" class="form-control">
+    @if($accomodation->is_active == 1)
+        <option value="1" selected>Ya</option>
+        <option value="">Tidak</option>
+    @else
+         <option value="" selected>Tidak</option>
+         <option value="1">Ya</option>
+    @endif
+    
+   </select>
+</div>
+
+
 
 
 

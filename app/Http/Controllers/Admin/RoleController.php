@@ -118,12 +118,12 @@ class RoleController extends Controller
             $role->revokePermissionTo($p);
         }
 
-        if (! empty($permissions) || ! is_null($permissions)) {
-           foreach ($permissions as $permission) {
-                $p = Permission::where('id', '=', $permission)->firstOrFail(); 
-                $role->givePermissionTo($p);
-            }
-        }
+        // if (! empty($permissions) || ! is_null($permissions)) {
+        //    foreach ($permissions as $permission) {
+        //         $p = Permission::where('id', '=', $permission)->firstOrFail(); 
+        //         $role->givePermissionTo($p);
+        //     }
+        // }
 
         return redirect()->route('roles.index')->withSuccess('Role '. $role->name .' updated!');
     }

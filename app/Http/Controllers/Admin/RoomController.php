@@ -141,23 +141,26 @@ class RoomController extends Controller
             $accomodation = Accomodation::findOrFail($id);
             $rooms = $accomodation->room;
 
+            //dd($rooms);
+
+            foreach($rooms as   $room){
+                $room->delete();
+            }
+
             foreach ($request->room_numbers as $key => $num) {
 
-
-                $create = Room::updateOrCreate(
-
+                $create = Room::create(
                     [
                         "accomodation_id" => $accomodation->id,
                         "room_number" => $num,
                         "type_id" => $request->type_id ,
-                    ],
-                    [
-                          "max_guest" => $request->max_guest ,
-                          "price" => $request->price ,
-                          "discount_type" => $request->discount_type ,
-                          "description_room" => $request->description_room,
-                          'status' => $request->status,
-                          'is_refunded' => $request->is_refunded,
+                        "max_guest" => $request->max_guest ,
+                        "price" => $request->price ,
+                        "discount_type" => $request->discount_type ,
+                        "discount_amount" => $request->discount_amount ,
+                        "description_room" => $request->description_room,
+                        'status' => $request->status,
+                        'is_refunded' => $request->is_refunded,
                     ]
                 );
 
@@ -191,19 +194,28 @@ class RoomController extends Controller
 
             DB::rollback();
 
-            return back()->withErrors('Gagal ubah data, error : ' . $e->getMessage());
+            return back()->withErrors('Gagal ubah data : ' . $e->getMessage());
         }
     }
 
     public function destroy($id)
     {
-        $accomodation = Accomodation::findOrFail($id);
+       try {
 
-        foreach ($accomodation?->room as $key => $room) {
-            $room->delete();
-        }
+            $accomodation = Accomodation::findOrFail($id);
 
-        return redirect(route('rooms.index'))->withSuccess('Berhasil hapus data'); 
+            foreach ($accomodation?->room as $key => $room) {
+                $room->delete();
+            }
+
+            $accomodation->delete();
+
+            return redirect(route('rooms.index'))->withSuccess('Berhasil hapus data'); 
+           
+       } catch (\Exception $e) {
+
+            return redirect(route('rooms.index'))->withErrors('Gagal hapus data, terdapat pembayaran pada hotel yang akan dihapus'); 
+       }
     }
 
     protected function upload()

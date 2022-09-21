@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label for="accomodations_id">Nama Hotel</label>
                             <select name="accomodation_id" id="" class="form-control">
-                                <option value="{{ $office->accomodation?->id }}">{{ $office->accomodation->name }}</option>
+                                <option value="{{ $office->accomodation?->id }}">{{ $office->accomodation?->name }}</option>
                                 @forelse($accomodations as $accomodation)
                                     <option value="{{ $accomodation->id }}">{{ $accomodation->name }}</option>
                                 @empty

@@ -56,7 +56,7 @@
                                                 <th>Nama Penginapan</th>
                                                 <th>Type</th>
                                                 <th>Maksimal Tamu</th>
-                                                <th>Status</th>
+                                                <th>Status Available</th>
                                                 <th>Harga</th>
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>
@@ -68,7 +68,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($accomodations as $accomodation)
+                                            @foreach($accomodations as $key => $accomodation)
                                              
                                                 <tr>
                                                     <td>{{ $accomodation?->name }}</td>
@@ -79,7 +79,7 @@
                                                     <td>{{ $accomodation?->room?->first()?->price }}</td>
                                                     <td>{{ $accomodation?->room?->first()?->discount_type }} <br> {{ $accomodation?->room?->first()?->discount_amount }}</td>
                                                     <td>
-                                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                        <div id="imageControls{{$key}}" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
                                                             @foreach($accomodation?->room->pluck('images') as $images)   
@@ -93,11 +93,11 @@
 
                                                             @endforeach
                                                           </div>
-                                                          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                          <a class="carousel-control-prev" href="#imageControls{{$key}}" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Previous</span>
                                                           </a>
-                                                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                          <a class="carousel-control-next" href="#imageControls{{$key}}" role="button" data-slide="next">
                                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Next</span>
                                                           </a>
@@ -105,7 +105,7 @@
 
                                                     </td>
                                                     <td>
-                                                        <div id="facilityCors" class="carousel slide" data-ride="carousel">
+                                                        <div id="facilityCors{{$key}}" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
                                                             @forelse($accomodation?->room?->first()?->facilities ?? [] as $facility)
@@ -118,11 +118,11 @@
                                                                 Tidak ada Data Kamar
                                                             @endforelse
                                                           </div>
-                                                          <a class="carousel-control-prev" href="#facilityCors" role="button" data-slide="prev">
+                                                          <a class="carousel-control-prev" href="#facilityCors{{$key}}" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Previous</span>
                                                           </a>
-                                                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                          <a class="carousel-control-next" href="#facilityCors{{$key}}" role="button" data-slide="next">
                                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Next</span>
                                                           </a>

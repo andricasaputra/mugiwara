@@ -29,7 +29,7 @@
                                                 <th>Customer</th>
                                                 <th>Check In</th>
                                                 <th>Harga Per Malam</th>
-                                                <th>Diskon</th>
+                                                <th>Diskon Kamar</th>
                                                 <th>Status Pembayaran</th>
                                                 <th>Jumlah Pembayaran</th>
                                                 <th>Action</th>
@@ -37,6 +37,7 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($orders as $order)
+
 
                                                 <tr>
 
@@ -71,12 +72,17 @@
                                                     </td>
 
                                                      <td>
-                                                    	{{ $order->room->price }}
+                                                    	{{ $order->room?->price }}
                                                     </td>
 
 
                                                     <td>
-                                                    	{{ $order->room->discount ?? 0 }}
+                                                        @if($order->room?->discount_type == 'percent')
+                                                            {{ $order->room?->discount_amount ?? 0 }} %
+                                                        @else
+                                                            {{ $order->room?->discount_amount ?? 0 }}
+                                                        @endif
+                                                    	
                                                     </td>
 
                                                     <td>
