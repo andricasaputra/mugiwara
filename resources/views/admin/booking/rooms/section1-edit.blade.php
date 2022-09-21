@@ -2,12 +2,18 @@
 <div class="form-group">
     <label for="room_numbers">Nomor Kamar</label>
     <select name="room_numbers[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
+        @php
+            $n = [];
+    @endphp
         @foreach($accomodation->room as $room)
+        @php $n[] = $room->room_number @endphp
          <option value="{{ $room->room_number }}" selected>{{ $room->room_number }}</option>
         @endforeach
-        {{-- @foreach($numbers as $number)
-            <option value="{{ $number->number }}">{{ $number->number }}</option>
-        @endforeach --}}
+        @foreach($numbers as $number)
+            @if(!in_array($number->number, $n))
+                <option value="{{ $number->number }}">{{ $number->number }}</option>
+            @endif
+        @endforeach
     </select>
 </div>
 
@@ -33,11 +39,13 @@
             $f = [];
         @endphp
         @foreach($accomodation->room?->first()?->facilities ?? [] as $room_faility)
-            $f[] = $room_faility->name;
+            @php $f[] = $room_faility->name; @endphp
             <option selected value="{{ $room_faility->id }}">{{ $room_faility->name }}</option>
         @endforeach
         @foreach($facilities as $facility)
-            <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+            @if(!in_array($facility->name, $f))
+                <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+            @endif
         @endforeach
     </select>
 </div>

@@ -207,6 +207,8 @@ class RoomController extends Controller
                 $room->delete();
             }
 
+            $accomodation->delete();
+
             return redirect(route('rooms.index'))->withSuccess('Berhasil hapus data'); 
            
        } catch (\Exception $e) {
