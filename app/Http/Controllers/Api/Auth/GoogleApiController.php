@@ -78,7 +78,7 @@ class GoogleApiController extends Controller
     {
         $emails = User::where('email', $reuest->email)->where('type', 'user')->first();
 
-        if($mail) return false;
+        if($emails) return false;
 
         return true;
     }
