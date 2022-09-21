@@ -143,9 +143,11 @@ class RoomController extends Controller
 
             //dd($rooms);
 
-            foreach ($request->room_numbers as $key => $num) {
+            foreach($rooms as   $room){
+                $room->delete();
+            }
 
-                $rooms[$key]->delete();
+            foreach ($request->room_numbers as $key => $num) {
 
                 $create = Room::create(
                     [

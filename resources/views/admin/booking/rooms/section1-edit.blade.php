@@ -29,7 +29,11 @@
 <div class="form-group">
     <label for="price">Fasilitas Kamar</label>
     <select name="facility[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
+        @php
+            $f = [];
+        @endphp
         @foreach($accomodation->room?->first()?->facilities ?? [] as $room_faility)
+            $f[] = $room_faility->name;
             <option selected value="{{ $room_faility->id }}">{{ $room_faility->name }}</option>
         @endforeach
         @foreach($facilities as $facility)
