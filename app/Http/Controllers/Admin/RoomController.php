@@ -168,7 +168,7 @@ class RoomController extends Controller
 
                     if(isset($imageName[$key])){
                         
-                        $create->images()->create([
+                        $rooms[$key]->create([
                             'image' => $imageName[$key]['basename']
                         ]);
                     }
@@ -195,13 +195,20 @@ class RoomController extends Controller
 
     public function destroy($id)
     {
-        $accomodation = Accomodation::findOrFail($id);
+       try {
 
-        foreach ($accomodation?->room as $key => $room) {
-            $room->delete();
-        }
+            $accomodation = Accomodation::findOrFail($id);
 
-        return redirect(route('rooms.index'))->withSuccess('Berhasil hapus data'); 
+            foreach ($accomodation?->room as $key => $room) {
+                $room->delete();
+            }
+
+            return redirect(route('rooms.index'))->withSuccess('Berhasil hapus data'); 
+           
+       } catch (\Exception $e) {
+
+            return redirect(route('rooms.index'))->withErrors('Gagal hapus data karena ada pembayaran pada kamar hotel berikut'); 
+       }
     }
 
     protected function upload()
