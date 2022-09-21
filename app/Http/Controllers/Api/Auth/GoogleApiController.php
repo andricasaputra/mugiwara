@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\Account;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Nette\Utils\Random;
 use Socialite;
@@ -14,8 +15,15 @@ class GoogleApiController extends Controller
 {
     public function googleLogin(Request $request)
     {
+        if(! $this->isEmployeeEmail()){
+            return response()->json([
+                'error' => true,
+                'message' => 'Email berikut sudah digunakan oleh karyawan CapsuleInn'
+            ]);
+        }
+
         $request->validate([
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'name' => 'required',
             'device_token' => 'required'
         ]);
@@ -59,10 +67,19 @@ class GoogleApiController extends Controller
             
         } catch (\Exception $e) {
             
-                return response()->json([
-                    'error' => true,
-                    'message' => 'Login Gagal'
-                ]);
+            return response()->json([
+                'error' => true,
+                'message' => 'Login Gagal'
+            ]);
         }
+    }
+
+    protected function isEmployeeEmail()
+    {
+        $emails = User::where('email', $reuest->email)->where('type', 'user')->first();
+
+        if($mail) return false;
+
+        return true;
     }
 }
