@@ -14,13 +14,13 @@ class GoogleApiController extends Controller
 {
     public function googleLogin(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'name' => 'required',
+            'device_token' => 'required'
+        ]);
+        
         try {
-
-            $request->validate([
-                'email' => 'required|email|unique:users',
-                'name' => 'required',
-                'device_token' => 'required'
-            ]);
 
             $newUser = Customer::firstOrCreate([
                 'email' => $request->email
