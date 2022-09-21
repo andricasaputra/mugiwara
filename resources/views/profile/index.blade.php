@@ -150,7 +150,9 @@
 												<img class="img-fluid" src="{{url('images/compro/slider_tentang/' . $s->image)}}">
 												<h5>{{$s->name}}</h5>
 												<div class="ranting">
-													<img class="img-rating" src="{{url('assets/img/bintang' . $s->rating . '.png')}}">
+													@for($i=0;$i<round($s->rating);$i++)
+														<i class="fa-solid fa-star" style="color:yellow;"></i>
+													@endfor
 												</div>
 												<p>Costumer</p>
 											</div>
