@@ -182,6 +182,8 @@ class AccomodationController extends Controller
                 'description' => 'nullable|string'
             ]);
 
+            //dd($request->all());
+
             $accomodation->update($request->all());
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil ubah data');
@@ -194,9 +196,16 @@ class AccomodationController extends Controller
 
     public function destroy(Accomodation $accomodation)
     {
-        $accomodation->delete();
+        try {
 
-        return redirect(route('accomodations.index'))->withSuccess('Berhasil hapus data');
+            $accomodation->delete();
+
+            return redirect(route('accomodations.index'))->withSuccess('Berhasil hapus data');
+            
+        } catch (\Exception $e) {
+            
+            return redirect(route('accomodations.index'))->withErrors('Gagal hapus data, terdapat pembayaran pada hotel yang akan dihapus');
+        }
     }
 
     public function tambah_kamar(Request $request, $id)

@@ -143,15 +143,9 @@ class RoomController extends Controller
 
             //dd($rooms);
 
-            foreach($rooms as $r){
-                $r->delete();
-            }
-
             foreach ($request->room_numbers as $key => $num) {
 
-
-                $create = Room::create(
-
+                $create = $rooms[$key]->update(
                     [
                         "accomodation_id" => $accomodation->id,
                         "room_number" => $num,
@@ -195,7 +189,7 @@ class RoomController extends Controller
 
             DB::rollback();
 
-            return back()->withErrors('Gagal ubah data, error : ' . $e->getMessage());
+            return back()->withErrors('Gagal ubah data : ' . $e->getMessage());
         }
     }
 
