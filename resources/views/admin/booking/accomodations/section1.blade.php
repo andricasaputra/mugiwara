@@ -48,4 +48,13 @@
     <textarea class="form-control" name="description_acc" cols="30" rows="6">{{ old('description_acc') }}</textarea>
 </div>
 
+<div class="form-group mt-2">
+    <label for="price">Is Active</label>
+   <select name="is_active" class="form-control">
+        <option value="1" selected>Ya</option>
+         <option value="">Tidak</option>
+   </select>
+</div>
+
+
 

@@ -177,7 +177,7 @@ class RoomController extends Controller
 
                 //dd($create);
 
-                $create->facilities()->sync($request->facility);
+                $rooms[$key]->facilities()->sync($request->facility);
                 
             }
 
@@ -207,7 +207,7 @@ class RoomController extends Controller
            
        } catch (\Exception $e) {
 
-            return redirect(route('rooms.index'))->withErrors('Gagal hapus data karena ada pembayaran pada kamar hotel berikut'); 
+            return redirect(route('rooms.index'))->withErrors('Gagal hapus data, terdapat pembayaran pada hotel yang akan dihapus'); 
        }
     }
 

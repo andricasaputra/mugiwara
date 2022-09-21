@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label for="price">Maksimal Jumlah Tamu</label>
-    <input name="max_guest" type="number" class="form-control form-control-lg"  required value="{{ $rooms->max_guest}}">
+    <input name="max_guest" type="number" class="form-control form-control-lg" minlength="1" min="1" required value="{{ $rooms->max_guest}}">
 </div>
 
 <div class="form-group">
