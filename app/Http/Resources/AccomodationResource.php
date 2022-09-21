@@ -31,7 +31,8 @@ class AccomodationResource extends JsonResource
             'stayed_room_count' => $this->stayed_room_count,
             'ratings_avg' => number_format($this->reviews_avg_rating, 1) ?? 0.0,
             'image' => $this->image,
-            'rooms' =>  RoomResource::collection($this->room)
+            'rooms' =>  RoomResource::collection($this->room),
+            'is_active' => $this->is_active
 
         ];
     }
