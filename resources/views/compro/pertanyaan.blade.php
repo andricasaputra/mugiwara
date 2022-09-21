@@ -8,7 +8,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header justify-content-between d-flex d-inline">
-                <h4 class="card-title align-items-center my-auto"> Syarat</h4>
+                <h4 class="card-title align-items-center my-auto"> Pertanyaan</h4>
                 <a href="{{ route('admin.pertanyaan.create.pertanyaan') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Pertanyaan</a>
             </div>
             <div class="card-body">
@@ -17,8 +17,9 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Syarat</th>
+                        <th>Pertanyaan</th>
                         <th>Kategori</th>
+                        <th>Jawaban</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -34,8 +35,9 @@
                             <td>{{ $no   }}</td>
                             <td> {{ $item->keterangan }}</td>
                             <td> {{ $item->kategori }}</td>
+                            <td> {{ $item->jawaban }}</td>
                             <td>
-                                <a class="btn btn-Primary btn-sm" href="{{ route('admin.pertanyaan.edit.pertanyaan', $item->id) }}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.pertanyaan.edit.pertanyaan', $item->id) }}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.pertanyaan.delete.pertanyaan', $item->id) }}">Hapus</a>
                             </td>
                         </tr>

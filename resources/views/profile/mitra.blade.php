@@ -4,73 +4,92 @@
 
 		@include('layouts.profile.navbar')
 
-		<section id="mitra" class="mitra">
-			<div class="container">
-				<div class="row mb-5">
-					<div class="col-lg-6">
-						<h1>Yang telah bergabung dan menjadi mitra kami</h1>
-						<p>Yakinkan diri anda untuk bergabung bersama kami, bangun peluang baru di sekitar anda</p>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="swiper slide-mitra">
-						<div class="swiper-wrapper">
-							
-							<div class="swiper-slide">
-								<img class="img-fluid" src="./assets/img/mitra1.png">
+		@if(count($mitraSection) != 0)
+			@foreach($mitraSection as $key => $m)
+				@if($m->section == 1)
+				<section id="mitra" class="mitra">
+					<div class="container">
+						<div class="row mb-5">
+							<div class="col-lg-6">
+								<h1>{{$m->title}}</h1>
+								<p>{{$m->description}}</p>
 							</div>
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="./assets/img/mitra2.png">
-							</div>	
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="./assets/img/mitra1.png">
-							</div>
-
-							<div class="swiper-slide">
-								<img class="img-fluid" src="./assets/img/mitra2.png">
-							</div>
-
 						</div>
+
+						<div class="row">
+							<div class="swiper slide-mitra">
+								<div class="swiper-wrapper">
+									@if(count($sliderMitra) != 0)
+										@foreach($sliderMitra as $k => $s)
+										<div class="swiper-slide">
+											<img class="img-fluid" src="{{url('images/compro/slider_mitra/' . $s->gambar)}}">
+										</div>
+										@endforeach
+									@endif
+								</div>
+							</div>
+						</div>
+
 					</div>
-				</div>
+				</section>
+				@endif
+			@endforeach
+		@endif
 
-			</div>
-		</section>
-
+		@if(count($pendaftaran) !== 0 or count($syarat) != 0)
 		<section id="prasyarat" class="prasyarat">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-6 prasyarat-items">
-						<h2>Proses Pendaftaran</h2>
-						<div class="list"><span>1</span><p>Isi Form pendaftaran sesuai dengan identitas anda</p></div>
-						<div class="list"><span>2</span><p>Unggah berkas pengajuan</p></div>
-						<div class="list"><span>3</span><p>Survei tempat yang akan menjadi mitra CapsuleInn</p></div>
-						<div class="list"><span>4</span><p>Persetujuan menjadi mitra</p></div>
-					</div>
+					@if(count($pendaftaran) != 0)
+						<div class="col-lg-6 prasyarat-items">
+							<h2>Proses Pendaftaran</h2>
+							@php($counter=1)
+							@foreach($pendaftaran as $k => $p)
+								<div class="list">
+									<span>{{$counter++}}</span><p>{{$p->text}}&nbsp;</p>
+									@if(!is_null($p->file))
+										<p><a href="{{url('images/compro/pendaftaran/' . $p->file)}}">Unduh</a></p>
+									@endif
+								</div>
+							@endforeach
+						</div>
+					@endif
 
+					@if(count($syarat) != 0)
 					<div class="col-lg-6 prasyarat-items">
 						<h2>Syarat dan Dokumen</h2>
-						<div class="list"><span>1</span><p>Siapkan dokumen asli  berupa KTP dan KK</p></div>
-						<div class="list"><span>2</span><p>Unduh dan setujuai dokumen persyaratan, <a href="">unduh dakumen</a></p></div>
-						<div class="list"><span>3</span><p>Unggah kembali keseluruhan data pada form yang telah di sediakan</p></div>
+						@php($counter=1)
+						@foreach($syarat as $k => $s)
+							<div class="list">
+								<span>{{$counter++}}</span><p>{{$s->text}}&nbsp;</p>
+								@if(!is_null($s->file))
+									<p><a href="{{url('images/compro/syarat/' . $s->file)}}">Unduh</a></p>
+								@endif
+							</div>
+						@endforeach
 					</div>
+					@endif
 				</div>
 			</div>
 		</section>
+		@endif
 
-		<section id="join" class="join">
-			<div class="container">
-				<div class="row justify-content-center align-items-center">
-					<div class="col-lg-6 text-center">
-						<h1 class="display-4">Awali perubahan dari sekarang</h1>
-						<a class="btn" href="{{ route('profile.register') }}">Gabung Sekarang</a>
+		@if(count($mitraSection) != 0)
+			@foreach($mitraSection as $key => $m)
+				@if($m->section == 2)
+				<section id="join" class="join">
+					<div class="container">
+						<div class="row justify-content-center align-items-center">
+							<div class="col-lg-6 text-center">
+								<h1 class="display-4">{{$m->title}}</h1>
+								<a class="btn" href="{{ route('profile.register') }}">Gabung Sekarang</a>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</section>
+				</section>
+				@endif
+			@endforeach
+		@endif
 
 		@include('layouts.profile.bottom')
 

@@ -21,7 +21,7 @@ class ManajemenMenuTableSeeder extends Seeder
         $default_menus = [
             [
                 'name' => 'manajemen user',
-                'amount_child' => 4,
+                'amount_child' => 3,
                 'sub_menu' => [
                     [
                         'name' => 'karyawan',
@@ -38,11 +38,11 @@ class ManajemenMenuTableSeeder extends Seeder
                         'url' => 'roles',
                         'is_active' => 1
                     ],
-                    [
-                        'name' => 'hak akses',
-                        'url' => 'permissions',
-                        'is_active' => 1
-                    ],
+                    // [
+                    //     'name' => 'hak akses',
+                    //     'url' => 'permissions',
+                    //     'is_active' => 1
+                    // ],
                 ],
                 'icon' => 'users.png',
                 'is_active' => 1,

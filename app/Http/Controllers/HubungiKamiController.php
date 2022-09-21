@@ -43,15 +43,23 @@ class HubungiKamiController extends Controller
             'email' => 'required',
             'judul_pertanyaan' => 'required',
             'pertanyaan' => 'required',
-            'files' => 'required|image|mimes:jpeg,png,jpg',
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:500',
+        ],[
+            'required' => ':attribute harus diisi',
+            'image' => ':attribute harus gambar',
+            'mimes' => ':attribute harus dengan format jpeg,png,jpg',
+            'max' => ':attribute max 500 mb'
         ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        if ($validator->fails()) {
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
+
         try {
 
-            $file = $request->file('files');
+            $file = $request->file('file');
             $namaFile = $file->getClientOriginalName();
             $folderUpload = 'images/compro/hubungi_kami';
             $file->move($folderUpload, $namaFile);
@@ -68,7 +76,7 @@ class HubungiKamiController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('bantuan');
+        return redirect()->route('profile.bantuan')->with('success', 'Berhasil terkirim');
 
     }
 

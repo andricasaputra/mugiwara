@@ -10,12 +10,16 @@
 					<div class="col-10">
 						<div class="content"></div>
 						<h1 class="display-4">Selesaikan semua pertanyaan dalam waktu singkat</h1>
-						<form action="" method="POST">
-							<input class="form-control" type="text" name="help" placeholder="Cari bantuan">
+							<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan">
 							<i class="bi bi-search"></i>
-						</form>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<section class="bantuan-list">
+			<div class="container result-search">
+				
 			</div>
 		</section>
 
@@ -25,25 +29,21 @@
 					<div class="col-lg-6 bantuan-list-items">
 						<h2>Sering ditanyakan</h2>
 						<ul>
-							<li><a href="./tips.html">Bagaimana cara memesan kamar melalui capsule inn?</a></li>
-							<li><a href="./tips.html">Bagaimana cara menukarkan voucher?</a></li>
-							<li><a href="./tips.html">Apa saja fasilitas yang didapat saat menginap?</a></li>
-							<li><a href="./tips.html">Bagaimana cara melakukan pembatalan untuk menginap?</a></li>
-							<li><a href="./tips.html">Apa saja ketentuan untuk menukarkan voucher?</a></li>
-							<li><a href="./tips.html">Bagaimana cara mendapatkan potongan harga saat booking hotel?</a></li>
-							<li><a href="./tips.html">Berapa orang yang dapat menginap disatu kamar?</a></li>
+							@if(count($pertanyaan)!=0)
+								@foreach($pertanyaan as $k => $p)
+								<li><a href="{{route('profile.bantuan.pertanyaan.detail', $p->id)}}">{{$p->keterangan}}</a></li>
+								@endforeach
+							@endif
 						</ul>
 					</div>
 					<div class="col-lg-6 bantuan-list-items">
 						<h2>Pertanyaan lain</h2>
 						<ul>
-							<li><a href="./tips.html">Adakah maksimal waktu untuk menginap?</a></li>
-							<li><a href="./tips.html">Bagaimana cara menjadi mitra Capsule Inn?</a></li>
-							<li><a href="./tips.html">Apakah bisa request makanan saat menginap?</a></li>
-							<li><a href="./tips.html">Bagaimana cara menukarkan merchandise?</a></li>
-							<li><a href="./tips.html">Apakah harga yang tertera sudah termasuk sarapan?</a></li>
-							<li><a href="./tips.html">Adakah denda jika saya checkout terlambat?</a></li>
-							<li><a href="./tips.html">Apakah hotel menawarkan wifi gratis?</a></li>
+							@if(count($lainnya)!=0)
+								@foreach($lainnya as $k => $p)
+								<li><a href="{{route('profile.bantuan.pertanyaan.detail', $p->id)}}">{{$p->keterangan}}</a></li>
+								@endforeach
+							@endif
 						</ul>
 					</div>
 				</div>
@@ -52,37 +52,46 @@
 
 		<section id="bantuan-form" class="bantuan-form">
 			<div class="container">
-				<div class="form">
-					<h2>Hubungi Kami</h2>
-					<div class="row">
-						<div class="col-lg-6">
-							<input class="input" type="text" name="name" placeholder="Nama Lengkap">
-						</div>
-						<div class="col-lg-6">
-							<input class="input" type="email" name="email" placeholder="Email">
-						</div>
-						<div class="col-12">
-							<input class="input" type="text" name="title" placeholder="Judul Bantuan">
-						</div>
-						<div class="col-lg-9">
-							<textarea class="text" name="bantuan" placeholder="Jelaskan Pertanyaan Anda"></textarea>
-						</div>
-						<div class="col-lg-3">
-							<div class="file">
-								<div class="infos">
-									<i class="bi bi-image-fill"></i>
-									<h5>Unggah Gambar</h5>
-									<p>Maksimal file 5MB .jpg atau .png</p>
+				<form action="{{route('admin.hubungiKami.store.hubungiKami')}}" enctype="multipart/form-data" method="post">
+					@csrf
+					<div class="form">
+						<h2>Hubungi Kami</h2>
+						@if(session()->has('error'))
+							<div class="alert alert-danger">{{ session()->get('error') }}</div>
+						@endif
+						@if(session()->has('success'))
+							<div class="alert alert-success">{{ session()->get('success') }}</div>
+						@endif
+						<div class="row">
+							<div class="col-lg-6">
+								<input class="input" type="text" name="nama_lengkap" placeholder="Nama Lengkap">
+							</div>
+							<div class="col-lg-6">
+								<input class="input" type="email" name="email" placeholder="Email">
+							</div>
+							<div class="col-12">
+								<input class="input" type="text" name="judul_pertanyaan" placeholder="Judul Bantuan">
+							</div>
+							<div class="col-lg-9">
+								<textarea class="text" name="pertanyaan" placeholder="Jelaskan Pertanyaan Anda"></textarea>
+							</div>
+							<div class="col-lg-3">
+								<div class="file">
+									<div class="infos">
+										<i class="bi bi-image-fill"></i>
+										<h5>Unggah Gambar</h5>
+										<p>Maksimal file 5MB .jpg atau .png</p>
+									</div>
+									<img src="">
+									<input type="file" name="file">
 								</div>
-								<img src="">
-								<input type="file" name="file">
 							</div>
 						</div>
+						<div class="row justify-content-end">
+							<button class="btn" type="submit">Kirim</button>
+						</div>
 					</div>
-					<div class="row justify-content-end">
-						<button class="btn" type="button">Kirim</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</section>
 
@@ -90,4 +99,53 @@
 
 	</div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+		$('.help-input').on('keypress', function(e) {
+			let payload = {
+				param: $(this).val()
+			}
+
+			if(e.which == 13) {
+				$('.bantuan-list-items').remove();
+				let html = `
+				<div class="col-lg-6 bantuan-list-items">
+					<h2>Hasil Pencarian</h2>
+					<ul class="list-hasil-search">
+					</ul>
+				</div>
+				`
+				$('.result-search').append(html)
+				$('html, body').animate({
+					scrollTop: $(".result-search").offset().top
+				}, 2000);
+				$.ajax({
+					type: "post",
+					data: payload,
+					url: "{{ route('profile.bantuan.pertanyaan.search') }}",
+					success: function(res) {
+						$('.bantuan-list-items').remove();
+						$('.result-search').append(html)
+						if(res.data.length>0){
+							res.data.map((i)=>{
+								let val = i
+								let route = `{{route('profile.bantuan.pertanyaan.detail', ":id")}}`
+								route = route.replace(':id', val.id);
+								let li = `<li><a href="${route}">${val.keterangan}</a></li>`
+								$('.list-hasil-search').append(li)
+							})
+						}
+					}
+				})
+			}
+		})
+	})
+</script>
 @include('layouts.profile.footer')
