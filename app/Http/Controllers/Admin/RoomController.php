@@ -141,23 +141,27 @@ class RoomController extends Controller
             $accomodation = Accomodation::findOrFail($id);
             $rooms = $accomodation->room;
 
+            //dd($rooms);
+
+            foreach($rooms as $r){
+                $r->delete();
+            }
+
             foreach ($request->room_numbers as $key => $num) {
 
 
-                $create = Room::updateOrCreate(
+                $create = Room::create(
 
                     [
                         "accomodation_id" => $accomodation->id,
                         "room_number" => $num,
                         "type_id" => $request->type_id ,
-                    ],
-                    [
-                          "max_guest" => $request->max_guest ,
-                          "price" => $request->price ,
-                          "discount_type" => $request->discount_type ,
-                          "description_room" => $request->description_room,
-                          'status' => $request->status,
-                          'is_refunded' => $request->is_refunded,
+                        "max_guest" => $request->max_guest ,
+                        "price" => $request->price ,
+                        "discount_type" => $request->discount_type ,
+                        "description_room" => $request->description_room,
+                        'status' => $request->status,
+                        'is_refunded' => $request->is_refunded,
                     ]
                 );
 
