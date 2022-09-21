@@ -56,7 +56,7 @@
                                                 <th>Nama Penginapan</th>
                                                 <th>Type</th>
                                                 <th>Maksimal Tamu</th>
-                                                <th>Status</th>
+                                                <th>Status Available</th>
                                                 <th>Harga</th>
                                                 <th>Diskon</th>
                                                 <th>Gambar</th>

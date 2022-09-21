@@ -31,7 +31,7 @@
     <label for="room_numbers">Nomor Kamar</label>
     <select name="room_numbers[]" class="form-control form-control-lg js-example-tokenizer" multiple="multiple" style="width: 100%">
         @foreach($numbers as $number)
-            <option value="{{ $number->id }}">{{ $number->number }}</option>
+            <option value="{{ $number->number }}">{{ $number->number }}</option>
         @endforeach
     </select>
 </div>

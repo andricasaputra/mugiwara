@@ -145,7 +145,9 @@ class RoomController extends Controller
 
             foreach ($request->room_numbers as $key => $num) {
 
-                $create = $rooms[$key]->update(
+                $rooms[$key]->delete();
+
+                $create = Room::create(
                     [
                         "accomodation_id" => $accomodation->id,
                         "room_number" => $num,
@@ -168,7 +170,7 @@ class RoomController extends Controller
 
                     if(isset($imageName[$key])){
                         
-                        $rooms[$key]->images()->create([
+                        $create->images()->create([
                             'image' => $imageName[$key]['basename']
                         ]);
                     }
@@ -177,7 +179,7 @@ class RoomController extends Controller
 
                 //dd($create);
 
-                $rooms[$key]->facilities()->sync($request->facility);
+                $create->facilities()->sync($request->facility);
                 
             }
 
