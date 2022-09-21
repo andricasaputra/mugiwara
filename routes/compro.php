@@ -33,11 +33,8 @@ use App\Http\Controllers\TeamHeaderController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\TombolController;
 use App\Http\Controllers\VisiMisiController;
-use App\Models\KeteranganSlider;
-use App\Models\MitraGabung;
-use App\Models\SliderMitra;
-use App\Models\TambahSlider;
-use App\Models\documentUnduh;
+use App\Models\Accomodation;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function() {

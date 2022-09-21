@@ -58,15 +58,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label for="address">Alamat</label>
-                                <textarea class="form-control" name="address" 
-                                @if(!is_null($settings))
-                                    value="{{$settings->address}}"
-                                @endif
-                                >
-                                @if(!is_null($settings))
-                                    {{$settings->address}}
-                                @endif
-                                </textarea>
+                                <textarea class="form-control" name="address"><?php if(!is_null($settings->address)) echo $settings->address ?></textarea>
                             </div>
                         </div>
                     </div>
