@@ -15,7 +15,7 @@ class GoogleApiController extends Controller
 {
     public function googleLogin(Request $request)
     {
-        if(! $this->isEmployeeEmail()){
+        if(! $this->isEmployeeEmail($request)){
             return response()->json([
                 'error' => true,
                 'message' => 'Email berikut sudah digunakan oleh karyawan CapsuleInn'
@@ -74,7 +74,7 @@ class GoogleApiController extends Controller
         }
     }
 
-    protected function isEmployeeEmail()
+    protected function isEmployeeEmail($request)
     {
         $emails = User::where('email', $reuest->email)->where('type', 'user')->first();
 
