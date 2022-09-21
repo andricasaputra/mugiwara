@@ -5,9 +5,9 @@
         @foreach($accomodation->room as $room)
          <option value="{{ $room->room_number }}" selected>{{ $room->room_number }}</option>
         @endforeach
-        @foreach($numbers as $number)
+        {{-- @foreach($numbers as $number)
             <option value="{{ $number->number }}">{{ $number->number }}</option>
-        @endforeach
+        @endforeach --}}
     </select>
 </div>
 

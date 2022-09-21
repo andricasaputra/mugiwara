@@ -168,7 +168,7 @@ class RoomController extends Controller
 
                     if(isset($imageName[$key])){
                         
-                        $rooms[$key]->create([
+                        $rooms[$key]->images()->create([
                             'image' => $imageName[$key]['basename']
                         ]);
                     }
