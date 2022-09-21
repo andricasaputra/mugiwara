@@ -76,7 +76,7 @@ class GoogleApiController extends Controller
 
     protected function isEmployeeEmail($request)
     {
-        $emails = User::where('email', $reuest->email)->where('type', 'user')->first();
+        $emails = User::where('email', $request->email)->where('type', 'user')->first();
 
         if($emails) return false;
 
