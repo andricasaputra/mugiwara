@@ -4,63 +4,51 @@
 
 		@include('layouts.profile.navbar')
 
-		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="offcanvasExampleLabel">
-					<a class="navbar-brand" href="#">
-					<img src="./assets/img/logo.png">
-				</a>
-				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div class="navbar-nav">
-					<a class="nav-link" href="./index.html">Beranda</a>
-					<a class="nav-link active" href="./mitra.html">Jadi Mitra</a>
-					<a class="nav-link" href="./hotel.html">Hotel</a>
-					<a class="nav-link" href="./team.html">Tentang Kami</a>
-					<a class="nav-link" href="./bantuan.html">Bantuan</a>
-					<a class="nav-link only" href="#">Masuk</a>
-				</div>
-			</div>
-		</div>
-
 		<section id="form-register" class="form-register">
 			<div class="container">
-				<div class="form">
-					<h2>Raih Sukses Bersama CapsuleInn</h2>
-					<div class="row">
-						<div class="col-lg-6">
-							<input class="input" type="text" name="name" placeholder="Nama Lengkap">
-						</div>
-						<div class="col-lg-6">
-							<input class="input" type="email" name="email" placeholder="Email">
-						</div>
-						<div class="col-lg-6">
-							<input class="input" type="text" name="nope" placeholder="Nomor Telepon">
-						</div>
-						<div class="col-lg-6">
-							<input class="input" type="text" name="nik" placeholder="NIK">
-						</div>
-						<div class="col-lg-9">
-							<textarea class="text" name="tempat_tinggal" placeholder="Alamat Tempat Usaha"></textarea>
-							<textarea class="text" name="tempat_usaha" placeholder="Alamat Tinggal Anda"></textarea>
-						</div>
-						<div class="col-lg-3">
-							<div class="files">
-								<div class="infos">
-									<i class="bi bi-file-earmark-zip"></i>
-									<h5>Unggah Files</h5>
-									<p>Maksimal file 5MB .zip</p>
+				@if(session()->has('error'))
+                    <div class="alert alert-danger">{{ session()->get('error') }}</div>
+                @endif
+				@if(session()->has('success'))
+                    <div class="alert alert-success">{{ session()->get('success') }}</div>
+                @endif
+				<form action="{{ route('profile.register.submit') }}" enctype="multipart/form-data" method="post">
+					@csrf
+					<div class="form">
+						<h2>Raih Sukses Bersama CapsuleInn</h2>
+						<div class="row">
+							<div class="col-lg-6">
+								<input class="input" type="text" name="nama_lengkap" placeholder="Nama Lengkap" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="input" type="email" name="email" placeholder="Email" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="input" type="number" name="hp" placeholder="Nomor Telepon" required>
+							</div>
+							<div class="col-lg-6">
+								<input class="input" type="number" name="nik" placeholder="NIK" required>
+							</div>
+							<div class="col-lg-9">
+								<textarea class="text" name="alamat_usaha" placeholder="Alamat Tempat Usaha" required></textarea>
+								<textarea class="text" name="alamat_tinggal" placeholder="Alamat Tinggal Anda" required></textarea>
+							</div>
+							<div class="col-lg-3">
+								<div class="files">
+									<div class="infos">
+										<i class="bi bi-file-earmark-zip"></i>
+										<h5>Unggah Files</h5>
+										<p>Maksimal file 5MB .zip</p>
+									</div>
+									<input type="file" name="file" required>
 								</div>
-								<input type="file" name="file">
 							</div>
 						</div>
+						<div class="row justify-content-end">
+								<button class="btn" type="submit">Kirim Berkas</button>
+						</div>
 					</div>
-					<div class="row justify-content-end">
-							<button class="btn" type="button">Kirim Berkas</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</section>
 

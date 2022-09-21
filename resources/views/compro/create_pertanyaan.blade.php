@@ -16,7 +16,7 @@
 
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
+                            <label for="keterangan">Pertanyaan</label>
                             <input type="text" class="form-control" name="keterangan">
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
                             <label for="jawaban">Jawaban</label>
-                            <textarea name="jawaban" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="jawaban"></textarea>
                         </div>
                     </div>
 

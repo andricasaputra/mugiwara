@@ -53,7 +53,7 @@
                 @foreach ($hotels as $item)
                     <div class="card">
                         <div class="card-img">
-                            <img class="card-img-top" src="{{ asset('storage/rooms/' .  $item->image) }}">
+                            <img class="card-img-top" src="{{ asset('storage/rooms/' .  $item->first()?->image) }}">
                             <div class="link-action">
                                 @foreach ($playstores as $items)
                                     <a href="{{ $items->url }}" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
@@ -223,13 +223,14 @@
             data: {"kapan": kapan},
             url: "{{ route('cariAvailable') }}",
             success : function(res){
-                console.log(res)
+                
                 let room_availables = res.room_availables
                 let start = ""
                 for(let i = 0; i < room_availables.length; i++){
                     for(let j = 0; j < room_availables[i].rating; j++) {
                         start += `<img class="start" src="./assets/img/bintang.png">`
                     }
+                    console.log(room_availables)
                     html += `<div class="card">
                         <div class="card-img">
                             <img class="card-img-top" src="storage/rooms/`+ room_availables[i].image +`">
