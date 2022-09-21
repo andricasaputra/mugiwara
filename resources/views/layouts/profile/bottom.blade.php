@@ -11,6 +11,12 @@
 				@else
 						<img class="img-fluid" src="{{url('assets/img/logo.png')}}">
 				@endif
+
+				@if(!is_null($settings))
+					@if(!is_null($settings->address))
+					<p>{{$settings->address}}</p>
+					@endif
+				@endif
 			</div>
 			@if(count($menu) != 0)
 			<div class="col-lg-2">

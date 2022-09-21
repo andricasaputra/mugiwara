@@ -39,10 +39,10 @@
                             <td> {{ $item->judul_pertanyaan }}</td>
                             <td> {{ $item->pertanyaan }}</td>
                             <td>
-                                <img src="{{ asset('images/compro/hubungi_kami/' . $item->file) }}" alt="">
+                                <img src="{{ asset('images/compro/hubungi_kami/' . $item->file) }}" width="100">
                             </td>
                             <td>
-                                <!-- <a class="btn btn-danger btn-sm" href="{{ route('admin.hubungiKami.delete.hubungiKami', $item->id) }}">Hapus</a> -->
+                                <a class="btn btn-danger btn-sm" href="{{ route('admin.hubungiKami.delete.hubungiKami', $item->id) }}">Hapus</a>
                                 <!-- <a class="btn btn-primary btn-sm" href="{{ route('admin.hubungiKami.edit.hubungiKami', $item->id) }}">Edit</a> -->
                             </td>
                         </tr>

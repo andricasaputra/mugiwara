@@ -10,8 +10,10 @@
 					<div class="col-10">
 						<div class="content"></div>
 						<h1 class="display-4">Selesaikan semua pertanyaan dalam waktu singkat</h1>
-						<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan">
-						<!-- <i class="bi bi-search"></i> -->
+						<div class="d-flex">
+							<span class="input-group-text bg-transparent" style="border-style: none!important;margin-right:-50px;z-index:2;" id="basic-addon1"><i class="bi bi-search"></i></span>
+							<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan" style="z-index:1;">
+						</div>
 					</div>
 				</div>
 			</div>
