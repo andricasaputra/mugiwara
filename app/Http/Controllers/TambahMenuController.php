@@ -103,6 +103,7 @@ class TambahMenuController extends Controller
            $menu_compros = Tambah_menu_compro::find($id);
            $menu_compros->nama_menu = $request->nama_menu;
            $menu_compros->url_menu = $request->url_menu;
+           $menu_compros->status = $request->status;
            $menu_compros->update();
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -123,6 +124,6 @@ class TambahMenuController extends Controller
         $menus = Tambah_menu_compro::find($id);
         $menus->delete();
 
-        return redirect()->route('admin.compro.tambah.menu');
+        return redirect()->route('admin.menu.menu');
     }
 }

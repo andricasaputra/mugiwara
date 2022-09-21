@@ -42,8 +42,8 @@
                                 <img src="{{ asset('images/compro/hubungi_kami/' . $item->file) }}" alt="">
                             </td>
                             <td>
-                                {{-- <a class="btn btn-danger btn-sm" href="{{ route('admin.hubungiKami.delete.hubungiKami', $item->id) }}">Hapus</a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.hubungiKami.edit.hubungiKami', $item->id) }}">Edit</a> --}}
+                                <!-- <a class="btn btn-danger btn-sm" href="{{ route('admin.hubungiKami.delete.hubungiKami', $item->id) }}">Hapus</a> -->
+                                <!-- <a class="btn btn-primary btn-sm" href="{{ route('admin.hubungiKami.edit.hubungiKami', $item->id) }}">Edit</a> -->
                             </td>
                         </tr>
 
@@ -68,4 +68,3 @@
 
 
 @endsection
- --}}

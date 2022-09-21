@@ -111,7 +111,7 @@ class PertanyaanController extends Controller
             $pertanyaan = Pertanyaan::find($id);
             $pertanyaan->keterangan = $request->keterangan;
             $pertanyaan->kategori = $request->kategori;
-            $pertanyaan->jawaban = $request->kategori;
+            $pertanyaan->jawaban = $request->jawaban;
             $pertanyaan->update();
 
         } catch (\Throwable $th) {
