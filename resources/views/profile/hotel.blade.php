@@ -14,7 +14,11 @@
 						<div class="caps">
 							<h2>{{$accomodationTop->name}}</h2>							
 							<div class="starts">
-								<img class="start" src="{{url('assets/img/bintang/'.round($accomodationTopRate->avgRating).'.png')}}'">
+								<span>
+									@for($i=0;$i<ceil($accomodationTopRate->avgRating);$i++)
+										<i class="fa-solid fa-star" style="color:yellow;"></i>
+									@endfor
+								</span>
 								<span>{{$accomodationTopRate->avgRating}}</span>
 							</div>
 						</div>
