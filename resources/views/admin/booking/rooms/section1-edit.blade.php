@@ -67,12 +67,12 @@
 
 <div id="discount-container">
      <div class="form-group discount_amount">
-        <label for="price">Jumlah Diskon</label>
+        <label for="discount_amount">Jumlah Diskon</label>
         <input name="discount_amount" type="number" class="form-control form-control-lg" value="{{ $accomodation->room?->first()?->discount_amount }}">
     </div>
 </div>
 
 <div class="form-group mt-2">
-    <label for="price">Deskripsi Penginapan (optional)</label>
+    <label for="description_room">Deskripsi Penginapan (optional)</label>
     <textarea class="form-control" name="description_room" cols="30" rows="6">{{ $accomodation->room?->first()?->description }}</textarea>
 </div>
