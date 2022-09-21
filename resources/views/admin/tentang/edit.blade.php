@@ -9,7 +9,7 @@
                     <div class="alert alert-danger">{{ session()->get('error') }}</div>
                 @endif
                 <h4 class="card-title">Tambah</h4>
-                <form action="{{ route('admin.tentang.update.tentang') }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('admin.beranda-tentang.update.beranda-tentang') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <input type="hidden" name="id" value="{{ $tentang->id }}">
                     <div class="row">

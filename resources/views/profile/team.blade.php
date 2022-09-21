@@ -23,28 +23,28 @@
 		@endif
 
 		@if(count($team)!=0)
-			@foreach($team as $k => $t)
 			<section id="list-teams" class="list-teams">
 				<div class="container">
 					<div class="row">
+						@foreach($team as $k => $t)
 						<div class="col-lg-4 list-teams-list">
 							<div class="card">
 								<img class="card-img-top" src="{{url('images/compro/team_header/' . $t->gambar)}}">
 								<div class="card-body">
 									<h2>{{$t->heading}}</h2>
 									<h5>{{$t->jabatan}}</h5>
-									<!-- <div>
-										<a href="#">
+									<div>
+										<a href="{{$t->url_sosmed}}">
 											<img src="{{url('images/compro/team_header/' . $t->gambar_sosmed)}}">
 										</a>
-									</div> -->
+									</div>
 								</div>
 							</div>
 						</div>
+						@endforeach
 					</div>
 				</div>
 			</section>
-			@endforeach
 		@endif
 
 		@if(count($team)!=0)

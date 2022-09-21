@@ -21,7 +21,7 @@ class GeneralSettingsController extends Controller
         if (is_null($settings)) {
             $settings = new GeneralSettings;
         }
-        $settings->fill($request->except('id', 'logo'));
+        $settings->fill($request->except('id', 'logo', 'favicon'));
 
         if (!is_null($request->logo)) {
             try {
@@ -34,6 +34,19 @@ class GeneralSettingsController extends Controller
             }
 
             $settings->logo = $namaFile;
+        }
+
+        if (!is_null($request->favicon)) {
+            try {
+                $favicon = $request->file('favicon');
+                $namaFavicon = $favicon->getClientOriginalName();
+                $folderUpload = 'images/compro/favicon';
+                $favicon->move($folderUpload, $namaFavicon);
+            } catch (\Throwable $th) {
+                return redirect()->route('admin.general-settings.general-settings')->with('error', $th->getMessage());
+            }
+
+            $settings->favicon = $namaFavicon;
         }
 
         $settings->save();

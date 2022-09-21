@@ -6,8 +6,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-            @if($errors->any())
-                {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{ session()->get('error') }}</div>
             @endif
             <h4 class="card-title">Tambah Team Header</h4>
             <form action="{{ route('admin.teamHeader.store.teamHeader') }}" method="post" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
 
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
-                            <label for="jabatan">jabatan</label>
+                            <label for="jabatan">Jabatan</label>
                             <input type="text" class="form-control" name="jabatan">
                         </div>
                     </div>

@@ -49,34 +49,28 @@ class TeamHeaderController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            return redirect()->back()->with('error', $validator->errors());
         }
 
         try {
-
-            $file = $request->file('gambar');
+            $gambar = $request->file('gambar');
             $gambar_sosmed = $request->file('gambar_sosmed');
-            $namaFile = $file->getClientOriginalName();
+            $namaGambar = $gambar->getClientOriginalName();
             $namaGambarSosmed = $gambar_sosmed->getClientOriginalName();
             $folderUpload = 'images/compro/team_header';
-            $file->move($folderUpload, $namaFile);
+            $gambar->move($folderUpload, $namaGambar);
             $gambar_sosmed->move($folderUpload, $namaGambarSosmed);
 
             $teamHeaders = new TeamHeader();
-            $teamHeaders->heading = $request->heading;
-            $teamHeaders->keterangan = $request->keterangan;
-            $teamHeaders->jabatan = $request->jabatan;
-            $teamHeaders->url_sosmed = $request->url_sosmed;
-            $teamHeaders->alt = $request->alt;
-            $teamHeaders->gambar = $namaFile;
-            $teamHeaders->gambar_sosmed = $request->gambar_sosmed;
+            $teamHeaders->fill($request->except('gambar', 'gambar_sosmed'));
+            $teamHeaders->gambar = $namaGambar;
+            $teamHeaders->gambar_sosmed = $namaGambarSosmed;
             $teamHeaders->save();
-
         } catch (\Throwable $th) {
-            return $th->getMessage();
+            return redirect()->back()->with('error', $th->getMessage());
         }
 
-        return redirect()->route('admin.teamHeader.teamHeader');
+        return redirect()->route('admin.teamHeader.teamHeader')->with('success', 'Berhasil menyimpan data');
     }
 
     /**
@@ -111,42 +105,30 @@ class TeamHeaderController extends Controller
      */
     public function update(Request $request, TeamHeader $teamHeader, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'heading' => 'required',
-            'keterangan' => 'required',
-            'gambar' => 'required',
-            'alt' => 'required',
-            'jabatan' => 'required',
-            'url_sosmed' => 'required',
-            'gambar_sosmed' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         try {
-
-            $file = $request->file('gambar');
-            $namaFile = $file->getClientOriginalName();
-            $folderUpload = 'images/compro/team_header';
-            $file->move($folderUpload, $namaFile);
-
             $teamHeaders = TeamHeader::find($id);
-            $teamHeaders->heading = $request->heading;
-            $teamHeaders->keterangan = $request->keterangan;
-            $teamHeaders->jabatan = $request->jabatan;
-            $teamHeaders->url_sosmed = $request->url_sosmed;
-            $teamHeaders->alt = $request->alt;
-            $teamHeaders->gambar = $namaFile;
-            $teamHeaders->gambar_sosmed = $request->gambar_sosmed;
-            $teamHeaders->update();
+            $teamHeaders->fill($request->except('id', 'gambar', 'gambar_sosmed'));
+            if(!is_null($request->gambar)) {
+                $file = $request->file('gambar');
+                $namaFile = $file->getClientOriginalName();
+                $folderUpload = 'images/compro/team_header';
+                $file->move($folderUpload, $namaFile);
+                $teamHeaders->gambar = $namaFile;
+            }
 
+            if(!is_null($request->gambar_sosmed)) {
+                $gambar_sosmed = $request->file('gambar');
+                $namaGambarSosmed = $gambar_sosmed->getClientOriginalName();
+                $folderUploadGambarSosmed = 'images/compro/team_header';
+                $file->move($folderUploadGambarSosmed, $namaGambarSosmed);
+                $teamHeaders->gambar_sosmed = $namaGambarSosmed;
+            }
+            $teamHeaders->save();
         } catch (\Throwable $th) {
-            return $th->getMessage();
+            return redirect()->back()->with('error', $th->getMessage());
         }
 
-        return redirect()->route('admin.teamHeader.teamHeader');
+        return redirect()->route('admin.teamHeader.teamHeader')->with('success', 'Berhasil mengubah data');
     }
 
     /**

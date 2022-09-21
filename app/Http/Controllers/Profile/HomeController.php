@@ -108,6 +108,8 @@ class HomeController extends Controller
             $accomodationTopImage = Image::where('imageable_id', $accomodationTop->id)->where('imageable_type', Accomodation::class)->first();
         }
         $settings = GeneralSettings::first();
+        $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
+        $settingAppStore = AppStoreLink::orderBy('created_at', 'desc')->first();
         return view('profile.hotel', [
             'title' => 'Hotel',
             'settings' => $settings,
@@ -116,7 +118,9 @@ class HomeController extends Controller
             'kategori' => $kategori,
             'accomodationTop' => $accomodationTop,
             'accomodationTopRate' => $accomodationTopRate,
-            'accomodationTopImage' => $accomodationTopImage
+            'accomodationTopImage' => $accomodationTopImage,
+            'settingPlayStore' => $settingPlayStore,
+            'settingAppStore' => $settingAppStore,
         ]);
     }
 

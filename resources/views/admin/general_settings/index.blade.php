@@ -38,7 +38,21 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label for="logo">Logo</label>
+                                @if(!is_null($settings->logo))
+                                    <img src="{{url('images/compro/logo/' . $settings->logo)}}" width="100">
+                                @endif
                                 <input type="file" class="form-control" name="logo" id="logo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="favicon">Logo icon</label>
+                                @if(!is_null($settings->favicon))
+                                    <img src="{{url('images/compro/favicon/' . $settings->favicon)}}" width="100">
+                                @endif
+                                <input type="file" class="form-control" name="favicon" id="favicon">
                             </div>
                         </div>
                     </div>
