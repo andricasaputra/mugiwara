@@ -60,6 +60,7 @@ class AccomodationRepository
             'lat' => $this->request->lat,
             'lang' => $this->request->lang,
             'description' => $this->request->description_acc,
+            'is_active' => $this->request->is_active,
         ]);
 
         return $this->accomodation;
