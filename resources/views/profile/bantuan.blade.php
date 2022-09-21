@@ -10,8 +10,8 @@
 					<div class="col-10">
 						<div class="content"></div>
 						<h1 class="display-4">Selesaikan semua pertanyaan dalam waktu singkat</h1>
-							<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan">
-							<i class="bi bi-search"></i>
+						<input class="form-control help-input" type="text" name="help" placeholder="Cari bantuan">
+						<!-- <i class="bi bi-search"></i> -->
 					</div>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 			if(e.which == 13) {
 				$('.bantuan-list-items').remove();
 				let html = `
-				<div class="col-lg-6 bantuan-list-items">
+				<div class="col-lg-6 bantuan-list-items" style="padding-top:150px">
 					<h2>Hasil Pencarian</h2>
 					<ul class="list-hasil-search">
 					</ul>
@@ -125,7 +125,7 @@
 				$('.result-search').append(html)
 				$('html, body').animate({
 					scrollTop: $(".result-search").offset().top
-				}, 2000);
+				}, 1000);
 				$.ajax({
 					type: "post",
 					data: payload,

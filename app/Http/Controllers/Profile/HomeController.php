@@ -53,7 +53,6 @@ class HomeController extends Controller
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $overview = BerandaOverview::orderBy('order', 'asc')->get();
         $settings = GeneralSettings::first();
-        
 
         return view('profile.index', [
             'title' => 'Beranda',
@@ -259,7 +258,7 @@ class HomeController extends Controller
             	 \App\Http\Pipelines\QueryFilters\Sort::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Search::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Status::class,
-                //\App\Http\Pipelines\QueryFilters\Relations\Category::class,
+                \App\Http\Pipelines\QueryFilters\Relations\Category::class,
                 \App\Http\Pipelines\QueryFilters\Relations\Location::class
             ])
             ->thenReturn()
@@ -270,22 +269,31 @@ class HomeController extends Controller
 
     public function accomodationTop(Request $request)
     {
-        $accomodationTopRate = DB::table('accomodation_ratings')
-        ->select(DB::raw('accomodation_id, avg(rating) as avgRating'))
-        ->groupBy('accomodation_id')
-        ->orderBy('avgRating', 'desc')
-        ->get();
-        $accomodationId = [];
-        if (count($accomodationTopRate)!=0) {
-            foreach($accomodationTopRate as $k => $a) {
-                $accomodationId[] = $a->accomodation_id;
+        $accomodation = Accomodation::with([
+            'image',
+            'room',
+            'room.type' => function($query) use ($request) {
+                $query->where('name', $request->type);
+            },
+        ])
+        ->withAvg('reviews', 'rating')
+        ->withCount([
+            'room',
+            'room as available_room_count' => function (Builder $query) {
+                $query->where('status', 'available');
+            },
+            'room as booked_room_count' => function (Builder $query) {
+                $query->where('status', 'booked');
+            },
+            'room as stayed_room_count' => function (Builder $query) {
+                $query->where('status', 'stayed');
             }
-        }
-        $accomodationById = Accomodation::whereIn('id', $accomodationId)->with('ratings')->get();
+
+        ])->limit(4)->get();
         return response()->json([
-            'accomodationTopRate' => $accomodationTopRate,
-            'accomodationId' => $accomodationId,
-            'accomodationById' => $accomodationById
+            'status' => 'success',
+            'message' => 'Berhasil get data',
+            'data' => $accomodation
         ]);
     }
 
