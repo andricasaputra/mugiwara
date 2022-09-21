@@ -157,6 +157,7 @@ class RoomController extends Controller
                         "max_guest" => $request->max_guest ,
                         "price" => $request->price ,
                         "discount_type" => $request->discount_type ,
+                        "discount_amount" => $request->discount_amount ,
                         "description_room" => $request->description_room,
                         'status' => $request->status,
                         'is_refunded' => $request->is_refunded,
