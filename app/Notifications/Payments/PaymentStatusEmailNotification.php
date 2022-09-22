@@ -52,7 +52,7 @@ class PaymentStatusEmailNotification extends Notification implements ShouldQueue
                 ->line(Lang::get($this->message))
                 ->line(Lang::get('Order ID : ' . $this->payment?->order_id))
                 ->line(Lang::get('Jumlah total pembayaran Rp : ' . $this->payment?->amount))
-                ->action(Lang::get('Status : ' . strtolower($this->payment?->status)), $url = '')
+                ->action(Lang::get('Status : ' . ucfirst(strtolower($this->payment?->status))), $url = '')
                 ->line(Lang::get('Terimakasih.'))
                 ->salutation(Lang::get(env('APP_NAME')));
     }

@@ -23,14 +23,13 @@
         }
       i {
         color: #9ABC66;
-        font-size: 100px;
         line-height: 200px;
-        margin-left:-15px;
+        font-size: 200px;
       }
       .card {
         background: white;
         padding: 60px;
-        border-radius: 4px;
+        border-radius: 10px;
         box-shadow: 0 2px 3px #C8D0D8;
         display: inline-block;
         margin: 0 auto;
@@ -41,8 +40,8 @@
       <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
         <i class="checkmark">✓</i>
       </div>
-        <h1>Pemberitahuan</h1> 
-        <p>Segera lakukan pembayaran<br/> Halaman ini akan segera tertutup!</p>
+        <h1>Sukses</h1> 
+        <p>Terimakasih, kami telah menerima pembayaran anda!<br/> Silahkan kembali ke aplikasi untuk detail lebih lanjut!</p>
       </div>
     </body>
 </html>

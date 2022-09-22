@@ -98,6 +98,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
         Route::get('payments/methods/{name}/{type}', [PaymentMethodController::class, 'detail']);
 
+
         Route::get('refund/status/{refund}', [RefundController::class, 'status']);
         Route::get('refund/reason', [RefundController::class, 'reason']);
         Route::post('refund/{order}', [RefundController::class, 'refund']);
@@ -181,6 +182,10 @@ Route::post('cb/payment/ewallet/status/ovo', [XenditCallbackController::class, '
 Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewallet']);
 
 Route::post('cb/payment/va/status', [XenditCallbackController::class, 'virtualAccount']);
+
+Route::get('payments/cb/successfully', [\App\Http\Controllers\Api\PaymentController::class, 'successfully']);
+
+Route::get('payments/cb/failed', [\App\Http\Controllers\Api\PaymentController::class, 'failed']);
 
 Route::get('playstore/link', [PlayStoreController::class, 'index'])->name('playstorelink');
 Route::get('appstore/link', [AppStoreController::class, 'index'])->name('appstorelink');

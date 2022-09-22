@@ -45,7 +45,7 @@
                             <div>
                                 <img src="{{ url('storage/products/' . $product->image?->image) }}" alt="" width="100">
                             </div>
-                            <input type="file" class="form-control" name="photo_product" required>
+                            <input type="file" class="form-control" name="photo_product">
                         </div>
                     </div>
                     <div class="container-fluid">

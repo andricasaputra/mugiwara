@@ -159,6 +159,7 @@ Route::middleware(['verified', 'panel'])->group(function(){
 Route::resource('playstores', PlayStoreController::class);
 Route::resource('appstores', AppStoreController::class);
 
+
 require __DIR__.'/auth.php';
 
 
