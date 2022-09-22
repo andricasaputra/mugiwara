@@ -1,6 +1,9 @@
 <?php  
 
 
+use App\Http\Controllers\AboutAwalController;
+use App\Http\Controllers\AboutKeduaController;
+use App\Http\Controllers\AboutPertamaController;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\BerandaOverviewController;
 use App\Http\Controllers\DocumentUnduhController;
@@ -14,7 +17,6 @@ use App\Http\Controllers\MitraGabungController;
 use App\Http\Controllers\MitraRegistranController;
 use App\Http\Controllers\MitraSectionController;
 use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\PenukaranMarchendiseController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\ProsesPendaftaranController;
 use App\Http\Controllers\SliderFiturController;

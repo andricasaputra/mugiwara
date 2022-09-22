@@ -10,7 +10,7 @@
 				@if(!is_null($accomodationTop) and !is_null($accomodationTopImage))
 				<div class="col-lg-8 hotel-items">
 					<div class="hotel-top">
-						<img class="img-fluid" src="{{ url('storage/accomodations/' . $accomodationTopImage?->image) }}">
+						<img class="img-fluid" src="{{url('storage/rooms/' . $accomodationTopImage)}}">
 						<div class="caps">
 							<h2>{{$accomodationTop->name}}</h2>							
 							<div class="starts">
@@ -115,17 +115,23 @@
 				if (res.status == 'success') {
 					if (res.data.length > 0) {
 						res.data.map((i) => {
-							if (i.image !== null) {
-								if (i.room.length > 0) {
-									let type = '';
-									i.room.map((r) => {
-										if (r.type !== null) {
-											type = r.type.name
-										}
-									})
+							if (i.room.length > 0) {
+								let type = '';
+								let imageRoom = '';
+								i.room.map((r) => {
+									if (r.type !== null) {
+										type = r.type.name
+									}
+									if (r.images.length > 0) {
+										r.images.map((ri) => {
+											imageRoom = ri.image
+										})
+									}
+								})
+								if (imageRoom!==''){
 									let image = `{{url('storage/rooms/:image')}}`
 									let rating = `{{url('assets/img/bintang:rating.png')}}`
-									image = image.replace(':image', i.image);
+									image = image.replace(':image', imageRoom);
 									rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 									let card = `
 										<div class="card card-hotels-init">
@@ -179,20 +185,26 @@
 					if(res.data.length>0){
 						res.data.map((i)=>{
 							if (i.available_room_count>0) {
-								if (i.image !== null) {
-									if (i.room.length > 0) {
-										let type = '';
-										i.room.map((r) => {
-											if (r.type !== null) {
-												type = r.type.name
-											}
-										})
+								if (i.room.length > 0) {
+									let type = '';
+									let imageRoom = '';
+									i.room.map((r) => {
+										if (r.type !== null) {
+											type = r.type.name
+										}
+										if (r.images.length > 0) {
+											r.images.map((ri) => {
+													imageRoom = ri.image
+											})
+										}
+									})
+									if (imageRoom!==''){
 										let image = `{{url('storage/rooms/:image')}}`
 										let rating = `{{url('assets/img/bintang:rating.png')}}`
-										image = image.replace(':image', i.image);
+										image = image.replace(':image', imageRoom);
 										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 										let card = `
-											<div class="card card-hotels-init">
+											<div class="card card-res-check">
 												<div class="card-img">
 													<img class="card-img-top" src="${image}">
 													<div class="link-action">
@@ -210,8 +222,7 @@
 												</div>
 											</div>
 										`
-										
-										$('.hotels-init').append(card);
+										$('.res-check-right').append(card);
 										for(let j = 0;j < Math.round(i.reviews_avg_rating);j++) {
 											$(`.rating-${i.id}`).append('<i class="fa-solid fa-star fa-star-check" style="color:yellow;"></i>')
 										}
@@ -237,17 +248,23 @@
 					if (res.status == 'success') {
 						if (res.data.length > 0) {
 							res.data.map((i) => {
-								if (i.image !== null) {
-									if (i.room.length > 0) {
-										let type = '';
-										i.room.map((r) => {
-											if (r.type !== null) {
-												type = r.type.name
-											}
-										})
+								if (i.room.length > 0) {
+									let type = '';
+									let imageRoom = '';
+									i.room.map((r) => {
+										if (r.type !== null) {
+											type = r.type.name
+										}
+										if (r.images.length > 0) {
+											r.images.map((ri) => {
+												imageRoom = ri.image
+											})
+										}
+									})
+									if (imageRoom!==''){
 										let image = `{{url('storage/rooms/:image')}}`
 										let rating = `{{url('assets/img/bintang:rating.png')}}`
-										image = image.replace(':image', i.image);
+										image = image.replace(':image', imageRoom);
 										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 										let card = `
 											<div class="card card-hotels-init">

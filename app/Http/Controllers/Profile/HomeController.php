@@ -17,6 +17,7 @@ use App\Models\Pendaftaran;
 use App\Models\Pertanyaan;
 use App\Models\PlayStoreLink;
 use App\Models\Post;
+use App\Models\Review;
 use App\Models\SliderFitur;
 use App\Models\SliderMitra;
 use App\Models\SyaratDokumen;
@@ -54,6 +55,9 @@ class HomeController extends Controller
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $overview = BerandaOverview::orderBy('order', 'asc')->get();
         $settings = GeneralSettings::first();
+        $review = Review::with([
+            'user'
+        ])->orderBy('created_at', 'desc')->limit(6)->get();
 
         return view('profile.index', [
             'title' => 'Beranda',
@@ -66,7 +70,8 @@ class HomeController extends Controller
             'settings' => $settings,
             'menu' => $menu,
             'alamat' => $alamat,
-            'overview' => $overview
+            'overview' => $overview,
+            'review' => $review
         ])
             ->withSliders($sliders);
     }
@@ -105,8 +110,22 @@ class HomeController extends Controller
         $accomodationTop = null;
         $accomodationTopImage = null;
         if (!is_null($accomodationTopRate)) {
-            $accomodationTop = Accomodation::find($accomodationTopRate->accomodation_id);
-            $accomodationTopImage = Image::where('imageable_id', $accomodationTop->id)->where('imageable_type', Accomodation::class)->first();
+            $accomodationTop = Accomodation::with([
+                'room',
+                'room.images'
+            ])
+            ->withAvg('reviews', 'rating')
+            ->where('id', $accomodationTopRate->accomodation_id)->first();
+            if (!empty($accomodationTop->room)) {
+                foreach ($accomodationTop->room as $k => $r) {
+                    if(!empty($r->images)) {
+                        foreach($r->images as $rk => $ri) {
+                            $accomodationTopImage = $ri->image;
+                            break;
+                        } 
+                    }
+                }
+            }
         }
         $settings = GeneralSettings::first();
         $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
@@ -279,6 +298,7 @@ class HomeController extends Controller
         $accomodation = Accomodation::with([
             'image',
             'room',
+            'room.images',
             'room.type' => function($query) use ($request) {
                 $query->where('name', $request->type);
             },
