@@ -57,7 +57,7 @@
 	</section>
 
 	<section id="list-hotel" class="list-hotel">
-		<div class="container">
+		<div class="container container-list">
 			<div class="row">
 				<div class="col-lg-3">
 					<h3>Kategori</h3>
@@ -128,13 +128,13 @@
 										})
 									}
 								})
-								if (imageRoom!==''){
+								if (imageRoom!==''&&type!==''){
 									let image = `{{url('storage/rooms/:image')}}`
 									let rating = `{{url('assets/img/bintang:rating.png')}}`
 									image = image.replace(':image', imageRoom);
 									rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 									let card = `
-										<div class="card card-hotels-init">
+										<div class="card card-hotels-init" style="min-height:250px!important;max-height:250px!important;">
 											<div class="card-img">
 												<img class="card-img-top" src="${image}">
 												<div class="link-action">
@@ -145,7 +145,7 @@
 											<div class="card-body">
 												<div class="starts">
 													<span class="badge badge-secondary">${type}</span>
-													<span class="rating-${i.id}"></span>
+													<span class="rating-${i.id}-check"></span>
 													<span>${Math.round(i.reviews_avg_rating)}</span>
 												</div>
 												<h3>${i.name}</h3>
@@ -154,7 +154,7 @@
 									`
 									$('.hotels-init').append(card);
 									for(let j = 0;j < Math.round(i.reviews_avg_rating);j++) {
-										$(`.rating-${i.id}`).append('<i class="fa-solid fa-star" style="color:yellow;"></i>')
+										$(`.rating-${i.id}-check`).append('<i class="fa-solid fa-star" style="color:yellow;"></i>')
 									}
 								}
 							}
@@ -165,6 +165,7 @@
 		})
 
 		$('.btn-cari-kamar').on('click', function(){
+			$('.container-list').remove();
 			let date = $('.date-input').val();
 			let payload = {
 				date: date,
@@ -198,13 +199,13 @@
 											})
 										}
 									})
-									if (imageRoom!==''){
+									if (imageRoom!==''&&type!==''){
 										let image = `{{url('storage/rooms/:image')}}`
 										let rating = `{{url('assets/img/bintang:rating.png')}}`
 										image = image.replace(':image', imageRoom);
 										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 										let card = `
-											<div class="card card-res-check">
+											<div class="card card-res-check" style="min-height:250px!important;max-height:250px!important;">
 												<div class="card-img">
 													<img class="card-img-top" src="${image}">
 													<div class="link-action">
@@ -253,7 +254,9 @@
 									let imageRoom = '';
 									i.room.map((r) => {
 										if (r.type !== null) {
-											type = r.type.name
+											if (r.type.name == category) {
+												type = r.type.name
+											}
 										}
 										if (r.images.length > 0) {
 											r.images.map((ri) => {
@@ -261,13 +264,13 @@
 											})
 										}
 									})
-									if (imageRoom!==''){
+									if (imageRoom!=='' && type!==''){
 										let image = `{{url('storage/rooms/:image')}}`
 										let rating = `{{url('assets/img/bintang:rating.png')}}`
 										image = image.replace(':image', imageRoom);
 										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
 										let card = `
-											<div class="card card-hotels-init">
+											<div class="card card-hotels-init" style="min-height:250px!important;max-height:250px!important;">
 												<div class="card-img">
 													<img class="card-img-top" src="${image}">
 													<div class="link-action">

@@ -37,7 +37,7 @@
                             <td> {{ $item->keterangan }}</td>
                             <td> {{ $item->kategori }}</td>
                             <td>
-                                <a class="btn btn-Primary btn-sm" href="{{ route('admin.visiMisi.edit.visiMisi', $item->id) }}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.visiMisi.edit.visiMisi', $item->id) }}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.visiMisi.delete.visiMisi', $item->id) }}">Hapus</a>
                             </td>
                         </tr>

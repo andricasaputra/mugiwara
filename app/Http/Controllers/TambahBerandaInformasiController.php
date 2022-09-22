@@ -36,7 +36,7 @@ class TambahBerandaInformasiController extends Controller
             return $th->getMessage();
         }
 
-        return view('admin.beranda_informasi.index');
+        return redirect()->route('admin.beranda-informasi.beranda-informasi');
     }
 
     public function destroy(Request $request)

@@ -46,12 +46,12 @@ class HubungiKamiController extends Controller
             'email' => 'required',
             'judul_pertanyaan' => 'required',
             'pertanyaan' => 'required',
-            'file' => 'required|image|mimes:jpeg,png,jpg|max:500',
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ],[
             'required' => ':attribute harus diisi',
             'image' => ':attribute harus gambar',
             'mimes' => ':attribute harus dengan format jpeg,png,jpg',
-            'max' => ':attribute max 500 mb'
+            'max' => ':attribute max 5 mb'
         ]);
 
         if ($validator->fails()) {
