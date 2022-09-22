@@ -25,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('pendaftaran_syarat_dokumen', function (Blueprint $table) {
+           $table->dropColumn('file');
+        });
     }
 };
