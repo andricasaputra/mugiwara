@@ -45,18 +45,18 @@ class XenditCallbackController extends Controller
                     'status' => $status?->data?->status,
                     'amount' => $status?->data?->charge_amount,
                 ]);
+
+                $ewallet?->payment?->first()?->order()?->update([
+                    'order_status' => 'booked'
+                ]);
+
+                $update = $ewallet?->payment?->first()?->order?->room()->update([
+                    'status' => 'booked',
+                    'booked_untill' => now()->addDays(1)
+                ]);
+
+                $this->sendNotificationEwalletSuccess($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
             }
-
-            $ewallet?->payment?->first()?->order()?->update([
-                'order_status' => 'booked'
-            ]);
-
-            $update = $ewallet?->payment?->first()?->order?->room()->update([
-                'status' => 'booked',
-                'booked_untill' => now()->addDays(1)
-            ]);
-
-            $this->sendNotificationEwalletSuccess($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
 
         }else{
 
@@ -75,8 +75,6 @@ class XenditCallbackController extends Controller
 
             $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
         }
-
-        
     }
 
     public function ovo(Request $request)
