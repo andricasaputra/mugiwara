@@ -58,6 +58,8 @@ class OrderController extends Controller
 
             $order = Order::findOrFail($request->order_id);
 
+            return $order->payment?->payable;
+
             $order->update([
                 'order_status' => 'cancel'
             ]);
