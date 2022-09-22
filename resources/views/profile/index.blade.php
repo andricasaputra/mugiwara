@@ -142,19 +142,19 @@
 								<h2 class="text-center">{{$b->title}}</h2>
 							</div>
 						</div>
-						@if(count($sliderTentang) != 0)
+						@if(count($review) != 0)
 						<div class="row">
 							<div class="swiper slide-ratings">
 								<div class="swiper-wrapper">
-									@foreach($sliderTentang as $key => $s)
+									@foreach($review as $key => $r)
 									<div class="swiper-slide">
-										<div class="card">
+										<div class="card" style="min-height:350px!important;">
 											<div class="card-body">
-												<p>{{$s->description}}</p>
-												<img class="img-fluid" src="{{url('images/compro/slider_tentang/' . $s->image)}}">
-												<h5>{{$s->name}}</h5>
+												<p>{{$r->comment}}</p>
+												<img class="img-fluid" src="{{ url('storage/avatars/' . $r->user?->account?->avatar) }}">
+												<h5>{{$r->name}}</h5>
 												<div class="ranting">
-													@for($i=0;$i<round($s->rating);$i++)
+													@for($i=0;$i<round($r->rating);$i++)
 														<i class="fa-solid fa-star" style="color:yellow;"></i>
 													@endfor
 												</div>

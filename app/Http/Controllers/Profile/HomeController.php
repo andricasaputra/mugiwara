@@ -17,6 +17,7 @@ use App\Models\Pendaftaran;
 use App\Models\Pertanyaan;
 use App\Models\PlayStoreLink;
 use App\Models\Post;
+use App\Models\Review;
 use App\Models\SliderFitur;
 use App\Models\SliderMitra;
 use App\Models\SyaratDokumen;
@@ -54,6 +55,9 @@ class HomeController extends Controller
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $overview = BerandaOverview::orderBy('order', 'asc')->get();
         $settings = GeneralSettings::first();
+        $review = Review::with([
+            'user'
+        ])->orderBy('created_at', 'desc')->limit(6)->get();
 
         return view('profile.index', [
             'title' => 'Beranda',
@@ -66,7 +70,8 @@ class HomeController extends Controller
             'settings' => $settings,
             'menu' => $menu,
             'alamat' => $alamat,
-            'overview' => $overview
+            'overview' => $overview,
+            'review' => $review
         ])
             ->withSliders($sliders);
     }
