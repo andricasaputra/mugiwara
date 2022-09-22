@@ -44,27 +44,29 @@ class TeamHeaderController extends Controller
             'gambar' => 'required',
             'alt' => 'required',
             'jabatan' => 'required',
-            'url_sosmed' => 'required',
-            'gambar_sosmed' => 'required'
         ]);
 
         if($validator->fails()) {
-            return redirect()->back()->with('error', $validator->errors());
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
 
         try {
             $gambar = $request->file('gambar');
-            $gambar_sosmed = $request->file('gambar_sosmed');
             $namaGambar = $gambar->getClientOriginalName();
-            $namaGambarSosmed = $gambar_sosmed->getClientOriginalName();
             $folderUpload = 'images/compro/team_header';
             $gambar->move($folderUpload, $namaGambar);
-            $gambar_sosmed->move($folderUpload, $namaGambarSosmed);
 
             $teamHeaders = new TeamHeader();
-            $teamHeaders->fill($request->except('gambar', 'gambar_sosmed'));
+            $teamHeaders->fill($request->except('gambar', 'gambar_sosmed', 'url_gambar'));
             $teamHeaders->gambar = $namaGambar;
-            $teamHeaders->gambar_sosmed = $namaGambarSosmed;
+            $teamHeaders->gambar_sosmed = "-";
+            if (!empty($request->sosmed)) {
+                $teamHeaders->url_sosmed = json_encode($request->sosmed);
+            } else {
+                $teamHeaders->url_sosmed = '';
+            }
             $teamHeaders->save();
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -107,7 +109,7 @@ class TeamHeaderController extends Controller
     {
         try {
             $teamHeaders = TeamHeader::find($id);
-            $teamHeaders->fill($request->except('id', 'gambar', 'gambar_sosmed'));
+            $teamHeaders->fill($request->except('id', 'gambar', 'gambar_sosmed', 'url_sosmed'));
             if(!is_null($request->gambar)) {
                 $file = $request->file('gambar');
                 $namaFile = $file->getClientOriginalName();
@@ -116,12 +118,9 @@ class TeamHeaderController extends Controller
                 $teamHeaders->gambar = $namaFile;
             }
 
-            if(!is_null($request->gambar_sosmed)) {
-                $gambar_sosmed = $request->file('gambar');
-                $namaGambarSosmed = $gambar_sosmed->getClientOriginalName();
-                $folderUploadGambarSosmed = 'images/compro/team_header';
-                $file->move($folderUploadGambarSosmed, $namaGambarSosmed);
-                $teamHeaders->gambar_sosmed = $namaGambarSosmed;
+            $teamHeaders->gambar_sosmed = '-';
+            if (!empty($request->sosmed)) {
+                $teamHeaders->url_sosmed = json_encode($request->sosmed);
             }
             $teamHeaders->save();
         } catch (\Throwable $th) {
