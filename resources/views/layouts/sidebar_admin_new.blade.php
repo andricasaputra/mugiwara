@@ -99,7 +99,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.mitra-registran.mitra-registran') }}"> Mitra Registran </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.beranda-informasi.beranda-informasi') }}"> Informasi </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider.slider') }}"> Slider </a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-tentang.slider-tentang') }}"> Slider Tentang </a></li>
+            <!-- <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-tentang.slider-tentang') }}"> Slider Tentang </a></li> -->
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.sliderFitur.sliderFitur') }}"> Slider Fitur </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.slider-mitra.slider-mitra') }}"> Slider Mitra </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.pendaftaran.pendaftaran') }}"> Pendaftaran </a></li>

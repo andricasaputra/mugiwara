@@ -1,4 +1,4 @@
-f<?php
+<?php
 
 use App\Http\Controllers\Admin\RegencyController;
 use App\Http\Controllers\Api\AccomdationController;
