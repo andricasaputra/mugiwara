@@ -28,8 +28,6 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-       
-
         $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
 
         $ewallet?->update([
@@ -44,6 +42,7 @@ class XenditCallbackController extends Controller
         ]);
 
         if($status?->data?->status == 'SUCCEEDED'){
+
             $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'booked'
             ]);
@@ -52,7 +51,8 @@ class XenditCallbackController extends Controller
                 'status' => 'booked',
                 'booked_untill' => now()->addDays(1)
             ]);
-        }elseif($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
+        }else{
+
              $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel'
             ]);
@@ -88,6 +88,7 @@ class XenditCallbackController extends Controller
         ]);
 
         if($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
+
             $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel',
                 //'check_in_date' => NULL
