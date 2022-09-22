@@ -52,6 +52,15 @@ class XenditCallbackController extends Controller
                 'status' => 'booked',
                 'booked_untill' => now()->addDays(1)
             ]);
+        }elseif($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
+             $ewallet?->payment?->first()?->order()?->update([
+                'order_status' => 'cancel'
+            ]);
+
+            $update = $ewallet?->payment?->first()?->order?->room()->update([
+                'status' => 'available',
+                'booked_untill' => NULL
+            ]);
         }
 
         $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);

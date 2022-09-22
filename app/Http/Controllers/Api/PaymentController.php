@@ -281,13 +281,13 @@ class PaymentController extends Controller
         $customer = Customer::find($request->user()->id);
         $user = User::find($request->user()->id);
 
-        // $user?->notify(
+        // $customer?->notify(
         //     new PaymentStatusNotification(
         //         $order, $payment, $customer_title, $customer_message
         //     )
         // );
 
-        $customer?->notify(
+        $user?->notify(
             new PaymentStatusNotification(
                 $order, $payment, $customer_title, $customer_message
             )
@@ -317,5 +317,16 @@ class PaymentController extends Controller
                 );
             }
         }
+    }
+
+    public function successfully()
+    {
+        return view('admin.payment.success');
+    }
+
+
+    public function failed()
+    {
+        return view('admin.payment.failed');
     }
 }
