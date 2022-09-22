@@ -188,14 +188,14 @@
 									@foreach($informasi as $key => $i)
 									<div class="swiper-slide">
 										<div class="news-items">
-											<a href="{{ route('profile.informasi.detail', $i->id) }}">
+											<a href="{{ route('profile.informasi.detail', $i->slug) }}">
 												<div class="card">
 													<div class="card-img-top">
-														<img class="img-fluid" src="{{url('images/compro/slider_informasi/' . $i->image)}}">
+														<img class="img-fluid" src="{{ url('storage/posts/'. $i->image) }}">
 													</div>
 													<div class="card-body">
 														<h5>{{$i->title}}</h5>
-														<p>{{$i->description}}</p>
+														<p>{{$i->body}}</p>
 													</div>
 												</div>
 											</a>

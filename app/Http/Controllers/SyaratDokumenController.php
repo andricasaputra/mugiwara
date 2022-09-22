@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SyaratDokumen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SyaratDokumenController extends Controller
 {
@@ -32,6 +33,19 @@ class SyaratDokumenController extends Controller
         $syarat->fill($request->except('file'));
 
         if (!is_null($request->file)) {
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:100|mimes:jpeg,png,jpg,zip,docx'
+            ],[
+                'max' => ':attribute max 1 mb',
+                'mimes' => ':attribute harus gambar, zip, atau docx'
+            ]);
+
+            if ($validator->fails()) {
+                foreach($validator->errors()->messages() as $key => $v) {
+                    return redirect()->back()->with('error', $v[0]);
+                }
+            }
+
             try {
                 $file = $request->file('file');
                 $namaFile = $file->getClientOriginalName();
@@ -72,6 +86,19 @@ class SyaratDokumenController extends Controller
         $syarat->fill($request->except('id', 'file'));
 
         if (!is_null($request->file)) {
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:100|mimes:jpeg,png,jpg,zip,docx'
+            ],[
+                'max' => ':attribute max 1 mb',
+                'mimes' => ':attribute harus gambar, zip, atau docx'
+            ]);
+
+            if ($validator->fails()) {
+                foreach($validator->errors()->messages() as $key => $v) {
+                    return redirect()->back()->with('error', $v[0]);
+                }
+            }
+            
             try {
                 $file = $request->file('file');
                 $namaFile = $file->getClientOriginalName();

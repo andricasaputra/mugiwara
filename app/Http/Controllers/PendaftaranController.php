@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PendaftaranController extends Controller
 {
@@ -32,13 +33,26 @@ class PendaftaranController extends Controller
         $pendaftaran->fill($request->except('file'));
 
         if (!is_null($request->file)) {
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:100|mimes:jpeg,png,jpg,zip,docx'
+            ],[
+                'max' => ':attribute max 1 mb',
+                'mimes' => ':attribute harus gambar, zip, atau docx'
+            ]);
+
+            if ($validator->fails()) {
+                foreach($validator->errors()->messages() as $key => $v) {
+                    return redirect()->back()->with('error', $v[0]);
+                }
+            }
+
             try {
                 $file = $request->file('file');
                 $namaFile = $file->getClientOriginalName();
                 $folderUpload = 'images/compro/pendaftaran';
                 $file->move($folderUpload, $namaFile);
             } catch (\Throwable $th) {
-                return $th->getMessage();
+                return redirect()->route('admin.pendaftaran.pendaftaran')->with('error', $th->getMessage());
             }
         }
 
@@ -72,6 +86,19 @@ class PendaftaranController extends Controller
         $pendaftaran->fill($request->except('id', 'file'));
 
         if (!is_null($request->file)) {
+            $validator = Validator::make($request->all(), [
+                'file' => 'max:100|mimes:jpeg,png,jpg,zip,docx'
+            ],[
+                'max' => ':attribute max 1 mb',
+                'mimes' => ':attribute harus gambar, zip, atau docx'
+            ]);
+
+            if ($validator->fails()) {
+                foreach($validator->errors()->messages() as $key => $v) {
+                    return redirect()->back()->with('error', $v[0]);
+                }
+            }
+            
             try {
                 $file = $request->file('file');
                 $namaFile = $file->getClientOriginalName();

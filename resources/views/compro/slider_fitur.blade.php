@@ -37,7 +37,7 @@
                             <td> {{ $item->keterangan }}</td>
                             <td> <img width="100" src="{{ asset('images/compro/slider_fitur/'. $item->gambar) }}" alt=""></td>
                             <td>
-                                <a class="btn btn-Primary btn-sm" href="{{ route('admin.sliderFitur.edit.sliderFitur', $item->id) }}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.sliderFitur.edit.sliderFitur', $item->id) }}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.sliderFitur.delete.sliderFitur', $item->id) }}">Hapus</a>
                             </td>
                         </tr>

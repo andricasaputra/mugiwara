@@ -9,7 +9,7 @@
                 <div class="row mb-5">
                     <div class="col-lg-6">
                         <h1>{{$informasi->title}}</h1>
-                        <p>{{$informasi->description}}</p>
+                        <p>{{$informasi->body}}</p>
                     </div>
                 </div>
 
@@ -17,7 +17,7 @@
                     <div class="swiper slide-mitra">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img class="img-fluid" src="{{url('images/compro/slider_informasi/' . $informasi->image)}}">
+                                <img class="img-fluid" src="{{ url('storage/posts/'. $informasi->image) }}">
                             </div>
                         </div>
                     </div>
