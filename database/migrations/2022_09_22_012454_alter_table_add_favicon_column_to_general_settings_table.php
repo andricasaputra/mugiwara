@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('general_settings', function (Blueprint $table) {
-            //
+            $table->dropColumn('favicon');
         });
     }
 };
