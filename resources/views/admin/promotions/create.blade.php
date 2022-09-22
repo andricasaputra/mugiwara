@@ -82,50 +82,54 @@
           tags: true
         });
 
-    });
+    
 
-    $(document).on('change', '#accomodation', function(){
+        $(document).on('change', '#accomodation', function(){
 
-        const id = $(this).val();
-        const container = $('#room_id');
-        const type_container = $('#type');
+            const id = $(this).val();
+            const container = $('#room_id');
+            const type_container = $('#type');
 
-        $.ajax({
-            url : `{{ route('api.rooms.list') }}`,
-            method : "POST",
-            headers:{
-                'X-CRSF-TOKEN' : '{{ csrf_token() }}'
-            },
-            data : {
-                id : id
-            },
-            success : function(res){
+            $.ajax({
+                url : `{{ route('api.rooms.list') }}`,
+                method : "POST",
+                headers:{
+                    'X-CRSF-TOKEN' : '{{ csrf_token() }}'
+                },
+                data : {
+                    id : id
+                },
+                success : function(res){
 
-                $.each(res, function (key, val) {
-                    type_container.append(typeTemplater(val))
-                });
+                    console.log(res)
 
-            },
-            error : function(err){
-                console.log(err);
-            } 
-        });
+                    $.each(res, function (key, val) {
+                        type_container.append(typeTemplater(val))
+                    });
 
-        function roomTemplater(data)
-        {
-            return `
-                <option value="${data.id}">${data.room_number}</option>
-            `;
-        }
+                },
+                error : function(err){
+                    console.log(err);
+                } 
+            });
 
-        function typeTemplater(data)
-        {
-            return `
-                <option value="${data.type.name}-${data.room_number}">${data.type.name} - ${data.room_number}</option>
-            `;
-        }
+            function roomTemplater(data)
+            {
+                return `
+                    <option value="${data.id}">${data.room_number}</option>
+                `;
+            }
 
-        
+            function typeTemplater(data)
+            {
+                return `
+                    <option value="${data.type.name}-${data.room_number}">${data.type.name} - ${data.room_number}</option>
+                `;
+            }
+
+            
+        });`
+
     });
 
 </script>
