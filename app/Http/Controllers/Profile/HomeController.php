@@ -100,10 +100,25 @@ class HomeController extends Controller
     public function hotel()
     {
         $trending = Accomodation::with(['image', 'room.images'])->has('orders')->first();
-
         $accomodations = Accomodation::with(['room.images', 'reviews', 'image'])->get();
+        $settings = GeneralSettings::first();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
+        $alamat = Alamat::orderBy('created_at', 'desc')->first();
+        $mitraSection = MitraSection::all();
+        $sliderMitra = SliderMitra::all();
+        $pendaftaran = Pendaftaran::orderBy('order', 'asc')->get();
+        $syarat = SyaratDokumen::orderBy('order', 'asc')->get();
 
-        return view('profile.hotel')
+        return view('profile.hotel', [
+            'menu' => $menu,
+            'alamat' => $alamat,
+            'mitraSection' => $mitraSection,
+            'sliderMitra' => $sliderMitra,
+            'pendaftaran' => $pendaftaran,
+            'syarat' => $syarat
+        ])
+            ->withTitle('Hotel')
+            ->withSettings($settings)
             ->withTrending($trending)
             ->withAccomodations($accomodations);
        
