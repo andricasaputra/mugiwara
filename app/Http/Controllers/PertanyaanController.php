@@ -45,8 +45,10 @@ class PertanyaanController extends Controller
             'jawaban' => 'required',
         ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        if ($validator->fails()) {
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
 
         try {
@@ -61,7 +63,7 @@ class PertanyaanController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.pertanyaan.pertanyaan');
+        return redirect()->route('admin.pertanyaan.pertanyaan')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -102,8 +104,10 @@ class PertanyaanController extends Controller
             'jawaban' => 'required',
         ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        if ($validator->fails()) {
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
 
         try {
@@ -118,7 +122,7 @@ class PertanyaanController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.pertanyaan.pertanyaan');
+        return redirect()->route('admin.pertanyaan.pertanyaan')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -132,7 +136,7 @@ class PertanyaanController extends Controller
         $proses = Pertanyaan::find($id);
         $proses->delete();
 
-        return redirect()->route('admin.pertanyaan.pertanyaan');
+        return redirect()->route('admin.pertanyaan.pertanyaan')->with('success', 'Berhasil menghapus data');
     }
 
 

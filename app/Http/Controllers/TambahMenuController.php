@@ -53,8 +53,7 @@ class TambahMenuController extends Controller
             return $th->getMessage();
         }
 
-        $menu_compro = Tambah_menu_compro::all();
-        return view('compro.tambah_menu', ['menu_compros' => $menu_compro]);
+        return redirect()->route('admin.menu.menu')->with('success', 'Berhasil menambah data');
 
     }
 
@@ -109,8 +108,7 @@ class TambahMenuController extends Controller
             return $th->getMessage();
         }
 
-        $menu_compro = Tambah_menu_compro::all();
-        return view('compro.tambah_menu', ['menu_compros' => $menu_compro]);
+        return redirect()->route('admin.menu.menu')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -124,6 +122,6 @@ class TambahMenuController extends Controller
         $menus = Tambah_menu_compro::find($id);
         $menus->delete();
 
-        return redirect()->route('admin.menu.menu');
+        return redirect()->route('admin.menu.menu')->with('success', 'Berhasil menghapus data');
     }
 }

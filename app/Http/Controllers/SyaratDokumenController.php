@@ -60,14 +60,14 @@ class SyaratDokumenController extends Controller
         $syarat->order = $order;
         $syarat->save();
 
-        return redirect()->route('admin.syarat-dokumen.syarat-dokumen');
+        return redirect()->route('admin.syarat-dokumen.syarat-dokumen')->with('success', 'Berhasil menambah data');
     }
 
     public function destroy(Request $request)
     {
         $syarat = SyaratDokumen::find($request->id);
         $syarat->delete();
-        return redirect()->route('admin.syarat-dokumen.syarat-dokumen');
+        return redirect()->route('admin.syarat-dokumen.syarat-dokumen')->with('success', 'Berhasil menghapus data');
     }
 
     public function edit($id)
@@ -111,6 +111,6 @@ class SyaratDokumenController extends Controller
         }
 
         $syarat->save();
-        return redirect()->route('admin.syarat-dokumen.syarat-dokumen');
+        return redirect()->route('admin.syarat-dokumen.syarat-dokumen')->with('success', 'Berhasil mengubah data');
     }
 }

@@ -65,7 +65,7 @@ class SliderMitraController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.sliderMitra.sliderMitra');
+        return redirect()->route('admin.sliderMitra.sliderMitra')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -127,7 +127,7 @@ class SliderMitraController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.sliderMitra.sliderMitra');
+        return redirect()->route('admin.sliderMitra.sliderMitra')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -141,6 +141,6 @@ class SliderMitraController extends Controller
         $sliders = SliderMitra::find($id);
         $sliders->delete();
 
-        return redirect()->route('admin.sliderMitra.sliderMitra');
+        return redirect()->route('admin.sliderMitra.sliderMitra')->with('success', 'Berhasil menghapus data');
     }
 }

@@ -33,14 +33,14 @@ class BerandaOverviewController extends Controller
         $overview->order = $order;
         $overview->save();
 
-        return redirect()->route('admin.beranda-overview.beranda-overview');
+        return redirect()->route('admin.beranda-overview.beranda-overview')->with('success', 'Berhasil menambah data');
     }
 
     public function destroy(Request $request)
     {
         $overview = BerandaOverview::find($request->id);
         $overview->delete();
-        return redirect()->route('admin.beranda-overview.beranda-overview');
+        return redirect()->route('admin.beranda-overview.beranda-overview')->with('success', 'Berhasil menghapus data');
     }
 
     public function edit($id)
@@ -58,6 +58,6 @@ class BerandaOverviewController extends Controller
         $overview = BerandaOverview::find($request->id);
         $overview->fill($request->input());
         $overview->save();
-        return redirect()->route('admin.beranda-overview.beranda-overview'); 
+        return redirect()->route('admin.beranda-overview.beranda-overview')->with('success', 'Berhasil mengubah data');
     }
 }
