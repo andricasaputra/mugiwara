@@ -13,6 +13,7 @@ use App\Models\Type as RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RahulHaque\Filepond\Facades\Filepond;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -22,7 +23,7 @@ class RoomController extends Controller
 
     public function index()
     {
-        $accomodations = Accomodation::with('room.type')->get();
+        $accomodations = Accomodation::with(['room.type', 'room.images'])->get();
         $types = RoomType::all();
 
         $rooms = Room::with(['images', 'type', 'accomodation', 'facilities'])->get();
@@ -140,10 +141,10 @@ class RoomController extends Controller
 
             $accomodation = Accomodation::findOrFail($id);
             $rooms = $accomodation->room;
+            $images = $accomodation->room?->pluck('images');
 
-            //dd($rooms);
+            foreach($rooms as $r => $room){
 
-            foreach($rooms as   $room){
                 $room->delete();
             }
 
@@ -178,9 +179,19 @@ class RoomController extends Controller
                         ]);
                     }
 
-                }
+                } else {
 
-                //dd($create);
+                     foreach($images as $k => $image){
+
+                         if(isset($image[$k])){
+                            
+                            $create->images()->create([
+                                'image' => $image[$k]->image
+                             ]);
+                         }
+                    }
+
+                }
 
                 $create->facilities()->sync($request->facility);
                 
@@ -205,6 +216,12 @@ class RoomController extends Controller
             $accomodation = Accomodation::findOrFail($id);
 
             foreach ($accomodation?->room as $key => $room) {
+
+                foreach($room->images as $image){
+                     Storage::disk('public')->delete('rooms/'. $image->image);
+                     $image->delete();
+                }
+
                 $room->delete();
             }
 
