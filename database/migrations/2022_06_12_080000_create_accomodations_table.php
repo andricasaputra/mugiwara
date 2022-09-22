@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignId('province_id')->nullable()->references('id')->on('provinces')->onDelete('cascade');
             $table->foreignId('regency_id')->nullable()->references('id')->on('regencies')->onDelete('cascade');
             $table->foreignId('districts_id')->nullable()->references('id')->on('districts')->onDelete('cascade');

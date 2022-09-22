@@ -73,7 +73,7 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
         Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::post('accomodations/status', [AccomdationController::class, 'status']);
-        Route::get('accomodations/{accomodation:name}/rooms', [AccomdationController::class, 'rooms']);
+        Route::get('accomodations/{name}/rooms', [AccomdationController::class, 'rooms']);
 
         Route::post('rooms/status', [RoomController::class, 'status']);
 

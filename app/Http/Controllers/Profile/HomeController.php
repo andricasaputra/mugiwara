@@ -99,49 +99,24 @@ class HomeController extends Controller
 
     public function hotel()
     {
-        $menu = Tambah_menu_compro::where('status', 1)->get();
-        $alamat = Alamat::orderBy('created_at', 'desc')->first();
-        $kategori = Type::all();
-        $accomodationTopRate = DB::table('accomodation_ratings')
-        ->select(DB::raw('accomodation_id, avg(rating) as avgRating'))
-        ->groupBy('accomodation_id')
-        ->orderBy('avgRating', 'desc')
-        ->first();
-        $accomodationTop = null;
-        $accomodationTopImage = null;
-        if (!is_null($accomodationTopRate)) {
-            $accomodationTop = Accomodation::with([
-                'room',
-                'room.images'
-            ])
-            ->withAvg('reviews', 'rating')
-            ->where('id', $accomodationTopRate->accomodation_id)->first();
-            if (!empty($accomodationTop->room)) {
-                foreach ($accomodationTop->room as $k => $r) {
-                    if(!empty($r->images)) {
-                        foreach($r->images as $rk => $ri) {
-                            $accomodationTopImage = $ri->image;
-                            break;
-                        } 
-                    }
-                }
-            }
-        }
-        $settings = GeneralSettings::first();
-        $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
-        $settingAppStore = AppStoreLink::orderBy('created_at', 'desc')->first();
-        return view('profile.hotel', [
-            'title' => 'Hotel',
-            'settings' => $settings,
-            'menu' => $menu,
-            'alamat' => $alamat,
-            'kategori' => $kategori,
-            'accomodationTop' => $accomodationTop,
-            'accomodationTopRate' => $accomodationTopRate,
-            'accomodationTopImage' => $accomodationTopImage,
-            'settingPlayStore' => $settingPlayStore,
-            'settingAppStore' => $settingAppStore,
-        ]);
+        $trending = Accomodation::with(['image', 'room.images'])->has('orders')->first();
+
+        $accomodations = Accomodation::with(['room.images', 'reviews', 'image'])->get();
+
+        return view('profile.hotel')
+            ->withTrending($trending)
+            ->withAccomodationns($accomodations);
+       
+    }
+
+    public function searchHotel(Request $requeest)
+    {
+        $accomodations = Accomodation::with(['room.images', 'reviews', 'image'])->get();
+
+        return view('profile.hotel')
+            ->withTrending($trending)
+            ->withAccomodationns($accomodations);
+       
     }
 
     public function tentang()
