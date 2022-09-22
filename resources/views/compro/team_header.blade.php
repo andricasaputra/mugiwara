@@ -7,6 +7,9 @@
 <div class="row">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{ session()->get('error') }}</div>
+            @endif
             <div class="card-header justify-content-between d-flex d-inline">
                 <h4 class="card-title align-items-center my-auto">Team Header</h4>
                 <a href="{{ route('admin.teamHeader.create.teamHeader') }}" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Team Header</a>
@@ -46,14 +49,13 @@
                             <td> {{ $item->jabatan }}</td>
                             <td> {{ $item->url_sosmed }}</td>
                             <td>
-                               {{ $item->gambar_sosmed }}
+                               <img width="100" src="{{ asset('images/compro/team_header/'. $item->gambar_sosmed) }}" alt="">
                             </td>
                             <td>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.teamHeader.delete.teamHeader', $item->id) }}">Hapus</a>
                                 <a class="btn btn-primary btn-sm" href="{{ route('admin.teamHeader.edit.teamHeader', $item->id) }}">Edit</a>
                             </td>
                         </tr>
-
                         @endforeach
                     </tbody>
                 </table>

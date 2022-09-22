@@ -14,7 +14,11 @@
 						<div class="caps">
 							<h2>{{$accomodationTop->name}}</h2>							
 							<div class="starts">
-								<img class="start" src="{{url('assets/img/bintang/'.round($accomodationTopRate->avgRating).'.png')}}'">
+								<span>
+									@for($i=0;$i<ceil($accomodationTopRate->avgRating);$i++)
+										<i class="fa-solid fa-star" style="color:yellow;"></i>
+									@endfor
+								</span>
 								<span>{{$accomodationTopRate->avgRating}}</span>
 							</div>
 						</div>
@@ -105,36 +109,49 @@
 			url: "{{route('profile.accomodation.top')}}",
 			method: "post",
 			data: {
-				type: 'medium',
+				type: 'vvip',
 			},
 			success: function(res){
 				if (res.status == 'success') {
 					if (res.data.length > 0) {
 						res.data.map((i) => {
-							let image = `{{url('storage/rooms/:image')}}`
-							let rating = `{{url('assets/img/bintang:rating.png')}}`
-							image = image.replace(':image', i.image);
-							rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
-							let card = `
-								<div class="card card-hotels-init">
-									<div class="card-img">
-										<img class="card-img-top" src="${image}">
-										<div class="link-action">
-											<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-											<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+							if (i.image !== null) {
+								if (i.room.length > 0) {
+									let type = '';
+									i.room.map((r) => {
+										if (r.type !== null) {
+											type = r.type.name
+										}
+									})
+									let image = `{{url('storage/rooms/:image')}}`
+									let rating = `{{url('assets/img/bintang:rating.png')}}`
+									image = image.replace(':image', i.image);
+									rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
+									let card = `
+										<div class="card card-hotels-init">
+											<div class="card-img">
+												<img class="card-img-top" src="${image}">
+												<div class="link-action">
+													<a href="{{$settingAppStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+													<a href="{{$settingPlayStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+												</div>
+											</div>
+											<div class="card-body">
+												<div class="starts">
+													<span class="badge badge-secondary">${type}</span>
+													<span class="rating-${i.id}"></span>
+													<span>${Math.round(i.reviews_avg_rating)}</span>
+												</div>
+												<h3>${i.name}</h3>
+											</div>
 										</div>
-									</div>
-									<div class="card-body">
-										<div class="starts">
-											<span class="badge badge-secondary">VIP</span>
-											<img class="start" src="${rating}">
-											<span>${Math.round(i.reviews_avg_rating)}</span>
-										</div>
-										<h3>${i.name}</h3>
-									</div>
-								</div>
-							`
-							$('.hotels-init').append(card);
+									`
+									$('.hotels-init').append(card);
+									for(let j = 0;j < Math.round(i.reviews_avg_rating);j++) {
+										$(`.rating-${i.id}`).append('<i class="fa-solid fa-star" style="color:yellow;"></i>')
+									}
+								}
+							}
 						})
 					}
 				}
@@ -153,6 +170,7 @@
 			$('html, body').animate({
 				scrollTop: $(".list-hotel-check").offset().top - 170
 			}, 1000);
+			$('.fa-star-check').remove();
 			$.ajax({
 				url: "{{route('profile.room.check')}}",
 				method: "post",
@@ -161,30 +179,44 @@
 					if(res.data.length>0){
 						res.data.map((i)=>{
 							if (i.available_room_count>0) {
-								let image = `{{url('storage/rooms/:image')}}`
-								let rating = `{{url('assets/img/bintang:rating.png')}}`
-								image = image.replace(':image', i.image);
-								rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
-								let card = `
-									<div class="card card-res-check">
-										<div class="card-img">
-											<img class="card-img-top" src="${image}">
-											<div class="link-action">
-												<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-												<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+								if (i.image !== null) {
+									if (i.room.length > 0) {
+										let type = '';
+										i.room.map((r) => {
+											if (r.type !== null) {
+												type = r.type.name
+											}
+										})
+										let image = `{{url('storage/rooms/:image')}}`
+										let rating = `{{url('assets/img/bintang:rating.png')}}`
+										image = image.replace(':image', i.image);
+										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
+										let card = `
+											<div class="card card-hotels-init">
+												<div class="card-img">
+													<img class="card-img-top" src="${image}">
+													<div class="link-action">
+														<a href="{{$settingAppStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+														<a href="{{$settingPlayStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+													</div>
+												</div>
+												<div class="card-body">
+													<div class="starts">
+														<span class="badge badge-secondary">${type}</span>
+														<span class="rating-${i.id}"></span>
+														<span>${Math.round(i.reviews_avg_rating)}</span>
+													</div>
+													<h3>${i.name}</h3>
+												</div>
 											</div>
-										</div>
-										<div class="card-body">
-											<div class="starts">
-												<span class="badge badge-secondary">VIP</span>
-												<img class="start" src="${rating}">
-												<span>${Math.round(i.reviews_avg_rating)}</span>
-											</div>
-											<h3>${i.name}</h3>
-										</div>
-									</div>
-								`
-								$('.res-check-right').append(card)
+										`
+										
+										$('.hotels-init').append(card);
+										for(let j = 0;j < Math.round(i.reviews_avg_rating);j++) {
+											$(`.rating-${i.id}`).append('<i class="fa-solid fa-star fa-star-check" style="color:yellow;"></i>')
+										}
+									}
+								}
 							}
 						})
 					}
@@ -205,30 +237,43 @@
 					if (res.status == 'success') {
 						if (res.data.length > 0) {
 							res.data.map((i) => {
-								let image = `{{url('storage/rooms/:image')}}`
-								let rating = `{{url('assets/img/bintang:rating.png')}}`
-								image = image.replace(':image', i.image);
-								rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
-								let card = `
-									<div class="card card-hotels-init">
-										<div class="card-img">
-											<img class="card-img-top" src="${image}">
-											<div class="link-action">
-												<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
-												<a href="" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+								if (i.image !== null) {
+									if (i.room.length > 0) {
+										let type = '';
+										i.room.map((r) => {
+											if (r.type !== null) {
+												type = r.type.name
+											}
+										})
+										let image = `{{url('storage/rooms/:image')}}`
+										let rating = `{{url('assets/img/bintang:rating.png')}}`
+										image = image.replace(':image', i.image);
+										rating = rating.replace(':rating', Math.round(i.reviews_avg_rating));
+										let card = `
+											<div class="card card-hotels-init">
+												<div class="card-img">
+													<img class="card-img-top" src="${image}">
+													<div class="link-action">
+														<a href="{{$settingAppStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/appstore.png"><span class="mx-3">Appstore</span></a>
+														<a href="{{$settingPlayStore->url}}" class="btn btn-sm btn-redirect"><img src="./assets/img/playstore.png"><span class="mx-3">Playstore</span></a>
+													</div>
+												</div>
+												<div class="card-body">
+													<div class="starts">
+														<span class="badge badge-secondary">${type}</span>
+														<span class="rating-${i.id}"></span>
+														<span>${Math.round(i.reviews_avg_rating)}</span>
+													</div>
+													<h3>${i.name}</h3>
+												</div>
 											</div>
-										</div>
-										<div class="card-body">
-											<div class="starts">
-												<span class="badge badge-secondary">VIP</span>
-												<img class="start" src="${rating}">
-												<span>${Math.round(i.reviews_avg_rating)}</span>
-											</div>
-											<h3>${i.name}</h3>
-										</div>
-									</div>
-								`
-								$('.hotels-init').append(card);
+										`
+										$('.hotels-init').append(card);
+										for(let j = 0;j < Math.round(i.reviews_avg_rating);j++) {
+											$(`.rating-${i.id}`).append('<i class="fa-solid fa-star" style="color:yellow;"></i>')
+										}
+									}
+								}
 							})
 						}
 					}

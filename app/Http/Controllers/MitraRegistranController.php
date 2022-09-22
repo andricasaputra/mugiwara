@@ -31,9 +31,15 @@ class MitraRegistranController extends Controller
         try {
             Mail::to($request->to)->send(new RegistranCompose($request));
         } catch (Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->route('admin.mitra-registran.mitra-registran');
+        return redirect()->route('admin.mitra-registran.mitra-registran')->with('success', 'Berhasil mengirim email');
+    }
+
+    public function destroy(Request $request)
+    {
+        $mitra = MitraGabung::find($request->id);
+        $mitra->delete();
+        return redirect()->route('admin.mitra-registran.mitra-registran')->with('success', 'Berhasil menghapus data'); 
     }
 }

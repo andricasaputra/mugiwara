@@ -119,6 +119,7 @@ Route::name('admin.')->group(function() {
         Route::get('', [MitraRegistranController::class, 'index'])->name('mitra-registran');
         Route::get('compose/{id}', [MitraRegistranController::class, 'compose'])->name('compose.mitra-registran');
         Route::post('compose', [MitraRegistranController::class, 'submitCompose'])->name('submit.compose.mitra-registran');
+        Route::post('delete', [MitraRegistranController::class, 'destroy'])->name('delete.mitra-registran');
     });
 
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function() {
@@ -326,6 +327,8 @@ Route::name('admin.')->group(function() {
         Route::post('update/{id}', [HubungiKamiController::class, 'update'])->name('update.hubungiKami');
         Route::get  ('delete/{id}', [HubungiKamiController::class, 'destroy'])->name('delete.hubungiKami');
         Route::post('store', [HubungiKamiController::class, 'store'])->name('store.hubungiKami');
+        Route::get('compose/{id}', [HubungiKamiController::class, 'compose'])->name('compose.hubungiKami');
+        Route::post('compose', [HubungiKamiController::class, 'submitCompose'])->name('submit.compose.hubungiKami');
     });
 
     Route::get('tombol', [TombolController::class, 'update'])->name('tombol');

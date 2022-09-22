@@ -27,7 +27,7 @@
 										<div class="swiper-wrapper">
 											@foreach($sliders as $slider)
 												<div class="swiper-slide">
-													<img class="img-fluid" src="{{ asset('images/compro/slider/' . $slider->gambar ) }}" />
+													<img class="img-fluid" src="{{ url('images/compro/slider/' . $slider->gambar ) }}" />
 												</div>
 											@endforeach
 										</div>
@@ -108,19 +108,19 @@
 						</div>
 
 						@if(count($fitur) != 0)
+						<div class="row mt-5">
 							@foreach($fitur as $f)
-								<div class="row mt-5">
-									<div class="col-lg-4 fiture-items">
-										<div class="card-fitures">
-											<div class="icon-tag">
-												<img class="img-fluid" src="{{url('images/compro/slider_fitur/' . $f->gambar)}}">
-												<h3>{{$f->heading}}</h3>
-											</div>
-											<p>{{$f->keterangan}}</p>
+								<div class="col-lg-4 fiture-items">
+									<div class="card-fitures">
+										<div class="icon-tag">
+											<img class="img-fluid" src="{{url('images/compro/slider_fitur/' . $f->gambar)}}">
+											<h3>{{$f->heading}}</h3>
 										</div>
+										<p>{{$f->keterangan}}</p>
 									</div>
 								</div>
 							@endforeach
+						</div>
 						@endif
 					</div>
 				</section>
@@ -150,7 +150,9 @@
 												<img class="img-fluid" src="{{url('images/compro/slider_tentang/' . $s->image)}}">
 												<h5>{{$s->name}}</h5>
 												<div class="ranting">
-													<img class="img-rating" src="./assets/img/bintang{{$s->rating}}.png">
+													@for($i=0;$i<round($s->rating);$i++)
+														<i class="fa-solid fa-star" style="color:yellow;"></i>
+													@endfor
 												</div>
 												<p>Costumer</p>
 											</div>

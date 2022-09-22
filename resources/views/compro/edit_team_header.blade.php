@@ -6,8 +6,8 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-            @if($errors->any())
-                {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{ session()->get('error') }}</div>
             @endif
             <h4 class="card-title">Edit Team Header</h4>
             <form action="{{ route('admin.teamHeader.update.teamHeader', $teamHeaders->id) }}" method="post" enctype="multipart/form-data">
@@ -59,15 +59,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
                             <label for="gambar_sosmed">Gambar Sosmed</label>
-                            <select class="form-control" name="gambar_sosmed" required>
-                                <option>Pilih</option>
-                                <option value="whatsapp">Whatsapp</option>
-                                <option value="twitter">Twitter</option>
-                                <option value="facebook">Facebook</option>
-                                <option value="instagram">Instagram</option>
-                                <option value="youtube">Youtube</option>
-                                <option value="tiktok">Tiktok</option>
-                            </select>
+                            <input type="file" class="form-control" name="gambar_sosmed">
                         </div>
                     </div>
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistranCompose;
 use App\Models\HubungiKami;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class HubungiKamiController extends Controller
@@ -123,5 +126,23 @@ class HubungiKamiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function compose($id)
+    {
+        $bantuan = HubungiKami::find($id);
+        return view('compro.hubungi_kami_compose', [
+            'bantuan' => $bantuan
+        ]);
+    }
+
+    public function submitCompose(Request $request)
+    {
+        try {
+            Mail::to($request->to)->send(new RegistranCompose($request));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        return redirect()->route('admin.hubungiKami.hubungiKami')->with('success', 'Berhasil mengirim email');
     }
 }
