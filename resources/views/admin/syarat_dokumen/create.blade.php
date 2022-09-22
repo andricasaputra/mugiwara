@@ -23,7 +23,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
                             <label for="file">File</label>
-                            <input type="file" class="form-control" name="file" id="file" required>
+                            <input type="file" class="form-control" name="file" id="file">
                         </div>
                     </div>
                 </div>

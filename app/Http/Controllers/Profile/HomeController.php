@@ -166,12 +166,14 @@ class HomeController extends Controller
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $informasi = Post::where('slug', $slug)->first();
+        $informasiAll = Post::where('slug', '!=', $slug)->where('is_active', 1)->get();
         $settings = GeneralSettings::first();
         return view('profile.detail_informasi', [
             'title' => 'Beranda - Informasi',
             'settings' => $settings,
             'menu' => $menu,
             'informasi' => $informasi,
+            'informasiAll' => $informasiAll,
             'alamat' => $alamat,
         ]);
     }
@@ -308,12 +310,14 @@ class HomeController extends Controller
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $settings = GeneralSettings::first();
+        $lainnya = Pertanyaan::where('kategori', 'lain-lain')->limit(7)->get();
         return view('profile.detail_pertanyaan', [
             'title' => 'Pertanyaan',
             'settings' => $settings,
             'menu' => $menu,
             'alamat' => $alamat,
-            'pertanyaan' => $pertanyaan
+            'pertanyaan' => $pertanyaan,
+            'lainnya' => $lainnya
         ]);
     }
 
