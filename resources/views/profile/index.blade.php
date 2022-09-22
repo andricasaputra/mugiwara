@@ -189,7 +189,7 @@
 									<div class="swiper-slide">
 										<div class="news-items">
 											<a href="{{ route('profile.informasi.detail', $i->slug) }}">
-												<div class="card">
+												<div class="card" style="min-height: 200px!important;">
 													<div class="card-img-top">
 														<img class="img-fluid" src="{{ url('storage/posts/'. $i->image) }}">
 													</div>
