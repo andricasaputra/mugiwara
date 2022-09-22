@@ -22,29 +22,30 @@ class XenditCallbackController extends Controller
     {
         $data = json_encode($request->all());
 
-
-        return $data;
-
         $callback = CallbackXendit::create([
             'payload' => $data
         ]);
 
         $status = json_decode($callback->payload);
 
-        $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
-
-        $ewallet?->update([
-            'payload' => $data
-        ]);
-
-         Log::info($ewallet);
-
-        $ewallet?->payment()?->update([
-            'status' => $status?->data?->status,
-            'amount' => $status?->data?->charge_amount,
-        ]);
-
         if($status?->data?->status == 'SUCCEEDED'){
+
+
+            $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
+
+            if($ewallet){
+                
+                $ewallet?->update([
+                    'payload' => $data
+                ]);
+
+                Log::info($ewallet);
+
+                $ewallet?->payment()?->update([
+                    'status' => $status?->data?->status,
+                    'amount' => $status?->data?->charge_amount,
+                ]);
+            }
 
             $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'booked'
@@ -58,6 +59,8 @@ class XenditCallbackController extends Controller
             $this->sendNotificationEwalletSuccess($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
 
         }else{
+
+            $ewallet = Ewallet::where('ewallet_id', $request?->id)->first();
 
              $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel'
