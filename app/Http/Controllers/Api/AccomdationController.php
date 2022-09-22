@@ -31,36 +31,44 @@ class AccomdationController extends Controller
         return AccomodationResource::collection($this->repository->all());
     }
 
-    public function rooms(Accomodation $accomodation)
+    public function rooms($name)
     {
-        $rooms = Room::query();
-        $types = Type::all();
+        $accomodations = Accomodation::where('name', $name)->get();
 
-        $room_type = [];
+        $data = [];
 
-        foreach($types as $type){
-            $room_type[$type->name] = $rooms->where('accomodation_id', $accomodation->id)->with('type')->get()
-            ->where('type.name', $type->name)
-            ->count();
+        foreach($accomodations as $accomodation){
+            $rooms = Room::query();
+            $types = Type::all();
+
+            $room_type = [];
+
+            foreach($types as $type){
+                $room_type[$type->name] = $rooms->where('accomodation_id', $accomodation->id)->with('type')->get()
+                ->where('type.name', $type->name)
+                ->count();
+            }
+
+            $rooms = $rooms->with([
+                'images' ,
+                'facilities', 
+                'reviews',
+                'type'
+            ])->where('accomodation_id', $accomodation->id)
+                ->withCount('reviews')
+                ->withAvg('reviews', 'rating')
+                ->get();
+
+            $data[] = collect($accomodation)
+                    ->put('total_room', $accomodation->room()->count())
+                    ->put('available_room_count', $rooms->where('status', 'available')->count())
+                    ->put('room_type_count', $room_type)
+                    ->put('rooms', new RoomCollection($rooms));
         }
 
-        $rooms = $rooms->with([
-            'images' ,
-            'facilities', 
-            'reviews',
-            'type'
-        ])->where('accomodation_id', $accomodation->id)
-            ->withCount('reviews')
-            ->withAvg('reviews', 'rating')
-            ->get();
-
-        $data = collect($accomodation)
-                ->put('total_room', $accomodation->room()->count())
-                ->put('available_room_count', $rooms->where('status', 'available')->count())
-                ->put('room_type_count', $room_type)
-                ->put('rooms', new RoomCollection($rooms));
+        
                 
-        return new ShowAccomodationResource($data);
+        return ShowAccomodationResource::collection($data);
     }
 
     /**

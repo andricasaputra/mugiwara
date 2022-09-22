@@ -172,6 +172,8 @@ class RoomController extends Controller
                     $this->files = $request->room_image;
                     $this->upload  = app()->make(UploadServiceInterface::class);
 
+                    dd($imageName[$key]);
+
                     if(isset($imageName[$key])){
                         
                         $create->images()->create([
@@ -244,7 +246,7 @@ class RoomController extends Controller
 
     public function uploadRoomImage($request, $accomodation)
     {
-        $roomImageName = 'room-' . $accomodation->id;
+        $roomImageName = 'room-' . $accomodation->id . '-' . time();
 
         return Filepond::field($request->room_image)
                         ->moveTo('rooms/' . $roomImageName);

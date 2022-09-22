@@ -198,6 +198,8 @@ class AccomodationController extends Controller
     {
         try {
 
+            $accomodation->image()?->delete();
+
             $accomodation->delete();
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil hapus data');

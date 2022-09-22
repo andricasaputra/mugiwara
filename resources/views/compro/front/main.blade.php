@@ -152,5 +152,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script src="{{ asset('compro/assets/js/main.js') }}"></script>
 
+	@stack('scripts')
+
 </body>
 </html>
