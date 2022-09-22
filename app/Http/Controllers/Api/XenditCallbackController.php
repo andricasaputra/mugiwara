@@ -22,6 +22,9 @@ class XenditCallbackController extends Controller
     {
         $data = json_encode($request->all());
 
+
+        return $data;
+
         $callback = CallbackXendit::create([
             'payload' => $data
         ]);
@@ -198,7 +201,7 @@ class XenditCallbackController extends Controller
 
         $admin = User::admin()->first();
 
-        $office = Office::with('users')->where('accomodation_id',  $order->accomodation_id)->first();
+        $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
 
         // Notify admin and employee
         $admin->notify(
@@ -265,7 +268,7 @@ class XenditCallbackController extends Controller
 
         $admin = User::admin()->first();
 
-        $office = Office::with('users')->where('accomodation_id',  $order->accomodation_id)->first();
+        $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
 
         // Notify admin and employee
         $admin->notify(
@@ -325,11 +328,11 @@ class XenditCallbackController extends Controller
         );
 
         $user_title = 'Terdapat Pembayaran ' . $pembayaran;
-        $user_message = 'Pembayaran dengan Order ID ' . $order->id . ' ' . $pembayaran  . ' kunjungi halaman keuangan untuk detail lebih lanjut.';
+        $user_message = 'Pembayaran dengan Order ID ' . $order?->id . ' ' . $pembayaran  . ' kunjungi halaman keuangan untuk detail lebih lanjut.';
 
         $admin = User::admin()->first();
 
-        $office = Office::with('users')->where('accomodation_id',  $order->accomodation_id)->first();
+        $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
 
         // Notify admin and employee
         $admin->notify(
