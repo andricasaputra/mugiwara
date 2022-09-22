@@ -28,15 +28,19 @@
 					<div class="row">
 						@foreach($team as $k => $t)
 						<div class="col-lg-4 list-teams-list">
-							<div class="card">
+							<div class="card" style="min-height: 500px!important;">
 								<img class="card-img-top" src="{{url('images/compro/team_header/' . $t->gambar)}}">
 								<div class="card-body">
 									<h2>{{$t->heading}}</h2>
 									<h5>{{$t->jabatan}}</h5>
 									<div>
-										<a href="{{$t->url_sosmed}}">
-											<img src="{{url('images/compro/team_header/' . $t->gambar_sosmed)}}">
-										</a>
+										@if($t->url_sosmed != "")
+											@foreach(json_decode($t->url_sosmed) as $k => $s)
+												<a href="{{$s->url}}">
+													<i class="{{$s->class}}"></i>
+												</a>
+											@endforeach
+										@endif
 									</div>
 								</div>
 							</div>

@@ -29,7 +29,19 @@ class TambahBerandaController extends Controller
         }
 
         $beranda = new Beranda();
-        $beranda->fill($request->input());
+        $beranda->fill($request->except('file'));
+        if(!is_null($request->file)) {
+            try {
+                $file = $request->file('file');
+                $namaFile = $file->getClientOriginalName();
+                $folderUpload = 'images/compro/beranda';
+                $file->move($folderUpload, $namaFile);
+
+                $beranda->file = $namaFile;
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', $th->getMessage());
+            }
+        }
         $beranda->status = 1;
         $beranda->created_by = Auth::user()->id;
         $beranda->save();
@@ -53,7 +65,19 @@ class TambahBerandaController extends Controller
     public function update(Request $request)
     {
         $beranda = Beranda::find($request->id);
-        $beranda->fill($request->except('id'));
+        $beranda->fill($request->except('id', 'file'));
+        if(!is_null($request->file)) {
+            try {
+                $file = $request->file('file');
+                $namaFile = $file->getClientOriginalName();
+                $folderUpload = 'images/compro/beranda';
+                $file->move($folderUpload, $namaFile);
+
+                $beranda->file = $namaFile;
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', $th->getMessage());
+            }
+        }
         $beranda->save();
         return redirect()->route('admin.beranda.beranda');
     }

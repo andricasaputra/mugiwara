@@ -26,7 +26,6 @@
                         <th>Alt Gambar</th>
                         <th>Jabatan</th>
                         <th>Url Sosmed</th>
-                        <th>Gambar Sosmed</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -47,10 +46,16 @@
                             </td>
                             <td> {{ $item->alt }}</td>
                             <td> {{ $item->jabatan }}</td>
-                            <td> {{ $item->url_sosmed }}</td>
-                            <td>
-                               <img width="100" src="{{ asset('images/compro/team_header/'. $item->gambar_sosmed) }}" alt="">
+                            <td> 
+                                @if($item->url_sosmed !== "")
+                                    @foreach(json_decode($item->url_sosmed) as $k => $s)
+                                        <span><i class="{{$s->class}}"></i> {{$s->url}}</span><br>
+                                    @endforeach
+                                @endif
                             </td>
+                            <!-- <td>
+                               <img width="100" src="{{ asset('images/compro/team_header/'. $item->gambar_sosmed) }}" alt="">
+                            </td> -->
                             <td>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.teamHeader.delete.teamHeader', $item->id) }}">Hapus</a>
                                 <a class="btn btn-primary btn-sm" href="{{ route('admin.teamHeader.edit.teamHeader', $item->id) }}">Edit</a>
