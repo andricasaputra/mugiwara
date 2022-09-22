@@ -105,8 +105,22 @@ class HomeController extends Controller
         $accomodationTop = null;
         $accomodationTopImage = null;
         if (!is_null($accomodationTopRate)) {
-            $accomodationTop = Accomodation::find($accomodationTopRate->accomodation_id);
-            $accomodationTopImage = Image::where('imageable_id', $accomodationTop->id)->where('imageable_type', Accomodation::class)->first();
+            $accomodationTop = Accomodation::with([
+                'room',
+                'room.images'
+            ])
+            ->withAvg('reviews', 'rating')
+            ->where('id', $accomodationTopRate->accomodation_id)->first();
+            if (!empty($accomodationTop->room)) {
+                foreach ($accomodationTop->room as $k => $r) {
+                    if(!empty($r->images)) {
+                        foreach($r->images as $rk => $ri) {
+                            $accomodationTopImage = $ri->image;
+                            break;
+                        } 
+                    }
+                }
+            }
         }
         $settings = GeneralSettings::first();
         $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
@@ -279,6 +293,7 @@ class HomeController extends Controller
         $accomodation = Accomodation::with([
             'image',
             'room',
+            'room.images',
             'room.type' => function($query) use ($request) {
                 $query->where('name', $request->type);
             },
