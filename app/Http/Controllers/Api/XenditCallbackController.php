@@ -66,6 +66,8 @@ class XenditCallbackController extends Controller
                 'order_status' => 'cancel'
             ]);
 
+             Log::info($ewallet);
+
             $update = $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',
                 'booked_untill' => NULL
