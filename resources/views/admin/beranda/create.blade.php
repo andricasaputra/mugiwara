@@ -9,7 +9,7 @@
                     <div class="alert alert-danger">{{ session()->get('error') }}</div>
                 @endif
                 <h4 class="card-title">Tambah</h4>
-                <form action="{{ route('admin.beranda.store.beranda') }}" method="post">
+                <form action="{{ route('admin.beranda.store.beranda') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12 col-sm-12">
@@ -24,6 +24,14 @@
                             <div class="form-group">
                                 <label for="description">Deskripsi</label>
                                 <textarea class="form-control" name="description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="file">Gambar</label>
+                                <input type="file" class="form-control" name="file" id="file">
                             </div>
                         </div>
                     </div>
