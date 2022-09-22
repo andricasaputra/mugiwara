@@ -51,12 +51,12 @@ class PendaftaranController extends Controller
                 $namaFile = $file->getClientOriginalName();
                 $folderUpload = 'images/compro/pendaftaran';
                 $file->move($folderUpload, $namaFile);
+                $pendaftaran->file = $namaFile;
             } catch (\Throwable $th) {
                 return redirect()->route('admin.pendaftaran.pendaftaran')->with('error', $th->getMessage());
             }
         }
 
-        $pendaftaran->file = $namaFile;
         $pendaftaran->order = $order;
         $pendaftaran->save();
 
@@ -104,8 +104,9 @@ class PendaftaranController extends Controller
                 $namaFile = $file->getClientOriginalName();
                 $folderUpload = 'images/compro/pendaftaran';
                 $file->move($folderUpload, $namaFile);
+                $pendaftaran->file = $namaFile;
             } catch (\Throwable $th) {
-                return $th->getMessage();
+                return redirect()->route('admin.pendaftaran.pendaftaran')->with('error', $th->getMessage());
             }
         }
 
