@@ -9,6 +9,7 @@ use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class VoucherController extends Controller
 {
     public function index()
@@ -129,8 +130,13 @@ class VoucherController extends Controller
     public function delete(Request $request)
     {
         $voucher = Voucher::find($request->id);
-        Storage::disk('public')->delete('data/'.$voucher->image);
+
+        if(file_exists(asset('storage/vouchers/' . $voucher->image))){
+           Storage::disk('public')->delete('vouchers/'. $voucher->image);
+        }
+
         $voucher->delete();
+
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil dihapus');
     }
 

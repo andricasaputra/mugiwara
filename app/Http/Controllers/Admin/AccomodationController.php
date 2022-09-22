@@ -182,8 +182,6 @@ class AccomodationController extends Controller
                 'description' => 'nullable|string'
             ]);
 
-            //dd($request->all());
-
             $accomodation->update($request->all());
 
             return redirect(route('accomodations.index'))->withSuccess('Berhasil ubah data');

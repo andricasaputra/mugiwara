@@ -105,7 +105,7 @@ class HomeController extends Controller
 
         return view('profile.hotel')
             ->withTrending($trending)
-            ->withAccomodationns($accomodations);
+            ->withAccomodations($accomodations);
        
     }
 
@@ -114,7 +114,6 @@ class HomeController extends Controller
         $accomodations = Accomodation::with(['room.images', 'reviews', 'image'])->get();
 
         return view('profile.hotel')
-            ->withTrending($trending)
             ->withAccomodationns($accomodations);
        
     }

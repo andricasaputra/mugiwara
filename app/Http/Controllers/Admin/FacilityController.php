@@ -100,6 +100,12 @@ class FacilityController extends Controller
 
     public function destroy(Facility $facility)
     {
+        foreach($facility?->images as $image){
+            if(file_exists(asset('storage/facilities/' . $image->image))){
+               \Illuminate\Support\Facades\Storage::disk('public')->delete('facilities/'. $image->image);
+            }
+        }
+
         $facility->delete();
 
         return redirect(route('facilities.index'))->withSuccess('Berhasil hapus data'); 

@@ -103,8 +103,13 @@ class PostController extends Controller
     public function delete(Request $request)
     {
         $post = Post::find($request->id);
-        Storage::disk('public')->delete('posts/'.$post->image);
+
+        if(file_exists(asset('storage/posts/' . $post->image))){
+           Storage::disk('public')->delete('posts/'. $post->image);
+        }
+
         $post->delete();
+
         return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil dihapus');
     }
 }
