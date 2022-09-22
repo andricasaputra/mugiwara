@@ -109,7 +109,7 @@
                                                              <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
                                                         @endif
 
-                                                        @if($order->order_status == 'completed')
+                                                        @if($order->order_status == 'completed' || $order->order_status == 'cancel')
 
                                                         	<button class="btn btn-success mt-2">Selesai</button>
 
