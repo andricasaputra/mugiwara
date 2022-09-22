@@ -82,8 +82,6 @@
           tags: true
         });
 
-    
-
         $(document).on('change', '#accomodation', function(){
 
             const id = $(this).val();
@@ -128,7 +126,7 @@
             }
 
             
-        });`
+        });
 
     });
 
