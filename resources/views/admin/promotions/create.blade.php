@@ -101,14 +101,13 @@
             },
             success : function(res){
 
-
-                console.log(res);
-
                 $.each(res, function (key, val) {
-                    //container.append(roomTemplater(val))
                     type_container.append(typeTemplater(val))
                 });
 
+            },
+            error : function(err){
+                console.log(err);
             } 
         });
 
@@ -141,15 +140,15 @@
 
 <style>
     .select2-selection__rendered {
-    line-height: 10px !important;
+    line-height: 20px !important;
     border-radius: 0 !important;
 }
 .select2-container .select2-selection--single {
-    height: 35px !important;
+    height: 40px !important;
     border-radius: 0 !important;
 }
 .select2-selection__arrow {
-    height: 34px !important;
+    height: 38px !important;
     border-radius: 0 !important;
 }
 </style>

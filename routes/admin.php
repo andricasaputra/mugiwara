@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AboutAwalController;
 use App\Http\Controllers\AboutKeduaController;
-use App\Http\Controllers\AboutPertamaController;
 use App\Http\Controllers\Admin\AccomodationController;
 use App\Http\Controllers\Admin\AppStoreController;
 use App\Http\Controllers\Admin\BookingController;
@@ -36,6 +35,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('roles', RoleController::class);
