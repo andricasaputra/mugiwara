@@ -101,7 +101,15 @@ class ProductController extends Controller
     public function delete(Request $request)
     {
         $product = Product::find($request->id);
+
+        if(file_exists(asset('storage/products/' . $product->image?->image))){
+            \Illuminate\Support\Facades\Storage::disk('public')->delete('products/'. $product->image?->image);
+        }
+
+        $product->image()?->delete();
+
         $product->delete();
+        
         return redirect()->route('admin.product.index')->with('success', 'Data produk berhasil dihapus');
     }
 

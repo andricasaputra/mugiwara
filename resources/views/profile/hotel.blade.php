@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-lg-4 hotel-items">
                         <div class="card">
-                            <form action="{{  }}" method="POST">
+                            <form action="" method="POST">
                                 <h2>Cek Ketersedian Kamar</h2>
                                 <input type="date" name="tanggal" placeholder="Cari Kamar">
                                 <button class="btn" type="button">Cari Kamar</button>
@@ -113,11 +113,15 @@
 
                     	@foreach($accomodations as $accomodation)
 
-                    		@foreach($accomodation->room?->type)
-
                     		 <div class="card">
 	                            <div class="card-img">
-	                                <img class="card-img-top" src="{{ asset('/storage/accomodations/' . $accomodation->image?->image) }}">
+
+	                            	@if(file_exists(asset('/storage/accomodations/' . $accomodation->image?->image)))
+		                            	<img class="card-img-top" src="{{ asset('/storage/accomodations/' . $accomodation->image?->image) }}" style="width: 100%; height: 100%">
+		                            @else
+		                            	<img class="card-img-top" src="{{ asset('/storage/rooms/' . $accomodation->room?->first()?->images?->first()?->image) }}" style="width: 100%; height: 100%">
+		                            @endif
+
 	                                <div class="link-action">
 	                                    <a href="#" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/appstore.png') }}"><span class="mx-3">Appstore</span></a>
 	                                    <a href="#" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/playstore.png') }}"><span class="mx-3">Playstore</span></a>
@@ -126,19 +130,19 @@
 	                            <div class="card-body">
 	                                <div class="starts">
 
-	                                    <span class="badge badge-secondary">VIP</span>
+	                                    <span class="badge badge-secondary">{{ $accomodation?->room?->first()?->type?->name }}</span>
 
-	                                   @foreach($trending?->reviews as $review)
+	                                   @foreach($accomodation?->reviews as $review)
 	                                		<img class="start" src="{{ asset('compro/assets/img/bintang.png') }}">
 	                                	@endforeach
 	                                    
-	                                    <span>{{ $accomodation?->reviews?->avg('rating') }}</span>
+	                                    <span>{{ $accomodation?->reviews?->avg('rating') ?? '' }}</span>
 	                                </div>
-	                                <h3>Hotel Santa Maria</h3>
+	                                <h3>{{ $accomodation->name }}</h3>
 	                            </div>
 	                        </div>
 
-	                        @endforeach
+	                
 
                     	@endforeach
                   

@@ -13,7 +13,6 @@ use App\Models\Type as RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RahulHaque\Filepond\Facades\Filepond;
-use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -172,8 +171,6 @@ class RoomController extends Controller
                     $this->files = $request->room_image;
                     $this->upload  = app()->make(UploadServiceInterface::class);
 
-                    dd($imageName[$key]);
-
                     if(isset($imageName[$key])){
                         
                         $create->images()->create([
@@ -220,8 +217,12 @@ class RoomController extends Controller
             foreach ($accomodation?->room as $key => $room) {
 
                 foreach($room->images as $image){
-                     Storage::disk('public')->delete('rooms/'. $image->image);
-                     $image->delete();
+
+                    if(file_exists(asset('storage/rooms/' . $image->image))){
+                       \Illuminate\Support\Facades\Storage::disk('public')->delete('rooms/'. $image->image);
+                    }
+
+                    $image->delete();
                 }
 
                 $room->delete();

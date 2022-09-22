@@ -135,6 +135,12 @@ class PromotionController extends Controller
 
     public function destroy(Promotion $promotion)
     {
+        foreach($promotion->images as $image){
+            if(file_exists(asset('storage/promotions/' . $image->image))){
+               \Illuminate\Support\Facades\Storage::disk('public')->delete('promotions/'. $image->image);
+            }
+        }
+
         $promotion->delete();
 
         return redirect(route('admin.promotion.index'))->withSuccess('Berhasil hapus promosi');
