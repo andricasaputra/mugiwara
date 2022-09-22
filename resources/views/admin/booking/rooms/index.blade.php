@@ -82,7 +82,7 @@
                                                         <div id="imageControls{{$key}}" class="carousel slide" data-ride="carousel">
                                                           <div class="carousel-inner">
 
-                                                            @foreach($accomodation?->room->pluck('images') as $images)   
+                                                            @foreach($accomodation?->room?->pluck('images') as $images)
 
                                                             @foreach($images as $image)   
 

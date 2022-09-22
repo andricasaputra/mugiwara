@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="mytable" class="display table-striped text-center">
+                    <table id="mytable" class="display expandable-table text-center" style="width:100%">
                     <thead>
                     <tr>
                         <th>No</th>
