@@ -33,7 +33,7 @@
                             <td>{{ $no   }}</td>
                             <td> <img width="100" src="{{ asset('images/compro/slider/'. $item->gambar) }}" alt=""></td>
                             <td>
-                                <a class="btn btn-Primary btn-sm" href="{{ route('admin.slider.edit.slider', $item->id) }}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.slider.edit.slider', $item->id) }}">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="{{ route('admin.slider.delete.slider', $item->id) }}">Hapus</a>
                             </td>
                         </tr>
