@@ -62,11 +62,11 @@ class XenditCallbackController extends Controller
 
             $ewallet = Ewallet::where('ewallet_id', $request?->id)->first();
 
-             $ewallet?->payment?->first()?->order()?->update([
+            $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel'
             ]);
 
-             Log::info($ewallet);
+            Log::info($ewallet);
 
             $update = $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',

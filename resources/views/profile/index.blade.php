@@ -66,7 +66,9 @@
 								<p>{{$b->description}}</p>
 							</div>
 							<div class="col-lg-6">
-								<img src="./assets/img/bro.png">
+								@if(!is_null($b->file))
+									<img src="{{ url('images/compro/beranda/'. $b->file) }}">
+								@endif
 							</div>
 						</div>			
 					</div>
@@ -82,7 +84,9 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6">
-									<img src="./assets/img/orb.png">
+									@if(!is_null($b->file))
+										<img src="{{ url('images/compro/beranda/'. $b->file) }}">
+									@endif
 								</div>
 								<div class="col-lg-6">
 									<h2>{{$b->title}}</h2>
@@ -189,7 +193,7 @@
 									<div class="swiper-slide">
 										<div class="news-items">
 											<a href="{{ route('profile.informasi.detail', $i->slug) }}">
-												<div class="card">
+												<div class="card" style="min-height: 200px!important;">
 													<div class="card-img-top">
 														<img class="img-fluid" src="{{ url('storage/posts/'. $i->image) }}">
 													</div>

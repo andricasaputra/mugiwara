@@ -20,6 +20,7 @@
                         <th>No</th>
                         <th>Judul</th>
                         <th>Deskripsi</th>
+                        <th>Gambar</th>
                         <th>Sesi</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -32,6 +33,7 @@
                             <td>{{$counter++}}</td>
                             <td>{{$b->title}}</td>
                             <td>{{$b->description}}</td>
+                            <td> <img width="100" src="{{ asset('images/compro/beranda/'. $b->file) }}"></td>
                             <td>{{$b->section}}</td>
                             <td>{{$b->status ? 'Aktif' : 'Non-Aktif'}}</td>
                             <td>
