@@ -58,7 +58,7 @@ class TambahSliderController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.slider.slider');
+        return redirect()->route('admin.slider.slider')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -116,7 +116,7 @@ class TambahSliderController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.slider.slider');
+        return redirect()->route('admin.slider.slider')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -129,6 +129,6 @@ class TambahSliderController extends Controller
     {
         $sliders = TambahSlider::find($id);
         $sliders->delete();
-        return redirect()->route('admin.slider.slider');
+        return redirect()->route('admin.slider.slider')->with('success', 'Berhasil menghapus data');
     }
 }

@@ -60,14 +60,14 @@ class PendaftaranController extends Controller
         $pendaftaran->order = $order;
         $pendaftaran->save();
 
-        return redirect()->route('admin.pendaftaran.pendaftaran');
+        return redirect()->route('admin.pendaftaran.pendaftaran')->with('success', 'Berhasil menambah data');
     }
 
     public function destroy(Request $request)
     {
         $pendaftaran = Pendaftaran::find($request->id);
         $pendaftaran->delete();
-        return redirect()->route('admin.pendaftaran.pendaftaran');
+        return redirect()->route('admin.pendaftaran.pendaftaran')->with('success', 'Berhasil menghapus data');
     }
 
     public function edit($id)
@@ -111,6 +111,6 @@ class PendaftaranController extends Controller
         }
 
         $pendaftaran->save();
-        return redirect()->route('admin.pendaftaran.pendaftaran');
+        return redirect()->route('admin.pendaftaran.pendaftaran')->with('success', 'Berhasil mengubah data');
     }
 }

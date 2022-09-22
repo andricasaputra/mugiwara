@@ -36,14 +36,14 @@ class TambahBerandaInformasiController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.beranda-informasi.beranda-informasi');
+        return redirect()->route('admin.beranda-informasi.beranda-informasi')->with('success', 'Berhasil menambah data');
     }
 
     public function destroy(Request $request)
     {
         $info = TambahBerandaInformasi::find($request->id);
         $info->delete();
-        return redirect()->route('admin.beranda-informasi.beranda-informasi');
+        return redirect()->route('admin.beranda-informasi.beranda-informasi')->with('success', 'Berhasil menghapus data');
     }
 
     public function edit($id)
@@ -73,6 +73,6 @@ class TambahBerandaInformasiController extends Controller
         }
 
         $slider->save();
-        return redirect()->route('admin.beranda-informasi.beranda-informasi');
+        return redirect()->route('admin.beranda-informasi.beranda-informasi')->with('success', 'Berhasil mengubah data');
     }
 }

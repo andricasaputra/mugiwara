@@ -67,7 +67,7 @@ class SliderFiturController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
 
-        return redirect()->route('admin.sliderFitur.sliderFitur');
+        return redirect()->route('admin.sliderFitur.sliderFitur')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -131,7 +131,7 @@ class SliderFiturController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
 
-        return redirect()->route('admin.sliderFitur.sliderFitur');
+        return redirect()->route('admin.sliderFitur.sliderFitur')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -145,6 +145,6 @@ class SliderFiturController extends Controller
         $sliders = SliderFitur::find($id);
         $sliders->delete();
 
-        return redirect()->route('admin.sliderFitur.sliderFitur');
+        return redirect()->route('admin.sliderFitur.sliderFitur')->with('success', 'Berhasil menghapus data');
     }
 }

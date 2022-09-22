@@ -14,7 +14,7 @@ class RegisterController extends Controller
 {
     public function showregister()
     {
-        $menu = Tambah_menu_compro::all();
+        $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $settings = GeneralSettings::first();
         return view('profile.register', [

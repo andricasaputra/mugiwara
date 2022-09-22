@@ -46,14 +46,14 @@ class TambahBerandaController extends Controller
         $beranda->created_by = Auth::user()->id;
         $beranda->save();
 
-        return redirect()->route('admin.beranda.beranda');
+        return redirect()->route('admin.beranda.beranda')->with('success', 'Berhasil mengubah data');
     }
 
     public function destroy(Request $request)
     {
         $beranda = Beranda::find($request->id);
         $beranda->delete();
-        return redirect()->route('admin.beranda.beranda');
+        return redirect()->route('admin.beranda.beranda')->with('success', 'Berhasil mengubah data');
     }
 
     public function edit($id)
@@ -79,6 +79,6 @@ class TambahBerandaController extends Controller
             }
         }
         $beranda->save();
-        return redirect()->route('admin.beranda.beranda');
+        return redirect()->route('admin.beranda.beranda')->with('success', 'Berhasil mengubah data');
     }
 }

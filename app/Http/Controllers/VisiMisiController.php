@@ -60,7 +60,7 @@ class VisiMisiController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.visiMisi.visiMisi');
+        return redirect()->route('admin.visiMisi.visiMisi')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -117,7 +117,7 @@ class VisiMisiController extends Controller
             return $th->getMessage();
         }
 
-        return redirect()->route('admin.visiMisi.visiMisi');
+        return redirect()->route('admin.visiMisi.visiMisi')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -131,6 +131,6 @@ class VisiMisiController extends Controller
         $visi = VisiMisi::find($id);
         $visi->delete();
 
-        return redirect()->route('admin.visiMisi.visiMisi');
+        return redirect()->route('admin.visiMisi.visiMisi')->with('success', 'Berhasil menghapus data');
     }
 }
