@@ -64,8 +64,6 @@ class OrderController extends Controller
 
             $order = Order::findOrFail($request->order_id);
 
-            return $order->payment?->payable;
-
            if($order->payment?->payable?->channel_code == "ID_DANA"){
                 $this->sendNotificationEwalletFailed($order, $payment, 'EXPIRED');
            }
