@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('general_settings', function (Blueprint $table) {
-            $table->string('favicon', 255)->nullable();
-        });
+        
     }
 
     /**
@@ -25,8 +23,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('general_settings', function (Blueprint $table) {
-            $table->dropColumn('favicon');
+        Schema::table('pendaftaran_syarat_dokumen', function (Blueprint $table) {
+           $table->dropColumn('file');
         });
     }
 };

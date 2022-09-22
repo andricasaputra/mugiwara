@@ -51,12 +51,12 @@ class SyaratDokumenController extends Controller
                 $namaFile = $file->getClientOriginalName();
                 $folderUpload = 'images/compro/syarat';
                 $file->move($folderUpload, $namaFile);
+                $syarat->file = $namaFile;
             } catch (\Throwable $th) {
-                return $th->getMessage();
+                return redirect()->route('admin.syarat-dokumen.syarat-dokumen')->with('error', $th->getMessage());
             }
         }
 
-        $syarat->file = $namaFile;
         $syarat->order = $order;
         $syarat->save();
 
@@ -104,8 +104,9 @@ class SyaratDokumenController extends Controller
                 $namaFile = $file->getClientOriginalName();
                 $folderUpload = 'images/compro/syarat';
                 $file->move($folderUpload, $namaFile);
+                $syarat->file = $namaFile;
             } catch (\Throwable $th) {
-                return $th->getMessage();
+                return redirect()->route('admin.syarat-dokumen.syarat-dokumen')->with('error', $th->getMessage());
             }
         }
 
