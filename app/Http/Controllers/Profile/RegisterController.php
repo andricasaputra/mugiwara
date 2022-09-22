@@ -28,7 +28,7 @@ class RegisterController extends Controller
     public function submitRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:zip|max:500'
+            'file' => 'required|mimes:zip|max:5120'
         ],[
             'required' => ':attribute harus diisi',
             'mimes' => ':attribute harus memiliki format zip',

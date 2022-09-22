@@ -25,6 +25,7 @@
 
                     <div class="container-fluid">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <a href="{{route('admin.slider.slider')}}" class="btn btn-primary mr-2">Kembali</a>
                     </div>
                 </div>
             </form>

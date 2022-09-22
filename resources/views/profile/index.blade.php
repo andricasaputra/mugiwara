@@ -199,7 +199,7 @@
 													</div>
 													<div class="card-body">
 														<h5>{{$i->title}}</h5>
-														<p>{{(strlen($i->body) > 13) ? substr($i->body,0,100).'...' : $i->body}}</p>
+														<p>{!!(strlen($i->body) > 13) ? substr($i->body,0,25).'...' : $i->body!!}</p>
 													</div>
 												</div>
 											</a>

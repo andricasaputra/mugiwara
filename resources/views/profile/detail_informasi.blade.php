@@ -24,7 +24,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8">
-						<p class="mb-5">{{$informasi->body}}</p>
+						<p class="mb-5">{!!$informasi->body!!}</p>
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <h5>{{$i->title}}</h5>
-                                                        <p>{{(strlen($i->body) > 13) ? substr($i->body,0,100).'...' : $i->body}}</p>
+                                                        <p>{!!(strlen($i->body) > 13) ? substr($i->body,0,100).'...' : $i->body!!}</p>
                                                     </div>
                                                 </div>
                                             </a>

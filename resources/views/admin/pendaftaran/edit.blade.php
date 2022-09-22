@@ -42,6 +42,7 @@
                 </div>
                 <div class="row">
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a href="{{route('admin.pendaftaran.pendaftaran')}}" class="btn btn-primary mr-2">Kembali</a>
                 </div>
             </form>
             </div>

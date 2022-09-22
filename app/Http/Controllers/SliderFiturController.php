@@ -44,8 +44,10 @@ class SliderFiturController extends Controller
             'gambar' => 'required'
         ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        if ($validator->fails()) {
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
 
         try {
@@ -62,7 +64,7 @@ class SliderFiturController extends Controller
             $sliders->save();
 
         } catch (\Throwable $th) {
-            return $th->getMessage();
+            return redirect()->back()->with('error', $th->getMessage());
         }
 
         return redirect()->route('admin.sliderFitur.sliderFitur');
@@ -106,8 +108,10 @@ class SliderFiturController extends Controller
             'gambar' => 'required'
         ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        if ($validator->fails()) {
+            foreach($validator->errors()->messages() as $key => $v) {
+                return redirect()->back()->with('error', $v[0]);
+            }
         }
 
         try {
@@ -124,7 +128,7 @@ class SliderFiturController extends Controller
             $sliders->update();
 
         } catch (\Throwable $th) {
-            return $th->getMessage();
+            return redirect()->back()->with('error', $th->getMessage());
         }
 
         return redirect()->route('admin.sliderFitur.sliderFitur');
