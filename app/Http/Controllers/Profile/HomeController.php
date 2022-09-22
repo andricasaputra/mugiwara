@@ -16,6 +16,7 @@ use App\Models\MitraSection;
 use App\Models\Pendaftaran;
 use App\Models\Pertanyaan;
 use App\Models\PlayStoreLink;
+use App\Models\Post;
 use App\Models\SliderFitur;
 use App\Models\SliderMitra;
 use App\Models\SyaratDokumen;
@@ -48,7 +49,7 @@ class HomeController extends Controller
         $settingAppStore = AppStoreLink::orderBy('created_at', 'desc')->first();
         $fitur = SliderFitur::all();
         $sliderTentang = TambahSliderTentang::limit(6)->get();
-        $informasi = TambahBerandaInformasi::all();
+        $informasi = Post::where('is_active', 1)->get();
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $overview = BerandaOverview::orderBy('order', 'asc')->get();
@@ -160,11 +161,11 @@ class HomeController extends Controller
         ]);
     }
 
-    public function detailInformasi($id)
+    public function detailInformasi($slug)
     {
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
-        $informasi = TambahBerandaInformasi::find($id);
+        $informasi = Post::where('slug', $slug)->first();
         $settings = GeneralSettings::first();
         return view('profile.detail_informasi', [
             'title' => 'Beranda - Informasi',

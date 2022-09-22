@@ -60,7 +60,7 @@ Route::name('profile.')->group(function(){
 	Route::get('/hotel', [HomeController::class, 'hotel'])->name('hotel');
 	Route::get('/tentang', [HomeController::class, 'tentang'])->name('tentang');
 	Route::get('/bantuan', [HomeController::class, 'bantuan'])->name('bantuan');
-	Route::get('/informasi/{id}', [HomeController::class, 'detailInformasi'])->name('informasi.detail');
+	Route::get('/informasi/{slug}', [HomeController::class, 'detailInformasi'])->name('informasi.detail');
 
 	Route::get('/register', [RegisterController::class, 'showregister'])->name('register');
 	Route::post('/register/submit', [RegisterController::class, 'submitRegister'])->name('register.submit');
