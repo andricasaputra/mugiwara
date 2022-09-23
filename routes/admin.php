@@ -243,6 +243,9 @@ Route::name('admin.')->group(function() {
 
     Route::resource('payments_methods', PaymentMethodSettingController::class);
 
+    Route::post('accomodations/rooms/image/{id?}', [RoomController::class, 'destroyImage'])->name('accomodation.rooms.image.destroy');
+
+
 
     require __DIR__.'/setting.php';
 

@@ -21,7 +21,7 @@
                                 <h2>{{ $trending?->name }}</h2>                         
                                 <div class="starts">
                   	
-                                	@foreach($trending?->reviews as $review)
+                                	@foreach($trending?->reviews ?? [] as $review)
                                 		<img class="start" src="{{ asset('compro/assets/img/bintang.png') }}">
                                 	@endforeach
 
@@ -70,8 +70,8 @@
 		                            @endif
 
 	                                <div class="link-action">
-	                                    <a href="#" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/appstore.png') }}"><span class="mx-3">Appstore</span></a>
-	                                    <a href="#" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/playstore.png') }}"><span class="mx-3">Playstore</span></a>
+	                                    <a href="{{ $appstore->url }}" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/appstore.png') }}"><span class="mx-3">Appstore</span></a>
+	                                    <a href="{{ $playstore->url }}" class="btn btn-sm btn-redirect"><img src="{{ asset('compro/assets/img/playstore.png') }}"><span class="mx-3">Playstore</span></a>
 	                                </div>
 	                            </div>
 	                            <div class="card-body">
