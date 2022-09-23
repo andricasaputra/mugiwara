@@ -15,7 +15,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label for="title">Judul</label>
-                                <input type="text" class="form-control" name="title" required>
+                                <input type="text" class="form-control" name="title" required value="{{ old('title') }}">
                             </div>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label for="description">Deskripsi</label>
-                                <textarea class="form-control" name="description" required></textarea>
+                                <textarea class="form-control" name="description" required>value="{{ old('description') }}"</textarea>
                             </div>
                         </div>
                     </div>
