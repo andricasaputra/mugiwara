@@ -79,7 +79,7 @@ class HomeController extends Controller
     {
         $menu = Tambah_menu_compro::where('nama_menu', 'Jadi Mitra')->first();
         if($menu->status == 0 && request()->url() == url('mitra')){
-            abort(404);
+            return view('errors.compro.compro-404');
         }
 
         $menu = Tambah_menu_compro::where('status', 1)->get();
