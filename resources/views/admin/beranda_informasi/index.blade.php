@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{$counter++}}</td>
                             <td>{{$i->title}}</td>
-                            <td>{{$i->description}}</td>
+                            <td>{!! $i->description !!}</td>
                             <td> <img width="100" src="{{ asset('images/compro/slider_informasi/'. $i->image) }}"></td>
                             <td>{{$i->status ? 'Aktif' : 'Non-Aktif '}}</td>
                             <td>
