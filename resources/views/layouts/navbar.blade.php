@@ -12,8 +12,8 @@
           <li class="nav-item dropdown">  
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
-              @if(auth()->user()->notifications->filter(function($notification){
-                return $notification->read_at == null;
+              @if(auth()->user()?->notifications?->filter(function($notification){
+                return $notification?->read_at == null;
               })->count() > 0)
               <span class="count"></span>
               @endif
@@ -21,7 +21,7 @@
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
 
-              @forelse(auth()->user()->notifications as $key => $notification)
+              @forelse(auth()->user()?->notifications ?? [] as $key => $notification)
 
                   @if($key < 4)
                      @role('admin')
