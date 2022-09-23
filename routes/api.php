@@ -48,6 +48,9 @@ Route::post('auth/login', [LoginController::class, 'login']);
 
 Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store']);
 
+Route::get('accomodations', [AccomdationController::class, 'index'])->name('api.accomodation.index');
+Route::get('accomodations/{name}/rooms', [AccomdationController::class, 'rooms'])->name('api.accomodation.rooms');
+
 Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
     Route::post('auth/reset-password', [NewPasswordController::class, 'store'])->name('api.reset.password.post');
@@ -56,25 +59,21 @@ Route::middleware(['auth:sanctum', 'banned'])->group(function(){
 
     Route::post('auth/resend-verify-email-otp', [ResendVerifyOtpController::class, 'email'])->name('api.otp.verification.resend.email')->middleware(['throttle:6,1']);
 
-    // Route::post('auth/resend-verify-whatsapp-otp',
-
     Route::post('auth/check-password', [UpdatePasswordController::class, 'check']);
     Route::post('auth/update-password', [UpdatePasswordController::class, 'update']);
 
     /*Verifikasi Nomor HP*/
 
     // Menyamakan kode otp di databse dengan otp yang dikirim ke whatsapp
-    Route::post('auth/verify-mobile-number', [VerifyMobileController::class, 'verify'])->middleware(['throttle:6,1']);;
+    Route::post('auth/verify-mobile-number', [VerifyMobileController::class, 'verify'])->middleware(['throttle:6,1']);
 
     Route::middleware('verified')->group(function(){
+
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
 
-        Route::get('accomodations', [AccomdationController::class, 'index']);
         Route::post('accomodations/status', [AccomdationController::class, 'status']);
-        Route::get('accomodations/{name}/rooms', [AccomdationController::class, 'rooms']);
-
         Route::post('rooms/status', [RoomController::class, 'status']);
 
         Route::get('orders', [OrderController::class, 'index']);

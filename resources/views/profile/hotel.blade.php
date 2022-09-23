@@ -33,10 +33,10 @@
                     </div>
                     <div class="col-lg-4 hotel-items">
                         <div class="card">
-                            <form action="" method="POST">
+                            <form action="#" method="POST">
                                 <h2>Cek Ketersedian Kamar</h2>
-                                <input type="date" name="tanggal" placeholder="Cari Kamar">
-                                <button class="btn" type="button">Cari Kamar</button>
+                                <input type="date" name="tanggal" id="dateSearch" placeholder="Cari Kamar">
+                                <button class="btn" type="button" id="searchHotel">Cari Kamar</button>
                             </form>
                         </div>
                     </div>
@@ -50,11 +50,10 @@
                     <div class="col-lg-3">
                         <h3>Kategori</h3>
                         <ul>
-                            <li><button type="button" class="btn">Hotel terpopoler</button></li>
-                            <li><button type="button" class="btn">Hotel terbaru</button></li>
-                            <li><button type="button" class="btn">Hotel bintang lima</button></li>
-                            <li><button type="button" class="btn">VIP hotel</button></li>
-                            <li><button type="button" class="btn">Medium hotel</button></li>
+                        	<li><button type="button" class="btn btn-categories" data-category="all">Semua</button></li>
+                            <li><button type="button" class="btn btn-categories" data-category="rekomendasi">Rekomendasi</button></li>
+                            <li><button type="button" class="btn btn-categories" data-category="populer">Populer</button></li>
+                            <li><button type="button" class="btn btn-categories" data-category="trending">Trending</button></li>
                         </ul>
                     </div>
                     <div class="col-lg-9 hotels">
@@ -99,10 +98,11 @@
             </div>
         </section>
 
-
-      
+  
+    
 		@include('layouts.profile.bottom')
 
 	</div>
 
 	@include('layouts.profile.footer')
+
