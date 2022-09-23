@@ -53,7 +53,7 @@ Route::get('test', function(){
 	])->limit(4)->get();
 	return response()->json($accomodation);
 });
-Route::name('profile.')->group(function(){
+Route::middleware(['menu-active'])->name('profile.')->group(function(){
 
 	Route::get('/', [HomeController::class, 'index'])->name('home');
 	Route::get('/mitra', [HomeController::class, 'mitra'])->name('mitra');
