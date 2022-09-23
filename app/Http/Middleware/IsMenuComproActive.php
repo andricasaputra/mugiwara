@@ -21,7 +21,7 @@ class IsMenuComproActive
 
         foreach($menus as $menu){
             if($menu->status == 0 && $request->url() == $menu->url_menu){
-                return view('errors.compro.compro-404');
+                return response()->view('errors.compro.compro-404');
             }
         }
 
