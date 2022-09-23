@@ -125,7 +125,11 @@ class HubungiKamiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hubungi = HubungiKami::findOrFail($id);
+
+        $hubungi->delete();
+
+        return redirect()->route('admin.hubungiKami.hubungiKami')->with('success', 'Berhasil hapus data');
     }
 
     public function compose($id)

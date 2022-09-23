@@ -34,14 +34,15 @@ class MitraSectionController extends Controller
         $mitra->created_by = Auth::user()->id;
         $mitra->save();
 
-        return redirect()->route('admin.mitra-section.mitra-section');
+        return redirect(route('admin.mitra-section.mitra-section'))->withSuccess('Berhasil Tambah Data');
     }
 
     public function destroy(Request $request)
     {
         $mitra = MitraSection::find($request->id);
         $mitra->delete();
-        return redirect()->route('admin.mitra-section.mitra-section');
+
+        return redirect(route('admin.mitra-section.mitra-section'))->withSuccess('Berhasil Hapus Data');
     }
 
     public function edit($id)
@@ -57,6 +58,7 @@ class MitraSectionController extends Controller
         $mitra = MitraSection::find($request->id);
         $mitra->fill($request->except('id'));
         $mitra->save();
-        return redirect()->route('admin.mitra-section.mitra-section');
+
+        return redirect(route('admin.mitra-section.mitra-section'))->withSuccess('Berhasil Ubah Data');
     }
 }

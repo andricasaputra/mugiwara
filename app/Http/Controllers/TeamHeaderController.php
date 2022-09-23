@@ -141,6 +141,6 @@ class TeamHeaderController extends Controller
         $team = TeamHeader::find($id);
         $team->delete();
 
-        return redirect()->route('admin.teamHeader.teamHeader');
+        return redirect()->route('admin.teamHeader.teamHeader')->with('success', 'Berhasil hapus data');
     }
 }

@@ -24,7 +24,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label for="description">Deskripsi</label>
-                                <textarea class="form-control" name="description" value="{{$info->description}}" required>{{$info->description}}</textarea>
+                                <textarea class="form-control" name="description" required>{!! $info->description !!}</textarea>
                             </div>
                         </div>
                     </div>

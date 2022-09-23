@@ -38,14 +38,10 @@ class TambahMenuController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama_menu' => 'required',
             'url_menu' => 'required'
         ]);
-
-        if($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         try {
             Tambah_menu_compro::create($request->all());
