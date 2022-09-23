@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center text-center error-page bg-primary">
+        <div class="row flex-grow">
+          <div class="col-lg-7 mx-auto text-white">
+            <div class="row align-items-center d-flex flex-row">
+              <div class="col-lg-12 text-lg-center pr-lg-4">
+                <h1 class="display-1 mb-0">404</h1>
+              </div>
+              <div class="col-lg-12 error-page-divider text-lg-center pl-lg-4">
+                <h2>SORRY!</h2>
+                <h3 class="font-weight-light">The page you’re looking for was not found.</h3>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-12 text-center mt-xl-2">
+                <a class="text-white font-weight-medium" href="{{ route('profile.home') }}">Back</a>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-12 mt-xl-2">
+                <p class="text-white font-weight-medium text-center">Copyright &copy; {{  date('Y') }}  All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+  <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+  <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('assets/js/template.js') }}"></script>
+  <script src="{{ asset('assets/js/settings.js') }}"></script>
+  <script src="{{ asset('assets/js/todolist.js') }}"></script>
+  <!-- endinject -->
+</body>
+
+</html>
