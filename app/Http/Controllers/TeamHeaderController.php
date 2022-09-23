@@ -143,4 +143,18 @@ class TeamHeaderController extends Controller
 
         return redirect()->route('admin.teamHeader.teamHeader')->with('success', 'Berhasil hapus data');
     }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\TeamHeader  $teamHeader
+     * @return \Illuminate\Http\Response
+     */
+    public function destroySocial(TeamHeader $teamHeader, $id)
+    {
+        $team = TeamHeader::find($id);
+        $team->delete();
+
+        return redirect()->route('admin.teamHeader.teamHeader')->with('success', 'Berhasil hapus data');
+    }
 }

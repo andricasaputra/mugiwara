@@ -138,7 +138,11 @@
             })
         });
 
-
+        $('.hapus-sosmed').on('click', function(){
+            let counterHapus = $(this).data('counter');
+            $(`.sosmed-${counterHapus}`).remove();
+            counter = counter - 1;
+        })
 
     })
 </script>

@@ -269,6 +269,7 @@ Route::name('admin.')->group(function() {
         Route::post('store', [TeamHeaderController::class, 'store'])->name('store.teamHeader');
         Route::post('update/{id}', [TeamHeaderController::class, 'update'])->name('update.teamHeader');
         Route::get  ('delete/{id}', [TeamHeaderController::class, 'destroy'])->name('delete.teamHeader');
+        Route::get  ('social/delete/{id}', [TeamHeaderController::class, 'destroySocial'])->name('delete.teamHeader.social');
 
     });
 
