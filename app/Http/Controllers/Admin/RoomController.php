@@ -7,6 +7,7 @@ use App\Contracts\UploadServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Accomodation;
 use App\Models\Facility;
+use App\Models\Image;
 use App\Models\Room;
 use App\Models\RoomNumber;
 use App\Models\Type as RoomType;
@@ -301,6 +302,21 @@ class RoomController extends Controller
 
         return Filepond::field($request->room_image)
                         ->moveTo('rooms/' . $roomImageName);
+    }
+
+    public function destroyImage($id){
+
+        $image = Image::findOrFail($id);
+
+        if(file_exists(asset('storage/rooms/' . $image->image))){
+           \Illuminate\Support\Facades\Storage::disk('public')->delete('rooms/'. $image->image);
+        }
+
+        $image->delete();
+
+        return response()->json([
+            'message' => "Berhasil hapus gambar"
+        ]);
     }
 
 }

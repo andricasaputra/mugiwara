@@ -83,8 +83,9 @@
                                             @foreach($accomodation->room?->pluck('images') as $images) 
 
                                                 @foreach($images as $image)
-                                                   <div class="mr-2 mb-4">
-                                                        <img src="{{ url('storage/rooms/' . $image->image) }}" alt="images" width="100" style="border-radius: 5px">
+                                                   <div class="mr-2 mb-4 show-image">
+                                                        <img src="{{ url('storage/rooms/' . $image->image) }}" id="{{ $image->id }}" alt="images" width="100" style="border-radius: 5px" class="image-room">
+                                                        <a href="#" class="the-buttons badge badge-danger badge-sm" data-id="{{ $image->id }}">X</a>
                                                    </div>
                                                 @endforeach
 
@@ -136,6 +137,30 @@
 .select2-selection__arrow {
     height: 34px !important;
     border-radius: 0 !important;
+}
+
+div.show-image{
+    position: relative;
+    float:left;
+    margin:5px;
+    
+}
+
+div.show-image:hover{
+   opacity: 0.8;
+}
+
+div.show-image:hover a{
+  display: block;
+  opacity: 1;
+
+}
+
+div.show-image a{
+  position:absolute;
+  top:20;
+  left:40;
+  display:none;
 }
 </style>
 
@@ -214,7 +239,38 @@
         }
 
         
-    })
+    });
+
+    $('.the-buttons').click(function(e){
+
+        e.preventDefault();
+
+        const id = $(this).data('id');
+
+        if (! confirm("yakin ingin hapus foto ini?") == true) {
+            return;
+         }
+
+        deleteImage(id);
+
+        $('#'+id).remove();
+    });
+
+    function deleteImage(id){
+        $.ajax({
+            url : "{{ route('admin.accomodation.rooms.image.destroy') }}/" + id,
+            method: "POST",
+            headers : {
+                "X-CSRF-TOKEN" : "{{ csrf_token() }}",
+                "METHOD" : "DELETE"
+            }, success: function(res){
+                console.log(res)
+            },
+            errror: function(err){
+                console.log(err)
+            }
+        })
+    }
 </script>
 
 @endsection

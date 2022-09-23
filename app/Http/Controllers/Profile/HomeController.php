@@ -77,11 +77,6 @@ class HomeController extends Controller
 
     public function mitra()
     {
-        $menu = Tambah_menu_compro::where('nama_menu', 'Jadi Mitra')->first();
-        if($menu->status == 0 && request()->url() == url('mitra')){
-            return view('errors.compro.compro-404');
-        }
-
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $mitraSection = MitraSection::all();
@@ -112,6 +107,8 @@ class HomeController extends Controller
         $sliderMitra = SliderMitra::all();
         $pendaftaran = Pendaftaran::orderBy('order', 'asc')->get();
         $syarat = SyaratDokumen::orderBy('order', 'asc')->get();
+        $appstore_link = AppStoreLink::query()->first();
+        $playstore_link = PlayStoreLink::query()->first();
 
         return view('profile.hotel', [
             'menu' => $menu,
@@ -119,7 +116,9 @@ class HomeController extends Controller
             'mitraSection' => $mitraSection,
             'sliderMitra' => $sliderMitra,
             'pendaftaran' => $pendaftaran,
-            'syarat' => $syarat
+            'syarat' => $syarat,
+            'playstore' => $playstore_link,
+            'appstore' => $appstore_link,
         ])
             ->withTitle('Hotel')
             ->withSettings($settings)
