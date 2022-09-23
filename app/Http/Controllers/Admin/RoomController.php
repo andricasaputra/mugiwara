@@ -134,25 +134,88 @@ class RoomController extends Controller
                 'type_id' => 'required|string',
                 'price' => 'required|numeric',
                 'discount' => 'nullable|string',
-                'images' => 'nullable',
+                'images' => 'sometimes|image',
             ]);
-
 
             $accomodation = Accomodation::findOrFail($id);
             $rooms = $accomodation->room;
             $images = $accomodation->room?->pluck('images');
+            $addRoom = collect($request->room_numbers)->diff($rooms->pluck('room_number'));
+            $removeRoom = $rooms->pluck('room_number')->diff($request->room_numbers);
 
-            foreach($rooms as $r => $room){
+            if(count($addRoom) > 0){
 
-                $room->delete();
-            }
+                foreach ($addRoom as $key => $num) {
 
-            foreach ($request->room_numbers as $key => $num) {
+                    $create = Room::create(
+                        [
+                            "accomodation_id" => $accomodation->id,
+                            "room_number" => $num,
+                            "type_id" => $request->type_id ,
+                            "max_guest" => $request->max_guest ,
+                            "price" => $request->price ,
+                            "discount_type" => $request->discount_type ,
+                            "discount_amount" => $request->discount_amount ,
+                            "description" => $request->description_room,
+                            'status' => $request->status,
+                            'is_refunded' => $request->is_refunded,
+                        ]
+                    );
 
-                $create = Room::create(
-                    [
+                    if($request->has('room_image')){
+
+                        $imageNames = $this->uploadRoomImage($request, $accomodation);
+
+                        $this->files = $request->room_image;
+                        $this->upload  = app()->make(UploadServiceInterface::class);
+
+                        foreach($imageNames as $imageName){
+                            $create->images()->create([
+                                'image' => $imageName['basename']
+                            ]);
+                        }
+
+                    } 
+
+                    $create->facilities()->sync($request->facility);
+                    
+                }
+
+             } elseif(count($removeRoom) > 0) {
+
+                foreach ($rooms as $room) :
+
+                    foreach ($removeRoom as $key => $num) {
+
+                        if($room->room_number == $num){
+                            $room->delete();
+                        }
+                     }
+
+                    if($request->has('room_image')){
+
+                        $imageNames = $this->uploadRoomImage($request, $accomodation);
+
+                        $this->files = $request->room_image;
+                        $this->upload  = app()->make(UploadServiceInterface::class);
+
+                        foreach($imageNames as $imageName){
+                            $room->images()->create([
+                                'image' => $imageName['basename']
+                            ]);
+                        }
+                    } 
+
+                    $room->facilities()->sync($request->facility);
+
+                endforeach;
+
+             } else {
+
+                foreach ($rooms as $room) :
+
+                    $room->update([
                         "accomodation_id" => $accomodation->id,
-                        "room_number" => $num,
                         "type_id" => $request->type_id ,
                         "max_guest" => $request->max_guest ,
                         "price" => $request->price ,
@@ -161,40 +224,27 @@ class RoomController extends Controller
                         "description" => $request->description_room,
                         'status' => $request->status,
                         'is_refunded' => $request->is_refunded,
-                    ]
-                );
+                    ]);
 
-                if($request->has('room_image')){
+                    if($request->has('room_image')){
 
-                    $imageName = $this->uploadRoomImage($request, $accomodation);
+                        $imageNames = $this->uploadRoomImage($request, $accomodation);
 
-                    $this->files = $request->room_image;
-                    $this->upload  = app()->make(UploadServiceInterface::class);
+                        $this->files = $request->room_image;
+                        $this->upload  = app()->make(UploadServiceInterface::class);
 
-                    if(isset($imageName[$key])){
-                        
-                        $create->images()->create([
-                            'image' => $imageName[$key]['basename']
-                        ]);
-                    }
+                        foreach($imageNames as $imageName){
+                            $room->images()->create([
+                                'image' => $imageName['basename']
+                            ]);
+                        }
+                    } 
 
-                } else {
+                    $room->facilities()->sync($request->facility);
 
-                     foreach($images as $k => $image){
+                endforeach;
 
-                         if(isset($image[$k])){
-                            
-                            $create->images()->create([
-                                'image' => $image[$k]->image
-                             ]);
-                         }
-                    }
-
-                }
-
-                $create->facilities()->sync($request->facility);
-                
-            }
+             }
 
             DB::commit();
 
@@ -204,7 +254,7 @@ class RoomController extends Controller
 
             DB::rollback();
 
-            return back()->withErrors('Gagal ubah data : ' . $e->getMessage());
+            return back()->withErrors('Gagal ubah data! Tidak dapat menghapus kamar yang telah memiliki pembayaran');
         }
     }
 

@@ -78,10 +78,26 @@
                                 <section id="step-2" class="form-step d-none">
                                     <h2 class="font-normal">Foto Kamar</h2>
                                     <!-- Step 2 input fields -->
-                                    <div class="mt-3">
-                                       <input type="file" name="room_image[]" multiple/>
+                                    <div class="mt-3 d-flex justify-content-center">
+                                        <div class="row">
+                                            @foreach($accomodation->room?->pluck('images') as $images) 
+
+                                                @foreach($images as $image)
+                                                   <div class="mr-2 mb-4">
+                                                        <img src="{{ url('storage/rooms/' . $image->image) }}" alt="images" width="100" style="border-radius: 5px">
+                                                   </div>
+                                                @endforeach
+
+                                            @endforeach
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div>
+                                        <input type="file" name="room_image[]" multiple/>
                                         <p class="help-block">{{ $errors->first('room_image.*') }}</p>
                                     </div>
+
                                     <div class="mt-3">
                                         <div class="mt-3">
                                             <button class="button btn-navigate-form-step" type="button" step_number="1">Sebelumnya</button>

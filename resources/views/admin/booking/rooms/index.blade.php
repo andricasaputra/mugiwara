@@ -84,14 +84,16 @@
 
                                                             @foreach($accomodation?->room?->pluck('images') as $images)
 
-                                                            @foreach($images as $image)   
+                                                                @foreach($images as $key =>  $image)   
 
-                                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                                <img  class="d-block w-100" src="{{ asset('/storage/rooms/') .'/'. $image->image }}" alt="Second slide">
-                                                            </div>
+                                                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                                                        <img  class="d-block" src="{{ asset('/storage/rooms/') .'/'. $image->image }}" alt="images" style="width: 100px !important">
+                                                                    </div>
+
+                                                                @endforeach
+
                                                             @endforeach
 
-                                                            @endforeach
                                                           </div>
                                                           <a class="carousel-control-prev" href="#imageControls{{$key}}" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
