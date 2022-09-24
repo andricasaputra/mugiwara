@@ -141,14 +141,14 @@
               
               @role('admin')
 
-                  <a href="{{ route('users.edit', auth()->id()) }}" class="dropdown-item">
+                  <a href="{{ route('users.edit', auth()->id() ?? 1) }}" class="dropdown-item">
                     <i class="ti-settings text-primary"></i>
                     Settings Profile
                   </a>
 
               @else
 
-                 <a href="{{ route('users.edit.employee', auth()->id()) }}" class="dropdown-item">
+                 <a href="{{ route('users.edit.employee', auth()->id() ?? 1) }}" class="dropdown-item">
                     <i class="ti-settings text-primary"></i>
                     Settings Profile
                   </a>
