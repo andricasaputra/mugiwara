@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/profile.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', 'auth'])
                 ->group(base_path('routes/compro.php'));
 
             Route::middleware(['web', 'admin', 'auth', 'mobile.verified', 'verified'])
