@@ -77,6 +77,12 @@ class HomeController extends Controller
 
     public function mitra()
     {
+
+        $menu = Tambah_menu_compro::where('nama_menu', 'Jadi Mitra')->first();
+        if($menu->status == 0 && request()->url() == url('mitra')){
+            return view('errors.compro.compro-404');
+        }
+
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $mitraSection = MitraSection::all();
