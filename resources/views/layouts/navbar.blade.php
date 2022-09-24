@@ -72,7 +72,7 @@
 
               @endforelse
 
-              @if(auth()->user()->notifications->count() > 0)
+              @if(auth()?->user()?->notifications?->count() > 0)
 
               <hr>
 
@@ -115,9 +115,9 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
 
-              @if(is_null(auth()->user()->account?->avatar))
+              @if(is_null(auth()?->user()?->account?->avatar))
 
-                @if(auth()->user()->account?->gender == 'pria')
+                @if(auth()?->user()?->account?->gender == 'pria')
 
                 @php $avatar = 'default_man.png'; @endphp
 
@@ -130,7 +130,7 @@
               @else
 
                  @php 
-                 $avatar = auth()->user()->account?->avatar; 
+                 $avatar = auth()?->user()?->account?->avatar; 
                  @endphp
 
               @endif
