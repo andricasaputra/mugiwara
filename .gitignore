@@ -26,3 +26,4 @@ yarn-error.log
 firebase.json
 *.sql
 capsuleinn.id.crt
+capsuleinn.id.ca-bundle
