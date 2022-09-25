@@ -23,3 +23,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+firebase.json
+*.sql
+capsuleinn.id.crt
