@@ -91,10 +91,10 @@
                         <td>Diskon Voucher</td>
                         <td>:</td>
                         <td>
-                            @if($order->voucher?->discount_type == 'percent')
+                            @if($order->payment?->voucher?->discount_type == 'percent')
                                 {{ $order->payment?->voucher?->discount_percent ?? 0 }} % <b>({{ $order->payment?->voucher?->name }})</b>
                             @else
-                               {{ $order->payment?->voucher?->discount_amount ?? 0 }} <b>({{ $order->payment?->voucher?->name }})</b>
+                               {{ $order->payment?->voucher?->discount_amount ?? 0 }} <b>{{ $order->payment?->voucher?->name }}</b>
                                 
                             @endif
                         </td>
