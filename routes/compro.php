@@ -142,15 +142,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('update', [SyaratDokumenController::class, 'update'])->name('update.syarat-dokumen');
     });
 
-    Route::prefix('slider')->name('slider.')->group(function() {
-        Route::get('', [TambahSliderController::class, 'index'])->name('slider');
-        Route::get('create', [TambahSliderController::class, 'create'])->name('create.slider');
-        Route::get('edit/{id}', [TambahSliderController::class, 'edit'])->name('edit.slider');
-        Route::post('store', [TambahSliderController::class, 'store'])->name('store.slider');
-        Route::post('update/{id}', [TambahSliderController::class, 'update'])->name('update.slider');
-        Route::get  ('delete/{id}', [TambahSliderController::class, 'destroy'])->name('delete.slider');
-    });
-
     Route::prefix('aboutPertama')->name('aboutPertama.')->group(function() {
         Route::get('', [AboutPertamaController::class, 'index'])->name('aboutPertama');
         Route::get('create', [AboutPertamaController::class, 'create'])->name('create.aboutPertama');

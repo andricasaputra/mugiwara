@@ -28,6 +28,7 @@ class SliderController extends Controller
             'is_active' => 'required',
             'expired_date' => 'required',
             'image' => 'required|image',
+            'description' => 'required'
         ]);
         if($request->image){
             $img = $request->file('image');
