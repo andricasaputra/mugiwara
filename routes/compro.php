@@ -39,7 +39,7 @@ use App\Models\Accomodation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 
-Route::name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::prefix('general-settings')->name('general-settings.')->group(function(){
         Route::get('', [GeneralSettingsController::class, 'index'])->name('general-settings');

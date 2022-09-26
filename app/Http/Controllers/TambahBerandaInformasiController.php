@@ -21,6 +21,12 @@ class TambahBerandaInformasiController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image',
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
         try {
             $file = $request->file('image');
             $namaFile = $file->getClientOriginalName();
@@ -28,7 +34,7 @@ class TambahBerandaInformasiController extends Controller
             $file->move($folderUpload, $namaFile);
 
             $info = new TambahBerandaInformasi;
-            $info->fill($request->except('status', 'image'));
+            $info->fill($request->except('image'));
             $info->image = $namaFile;
             $info->status = 1;
             $info->save();
