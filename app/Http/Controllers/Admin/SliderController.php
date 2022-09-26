@@ -24,11 +24,10 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required',
             'order' => 'required',
             'is_active' => 'required',
             'expired_date' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg',
+            'image' => 'required|image',
         ]);
         if($request->image){
             $img = $request->file('image');
@@ -56,11 +55,10 @@ class SliderController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required',
             'order' => 'required',
             'is_active' => 'required',
             'expired_date' => 'required',
-            'image' => 'sometimes|mimes:jpeg,png,jpg',
+            'image' => 'sometimes|image',
         ]);
         $slider = Slider::find($request->id);
         if($request->image){
