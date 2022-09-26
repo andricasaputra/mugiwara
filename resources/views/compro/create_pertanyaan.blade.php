@@ -63,8 +63,26 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
+   $(document).ready(function() {
+        $('#summernote').summernote({
+
+          toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['style']],
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']],
+              ['fontname', ['fontname']],
+              ['table', ['table']],
+              ['insert', ['link', 'picture', 'video']],
+              ['view', ['fullscreen', 'codeview', 'help']]
+              ]
+          });
+
+        $('.dropdown-toggle').dropdown()
     });
 </script>
 @endpush
