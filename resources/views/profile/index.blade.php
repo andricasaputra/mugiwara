@@ -150,7 +150,6 @@
 									<div class="swiper-slide">
 										<div class="card" style="min-height:350px!important;">
 											<div class="card-body">
-												<p>{{$r->comment}}</p>
 												<img class="img-fluid" src="{{ url('storage/avatars/' . $r->user?->account?->avatar) }}">
 												<h5>{{$r->name}}</h5>
 												<div class="ranting">
@@ -159,6 +158,7 @@
 													@endfor
 												</div>
 												<p>Costumer</p>
+												<p>{{$r->comment}}</p>
 											</div>
 										</div>
 									</div>
