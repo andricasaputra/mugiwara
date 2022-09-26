@@ -42,7 +42,7 @@
                             <td>{{ ($sliders->currentpage()-1) * $sliders->perpage() + $key + 1 }}</td>
                             <td>{{ $slider->title }}</td>
                             <td>{{ $slider->description }}</td>
-                            <td><a href="{{ Storage::disk('local')->url('data/'. $slider->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $slider->image) }}" style="height:100px;width:100px;"></a></td>
+                            <td><a href="{{ Storage::disk('public')->url('data/'. $slider->image) }}" target="_blank"><img src="{{ Storage::disk('local')->url('data/'. $slider->image) }}" style="height:100px;width:100px;"></a></td>
                             <td>{{ date('d-m-Y', strtotime($slider->expired_date)) }}</td>
                             <td>{{ $slider->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
