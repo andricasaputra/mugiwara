@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="body">Isi</label>
-                    <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{ $post->body }}</textarea>
+                    <textarea name="body" id="summernote" cols="30" rows="10" class="form-control">{{ $post->body }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="image">Gambar <small>Optional | Isi jika ingin diubah</small></label>
