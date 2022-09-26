@@ -27,7 +27,7 @@
 										<div class="swiper-wrapper">
 											@foreach($sliders as $slider)
 												<div class="swiper-slide">
-													<img class="img-fluid" src="{{ url('images/compro/slider/' . $slider->gambar ) }}" />
+													<img class="img-fluid" src="{{ url('storage/data/' . $slider->image ) }}" />
 												</div>
 											@endforeach
 										</div>

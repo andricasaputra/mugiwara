@@ -110,8 +110,6 @@
 	$('.btn-categories').click(function(){
 		const category = $(this).data('category');
 
-		console.log(category)
-
 		filterHotel(category)
 	});
 
@@ -125,10 +123,11 @@
 				$('.hotels').empty();
 
 				$.each(data, function(i, hotel){
+					console.log(hotel)
 					if(parseInt(hotel.available_room_count) > 0){
+						//console.log(hotel)
 						$('.hotels').append(hotelListTemplate(hotel));
 					}
-					
 				});
 			},
 			error: function(err){

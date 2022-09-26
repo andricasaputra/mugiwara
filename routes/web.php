@@ -28,25 +28,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
-Route::get('/', function(){
-    return redirect(route('front'));
-});
-Route::get('index', [FrontController::class, 'index'])->name('front');
-
-Route::get('front/', [FrontController::class, 'index']);
-Route::get('jadi_mitra/', [FrontController::class, 'jadi_mitra'])->name('jadi.mitra');
-Route::get('hotel/', [FrontController::class, 'hotel'])->name('hotel');
-Route::get('tentang_kami/', [FrontController::class, 'tentang'])->name('tentang');
-Route::get('bantuan/', [FrontController::class, 'bantuan'])->name('bantuan');
-Route::get('gabung/', [FrontController::class, 'gabung'])->name('gabung');
-Route::get('read_pertanyaan/{id}', [FrontController::class, 'readPertanyaan'])->name('readPertanyaan');
-Route::post('store', [MitraGabungController::class, 'store'])->name('store.mitraGabung');
-
-
-Route::post('cari_bantuan/', [FrontController::class, 'cariBantuan'])->name('cariBantuan');
-
-Route::get('data_mitra_bergabung/', [FrontController::class, 'data_mitra'])->name('data.mitra');
-
 
 Route::middleware(['verified', 'panel'])->group(function(){
 

@@ -18,13 +18,14 @@ use App\Models\Pertanyaan;
 use App\Models\PlayStoreLink;
 use App\Models\Post;
 use App\Models\Review;
+use App\Models\Slider;
 use App\Models\SliderFitur;
 use App\Models\SliderMitra;
 use App\Models\SyaratDokumen;
-use App\Models\Tambah_menu_compro;
 use App\Models\TambahBerandaInformasi;
 use App\Models\TambahSlider;
 use App\Models\TambahSliderTentang;
+use App\Models\Tambah_menu_compro;
 use App\Models\TeamHeader;
 use App\Models\Tentang;
 use App\Models\Type;
@@ -43,7 +44,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $sliders = TambahSlider::all();
+        $sliders = Slider::all();
         $beranda = Beranda::all();
         $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
         $settingAppStore = AppStoreLink::orderBy('created_at', 'desc')->first();
