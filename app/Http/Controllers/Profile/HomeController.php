@@ -166,8 +166,8 @@ class HomeController extends Controller
     {
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
-        $pertanyaan = Pertanyaan::where('kategori', 'pertanyaan')->limit(7)->get();
-        $lainnya = Pertanyaan::where('kategori', 'lain-lain')->limit(7)->get();
+        $pertanyaan = Pertanyaan::where('kategori', 'pertanyaan')->get();
+        $lainnya = Pertanyaan::where('kategori', 'lain-lain')->get();
         $settings = GeneralSettings::first();
         return view('profile.bantuan', [
             'title' => 'Bantuan',
