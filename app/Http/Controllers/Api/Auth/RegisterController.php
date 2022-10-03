@@ -20,8 +20,8 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'gender' => ['required', 'string'],
-            'birth_date' => ['required', 'date'],
+            'gender' => ['nullable', 'string'],
+            'birth_date' => ['nullable', 'date'],
             'mobile_number' => ['required', 'string', 'max:13', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);

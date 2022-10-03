@@ -26,8 +26,8 @@ class UpdateAccountRequest extends FormRequest
         return [
             'name' => 'required|string',
             'mobile_number' => 'sometimes',
-            'gender' => 'required',
-            'birth_date' => 'required'
+            'gender' => 'nullable',
+            'birth_date' => 'nullable'
         ];
     }
 }
