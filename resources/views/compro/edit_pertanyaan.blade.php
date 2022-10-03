@@ -35,9 +35,12 @@
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
                             <select class="form-control" name="kategori" required>
-                                <option value="">Pilih</option>
-                                <option value="pertanyaan">Pertanyaan</option>
-                                <option value="lain-lain">Lain-Lain</option>
+                                <option value="{{ $pertanyaans->kategori }}" selected>{{ ucfirst($pertanyaans->kategori) }}</option>
+                                @if($pertanyaans->kategori == "pertanyaan")
+                                    <option value="lain-lain">Lain-Lain</option>
+                                @else
+                                    <option value="pertanyaan">Pertanyaan</option>
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -45,7 +48,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="form-group">
                             <label for="jawaban">Jawaban</label>
-                            <textarea id="summernote" name="jawaban" cols="30" rows="10">{{ $pertanyaans->keterangan }}</textarea>
+                            <textarea id="summernote" name="jawaban" cols="30" rows="10">{{ $pertanyaans->jawaban }}</textarea>
                         </div>
                     </div>
 

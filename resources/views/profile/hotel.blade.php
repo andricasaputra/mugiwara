@@ -12,9 +12,20 @@
                         <div class="hotel-top">
 
                         	@if(!is_null($trending?->image))
+
                             	<img class="img-fluid" src="{{ asset('storage/accomodations/' . $trending?->image?->image) }}" style="width: 100%">
                             @else
-                            	<img class="img-fluid" src="{{ asset('storage/rooms/' . $trending?->room?->first()?->images->first()?->image) }}" style="width: 100%">
+
+                                @if(!is_null($trending?->room?->first()?->images?->first()?->image))
+
+                                <img class="img-fluid" src="{{ asset('storage/rooms/' . $trending?->room?->first()?->images->first()?->image) }}" style="width: 100%">
+
+                                @else
+
+                                    <img class="img-fluid" src="{{ asset('storage/misc/no-image.png') }}" style="width: 100%">
+
+                                @endif
+                            	
                             @endif
 
                             <div class="caps">
