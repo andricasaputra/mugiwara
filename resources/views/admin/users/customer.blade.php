@@ -102,6 +102,8 @@
             }
         });
 
-        $('#user-table').DataTable();
+        $('#user-table').DataTable({
+            order: false
+        });
     </script>
 @endsection()

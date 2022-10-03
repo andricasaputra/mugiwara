@@ -54,7 +54,7 @@
 					</div>
 					<div class="col-lg-8 bantuan-list-items">
 						<h1 class="mb-5">{{$pertanyaan->keterangan}}</h1 class="display-4">
-						<p>{{$pertanyaan->jawaban}}</p>
+						<p>{!! $pertanyaan->jawaban !!}</p>
 					</div>
 				</div>
 			</div>

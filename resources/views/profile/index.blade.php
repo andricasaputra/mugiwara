@@ -150,6 +150,7 @@
 									<div class="swiper-slide">
 										<div class="card" style="min-height:350px!important;">
 											<div class="card-body">
+												<p>{{$r->comment}}</p>
 												<img class="img-fluid" src="{{ url('storage/avatars/' . $r->user?->account?->avatar) }}">
 												<h5>{{$r->name}}</h5>
 												<div class="ranting">
@@ -158,7 +159,6 @@
 													@endfor
 												</div>
 												<p>Costumer</p>
-												<p>{{$r->comment}}</p>
 											</div>
 										</div>
 									</div>
@@ -189,17 +189,17 @@
 						<div class="row">
 							<div class="swiper slide-news">
 								<div class="swiper-wrapper">
-									@foreach($informasi as $key => $i)
+									@foreach($informasi as $key => $berita)
 									<div class="swiper-slide">
 										<div class="news-items">
-											<a href="{{ route('profile.informasi.detail', $i->slug) }}">
+											<a href="{{ route('profile.informasi.detail', $berita->slug) }}">
 												<div class="card" style="min-height: 200px!important;">
 													<div class="card-img-top">
-														<img class="img-fluid" src="{{ url('storage/posts/'. $i->image) }}">
+														<img class="img-fluid" src="{{ url('storage/posts/'. $berita->image) }}">
 													</div>
 													<div class="card-body">
-														<h5>{{$i->title}}</h5>
-														<p>{!!(strlen($i->body) > 13) ? substr($i->body,0,25).'...' : $i->body!!}</p>
+														<h5>{{$berita->title}}</h5>
+														<p> {!!  substr(strip_tags($berita->body), 0, 150) . '...' !!}</p>
 													</div>
 												</div>
 											</a>

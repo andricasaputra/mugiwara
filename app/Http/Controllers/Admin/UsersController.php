@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function showEmployee()
     {
 
-        $users = User::whereHas('roles')->get()->filter(fn($user) => $user->name != 'superadmin');
+        $users = User::whereHas('roles')->latest()->get()->filter(fn($user) => $user->name != 'superadmin');
 
         return view('admin.users.employee')
             ->withUsers($users);
