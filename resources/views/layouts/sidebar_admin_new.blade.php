@@ -75,6 +75,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.appstores.index') }}"> App Store </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.menus.index') }}"> Manajemen Menu </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.payments_methods.index') }}"> Cara Pembayaran </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.delete_reason.index') }}"> Alasan Hapus Akun</a></li>
           </ul>
         </div>
       </li>

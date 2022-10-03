@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware(['web', 'auth'])
                 ->group(base_path('routes/compro.php'));
 
-            Route::middleware(['web', 'admin', 'auth', 'mobile.verified', 'verified'])
+            Route::middleware(['web', 'admin', 'auth', 'mobile.verified', 'verified', 'deleted'])
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
         });

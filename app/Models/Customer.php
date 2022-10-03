@@ -6,10 +6,11 @@ use App\Models\Scopes\CustomerScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends User
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'users';
     protected $guarded = ['id'];

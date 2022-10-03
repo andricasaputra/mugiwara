@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'banned' => \App\Http\Middleware\IsBanned::class,
         'panel' => \App\Http\Middleware\CanAccessAdminPanel::class,
         'menu-active' =>  \App\Http\Middleware\IsMenuComproActive::class,
+        'deleted' => \App\Http\Middleware\DeletedUser::class,
     ];
 }

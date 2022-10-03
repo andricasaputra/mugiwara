@@ -43,7 +43,7 @@
 			<div class="container">
 				<div class="row reading">
 					<div class="col-lg-4 bantuan-list-items reading">
-						<h2>Pertannya lain</h2>
+						<h2>Pertanyaan lain</h2>
 						<ul>
                             @if(count($lainnya)>0)
                                 @foreach($lainnya as $k => $l)

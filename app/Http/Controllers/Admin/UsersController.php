@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function showEmployee()
     {
 
-        $users = User::whereHas('roles')->latest()->get()->filter(fn($user) => $user->name != 'superadmin');
+        $users = User::whereNull('deleted_at')->whereHas('roles')->latest()->get()->filter(fn($user) => $user->name != 'superadmin');
 
         return view('admin.users.employee')
             ->withUsers($users);
@@ -32,10 +32,9 @@ class UsersController extends Controller
 
     public function showCustomer()
     {
-        // return view('admin.users.customer')->withUsers(
-        //     User::doesntHave('roles')->get()->filter(fn($user) => $user->name != 'superadmin')
-        // );
-        return view('admin.users.customer')->withUsers(Customer::with('banned')->latest()->get());
+        $users = Customer::whereNull('deleted_at')->with('banned')->latest()->get();
+
+        return view('admin.users.customer')->withUsers($users);
     }
 
     public function edit(User $user)

@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AppStoreController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DeleteReasonController;
+use App\Http\Controllers\Admin\DeletedUserController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\FinanceController;
 use App\Http\Controllers\Admin\ManajemenMenuController;
@@ -69,6 +71,10 @@ Route::post('users/banned/', [UsersController::class, 'banned'])->name('users.ba
 Route::post('users/release', [UsersController::class, 'release'])->name('users.banned.release');
 
 Route::delete('users/customer/destroy', [UsersController::class, 'destroyCustomer'])->name('customers.destroy');
+
+Route::get('users/account/deleted', [DeletedUserController::class, 'index'])->name('users.deleted.index');
+
+Route::post('users/deleted/restore/{id}', [DeletedUserController::class, 'restore'])->name('users.deleted.restore');
 
 Route::resource('offices', OfficeListController::class);
 
@@ -245,7 +251,7 @@ Route::name('admin.')->group(function() {
 
     Route::post('accomodations/rooms/image/{id?}', [RoomController::class, 'destroyImage'])->name('accomodation.rooms.image.destroy');
 
-
+    Route::resource('delete_reason', DeleteReasonController::class);
 
     require __DIR__.'/setting.php';
 
