@@ -276,6 +276,8 @@ class RoomController extends Controller
                     $image->delete();
                 }
 
+                $room->facilities()?->delete();
+                $room->reviews()?->delete();
                 $room->delete();
             }
 
