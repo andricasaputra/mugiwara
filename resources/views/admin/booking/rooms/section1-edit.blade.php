@@ -58,10 +58,13 @@
 <div class="form-group">
     <label for="price">Type Diskon (optional)</label>
     <select name="discount_type" id="discount_type" class="form-control">
-        <option selected value="{{ $accomodation->room?->first()?->discount_type }}">{{ ucfirst($accomodation->room?->first()?->discount_type )}}</option>
-        <option value="">Kosongkan jika tidak diisi</option>
-        <option value="flat">Flat</option>
-        <option value="percent">Persen</option>
+        <option selected value="{{ $accomodation->room?->first()?->discount_type }}">{{ $accomodation->room?->first()?->discount_type == 'percent' ? 'Persen' : 'Flat' }}</option>
+        <option value="">Tanpa Diskon</option>
+        @if($accomodation->room?->first()?->discount_type == 'percent')
+            <option value="flat">Flat</option>
+        @else
+            <option value="percent">Persen</option>
+        @endif
     </select>
 </div>
 
