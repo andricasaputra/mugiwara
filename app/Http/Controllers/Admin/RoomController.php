@@ -255,7 +255,7 @@ class RoomController extends Controller
 
             DB::rollback();
 
-            return back()->withErrors('Gagal ubah data! Tidak dapat menghapus kamar yang telah memiliki pembayaran');
+            return back()->withErrors('Gagal ubah data! Error : ' . $e->getMessage());
         }
     }
 
