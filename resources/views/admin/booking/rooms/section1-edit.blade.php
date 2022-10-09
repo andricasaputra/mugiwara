@@ -58,14 +58,16 @@
 <div class="form-group">
     <label for="price">Type Diskon (optional)</label>
     <select name="discount_type" id="discount_type" class="form-control">
-        <option selected value="{{ $accomodation->room?->first()?->discount_type }}">{{ $accomodation->room?->first()?->discount_type == 'percent' ? 'Persen' : 'Flat' }}</option>
         @if($accomodation->room?->first()?->discount_type == 'percent')
+            <option value="percent" selected>Persen</option>
             <option value="flat">Flat</option>
             <option value="">Tanpa Diskon</option>
         @elseif($accomodation->room?->first()?->discount_type == 'flat')
+            <option value="flat" selected>Flat</option>
             <option value="percent">Persen</option>
             <option value="">Tanpa Diskon</option>
         @else
+            <option value="" selected>Tanpa Diskon</option>
             <option value="flat">Flat</option>
             <option value="percent">Persen</option>
         @endif
