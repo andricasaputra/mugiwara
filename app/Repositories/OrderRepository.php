@@ -76,7 +76,7 @@ class OrderRepository
 	        	throw new \Exception('Kamar sudah penuh.');
 	        }
 
-			if($request->check_in_date < now() && $request->check_in_time < now()){
+			if($request->check_in_date < date('Y-m-d')){
 				throw new \Exception('Tidak dapat memilih tanggal lampau.');
 			}
 
