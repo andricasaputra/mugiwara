@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\Room;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Voucher;
 use App\Notifications\Admin\AdminPaymentStatusNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
@@ -73,6 +74,16 @@ class PaymentController extends Controller
                 return response()->json([
                     'message' => 'voucher sudah pernah digunakan'
                 ]); 
+            }
+
+            $voucher = Voucher::find($request->voucher_id);
+
+            return $voucher->expires_at < now();
+
+            if($voucher->expires_at < now()){
+                return response()->json([
+                    'message' => 'mohon maaf voucher anda telah expired'
+                ]);
             }
 
            \App\Models\UserVoucher::updateOrCreate(
