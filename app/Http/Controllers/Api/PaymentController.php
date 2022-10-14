@@ -13,7 +13,6 @@ use App\Models\Order;
 use App\Models\Room;
 use App\Models\Setting;
 use App\Models\User;
-use App\Models\Voucher;
 use App\Notifications\Admin\AdminPaymentStatusNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
@@ -45,9 +44,7 @@ class PaymentController extends Controller
 
     public function createEwallet(PaymentEwalletRequest $request)
     {
-        try {
-
-            if($request->amount == 0){
+        if($request->amount == 0){
             return response()->json([
                 'message' => 'Jumlah Pembayaran tidak boleh 0'
             ], 422);
@@ -71,20 +68,6 @@ class PaymentController extends Controller
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
-
-            $voucher = Voucher::find($request->voucher_id);
-
-            if($voucher->expires_at < now()){
-                return response()->json([
-                    'message' => 'mohon maaf voucher anda telah expired'
-                ]);
-            }
-
-            if($voucher->valid_for < $order->stay_day){
-                return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
-                ]);
-            }
 
             if(!is_null($userVoucherUsed)){
                 return response()->json([
@@ -123,14 +106,6 @@ class PaymentController extends Controller
         //$this->createInvoices($payment->toArray());
 
         return new PaymentResource($payment);
-            
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'message' => 'Error get status, error ' . $e->getMessage()
-            ]);
-            
-        }
     }
 
     public function createVirtualAccount(PaymentVirtualAccountRequest $request)
@@ -159,20 +134,6 @@ class PaymentController extends Controller
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
-
-            $voucher = Voucher::find($request->voucher_id);
-
-            if($voucher->expires_at < now()){
-                return response()->json([
-                    'message' => 'mohon maaf voucher anda telah expired'
-                ]);
-            }
-
-            if($voucher->valid_for < $order->stay_day){
-                return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
-                ]);
-            }
 
             if(!is_null($userVoucherUsed)){
                 return response()->json([
