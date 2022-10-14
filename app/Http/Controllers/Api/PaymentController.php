@@ -80,7 +80,7 @@ class PaymentController extends Controller
 
             if($voucher->valid_for < $order->stay_day){
                 return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
+                    'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
                 ]);
             }
 
@@ -160,7 +160,7 @@ class PaymentController extends Controller
 
             if($voucher->valid_for < $order->stay_day){
                 return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
+                    'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
                 ]);
             }
 
