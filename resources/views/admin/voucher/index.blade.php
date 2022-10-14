@@ -22,6 +22,7 @@
                         <th>Tipe</th>
                         <th>Image</th>
                         <th>Status</th>
+                        <th>Tanggal Kadaluarsa</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -34,7 +35,14 @@
                             <td>{{ $voucher->description }}</td>
                             <td>{{ $voucher->type }}</td>
                             <td><a href="{{ Storage::disk('public')->url('vouchers/' . $voucher->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('vouchers/' . $voucher->image) }}" width="120"></a></td>
-                            <td>{{ $voucher->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
+                            <td>
+                                @if($voucher->expires_at < now())
+                                    <span class="text-danger"><b>Expired</b></span>
+                                @else
+                                    {{ $voucher->is_active == 1 ? 'Aktif' : 'Non-aktif'}}
+                                @endif
+                            </td>
+                            <td>{{ $voucher->expires_at->format('d-m-Y') }}</td>
                             <td>
                                 <table>
                                     <tr>

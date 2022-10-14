@@ -20,7 +20,7 @@ class VoucherController extends Controller
     {
         $vouchers = Voucher::whereDoesntHave('user', function($query){
             $query->where('user_id', request()->user()->id);
-        })->isActive()->when(request()->category, function($vouchers) {
+        })->isActive()->isNotExpired()->when(request()->category, function($vouchers) {
             $vouchers->where('category', request()->category);
         })->paginate(request()->take ?? 10);
 

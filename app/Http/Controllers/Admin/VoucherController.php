@@ -41,6 +41,7 @@ class VoucherController extends Controller
             'is_active' => 'required',
             'expires_at' => 'required',
             'point_needed' => 'required',
+            'valid_for' => 'required',
         ]);
         if($request->image){
             $img = $request->file('image');
@@ -65,6 +66,7 @@ class VoucherController extends Controller
             'is_active' => $request->is_active,
             'expires_at' => $request->expires_at,
             'point_needed' => $request->point_needed,
+            'valid_for' => $request->valid_for,
         ]);
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil ditambahkan');
     }
@@ -96,6 +98,7 @@ class VoucherController extends Controller
             'is_active' => 'required',
             'expires_at' => 'required',
             'point_needed' => 'required',
+            'valid_for' => $request->valid_for,
             'image' => 'sometimes|mimes:jpeg,png,jpg',
         ]);
         $voucher = Voucher::find($request->id);
@@ -123,6 +126,7 @@ class VoucherController extends Controller
             'is_active' => $request->is_active,
             'expires_at' => $request->expires_at,
             'point_needed' => $request->point_needed,
+            'valid_for' => $request->valid_for,
         ]);
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil diubah');
     }

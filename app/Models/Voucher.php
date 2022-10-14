@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Voucher extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
+    protected $casts = ['expires_at' => 'date'];
+
     public function accountPoints()
     {
         return $this->hasMany(AccountPoint::class, 'voucher_id');
@@ -24,6 +28,11 @@ class Voucher extends Model
     public function scopeIsActive($query)
     {
         $query->where('is_active', 1);
+    }
+
+    public function scopeIsNotExpired($query)
+    {
+        $query->where('expires_at', '>', now());
     }
 
     public function user()

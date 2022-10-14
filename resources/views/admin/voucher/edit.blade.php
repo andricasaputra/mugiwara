@@ -112,6 +112,12 @@
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
+                            <label for="valid_for">Valid Untuk Berapa Malam?</label>
+                            <input type="number" class="form-control" name="valid_for" value="{{$voucher->valid_for ?? 1 }}" id="valid_for" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
                             <label for="is_active">Status</label>
                             <select name="is_active" id="is_active" class="form-control" required>
                                 <option value="">~ Pilih ~</option>

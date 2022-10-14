@@ -109,6 +109,12 @@
                             <input type="number" class="form-control" name="point_needed" value="{{ old('point_needed') }}" id="point_needed" required>
                         </div>
                     </div>
+                     <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="valid_for">Valid Untuk Berapa Malam?</label>
+                            <input type="number" class="form-control" name="valid_for" value="{{ old('valid_for') ?? 1 }}" id="valid_for" required>
+                        </div>
+                    </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
                             <label for="is_active">Status</label>
