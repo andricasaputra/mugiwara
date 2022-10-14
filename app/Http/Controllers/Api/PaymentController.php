@@ -80,7 +80,7 @@ class PaymentController extends Controller
             $ex = strtotime( $voucher->expires_at) * 1000;
             $now = (date("YmdHis").substr(microtime(FALSE), 2, 3));
 
-            throw new \Exception((int) $voucher->valid_for);
+            throw new \Exception((int) $order->stay_day);
 
             if($ex < $now ? false : true){
                  return response()->json([
