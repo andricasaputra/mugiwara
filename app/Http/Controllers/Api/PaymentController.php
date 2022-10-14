@@ -78,7 +78,7 @@ class PaymentController extends Controller
 
             $voucher = Voucher::find($request->voucher_id);
 
-            return $voucher->expires_at < now();
+            return $voucher;
 
             if($voucher->expires_at < now()){
                 return response()->json([
