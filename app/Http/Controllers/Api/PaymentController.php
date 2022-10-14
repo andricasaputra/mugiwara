@@ -44,6 +44,12 @@ class PaymentController extends Controller
 
     public function createEwallet(PaymentEwalletRequest $request)
     {
+        if($request->amount == 0){
+            return response()->json([
+                'message' => 'Jumlah Pembayaran tidak boleh 0'
+            ], 422);
+        }
+
         $order = Order::where('booking_code', $request->booking_code)->first();
 
         if(! $order){
@@ -104,6 +110,12 @@ class PaymentController extends Controller
 
     public function createVirtualAccount(PaymentVirtualAccountRequest $request)
     {
+        if($request->amount == 0){
+            return response()->json([
+                'message' => 'Jumlah Pembayaran tidak boleh 0'
+            ], 422);
+        }
+        
         $order = Order::where('booking_code', $request->booking_code)->first();
 
         if(! $order){
