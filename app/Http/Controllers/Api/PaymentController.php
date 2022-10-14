@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\Room;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Voucher;
 use App\Notifications\Admin\AdminPaymentStatusNotification;
 use App\Notifications\Payments\PaymentStatusNotification;
 use App\Repositories\PaymentsRepository;
@@ -68,6 +69,20 @@ class PaymentController extends Controller
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
+
+            $voucher = Voucher::find($request->voucher_id);
+
+            if($voucher && $voucher->expires_at < now()){
+                return response()->json([
+                    'message' => 'mohon maaf voucher anda telah expired'
+                ]);
+            }
+
+            if($voucher && $voucher->valid_for < $order->stay_day){
+                return response()->json([
+                    'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
+                ]);
+            }
 
             if(!is_null($userVoucherUsed)){
                 return response()->json([
@@ -134,6 +149,20 @@ class PaymentController extends Controller
 
             $user = \App\Models\User::where('id', auth()->id())->first();
             $userVoucherUsed = $user->voucher()->find('voucher_id');
+
+            $voucher = Voucher::find($request->voucher_id);
+
+            if($voucher && $voucher->expires_at < now()){
+                return response()->json([
+                    'message' => 'mohon maaf voucher anda telah expired'
+                ]);
+            }
+
+            if($voucher && $voucher->valid_for < $order->stay_day){
+                return response()->json([
+                    'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
+                ]);
+            }
 
             if(!is_null($userVoucherUsed)){
                 return response()->json([
