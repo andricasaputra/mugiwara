@@ -83,7 +83,7 @@ class PaymentController extends Controller
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
 
-            if($ex < $now ? false : true){
+            if($ex < $now ? true : false){
                  return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
                 ]);
@@ -91,7 +91,7 @@ class PaymentController extends Controller
 
             if($stay_day > $valid_day ? true :  false){
                 return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_da  .' malam.'
+                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.'
                 ]);
             }
 
@@ -168,7 +168,7 @@ class PaymentController extends Controller
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
 
-            if($ex < $now ? false : true){
+            if($ex < $now ? true : false){
                  return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
                 ]);
@@ -176,7 +176,7 @@ class PaymentController extends Controller
 
             if($stay_day > $valid_day ? true :  false){
                 return response()->json([
-                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_da  .' malam.'
+                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.'
                 ]);
             }
 
