@@ -77,7 +77,7 @@ class PaymentController extends Controller
             }
 
             $voucher = Voucher::find($request->voucher_id);
-            $ex = $voucher->expires_at->foormat('d-m-Y');
+            $ex = $voucher->expires_at->format('d-m-Y');
             $now = date('d-m-Y');
 
             $stay_day = (int) $order->stay_day;
@@ -166,7 +166,7 @@ class PaymentController extends Controller
             }
 
             $voucher = Voucher::find($request->voucher_id);
-            $ex = $voucher->expires_at->foormat('d-m-Y');
+            $ex = $voucher->expires_at->format('d-m-Y');
             $now = date('d-m-Y');
 
             $stay_day = (int) $order->stay_day;
