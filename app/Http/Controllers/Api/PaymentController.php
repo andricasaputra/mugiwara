@@ -45,7 +45,9 @@ class PaymentController extends Controller
 
     public function createEwallet(PaymentEwalletRequest $request)
     {
-        if($request->amount == 0){
+        try {
+
+            if($request->amount == 0){
             return response()->json([
                 'message' => 'Jumlah Pembayaran tidak boleh 0'
             ], 422);
@@ -121,6 +123,14 @@ class PaymentController extends Controller
         //$this->createInvoices($payment->toArray());
 
         return new PaymentResource($payment);
+            
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'message' => 'Error get status, error ' . $e->getMessage()
+            ]);
+            
+        }
     }
 
     public function createVirtualAccount(PaymentVirtualAccountRequest $request)
