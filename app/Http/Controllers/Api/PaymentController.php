@@ -83,11 +83,13 @@ class PaymentController extends Controller
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
 
-            // if($ex < $now ? true : false){
-            //      return response()->json([
-            //         'message' => 'mohon maaf voucher anda telah expired'
-            //     ]);
-            // }
+            if($ex < $now ? true : false){
+                //  return response()->json([
+                //     'message' => 'mohon maaf voucher anda telah expired'
+                // ]);
+
+                throw new \Exception('mohon maaf voucher anda telah expired');
+            }
 
             if($stay_day > $valid_day ? true :  false){
                 return response()->json([
