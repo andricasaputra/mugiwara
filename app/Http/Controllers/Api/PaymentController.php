@@ -78,7 +78,7 @@ class PaymentController extends Controller
 
             $voucher = Voucher::find($request->voucher_id);
 
-            throw new \Exception($voucher->expires_at < date('Y-m-d') ? true : false);
+            throw new \Exception($voucher->expires_at->format('Y-m-d') < date('Y-m-d') ? true : false);
 
             if($voucher->expires_at < now()){
                 return response()->json([
