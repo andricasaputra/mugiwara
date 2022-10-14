@@ -83,19 +83,17 @@ class PaymentController extends Controller
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
 
-            throw new \Exception($stay_day > $valid_day ? true :  false);
-
             if($ex < $now ? false : true){
                  return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
                 ]);
             }
 
-            // if($voucher->valid_for < $order->stay_day){
-            //     return response()->json([
-            //         'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
-            //     ]);
-            // }
+            if($stay_day > $valid_day ? true :  false){
+                return response()->json([
+                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_da  .' malam.'
+                ]);
+            }
 
            \App\Models\UserVoucher::updateOrCreate(
                 [
@@ -161,6 +159,25 @@ class PaymentController extends Controller
                 return response()->json([
                     'message' => 'voucher sudah pernah digunakan'
                 ]); 
+            }
+
+            $voucher = Voucher::find($request->voucher_id);
+            $ex = strtotime( $voucher->expires_at) * 1000;
+            $now = (date("YmdHis").substr(microtime(FALSE), 2, 3));
+
+            $stay_day = (int) $order->stay_day;
+            $valid_day = (int) $voucher->valid_for;
+
+            if($ex < $now ? false : true){
+                 return response()->json([
+                    'message' => 'mohon maaf voucher anda telah expired'
+                ]);
+            }
+
+            if($stay_day > $valid_day ? true :  false){
+                return response()->json([
+                    'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_da  .' malam.'
+                ]);
             }
 
            \App\Models\UserVoucher::updateOrCreate(
