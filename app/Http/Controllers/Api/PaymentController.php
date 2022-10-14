@@ -80,11 +80,17 @@ class PaymentController extends Controller
             $ex = strtotime( $voucher->expires_at) * 1000;
             $now = (date("YmdHis").substr(microtime(FALSE), 2, 3));
 
-            throw new \Exception($ex < $now ? true : false);
+            throw new \Exception($voucher->valid_for < $order->stay_day ? false : true);
 
-            if($voucher->expires_at < now()){
-                return response()->json([
+            if($ex < $now ? false : true){
+                 return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
+                ]);
+            }
+
+            if($voucher->valid_for < $order->stay_day){
+                return response()->json([
+                    'message' => 'voucher hanya bisa digunakan untuk menginap .. malam.'
                 ]);
             }
 
