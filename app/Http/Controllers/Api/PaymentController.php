@@ -77,8 +77,8 @@ class PaymentController extends Controller
             }
 
             $voucher = Voucher::find($request->voucher_id);
-            $ex = strtotime( $voucher->expires_at) * 1000;
-            $now = (date("YmdHis").substr(microtime(FALSE), 2, 3));
+            $ex = $voucher->expires_at->foormat('d-m-Y');
+            $now = date('d-m-Y');
 
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
@@ -166,8 +166,8 @@ class PaymentController extends Controller
             }
 
             $voucher = Voucher::find($request->voucher_id);
-            $ex = strtotime( $voucher->expires_at) * 1000;
-            $now = (date("YmdHis").substr(microtime(FALSE), 2, 3));
+            $ex = $voucher->expires_at->foormat('d-m-Y');
+            $now = date('d-m-Y');
 
             $stay_day = (int) $order->stay_day;
             $valid_day = (int) $voucher->valid_for;
