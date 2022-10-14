@@ -46,37 +46,28 @@ class PaymentController extends Controller
     public function createEwallet(PaymentEwalletRequest $request)
     {
         if($request->amount == 0){
-            return response()->json([
-                'message' => 'Jumlah Pembayaran tidak boleh 0'
-            ], 422);
+
+           throw new \Exception('Jumlah Pembayaran tidak boleh 0');
         }
 
         $order = Order::where('booking_code', $request->booking_code)->first();
 
         if(! $order){
-            return response()->json([
-                'message' => 'Order dengan ID "' . $request->booking_code . '" tidak ditemukan.'
-            ], 422);
-        }
 
-        // if($request->amount != $order?->total_price){
-        //     return response()->json([
-        //         'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
-        //     ], 422);
-        // }
+             throw new \Exception('Order dengan ID "' . $request->booking_code . '" tidak ditemukan.');
+        }
 
         if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->find('voucher_id');
+            $userVoucherUsed = $user->voucher()->where('id', $request->voucher_id)->count();
+            $voucher = Voucher::find($request->voucher_id);
 
-            if(!is_null($userVoucherUsed)){
-                return response()->json([
-                    'message' => 'voucher sudah pernah digunakan'
-                ]); 
+            if($userVoucherUsed == $voucher->max_uses_user){
+
+               throw new \Exception('voucher ini telah mencapai batas maksimal penggunaan untuk akun anda');
             }
 
-            $voucher = Voucher::find($request->voucher_id);
             $ex = $voucher->expires_at->format('d-m-Y');
             $now = date('d-m-Y');
 
@@ -84,19 +75,18 @@ class PaymentController extends Controller
             $valid_day = (int) $voucher->valid_for;
 
             if($ex < $now ? true : false){
-                //  return response()->json([
-                //     'message' => 'mohon maaf voucher anda telah expired'
-                // ]);
 
                 throw new \Exception('mohon maaf voucher anda telah expired');
             }
 
             if($stay_day > $valid_day ? true :  false){
-                // return response()->json([
-                //     'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.'
-                // ]);
 
                 throw new \Exception('voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.');
+            }
+
+            if($voucher->max_uses == $voucher->uses_count){
+
+                throw new \Exception('penggunaan voucher ini telah mencapai batas maksimal.');
             }
 
            \App\Models\UserVoucher::updateOrCreate(
@@ -114,9 +104,8 @@ class PaymentController extends Controller
         $paymentOrder = $order->payment?->status;
 
         if(!is_null($paymentOrder) && $paymentOrder != 'PENDING'){
-            return response()->json([
-                'message' => 'Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini'
-            ], 422);
+
+            throw new \Exception('Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini');
         }
 
         $services = app()->make(PaymentServiceInterface::class);
@@ -135,37 +124,28 @@ class PaymentController extends Controller
     public function createVirtualAccount(PaymentVirtualAccountRequest $request)
     {
         if($request->amount == 0){
-            return response()->json([
-                'message' => 'Jumlah Pembayaran tidak boleh 0'
-            ], 422);
+
+            throw new \Exception('Jumlah Pembayaran tidak boleh 0');
         }
         
         $order = Order::where('booking_code', $request->booking_code)->first();
 
         if(! $order){
-            return response()->json([
-                'message' => 'Order dengan ID "' . $request->booking_code . '" tidak ditemukan.'
-            ], 422);
-        }
 
-        // if($request->amount != $order?->total_price){
-        //     return response()->json([
-        //         'message' => 'Amount yang anda masukkan tidak sesuai dengan tagihan'
-        //     ], 422);
-        // }
+            throw new \Exception('Order dengan ID "' . $request->booking_code . '" tidak ditemukan.');
+        }
 
        if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->find('voucher_id');
+            $userVoucherUsed = $user->voucher()->where('id', $request->voucher_id)->count();
+            $voucher = Voucher::find($request->voucher_id);
 
-            if(!is_null($userVoucherUsed)){
-                return response()->json([
-                    'message' => 'voucher sudah pernah digunakan'
-                ]); 
+            if($userVoucherUsed == $voucher->max_uses_user){
+
+                throw new \Exception('voucher ini telah mencapai batas maksimal penggunaan untuk akun anda');
             }
 
-            $voucher = Voucher::find($request->voucher_id);
             $ex = $voucher->expires_at->format('d-m-Y');
             $now = date('d-m-Y');
 
@@ -173,19 +153,18 @@ class PaymentController extends Controller
             $valid_day = (int) $voucher->valid_for;
 
             if($ex < $now ? true : false){
-                //  return response()->json([
-                //     'message' => 'mohon maaf voucher anda telah expired'
-                // ]);
 
                 throw new \Exception('mohon maaf voucher anda telah expired');
             }
 
             if($stay_day > $valid_day ? true :  false){
-                // return response()->json([
-                //     'message' => 'voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.'
-                // ]);
 
                 throw new \Exception('voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.');
+            }
+
+            if($voucher->max_uses == $voucher->uses_count){
+
+                throw new \Exception('penggunaan voucher ini telah mencapai batas maksimal.');
             }
 
            \App\Models\UserVoucher::updateOrCreate(
@@ -203,9 +182,9 @@ class PaymentController extends Controller
         $paymentOrder = $order->payment?->status;
 
         if(!is_null($paymentOrder) && $paymentOrder != 'PENDING'){
-            return response()->json([
-                'message' => 'Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini'
-            ], 422);
+
+            throw new \Exception('Status pembayarn telah ' .$paymentOrder. ' pada kode booking ini');
+
         }
 
         $services = app()->make(PaymentServiceInterface::class);

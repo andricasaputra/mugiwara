@@ -31,16 +31,6 @@ class OrderRepository
 			$room = Room::findOrFail($request->room_id);
 			$type_id = $room->type?->id;
 
-			//$rooms = $accomodation->room;
-
-			// $available = $rooms->where('status', 'available')->where('type_id', $type_id)->count();
-
-			// if($available === 0){
-			// 	throw new \Exception('Kamar sudah penuh.');
-			// }
-
-			// $type = Type::whereName(request()->room_type)->first();
-
 	        $rooms = Room::where('accomodation_id', request()->accomodation_id)
 	            ->where('type_id', $type_id)
 	            ->get();
@@ -81,10 +71,11 @@ class OrderRepository
 			}
 
 			if ($room->isBooked() || $room->isStayed()) {
-				//throw new \Exception('Kamar tidak tersedia, status kamar: ' . $room->status);
 
 				$room_id = $accomodation->room->where('type_id', $type_id)->first()?->id;
+
 			} else {
+				
 				$room_id = $room->id;
 			}
 

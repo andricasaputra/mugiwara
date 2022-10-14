@@ -30,6 +30,7 @@ class OrderController extends Controller
             return new OrderResource($this->order->create($request));
             
         } catch (\Exception $e) {
+            
             return response()->json([
                 'message' => $e->getMessage()
             ]);
