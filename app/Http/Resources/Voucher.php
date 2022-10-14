@@ -36,6 +36,7 @@ class Voucher extends JsonResource
             'is_active' => $this->is_active,
             'starts_at' => $this->starts_at,
             'expires_at' => $this->expires_at,
+            'valid_for' => $this->valid_for,
             'point_needed' => $this->point_needed,
         ];
     }
