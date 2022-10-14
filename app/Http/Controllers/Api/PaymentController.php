@@ -72,13 +72,13 @@ class PaymentController extends Controller
 
             $voucher = Voucher::find($request->voucher_id);
 
-            if($voucher && $voucher->expires_at < now()){
+            if($voucher->expires_at < now()){
                 return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
                 ]);
             }
 
-            if($voucher && $voucher->valid_for < $order->stay_day){
+            if($voucher->valid_for < $order->stay_day){
                 return response()->json([
                     'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
                 ]);
@@ -152,13 +152,13 @@ class PaymentController extends Controller
 
             $voucher = Voucher::find($request->voucher_id);
 
-            if($voucher && $voucher->expires_at < now()){
+            if($voucher->expires_at < now()){
                 return response()->json([
                     'message' => 'mohon maaf voucher anda telah expired'
                 ]);
             }
 
-            if($voucher && $voucher->valid_for < $order->stay_day){
+            if($voucher->valid_for < $order->stay_day){
                 return response()->json([
                     'message' => 'voucher hanya bisa digunakan untuk menginap ' . $voucher->valid_for . ' malam.'
                 ]);
