@@ -98,7 +98,7 @@ class VoucherController extends Controller
             'is_active' => 'required',
             'expires_at' => 'required',
             'point_needed' => 'required',
-            'valid_for' => $request->valid_for,
+            'valid_for' => 'required',
             'image' => 'sometimes|mimes:jpeg,png,jpg',
         ]);
         $voucher = Voucher::find($request->id);

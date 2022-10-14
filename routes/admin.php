@@ -40,6 +40,8 @@ use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 Route::resource('roles', RoleController::class);
 
 Route::resource('permissions', PermissionController::class);

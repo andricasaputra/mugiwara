@@ -200,6 +200,7 @@ return [
         App\Providers\UploadServiceProvider::class,
         App\Providers\PaymentServiceProvider::class,
         Kreait\Laravel\Firebase\ServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
