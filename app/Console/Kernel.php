@@ -36,6 +36,8 @@ class Kernel extends ConsoleKernel
             ->where('order_status', 'booked')
             ->get();
 
+            info($order);
+
             if ($orders->isEmpty()) {
                 $orders = Order::doesntHave('payment')
                 ->where('order_status', 'booked')
