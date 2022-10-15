@@ -62,7 +62,7 @@ class Kernel extends ConsoleKernel
                 endforeach;
             }
             
-        })->everyMinute();
+        })->everyTwoHours();
     }
 
     /**
