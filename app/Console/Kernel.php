@@ -37,6 +37,9 @@ class Kernel extends ConsoleKernel
             ->where('order_status', 'booked')
             ->get();
 
+            throw new \Exception($orders);
+            
+
             foreach($orders as $order) :
 
                 $order->update([
