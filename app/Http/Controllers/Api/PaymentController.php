@@ -79,11 +79,6 @@ class PaymentController extends Controller
                 throw new \Exception('mohon maaf voucher anda telah expired');
             }
 
-            if($stay_day > $valid_day ? true :  false){
-
-                throw new \Exception('voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.');
-            }
-
             if($voucher->max_uses == $voucher->uses_count){
 
                 throw new \Exception('penggunaan voucher ini telah mencapai batas maksimal.');
@@ -155,11 +150,6 @@ class PaymentController extends Controller
             if($ex < $now ? true : false){
 
                 throw new \Exception('mohon maaf voucher anda telah expired');
-            }
-
-            if($stay_day > $valid_day ? true :  false){
-
-                throw new \Exception('voucher hanya bisa digunakan untuk menginap '. $valid_day  .' malam.');
             }
 
             if($voucher->max_uses == $voucher->uses_count){
