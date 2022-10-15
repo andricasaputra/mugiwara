@@ -60,12 +60,12 @@ class PaymentController extends Controller
         if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->count();
+            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->first();
             $voucher = Voucher::find($request->voucher_id);
 
-            if($userVoucherUsed == $voucher->max_uses_user){
+            if($userVoucherUsed->is_used == $voucher->max_uses_user){
 
-               throw new \Exception('voucher ini telah mencapai batas maksimal penggunaan untuk akun anda');
+                throw new \Exception('voucher ini telah mencapai batas maksimal penggunaan untuk akun anda');
             }
 
             $ex = $voucher->expires_at->format('d-m-Y');
@@ -95,7 +95,7 @@ class PaymentController extends Controller
                     'voucher_id' => $request->voucher_id,
                 ],
                 [
-                    'is_used' => 1
+                    'is_used' => $userVoucherUsed->is_used + 1
                 ]
 
             );
@@ -138,10 +138,10 @@ class PaymentController extends Controller
        if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->count();
+            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->first();
             $voucher = Voucher::find($request->voucher_id);
 
-            if($userVoucherUsed == $voucher->max_uses_user){
+            if($userVoucherUsed->is_used == $voucher->max_uses_user){
 
                 throw new \Exception('voucher ini telah mencapai batas maksimal penggunaan untuk akun anda');
             }
@@ -173,7 +173,7 @@ class PaymentController extends Controller
                     'voucher_id' => $request->voucher_id,
                 ],
                 [
-                    'is_used' => 1
+                    'is_used' => $userVoucherUsed->is_used + 1
                 ]
 
             );
