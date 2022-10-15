@@ -35,29 +35,32 @@ class Kernel extends ConsoleKernel
            $orders = Order::whereHas('payment', function($query){
                 $query->where('status', 'PENDING');
            })
-           ->orDoesntHave('payment')
-           ->where('created_at', '>',  Carbon::now()->subHours(2)->toDateTimeString())
+            ->orDoesntHave('payment')
             ->where('order_status', 'booked')
             ->get();
 
             info($orders);
 
             if (! $orders->isEmpty()) {
+
                 foreach($orders as $order) :
 
-                    $order->update([
-                        'order_status' => 'cancel'
-                    ]);
+                    if($order->ceated_at > Carbon::now()->subHours(2)->toDateTimeString()){
 
-                    $order->payment()->update([
-                        'status' => 'EXPIRED'
-                    ]);
+                        $order->update([
+                            'order_status' => 'cancel'
+                        ]);
 
-                    $order->room()->update([
-                        'status' => 'available',
-                        'booked_untill' => NULL,
-                        'stayed_untill' => NULL
-                    ]);
+                        $order->payment()?->update([
+                            'status' => 'EXPIRED'
+                        ]);
+
+                        $order->room()?->update([
+                            'status' => 'available',
+                            'booked_untill' => NULL,
+                            'stayed_untill' => NULL
+                        ]);
+                    }
 
                 endforeach;
             }
