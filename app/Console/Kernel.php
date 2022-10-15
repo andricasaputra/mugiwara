@@ -40,30 +40,26 @@ class Kernel extends ConsoleKernel
 
             info($orders);
 
-            if ($orders->isEmpty()) {
-                $orders = Order::doesntHave('payment')
-                ->where('order_status', 'booked')
-                ->get();
+            if (! $orders->isEmpty()) {
+                foreach($orders as $order) :
+
+                    $order->update([
+                        'order_status' => 'cancel'
+                    ]);
+
+                    $order->payment()->update([
+                        'status' => 'EXPIRED'
+                    ]);
+
+                    $order->room()->update([
+                        'status' => 'available',
+                        'booked_untill' => NULL,
+                        'stayed_untill' => NULL
+                    ]);
+
+                endforeach;
             }
             
-            foreach($orders as $order) :
-
-                $order->update([
-                    'order_status' => 'cancel'
-                ]);
-
-                $order->payment()->update([
-                    'status' => 'EXPIRED'
-                ]);
-
-                $order->room()->update([
-                    'status' => 'available',
-                    'booked_untill' => NULL,
-                    'stayed_untill' => NULL
-                ]);
-
-            endforeach;
-
         })->everyMinute();
     }
 
