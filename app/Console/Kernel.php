@@ -33,8 +33,10 @@ class Kernel extends ConsoleKernel
          $schedule->call(function () {
 
            $orders = Order::whereHas('payment', function($query){
-            $query->where('status', 'PENDING');
-           })->where('created_at', '>',  Carbon::now()->subHours(2)->toDateTimeString())
+                $query->where('status', 'PENDING');
+           })
+           ->orDoesntHave('payment')
+           ->where('created_at', '>',  Carbon::now()->subHours(2)->toDateTimeString())
             ->where('order_status', 'booked')
             ->get();
 
