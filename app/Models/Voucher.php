@@ -32,7 +32,7 @@ class Voucher extends Model
 
     public function scopeIsNotExpired($query)
     {
-        $query->where('expires_at', '<', now());
+        $query->where('expires_at', '>', now());
     }
 
     public function user()
