@@ -60,7 +60,7 @@ class PaymentController extends Controller
         if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->where('id', $request->voucher_id)->count();
+            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->count();
             $voucher = Voucher::find($request->voucher_id);
 
             if($userVoucherUsed == $voucher->max_uses_user){
@@ -138,7 +138,7 @@ class PaymentController extends Controller
        if($request->has('voucher_id') && $request->voucher_id != NULL){
 
             $user = \App\Models\User::where('id', auth()->id())->first();
-            $userVoucherUsed = $user->voucher()->where('id', $request->voucher_id)->count();
+            $userVoucherUsed = $user->voucher()->where('voucher_id', $request->voucher_id)->count();
             $voucher = Voucher::find($request->voucher_id);
 
             if($userVoucherUsed == $voucher->max_uses_user){
