@@ -38,8 +38,7 @@ class Kernel extends ConsoleKernel
             ->orDoesntHave('payment')
             ->where('order_status', 'booked')
             ->get();
-
-            info($orders);
+        
 
             if (! $orders->isEmpty()) {
 
@@ -60,6 +59,8 @@ class Kernel extends ConsoleKernel
                             'booked_untill' => NULL,
                             'stayed_untill' => NULL
                         ]);
+
+                        info($order->load(['payment', 'room', '']));
                     }
 
                 endforeach;
