@@ -18,7 +18,7 @@ class AdminPaymentStatusNotification extends Notification implements ShouldQueue
      * @return void
      */
     public function __construct(
-        protected \App\Models\Order $order, 
+        protected ?\App\Models\Order $order, 
         protected \App\Models\Payment $payment,
         protected $title = null,
         protected $message = null
