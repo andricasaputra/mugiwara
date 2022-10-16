@@ -54,6 +54,8 @@ Route::middleware(['verified', 'panel'])->group(function(){
         Route::post('orders/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
         Route::get('orders/checkin/{order}', [OrderController::class, 'checkinPage'])->name('order.checkin.page');
         Route::post('orders/checkin', [OrderController::class, 'checkin'])->name('order.checkin');
+        Route::get('orders/edit/{order}', [OrderController::class, 'edit'])->name('order.edit');
+        Route::put('orders/update/{order}', [OrderController::class, 'update'])->name('order.update');
 
         Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 

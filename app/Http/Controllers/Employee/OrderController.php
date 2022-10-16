@@ -117,4 +117,72 @@ class OrderController extends Controller
 
         
     }
+
+     public function edit(Order $order)
+    {
+        if($order->order_status == 'completed' || $order->refund){
+            return redirect(route('employee.orders.index'))->withErrors('Pesanan sudah tidak dapat diubah');
+        }
+
+        $rooms = Room::where('accomodation_id', $order->accomodation_id)->where('type_id', $order->room?->type?->id)->where('status', 'available')->get();
+
+        return view('employee.order.edit')
+            ->withOrder($order->load(['accomodation', 'room.type', 'user']))
+            ->withRooms($rooms);
+    }
+
+    public function update(Request $request, Order $order)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $order->fill([
+                'booking_code' => $order->booking_code,
+                'accomodation_id' => $order->accomodation_id,
+                'room_id' => (int) $request->room_id,
+                'user_id' => $order->user_id,
+                'check_in_date' => $order->check_in_date,
+                'check_in_time' => $order->check_in_time,
+                'stay_day' => $order->stay_day,
+                'normal_price' => $order->normal_price,
+                'discount_type' => $order->discount_type,
+                'discount_percent' => $order->discount_percent,
+                'discount_amount' => $order->discount_amount,
+                'total_price' => $order->total_price,
+                'check_out_date' => $order->check_out_date,
+                'order_status' => $order->order_status,
+                'total_guest' => $order->total_guest,
+            ]);
+
+            $order->save();
+
+            // $room_old = Room::find($request->room_id_old);
+
+            // $room_old->update([
+            //     'status' => 'available',
+            //     'stayed_untill' => NULL,
+            //     'booked_untill' => NULL
+            // ]);
+
+            $room = Room::find($request->room_id);
+
+            $room->update([
+                'status' => $order->order_status
+            ]);
+
+            DB::commit();
+
+            return redirect(route('employee.orders.index'))->withSuccess('Berhasil ubah data pesanan, silahkan lakukan update pada nomor kamar sebelumnya pada halaman manajemen penginapan bagian kamar jika ada perubahan status kamar');
+
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return redirect(route('employee.orders.index'))->withErrors('Gagal ubah data pesanan');
+        }
+
+
+    }
 }
