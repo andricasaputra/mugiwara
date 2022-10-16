@@ -19,8 +19,13 @@
 
                         <label for="photo_pickup">Status</label>
                        <select name="status" class="form-control">
-                            <option value="">Belum diambil</option>
-                            <option value="1">Sudah diambil</option>
+                           @if($redeem->status == 1)
+                                <option value="1">Sudah diambil</option>
+                                 <option value="">Belum diambil</option>
+                            @else
+                                <option value="">Belum diambil</option>
+                                <option value="1">Sudah diambil</option>
+                            @endif
                        </select>
 
                          <label for="photo_pickup">Foto Pengambilan Ditempat</label>
