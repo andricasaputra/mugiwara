@@ -138,6 +138,8 @@ class DashboardController extends Controller
                 ->whereHas('order', function($query){
                     $query->where('accomodation_id', $this->getOffice());
                 })
+                 ->where('status', 'COMPLETED')
+                ->orWhere('status', 'SUCCEEDED')
                 ->groupBy('tanggal')
                 ->get();
     }

@@ -65,8 +65,8 @@ class Kernel extends ConsoleKernel
     }
 
     private function process($data)
-    {
-        if($data->ceated_at > Carbon::now()->subHours(2)->toDateTimeString()){
+    {  
+        if($data->ceated_at < Carbon::now()->subHours(2)->toDateTimeString()){
 
             $data->update([
                 'order_status' => 'cancel'
