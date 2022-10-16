@@ -18,17 +18,18 @@
                                 <p class="card-title">Daftar Pemesanan</p>
                                 <div class="row">
                                   <div class="col-12">
-                                    <table id="mytable" class="display expandable-table text-center" style="width:100%">
+                                    <table id="mytable" class="display expandable-table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Kode Booking</th>
+                                                <th>Kamar</th>
                                                 <th>Tanggal Pesan</th>
                                                 <th>Akomodasi</th>
                                                 <th>Customer</th>
                                                 <th>Check In</th>
                                                 <th>Harga Per Malam</th>
-                                                <th>Diskon</th>
+                                                <th>Diskon Kamar</th>
                                                 <th>Status Pembayaran</th>
                                                 <th>Jumlah Pembayaran</th>
                                                 <th>Action</th>
@@ -36,85 +37,97 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($orders as $order)
+
+
                                                 <tr>
 
                                                     <td>{{ $order->id }}</td>
 
                                                     <td>{{ $order->booking_code }}</td>
 
+                                                    <td>{{ $order->room?->room_number }}</td>
+
                                                     <td>
-                                                    	{{ $order->created_at->format('d-m-Y') }} 
+                                                        {{ $order->created_at->format('d-m-Y') }}
                                                     </td>
 
                                                     <td>
-                                                    	{{ $order->accomodation?->name }} 
+                                                        {{ $order->accomodation?->name }}
 
-                                                    	<br>
+                                                        <br>
 
-                                                    	Tipe : <b>{{ $order->room?->type?->name }}</b>
+                                                        Tipe : <b>{{ $order->room?->type?->name }}</b>
                                                     </td>
 
                                                     <td>
-                                                    	{{ ucfirst($order->user?->name) }} 
-                                                    	<br>
-                                                    	{{ $order->user?->email }} 
+                                                        {{ ucfirst($order->user?->name) }}
+                                                        <br>
+                                                        {{ $order->user?->email }}
                                                     </td>
 
                                                     <td>
-                                                    	{{ \Carbon\Carbon::parse($order->check_in_date)->format('d-m-Y') }} 
-                                                    	<br>
-                                                    	{{ $order->stay_day }} Hari 
+                                                        {{ \Carbon\Carbon::parse($order->check_in_date)->format('d-m-Y') }}
+                                                        <br>
+                                                        {{ $order->stay_day }} Hari
                                                     </td>
 
                                                      <td>
-                                                    	{{ $order->room?->price }} 
+                                                        {{ $order->room?->price }}
                                                     </td>
 
 
                                                     <td>
-                                                    	@if($order->room?->discount_type == 'percent')
+                                                        @if($order->room?->discount_type == 'percent')
                                                             {{ $order->room?->discount_amount ?? 0 }} %
                                                         @else
                                                             {{ $order->room?->discount_amount ?? 0 }}
                                                         @endif
+                                                        
                                                     </td>
 
                                                     <td>
-                                                    	@if($order->refund)
+                                                        @if($order->refund)
 
-                                                    		<b style="color: red">Refund</b>
+                                                            <b style="color: red">Refund</b>
 
-                                                    		<br>
+                                                            <br>
 
-                                                    		status : {{ $order->refund?->status }}
-                                                    	@else
-                                                    		{{ $order->payment?->status ?? 'Belum Dibayar' }}
-                                                    	@endif 
+                                                            status : {{ $order->refund?->status }}
+                                                        @else
+                                                            {{ $order->payment?->status ?? 'Belum Dibayar' }}
+                                                        @endif
                                                     </td>
 
                                                      <td>
-                                                     	Rp {{ $order->payment?->amount ?? 0 }} 
+                                                        Rp {{ $order->payment?->amount ?? 0 }}
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('employee.order.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
+                                                        <a href="{{ route('employee.orders.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
 
-                                                        @if($order->order_status == 'completed')
+                                                        @if($order->order_status == 'booked')
+                                                             <a href="{{ route('employee.orders.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
+                                                        @endif
 
-                                                        	<button class="btn btn-success mt-2">Selesai</button>
+                                                        @if($order->order_status == 'completed' || $order->order_status == 'cancel')
+
+                                                            <button class="btn btn-success mt-2">Selesai</button>
 
                                                         @elseif($order->refund)
-                                                        	<button class="btn btn-danger mt-2">Pengajuan Refund</button>
-                                                        @else
-                                                        	
-                                                        	@if($order->order_status == 'booked')
 
-                                                                    <a href="{{ route('employee.order.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
+                                                            <button class="btn btn-danger mt-2">Pengajuan Refund</button>
+
+                                                        @else
+                                                            @if($order->payment && $order->payment?->status != 'PENDING')
+
+                                                                @if($order->order_status == 'booked')
+
+                                                                    <a href="{{ route('employee.orders.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
 
 
                                                                 @elseif($order->order_status == 'stayed')
 
-                                                                        <form action="{{ route('employee.order.checkout') }}" method="post">
+                                                                        <form action="{{ route('employee.orders.checkout') }}" method="post">
 
                                                                         @csrf
 
@@ -126,13 +139,15 @@
 
                                                                 @endif
 
+                                                            @endif
+
                                                         </form>
                                                         @endif
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="11">No order available</td> 
+                                                    <td colspan="11">No order available</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -149,8 +164,8 @@
         </div>
     </div>
 </div>
-   
-@endsection()
+
+@endsection
 
 @section('scripts')
     <script>
@@ -164,7 +179,7 @@
         });
 
         $('#mytable').DataTable({
-            order : false
+            order: false
         });
     </script>
 @endsection()
