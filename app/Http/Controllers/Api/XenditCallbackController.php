@@ -36,8 +36,13 @@ class XenditCallbackController extends Controller
 
         if($payment_status == 'SUCCEEDED'){
 
+            if(@$status->ewallet_type == 'OVO'){
+                $e_id = $status->id;
+            } else {
+                $e_id =$status?->data?->id;
+            }
 
-            $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
+            $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
 
             if($ewallet){
                 
@@ -68,13 +73,19 @@ class XenditCallbackController extends Controller
 
         }else{
 
-            $ewallet = Ewallet::where('ewallet_id', $request?->id)->first();
+            if(@$status->ewallet_type == 'OVO'){
+                $e_id = $status->id;
+            } else {
+                $e_id =$status?->data?->id;
+            }
+
+            $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
+
+            info($ewallet);
 
             $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel'
             ]);
-
-            info($ewallet);
 
             $update = $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',
