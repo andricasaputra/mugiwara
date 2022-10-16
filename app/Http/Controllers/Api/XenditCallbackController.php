@@ -89,6 +89,8 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
+        info($status ?? 'status nih ' . $request->all());
+
         $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
 
         $ewallet?->update([
