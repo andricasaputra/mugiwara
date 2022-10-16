@@ -117,6 +117,7 @@
                               title: 'Loading...',
                               timerProgressBar: true,
                               allowEscapeKey: false,
+                              allowOutsideClick: false,
                                didOpen: () => {
                                 Swal.showLoading()
                               },
