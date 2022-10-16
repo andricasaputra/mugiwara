@@ -28,20 +28,18 @@ class XenditCallbackOvoController extends Controller
 
         $status = json_decode($callback->payload);
 
-        info($status ?? 'status nih ' . $request->all());
-
-        $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
+        $ewallet = Ewallet::where('ewallet_id', $status?->id)->first();
 
         $ewallet?->update([
             'payload' => $data
         ]);
 
         $ewallet?->payment()?->update([
-            'status' => $status?->data?->status,
-            'amount' => $status?->data?->charge_amount,
+            'status' => $status?->status,
+            'amount' => $status?->charge_amount,
         ]);
 
-        if($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
+        if($status?->status == 'FAILED' || $status?->status == 'EXPIRED'){
 
             $ewallet?->payment?->first()?->order()?->update([
                 'order_status' => 'cancel',
@@ -55,7 +53,7 @@ class XenditCallbackOvoController extends Controller
             ]);
         }
 
-        info($ewallet ?? 'dari ovo');
+        info('Dari Ovo');
 
         $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
     }
@@ -63,13 +61,13 @@ class XenditCallbackOvoController extends Controller
     protected function sendNotificationEwalletFailed($order, $payment, $status)
     {
 
-        if($status?->data?->status == 'SUCCEEDED'){
+        if($status?->status == 'SUCCEEDED'){
             $pembayaran = 'Berhasil';
             $message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
-        }elseif($status?->data?->status == 'FAILED'){
+        }elseif($status?->status == 'FAILED'){
             $pembayaran = 'Gagal';
             $message = 'Mohon Maaf Pembayaran Anda Belum Berhasil. Silahkan Lakukan Kembali Pembayaran Dengan Metode Pembayaran Yang Telah Dipilih!';
-        }elseif($status?->data?->status == 'EXPIRED' || $status?->data?->status == 'INACTIVE'){
+        }elseif($status?->status == 'EXPIRED' || $status?->status == 'INACTIVE'){
             $pembayaran = 'Expired';
             $message = 'Mohon Maaf Pembayaran Anda Sudah Kadaluarsa.';
         }else{

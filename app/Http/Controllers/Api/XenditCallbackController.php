@@ -89,6 +89,8 @@ class XenditCallbackController extends Controller
 
            
         }
+
+         info('Dari Ewallet');
     }
 
    
@@ -134,6 +136,8 @@ class XenditCallbackController extends Controller
 
             $this->sendNotificationVa($va?->payment?->first()?->order, $va?->payment?->first(), $status?->status);
         }
+
+        info('Dari Virtual Acoount');
     }
 
     protected function sendNotificationEwalletSuccess($order, $payment, $status)
