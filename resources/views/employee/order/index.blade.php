@@ -103,10 +103,10 @@
                                                      </td>
 
                                                     <td>
-                                                        <a href="{{ route('employee.orders.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
+                                                        <a href="{{ route('employee.order.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
 
                                                         @if($order->order_status == 'booked')
-                                                             <a href="{{ route('employee.orders.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
+                                                             <a href="{{ route('employee.order.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
                                                         @endif
 
                                                         @if($order->order_status == 'completed' || $order->order_status == 'cancel')
@@ -122,12 +122,12 @@
 
                                                                 @if($order->order_status == 'booked')
 
-                                                                    <a href="{{ route('employee.orders.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
+                                                                    <a href="{{ route('employee.order.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
 
 
                                                                 @elseif($order->order_status == 'stayed')
 
-                                                                        <form action="{{ route('employee.orders.checkout') }}" method="post">
+                                                                        <form action="{{ route('employee.order.checkout') }}" method="post">
 
                                                                         @csrf
 
