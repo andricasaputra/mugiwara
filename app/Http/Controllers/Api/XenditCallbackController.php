@@ -44,13 +44,13 @@ class XenditCallbackController extends Controller
 
             $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
 
+            return $ewallet;
+
             if($ewallet){
                 
                 $ewallet?->update([
                     'payload' => $data
                 ]);
-
-                Log::info($ewallet);
 
                 $ewallet?->payment()?->update([
                     'status' => $status?->data?->status,
@@ -80,6 +80,8 @@ class XenditCallbackController extends Controller
             }
 
             $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
+
+             return $ewallet;
 
             info($ewallet);
 
