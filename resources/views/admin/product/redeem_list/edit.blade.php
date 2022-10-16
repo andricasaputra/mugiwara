@@ -119,6 +119,7 @@
                             Swal.fire({
                               title: 'Loading...',
                               timerProgressBar: true,
+                              allowEscapeKey : false,
                                didOpen: () => {
                                 Swal.showLoading()
                               },
