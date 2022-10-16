@@ -76,7 +76,7 @@ class ProductUserController extends Controller
 
             }elseif($request->redeem_type == 'delivery'){
 
-                if($request->photo_delivery && $request->hasFile('photo_delivery')){
+                if($request->file('photo_delivery')){
 
                     if(! is_null($redeem->image)){
                         $this->deleteOldImage($redeem, 'deliverys');
@@ -101,7 +101,7 @@ class ProductUserController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $request->file('photo_pickup')->getClientOriginalName()
+                'message' => 'Berhasil Edit Data'
             ]);
             
         } catch (\Exception $e) {
@@ -110,7 +110,7 @@ class ProductUserController extends Controller
 
              return response()->json([
                 'success' => false,
-                'message' => $request->file('photo_pickup')->getClientOriginalName()
+                'message' => 'Gagal Edit Data'
             ]);
 
             

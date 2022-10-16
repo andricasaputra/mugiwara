@@ -34,7 +34,7 @@
                          <div>
                             <img src="{{ url('storage/products/pickups/' . $redeem?->image?->image) }}" alt="" width="100">
                         </div>
-                        <input type="file" name="photo_pickup" class="form-control" accept="image/*" capture="camera">
+                        <input type="file" name="photo_pickup" class="form-control">
 
                     @else
 
@@ -54,7 +54,7 @@
                         <div>
                             <img src="{{ url('storage/products/deliverys/' . $redeem?->image?->image) }}" alt="" width="100">
                         </div>
-                        <input type="file" name="photo_delivery" class="form-control" accept="image/*" capture="camera">
+                        <input type="file" name="photo_delivery" class="form-control">
                     @endif
 
                     <div class="d-flex justify-content-center">
