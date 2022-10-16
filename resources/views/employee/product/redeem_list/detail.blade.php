@@ -52,10 +52,22 @@
                             @if($product?->image?->image == NULL)
                                 Bukti Pengambilan/Pengiriman Belum Terbit
                             @else
-                                @if($product->redeem_type == 'pickups')
-                                    <img src="{{ url('storage/products/pickups/' . $product?->image?->image ) }}" alt="bukti" width="100">
+                                @if($product->redeem_type == 'pickup')
+
+                                    @if($product->status == 1)
+                                        <img src="{{ url('storage/products/pickups/' . $product?->image?->image ) }}" alt="bukti" width="100">
+                                    @else
+                                        -
+                                    @endif
+                                   
                                 @else
-                                    <img src="{{ url('storage/products/deliverys/' . $product?->image?->image) }}" alt="bukti" width="100">
+
+                                      @if($product->status == 1)
+                                         <img src="{{ url('storage/products/deliverys/' . $product?->image?->image) }}" alt="bukti" width="100">
+                                    @else
+                                        -
+                                    @endif
+                                   
                                 @endif
                             @endif
 

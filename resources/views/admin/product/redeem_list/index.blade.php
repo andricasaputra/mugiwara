@@ -40,7 +40,13 @@
                             <td>{{ $product->redeem_type == 'pickup' ? 'Ambil Sendiri' : 'Di Kirim' }}</td>
                             <td>{{ $product->product?->name }}</td>
                             <td>{{ $product->product?->point_needed }}</td>
-                            <td>{{ $product->status ?? 'Belum Dikirim/ambil' }}</td>
+                            <td>
+                                 @if($product->redeem_type == 'pickup')
+                                        {{ $product->status == 1 ? 'Sudah Di Ambil'  : 'Belum Di Ambil' }}
+                                 @else
+                                    {{ $product->status == 1 ? 'Sudah Di Kirim'  : 'Belum Di Kirim' }}
+                                 @endif
+                            </td>
                             
                             
                              <td>

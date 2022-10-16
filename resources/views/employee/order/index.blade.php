@@ -55,9 +55,9 @@
                                                     </td>
 
                                                     <td>
-                                                    	{{ ucfirst($order->user->name) }} 
+                                                    	{{ ucfirst($order->user?->name) }} 
                                                     	<br>
-                                                    	{{ $order->user->email }} 
+                                                    	{{ $order->user?->email }} 
                                                     </td>
 
                                                     <td>
@@ -67,7 +67,7 @@
                                                     </td>
 
                                                      <td>
-                                                    	{{ $order->room->price }} 
+                                                    	{{ $order->room?->price }} 
                                                     </td>
 
 

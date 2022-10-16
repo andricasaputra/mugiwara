@@ -29,24 +29,42 @@
                         @forelse($products as $key => $product)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td>{{ $product->transaction_number ?? ($product->no_resi ?? 'Belum Terbit Resi') }}</td>
+                             @if($product->redeem_type == 'pickup')
+                                 <td>{{ $product->transaction_number }}</td>
+                             @else
+                                <td>{{ $product->no_resi }}</td>
+                             @endif
+                        
                             <td>{{ $product->user?->name }}</td>
                             <td>{{ $product->user?->email }}</td>
                             <td>{{ $product->redeem_type == 'pickup' ? 'Ambil Sendiri' : 'Di Kirim' }}</td>
                             <td>{{ $product->product?->name }}</td>
                             <td>{{ $product->product?->point_needed }}</td>
-                            <td>{{ $product->status ?? 'Belum Dikirim/ambil' }}</td>
+                            <td>
+                                 @if($product->redeem_type == 'pickup')
+                                        {{ $product->status == 1 ? 'Sudah Di Ambil'  : 'Belum Di Ambil' }}
+                                 @else
+                                    {{ $product->status == 1 ? 'Sudah Di Kirim'  : 'Belum Di Kirim' }}
+                                 @endif
+                            </td>
                             
                             
                              <td>
                                 <a href="{{ route('employee.product.redeem.list.edit', $product->id) }}" class="btn btn-warning mb-2"> Edit </a>
                                 <br>
                                  <a href="{{ route('employee.product.redeem.list.detail', $product->id) }}" class="btn btn-primary mb-2"> Detail </a>
+                                <br>
+                                <form action="{{ route('employee.product.redeem.list.delete') }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                              </td>
                         </tr>
                         @empty
                         <tr>
-                            {{-- <td colspan="7" class="text-center">Tidak ada data</td> --}}
+                            <td colspan="9" class="text-center">Belum ada data</td>
                         </tr>
                         @endforelse
                     </tbody>
