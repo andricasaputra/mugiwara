@@ -28,6 +28,8 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
+        return $status;
+
         if($status?->data?->status == 'SUCCEEDED'){
 
 
