@@ -81,7 +81,13 @@ class XenditCallbackController extends Controller
                 'booked_untill' => NULL
             ]);
 
-            $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+            if($status->ewallet_type == 'OVO'){
+                $this->sendNotificationOvoFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+            } else {
+                $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+            }
+
+           
         }
     }
 
@@ -207,6 +213,72 @@ class XenditCallbackController extends Controller
             $pembayaran = 'Gagal';
             $message = 'Mohon Maaf Pembayaran Anda Belum Berhasil. Silahkan Lakukan Kembali Pembayaran Dengan Metode Pembayaran Yang Telah Dipilih!';
         }elseif($status?->data?->status == 'EXPIRED' || $status?->data?->status == 'INACTIVE'){
+            $pembayaran = 'Expired';
+            $message = 'Mohon Maaf Pembayaran Anda Sudah Kadaluarsa.';
+        }else{
+            $pembayaran = 'Pending';
+            $message = 'Segera Lakukan Pembayaran Untuk Segera Menikmati Fasilitas Hotel Kami.';
+        }
+
+        $customer_title = 'Pembayaran ' . $pembayaran . '!';
+        $customer_message = $message;
+
+        $customer = Customer::find($payment?->user?->id);
+        $user = User::find($payment?->user?->id);
+
+        $user?->notify(
+            new PaymentStatusEmailNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $user?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $customer?->notify(
+            new PaymentStatusNotification(
+                $order, $payment, $customer_title, $customer_message
+            )
+        );
+
+        $user_title = 'Terdapat Pembayaran ' . $pembayaran;
+        $user_message = 'Pembayaran dengan Order ID ' . $order?->id . ' ' . $pembayaran  . ' kunjungi halaman keuangan untuk detail lebih lanjut.';
+
+        $admin = User::admin()->first();
+
+        $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
+
+        // Notify admin and employee
+        $admin->notify(
+            new AdminPaymentStatusNotification(
+                $order, $payment, $user_title, $user_message
+            )
+        );
+        
+        if(!is_null($office) && count($office?->users) > 0){
+
+            foreach($office->users as $employee){
+                $employee->user?->notify(
+                    new AdminPaymentStatusNotification(
+                        $order, $payment, $user_title, $user_message
+                    )
+                );
+            }
+        }
+    }
+
+    protected function sendNotificationOvoFailed($order, $payment, $status)
+    {
+         if($status?->status == 'SUCCEEDED'){
+            $pembayaran = 'Berhasil';
+            $message = 'Terimakasih telah melakukan pembayaran. Semoga waktu menginap anda menyenangkan!';
+        }elseif($status?->status == 'FAILED'){
+            $pembayaran = 'Gagal';
+            $message = 'Mohon Maaf Pembayaran Anda Belum Berhasil. Silahkan Lakukan Kembali Pembayaran Dengan Metode Pembayaran Yang Telah Dipilih!';
+        }elseif($status?->status == 'EXPIRED' || $status?->status == 'INACTIVE'){
             $pembayaran = 'Expired';
             $message = 'Mohon Maaf Pembayaran Anda Sudah Kadaluarsa.';
         }else{
