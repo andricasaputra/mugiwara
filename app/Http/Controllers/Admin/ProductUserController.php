@@ -46,8 +46,6 @@ class ProductUserController extends Controller
     { 
         try {
 
-
-
             DB::beginTransaction();
 
             $redeem = ProductUser::find($id);

@@ -11,7 +11,7 @@
             @endif
             <h4 class="card-title">Upload Bukti</h4>
             <div class="card-body">
-                <form action="{{ route('admin.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
+                <form  id="fileUploadForm" action="{{ route('admin.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                      <input type="hidden" name="redeem_type" value="{{ $redeem->redeem_type }}">
@@ -68,23 +68,38 @@
 </div>
 @endsection
 @push('scripts')
-<script>
-    $('#discount_type').on('change', function() {
-        if($(this).val() == 'fixed'){
-            console.log($('#containerPercent').find('input'));
-            $('#containerFixed').removeClass('d-none');
-            $('#containerPercent').addClass('d-none');
-            $('#containerFixed').find('input').prop('required', true);
-            $('#containerFixed').find('input').val('');
-            $('#containerPercent').find('input').prop('required', false);
-        }else{
-            $('#containerPercent').removeClass('d-none');
-            $('#containerFixed').addClass('d-none');
-            $('#containerPercent').find('input').prop('required', true);
-            $('#containerPercent').find('input').val('');
-            $('#containerFixed').find('input').prop('required', false);
-        }
-    });
-</script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+ <script>
+        $(function () {
+            $(document).ready(function () {
+                $('#fileUploadForm').ajaxForm({
+                    beforeSend: function () {
+                        let timerInterval
+                        Swal.fire({
+                          title: 'Loading...',
+                          timerProgressBar: true,
+                           didOpen: () => {
+                            Swal.showLoading()
+                          },
+                          willClose: () => {
+                            clearInterval(timerInterval)
+                          }
+                        });
+                    },
+                    complete: function (xhr) {
+
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Sukses...',
+                          text: 'Berhasil Edit Data',
+                          showConfirmButton: false,
+                          footer: '<a class="btn btn-primary" href="{{ route('admin.product.redeem.list') }}">Kembali</a>'
+                        })
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
 
