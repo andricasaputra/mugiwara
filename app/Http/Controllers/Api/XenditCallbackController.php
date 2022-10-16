@@ -55,6 +55,8 @@ class XenditCallbackController extends Controller
                     'booked_untill' => now()->addDays(1)
                 ]);
 
+                info($ewallet);
+
                 $this->sendNotificationEwalletSuccess($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
             }
 
@@ -66,7 +68,7 @@ class XenditCallbackController extends Controller
                 'order_status' => 'cancel'
             ]);
 
-            Log::info($ewallet);
+            info($ewallet);
 
             $update = $ewallet?->payment?->first()?->order?->room()->update([
                 'status' => 'available',
@@ -111,6 +113,8 @@ class XenditCallbackController extends Controller
                 'stayed_untill' => NULL
             ]);
         }
+
+        info($ewallet);
 
         $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
     }
