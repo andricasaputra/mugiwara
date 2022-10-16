@@ -82,7 +82,7 @@ class Kernel extends ConsoleKernel
                 'stayed_untill' => NULL
             ]);
 
-            info($data->load(['payment', 'room', '']));
+            info($data);
         }
     }
 
