@@ -101,7 +101,7 @@ class ProductUserController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil Edit Data'
+                'message' => $request->all()
             ]);
             
         } catch (\Exception $e) {
@@ -110,7 +110,7 @@ class ProductUserController extends Controller
 
              return response()->json([
                 'success' => false,
-                'message' => 'Gagal Edit Data'
+                'message' => $request->all()
             ]);
 
             
