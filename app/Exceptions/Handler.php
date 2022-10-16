@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (\Throwable $e, $request) {
 
-            if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            if ($e instanceof \Illuminate\Session\TokenMismatchException) {
                 return redirect()->route('login');
             }
 
