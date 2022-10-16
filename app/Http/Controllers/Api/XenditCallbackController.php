@@ -28,7 +28,7 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-        if($status->ewallet_type == 'OVO'){
+        if(@$status->ewallet_type == 'OVO'){
             $payment_status = $status->status;
         } else {
             $payment_status =$status?->data?->status;
@@ -81,7 +81,7 @@ class XenditCallbackController extends Controller
                 'booked_untill' => NULL
             ]);
 
-            if($status->ewallet_type == 'OVO'){
+            if(@$status->ewallet_type == 'OVO'){
                 $this->sendNotificationOvoFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
             } else {
                 $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);

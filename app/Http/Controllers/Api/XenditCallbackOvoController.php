@@ -55,7 +55,7 @@ class XenditCallbackOvoController extends Controller
             ]);
         }
 
-        info($ewallet);
+        info($ewallet ?? 'dari ovo');
 
         $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
     }
