@@ -35,7 +35,10 @@ class Kernel extends ConsoleKernel
            $orders = Order::whereHas('payment', function($query){
                 $query->where('status', 'PENDING');
            })
-            ->orDoesntHave('payment')
+            ->where('order_status', 'booked')
+            ->get();
+
+            $orders2 = Order::doesntHave('payment')
             ->where('order_status', 'booked')
             ->get();
         
@@ -44,29 +47,43 @@ class Kernel extends ConsoleKernel
 
                 foreach($orders as $order) :
 
-                    if($order->ceated_at > Carbon::now()->subHours(2)->toDateTimeString()){
+                    $this->process($order);
 
-                        $order->update([
-                            'order_status' => 'cancel'
-                        ]);
+                endforeach;
+            }
 
-                        $order->payment()?->update([
-                            'status' => 'EXPIRED'
-                        ]);
+            if(! $orders2->isEmpty()){
 
-                        $order->room()?->update([
-                            'status' => 'available',
-                            'booked_untill' => NULL,
-                            'stayed_untill' => NULL
-                        ]);
+                foreach($orders2 as $order2) :
 
-                        info($order->load(['payment', 'room', '']));
-                    }
+                    $this->process($order2);
 
                 endforeach;
             }
             
         })->everyTwoHours();
+    }
+
+    private function process($data)
+    {
+        if($data->ceated_at > Carbon::now()->subHours(2)->toDateTimeString()){
+
+            $data->update([
+                'order_status' => 'cancel'
+            ]);
+
+            $data->payment()?->update([
+                'status' => 'EXPIRED'
+            ]);
+
+            $data->room()?->update([
+                'status' => 'available',
+                'booked_untill' => NULL,
+                'stayed_untill' => NULL
+            ]);
+
+            info($data->load(['payment', 'room', '']));
+        }
     }
 
     /**

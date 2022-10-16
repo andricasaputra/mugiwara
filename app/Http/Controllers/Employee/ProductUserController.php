@@ -9,6 +9,7 @@ use App\Uploads\PhotoDeliveryUploadService;
 use App\Uploads\PhotoPickupUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 
 class ProductUserController extends Controller
 {
@@ -42,16 +43,23 @@ class ProductUserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    { 
         try {
+
+
 
             DB::beginTransaction();
 
             $redeem = ProductUser::find($id);
 
-             if($request->redeem_type == 'pickup'){
+            if($request->redeem_type == 'pickup'){
 
                 if($request->photo_pickup && $request->hasFile('photo_pickup')){
+
+                    if(! is_null($redeem->image)){
+                        $this->deleteOldImage($redeem, 'pickups');
+                    }
+
                     $upload = new PhotoPickupUploadService;
                     $filename = $upload->process($request->file('photo_pickup'));
 
@@ -71,6 +79,11 @@ class ProductUserController extends Controller
             }elseif($request->redeem_type == 'delivery'){
 
                 if($request->photo_delivery && $request->hasFile('photo_delivery')){
+
+                    if(! is_null($redeem->image)){
+                        $this->deleteOldImage($redeem, 'deliverys');
+                    }
+
                     $upload = new PhotoDeliveryUploadService;
                     $filename = $upload->process($request->file('photo_delivery'));
 
@@ -88,15 +101,11 @@ class ProductUserController extends Controller
                 DB::commit();
             }
 
-            DB::commit();
-
             return redirect()->route('employee.product.redeem.list')->with('success', 'Berhasil Perbarui Data');
             
         } catch (\Exception $e) {
 
             DB::rollback();
-
-            dd($e->getMessage());
 
              return redirect()->route('employee.product.redeem.list')->with('error', 'Gagal Perbarui Data');
 
@@ -111,5 +120,16 @@ class ProductUserController extends Controller
         $product_user->delete();
 
           return redirect()->route('employee.product.redeem.list')->with('success', 'Berhasil Hapus Data');
+    }
+
+    private function deleteOldImage($model, $path)
+    {
+        $oldimage = url('storage/' . $path . '/' . $model->image?->image);
+
+        if(file_exists($oldimage)){
+            unlink($oldimage);
+        }
+
+        $model->image()?->delete();
     }
 }

@@ -43,8 +43,10 @@ class ProductUserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    { 
         try {
+
+
 
             DB::beginTransaction();
 
@@ -53,6 +55,11 @@ class ProductUserController extends Controller
             if($request->redeem_type == 'pickup'){
 
                 if($request->photo_pickup && $request->hasFile('photo_pickup')){
+
+                    if(! is_null($redeem->image)){
+                        $this->deleteOldImage($redeem, 'pickups');
+                    }
+
                     $upload = new PhotoPickupUploadService;
                     $filename = $upload->process($request->file('photo_pickup'));
 
@@ -72,6 +79,11 @@ class ProductUserController extends Controller
             }elseif($request->redeem_type == 'delivery'){
 
                 if($request->photo_delivery && $request->hasFile('photo_delivery')){
+
+                    if(! is_null($redeem->image)){
+                        $this->deleteOldImage($redeem, 'deliverys');
+                    }
+
                     $upload = new PhotoDeliveryUploadService;
                     $filename = $upload->process($request->file('photo_delivery'));
 
@@ -95,8 +107,6 @@ class ProductUserController extends Controller
 
             DB::rollback();
 
-            dd($e->getMessage());
-
              return redirect()->route('admin.product.redeem.list')->with('error', 'Gagal Perbarui Data');
 
             
@@ -110,5 +120,16 @@ class ProductUserController extends Controller
         $product_user->delete();
 
           return redirect()->route('admin.product.redeem.list')->with('success', 'Berhasil Hapus Data');
+    }
+
+    private function deleteOldImage($model, $path)
+    {
+        $oldimage = url('storage/' . $path . '/' . $model->image?->image);
+
+        if(file_exists($oldimage)){
+            unlink($oldimage);
+        }
+
+        $model->image()?->delete();
     }
 }
