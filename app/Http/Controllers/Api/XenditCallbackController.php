@@ -28,9 +28,13 @@ class XenditCallbackController extends Controller
 
         $status = json_decode($callback->payload);
 
-        return $status;
+        if($status->ewallet_type == 'OVO'){
+            $payment_status = $status->status;
+        } else {
+            $payment_status =$status?->data?->status;
+        }
 
-        if($status?->data?->status == 'SUCCEEDED'){
+        if($payment_status == 'SUCCEEDED'){
 
 
             $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
