@@ -101,7 +101,7 @@ class ProductUserController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $request->all()
+                'message' => $request->photo_pickup
             ]);
             
         } catch (\Exception $e) {
@@ -110,7 +110,7 @@ class ProductUserController extends Controller
 
              return response()->json([
                 'success' => false,
-                'message' => $request->all()
+                'message' => $request->photo_pickup
             ]);
 
             
