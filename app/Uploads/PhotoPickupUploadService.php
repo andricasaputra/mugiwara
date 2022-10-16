@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 class PhotoPickupUploadService extends AbstractUploadService implements UploadServiceInterface
 {
 	protected static $savePathTo = 'products/pickups/';
-	protected static $shouldResize = false;
+	protected static $shouldResize = true;
 
 	public function process(UploadedFile $file)
 	{

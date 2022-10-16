@@ -11,7 +11,7 @@
             @endif
             <h4 class="card-title">Upload Bukti</h4>
             <div class="card-body">
-                <form action="{{ route('employee.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
+                <form id="fileUploadForm" action="{{ route('employee.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                      <input type="hidden" name="redeem_type" value="{{ $redeem->redeem_type }}">
@@ -94,7 +94,7 @@
                           title: 'Sukses...',
                           text: 'Berhasil Edit Data',
                           showConfirmButton: false,
-                          footer: '<a class="btn btn-primary" href="{{ route('admin.product.redeem.list') }}">Kembali</a>'
+                          footer: '<a class="btn btn-primary" href="{{ route('employee.product.redeem.list') }}">Kembali</a>'
                         })
                     }
                 });
