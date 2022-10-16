@@ -52,7 +52,7 @@ class ProductUserController extends Controller
 
             if($request->redeem_type == 'pickup'){
 
-                if($request->photo_pickup && $request->hasFile('photo_pickup')){
+                if($request->file('photo_pickup')){
 
                     if(! is_null($redeem->image)){
                         $this->deleteOldImage($redeem, 'pickups');
