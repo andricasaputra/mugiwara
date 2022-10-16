@@ -46,8 +46,6 @@ class ProductUserController extends Controller
     { 
         try {
 
-
-
             DB::beginTransaction();
 
             $redeem = ProductUser::find($id);
@@ -101,13 +99,19 @@ class ProductUserController extends Controller
                 DB::commit();
             }
 
-            return redirect()->route('employee.product.redeem.list')->with('success', 'Berhasil Perbarui Data');
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil Edit Data'
+            ]);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-             return redirect()->route('employee.product.redeem.list')->with('error', 'Gagal Perbarui Data');
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Edit Data'
+            ]);
 
             
         }

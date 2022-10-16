@@ -43,7 +43,7 @@ class ProductUserController extends Controller
     }
 
     public function update(Request $request, $id)
-    { dd($request->all());
+    { 
         try {
 
             DB::beginTransaction();
@@ -99,13 +99,19 @@ class ProductUserController extends Controller
                 DB::commit();
             }
 
-            return redirect()->route('admin.product.redeem.list')->with('success', 'Berhasil Perbarui Data');
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil Edit Data'
+            ]);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-             return redirect()->route('admin.product.redeem.list')->with('error', 'Gagal Perbarui Data');
+             return response()->json([
+                'success' => false,
+                'message' => 'Gagal Edit Data'
+            ]);
 
             
         }

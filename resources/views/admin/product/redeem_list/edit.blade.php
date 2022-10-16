@@ -11,7 +11,7 @@
             @endif
             <h4 class="card-title">Upload Bukti</h4>
             <div class="card-body">
-                <form  id="fileUploadForm" action="{{ route('admin.product.redeem.list.update', $redeem->id) }}" method="post" enctype="multipart/form-data">
+                <form  id="fileUploadForm" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                      <input type="hidden" name="redeem_type" value="{{ $redeem->redeem_type }}">
@@ -72,31 +72,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
  <script>
         $(function () {
-            $(document).ready(function () {
-                $('#fileUploadForm').ajaxForm({
-                    beforeSend: function () {
-                        let timerInterval
-                        Swal.fire({
-                          title: 'Loading...',
-                          timerProgressBar: true,
-                           didOpen: () => {
-                            Swal.showLoading()
-                          },
-                          willClose: () => {
-                            clearInterval(timerInterval)
-                          }
-                        });
-                    },
-                    complete: function (xhr) {
 
-                        Swal.fire({
-                          icon: 'success',
-                          title: 'Sukses...',
-                          text: 'Berhasil Edit Data',
-                          showConfirmButton: false,
-                          footer: '<a class="btn btn-primary" href="{{ route('admin.product.redeem.list') }}">Kembali</a>'
-                        })
+            $(document).ready(function () {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
                     }
+                });
+
+                $('#fileUploadForm').submit(function(e){
+
+                    e.preventDefault();
+                    let formData = new FormData(this);
+
+                    $.ajax({
+                        type:'POST',
+                        url: "{{ route('admin.product.redeem.list.update', $redeem->id) }}",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: (res) => {
+                          if (res.success) {
+                              this.reset();
+                              Swal.fire({
+                                  icon: res.success ? 'success' : 'error',
+                                  title:  res.success ? 'Sukses' : 'Error',
+                                  text: res.message,
+                                  showConfirmButton: false,
+                                  footer: '<a class="btn btn-primary" href="{{ route('admin.product.redeem.list') }}">Kembali</a>'
+                                })
+                          }
+                        },
+                        error: function(err){
+                          console.log(err)
+                        },
+                        beforeSend: function () {
+                            let timerInterval
+                            Swal.fire({
+                              title: 'Loading...',
+                              timerProgressBar: true,
+                               didOpen: () => {
+                                Swal.showLoading()
+                              },
+                              willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        });
+                    }
+                });
+
                 });
             });
         });
