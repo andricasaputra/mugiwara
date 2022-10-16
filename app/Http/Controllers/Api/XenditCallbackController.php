@@ -89,27 +89,39 @@ class XenditCallbackController extends Controller
             //     'payload' => $status
             // ]);
 
-            info($ewallet);
+            if($ewallet){
+                
+                $ewallet?->update([
+                    'payload' => $data
+                ]);
 
-            $ewallet?->payment?->first()?->order()?->update([
-                'order_status' => 'cancel'
-            ]);
+                info($ewallet);
 
-            $update = $ewallet?->payment?->first()?->order?->room()->update([
-                'status' => 'available',
-                'booked_untill' => NULL
-            ]);
+                $ewallet?->payment?->first()?->update([
+                    'status' =>$payment_status
+                ]);
 
-            if(@$status->ewallet_type == 'OVO'){
-                $this->sendNotificationOvoFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
-            } else {
-                $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+                $ewallet?->payment?->first()?->order()?->update([
+                    'order_status' => 'cancel'
+                ]);
+
+                $update = $ewallet?->payment?->first()?->order?->room()->update([
+                    'status' => 'available',
+                    'booked_untill' => NULL
+                ]);
+
+                if(@$status->ewallet_type == 'OVO'){
+                    $this->sendNotificationOvoFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+                } else {
+                    $this->sendNotificationEwalletFailed($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
+                }
+
             }
 
            
         }
 
-         info('Dari Ewallet');
+        info('Dari Ewallet');
     }
 
    
