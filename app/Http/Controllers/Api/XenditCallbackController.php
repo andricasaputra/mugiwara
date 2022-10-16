@@ -85,47 +85,7 @@ class XenditCallbackController extends Controller
         }
     }
 
-    public function ovo(Request $request)
-    {
-        $data = json_encode($request->all());
-
-        $callback = CallbackXendit::create([
-            'payload' => $data
-        ]);
-
-        $status = json_decode($callback->payload);
-
-        info($status ?? 'status nih ' . $request->all());
-
-        $ewallet = Ewallet::where('ewallet_id', $status?->data?->id)->first();
-
-        $ewallet?->update([
-            'payload' => $data
-        ]);
-
-        $ewallet?->payment()?->update([
-            'status' => $status?->data?->status,
-            'amount' => $status?->data?->charge_amount,
-        ]);
-
-        if($status?->data?->status == 'FAILED' || $status?->data?->status == 'EXPIRED'){
-
-            $ewallet?->payment?->first()?->order()?->update([
-                'order_status' => 'cancel',
-                //'check_in_date' => NULL
-            ]);
-
-            $update = $ewallet?->payment?->first()?->order?->room()->update([
-                'status' => 'available',
-                'booked_untill' => NULL,
-                'stayed_untill' => NULL
-            ]);
-        }
-
-        info($ewallet);
-
-        $this->sendNotificationEwallet($ewallet?->payment?->first()?->order, $ewallet?->payment?->first(), $status);
-    }
+   
 
     public function virtualAccount(Request $request)
     {

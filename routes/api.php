@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserPointController;
 use App\Http\Controllers\Api\VoucherController;
 use App\Http\Controllers\Api\XenditCallbackController;
+use App\Http\Controllers\Api\XenditCallbackOvoController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HubungiKamiController;
 use App\Http\Controllers\MitraGabungController;
@@ -180,7 +181,7 @@ Route::get('promotions/{promotion}', [PromotionController::class, 'show']);
 
 Route::post('rooms/list', [RoomController::class, 'list'])->name('api.rooms.list');
 
-Route::post('cb/payment/ewallet/ovo', [XenditCallbackController::class, 'ovo']);
+Route::post('cb/payment/ewallet/ovo', [XenditCallbackOvoController::class, 'ovo']);
 
 Route::post('cb/payment/ewallet/status', [XenditCallbackController::class, 'ewallet']);
 
