@@ -45,7 +45,8 @@ class XenditCallbackController extends Controller
             $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
 
             return response()->json([
-                'data' => $ewallet
+                'data' => $ewallet,
+                'payload' => $status
             ]);
 
             if($ewallet){
@@ -84,7 +85,8 @@ class XenditCallbackController extends Controller
             $ewallet = Ewallet::where('ewallet_id', $e_id)->first();
 
              return response()->json([
-                'data' => $ewallet
+                'data' => $ewallet,
+                'payload' => $status
             ]);
 
             info($ewallet);
