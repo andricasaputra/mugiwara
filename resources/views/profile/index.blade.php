@@ -158,7 +158,7 @@
 														<i class="fa-solid fa-star" style="color:yellow;"></i>
 													@endfor
 												</div>
-												<p>Costumer</p>
+												<p>Custumer</p>
 											</div>
 										</div>
 									</div>
