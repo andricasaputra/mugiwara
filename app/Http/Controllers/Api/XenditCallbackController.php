@@ -219,6 +219,8 @@ class XenditCallbackController extends Controller
 
         $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
 
+        event(new \App\Events\PaymentBroadcastEvent($user_title));
+
         // Notify admin and employee
         $admin->notify(
             new AdminPaymentStatusNotification(
@@ -285,6 +287,8 @@ class XenditCallbackController extends Controller
         $admin = User::admin()->first();
 
         $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
+
+        event(new \App\Events\PaymentBroadcastEvent($user_title));
 
         // Notify admin and employee
         $admin->notify(
