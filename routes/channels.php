@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('order-channel', function ($user) {
+    return true;
+}); 
+
+Broadcast::channel('payment-channel', function ($user) {
+    return true;
+}); 
+
+
+Broadcast::channel('redeem-channel', function ($user) {
+    return true;
+}); 
+

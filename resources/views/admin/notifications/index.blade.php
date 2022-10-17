@@ -34,6 +34,7 @@
                                             <tr>
                                                 <th>Judul</th>
                                                 <th>Isi</th>
+                                                <th>Order ID</th>
                                                 <th>Waktu Diterima</th>
                                                 <th>Action</th>
                                             </tr>
@@ -42,11 +43,21 @@
 
                                             @forelse ($notifications as $key => $notification)
 
+
                                                 <tr>
 
                                                     <td>{{ $notification->data['title'] }}</td>
 
                                                      <td>{{ $notification->data['message'] }}</td>
+
+                                                     <td>
+                                                        @if(@$notification->data['order'])
+                                                            {{ $notification->data['order']['id'] }}
+                                                        @else
+                                                            -
+                                                        @endif
+                                                        
+                                                    </td>
 
                                                       <td>{{ $notification->created_at->diffForHumans() }}</td>
 
