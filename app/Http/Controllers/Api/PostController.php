@@ -15,6 +15,7 @@ class PostController extends Controller
             $posts->where('category_post_id', request()->category_post_id);
         })
         ->where('is_active', '1')
+        ->latest()
         ->paginate(10);
         $posts->appends(request()->all());
         return ResourcesPost::collection($posts) 
