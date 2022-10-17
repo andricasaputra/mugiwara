@@ -29,7 +29,7 @@
         <!-- partial:partials/_footer.html -->
         @include('layouts.footer')
 
-        <button id="sound-btn" style="display: none" onclick='$.playSound("{{ url('storage/sounds/iphone_sound.mp3') }}")'>Play Sound</button>
+        <button id="sound-btn" style="visibility: hidden" onclick='$.playSound("{{ url('storage/sounds/iphone_sound.mp3') }}")'>Play Sound</button>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
