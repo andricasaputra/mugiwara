@@ -25,7 +25,9 @@
                                     <th class="border-bottom pb-2">Lama Menginap</th>
                                     <th class="border-bottom pb-2">Check out</th>
                                     <th class="border-bottom pb-2">Jumlah Tamu</th>
-                                    <th class="border-bottom pb-2">Diskon</th>
+                                    <th class="border-bottom pb-2">Harga Normal</th>
+                                    <th class="border-bottom pb-2">Tipe Diskon</th>
+                                    <th class="border-bottom pb-2">Jumlah Diskon</th>
                                     <th class="border-bottom pb-2">Voucher</th>
                                     <th class="border-bottom pb-2">Total Harga Setelah Diskon</th>
                                     <th class="border-bottom pb-2">Pesanan Dibuat Pada</th>
@@ -45,6 +47,8 @@
                                     <td class="border-bottom pb-2">{{ $payment->order?->stay_day }}</td>
                                     <td class="border-bottom pb-2">{{ $payment->order?->check_out_date }}</td>
                                     <td class="border-bottom pb-2">{{ $payment->order?->total_guest }}</td>
+                                    <td class="border-bottom pb-2">{{ $payment->order?->normal_price }}</td>
+                                    <td class="border-bottom pb-2">{{ $payment->order?->discount_type }}</td>
                                     <td class="border-bottom pb-2">{{ $payment->order?->discount_amount }}</td>
                                     <td class="border-bottom pb-2">{{ $payment->voucher?->name ?? '-'}}</td>
                                     <td class="border-bottom pb-2">{{ $payment->order?->total_price }}</td>
