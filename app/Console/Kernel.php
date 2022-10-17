@@ -64,6 +64,20 @@ class Kernel extends ConsoleKernel
             }
             
         })->everyTwoHours();
+
+        $schedule->command('backup:clean')->daily()->at('01:00');
+
+        $schedule
+        ->command('backup:run')->daily()->at('01:30')
+        ->onFailure(function () {
+
+            error('Backup database error at ' . date('d-m-Y h:i:s'));
+        })
+        ->onSuccess(function () {
+
+            info('Backup data at ' . date('d-m-Y h:i:s') . ' created succcesfully');
+            
+        });
     }
 
     private function process($data)
