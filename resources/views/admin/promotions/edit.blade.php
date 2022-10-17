@@ -55,9 +55,15 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" id="is_active" class="form-control" required>
-                       <option value="{{ $promotion->is_active }}">{{ $promotion->is_active }}</option>
-                       <option value="1">Aktif</option>
-                       <option value="">Tidak Aktif</option>
+                       @if($promotion->is_active == 'Aktif')
+                            <option value="1">Aktif</option>
+                             <option value="">Tidak Aktif</option>
+                       @else
+                            <option value="">Tidak Aktif</option>
+                             <option value="1">Aktif</option>
+                       @endif
+                      
+                      
                     </select>
                 </div>
 
