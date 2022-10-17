@@ -110,20 +110,13 @@ class OfficeListController extends Controller
               "accomodation_id" => $request->accomodation_id,
             ]);
 
+            $office->users()->delete();
+
             foreach($request->user_id as $id){
 
-                $check = $office->users()->where('user_id', $id)->first();
-
-                if($check){
-                    $office->users()->update([
-                        'user_id' => $id
-                    ]);
-                }else{
-                    $office->users()->create([
-                        'user_id' => $id
-                    ]);
-                }
-
+                $office->users()->create([
+                    'user_id' => $id
+                ]);
                 
             }
 
