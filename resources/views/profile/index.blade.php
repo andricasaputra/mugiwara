@@ -152,7 +152,7 @@
 											<div class="card-body">
 												<p>{{$r->comment}}</p>
 												<img class="img-fluid" src="{{ url('storage/avatars/' . $r->user?->account?->avatar) }}">
-												<h5>{{$r->name}}</h5>
+												<h5>{{$r->user?->name}}</h5>
 												<div class="ranting">
 													@for($i=0;$i<round($r->rating);$i++)
 														<i class="fa-solid fa-star" style="color:yellow;"></i>
