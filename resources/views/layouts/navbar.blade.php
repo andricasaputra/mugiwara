@@ -10,7 +10,7 @@
         <ul class="navbar-nav navbar-nav-right">
 
           <li class="nav-item dropdown">  
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <a id="bell-icon" class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
               @if(auth()->user()?->notifications?->filter(function($notification){
                 return $notification?->read_at == null;
@@ -18,8 +18,11 @@
               <span class="count"></span>
               @endif
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+            <div id="notification-container"  class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+
+              <div id="new-notification-container"></div>
+              
 
               @forelse(auth()->user()?->notifications ?? [] as $key => $notification)
 
@@ -56,7 +59,7 @@
 
               @empty
 
-              <a class="dropdown-item preview-item">
+              <a id="empty-notification" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-success">
                       <i class="ti-info-alt mx-0"></i>
@@ -77,9 +80,16 @@
               <hr>
 
               <div class="row text-center d-flex justify-content-around">
-                  <a href="{{ route('employee.notification.index') }}" class="text-center">Lihat semua</a>
+                  @role('admin')
+                    <a href="{{ route('admin.notification.index') }}" class="text-center">Lihat semua</a>
+                    <a href="{{ route('admin.notification.markasread.all') }}" class="text-center">Baca semua</a>
+                  @else
 
-                  <a href="{{ route('employee.notification.markasread.all') }}" class="text-center">Baca semua</a>
+                    <a href="{{ route('employee.notification.index') }}" class="text-center">Lihat semua</a>
+                    <a href="{{ route('employee.notification.markasread.all') }}" class="text-center">Baca semua</a>
+                  @endrole
+
+                  
               </div>
 
               @endif

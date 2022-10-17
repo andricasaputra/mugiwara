@@ -231,6 +231,8 @@ class OrderRepository
 
 		$office = Office::where('accomodation_id', $order->accomodation_id)->first();
 
+		event(new \App\Events\OrderBroadcastEvent($user_title));
+
 		// Notify admin and employee
 		$admin->notify(
 			new AdminOrderCreatedNotifications(
@@ -248,5 +250,7 @@ class OrderRepository
 				);
 			}
 		}
+
+
     }
 }

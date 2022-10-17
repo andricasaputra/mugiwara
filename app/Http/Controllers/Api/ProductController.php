@@ -146,6 +146,8 @@ class ProductController extends Controller
                 'Terdapat penukaran merchandise!'
             );
 
+            event(new \App\Events\RedeemBroadcastEvent('Terdapat penukaran merchandise!'));
+
             $customer = Customer::find($request->user()->id);
             $user = User::find($request->user()->id);
 

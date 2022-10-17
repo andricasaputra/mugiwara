@@ -106,6 +106,8 @@ class XenditCallbackOvoController extends Controller
 
         $office = Office::with('users')->where('accomodation_id',  $order?->accomodation_id)->first();
 
+        event(new \App\Events\PaymentBroadcastEvent($user_title));
+
         // Notify admin and employee
         $admin->notify(
             new AdminPaymentStatusNotification(
