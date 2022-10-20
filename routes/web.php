@@ -100,7 +100,6 @@ Route::middleware(['verified', 'panel'])->group(function(){
             Route::get('edit/redeem/list/{id}', [ProductUserController::class, 'edit'])->name('redeem.list.edit');
             Route::get('create/redeem/list/{redem_type}', [ProductUserController::class, 'edit'])->name('redeem.list.upload.page');
             Route::put('create/redeem/list/{id}', [ProductUserController::class, 'update'])->name('redeem.list.update');
-            Route::delete('create/redeem/list/', [ProductUserController::class, 'delete'])->name('redeem.list.delete');
 
             Route::get('tukar_marchendise', [PenukaranMarchendiseController::class, 'index'])->name('tukar_marchendise');
             Route::get('tambah_penukaran', [PenukaranMarchendiseController::class, 'create'])->name('tambah_penukaran');
