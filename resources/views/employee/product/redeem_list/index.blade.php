@@ -53,13 +53,6 @@
                                 <a href="{{ route('employee.product.redeem.list.edit', $product->id) }}" class="btn btn-warning mb-2"> Edit </a>
                                 <br>
                                  <a href="{{ route('employee.product.redeem.list.detail', $product->id) }}" class="btn btn-primary mb-2"> Detail </a>
-                                <br>
-                                <form action="{{ route('employee.product.redeem.list.delete') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="id" value="{{ $product->id }}">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
                              </td>
                         </tr>
                         @empty
