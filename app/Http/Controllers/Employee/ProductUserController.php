@@ -117,15 +117,6 @@ class ProductUserController extends Controller
         }
     }
 
-    public function delete(Request $request)
-    {
-        $product_user  = ProductUser::findOrFail($request->id);
-
-        $product_user->delete();
-
-          return redirect()->route('employee.product.redeem.list')->with('success', 'Berhasil Hapus Data');
-    }
-
     private function deleteOldImage($model, $path)
     {
         $oldimage = url('storage/' . $path . '/' . $model->image?->image);
