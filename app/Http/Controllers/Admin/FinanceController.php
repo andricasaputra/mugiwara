@@ -23,10 +23,15 @@ class FinanceController extends Controller
         $this->repo = new BalanceRepository;
     }
 
-    public function index()
+    protected function setupRepo()
     {
         $this->repo->balanceIn();
         $this->repo->balanceOut();
+    }
+
+    public function index()
+    {
+        $this->setupRepo();
 
         $payments = Payment::latest()->with(['user', 'order', 'payable', 'voucher'])->get();
 

@@ -16,9 +16,7 @@
                             <p class="mb-4 font-weight-bold">Saldo Masuk</p>
                            <div class="d-flex justify-content-between align-items-center">
                                 <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice)</p>
-                            @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
-                                <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
-                            @endif
+                            
                            </div>
                           </div>
                         </div>
@@ -42,6 +40,9 @@
                             <p class="mb-4 font-weight-bold">Total Saldo</p>
                            <div class="d-flex justify-content-between align-items-center">
                                 <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
+                                @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
+                                <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
+                            @endif
                            </div>
                           </div>
                         </div>

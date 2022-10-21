@@ -27,10 +27,15 @@ class FinanceController extends Controller
         return auth()->user()->office?->office?->accomodation_id;
     }
 
-    public function index()
+    protected function setupRepo()
     {
         $this->repo->balanceIn();
         $this->repo->balanceOut();
+    }
+
+    public function index()
+    {
+        $this->setupRepo();
 
         $payments = Payment::latest()->whereHas('order', function($query){
             $query->where('accomodation_id', $this->getOffice());
@@ -68,6 +73,8 @@ class FinanceController extends Controller
             abort(403);
         }
 
+        $this->setupRepo();
+
        $data = $payment->load(['voucher', 'payable', 'user', 'order.accomodation:id,name,address', 'order.room.type:id,name'])->toArray();
 
         $pdf = Pdf::loadView('admin.finance.invoice', compact('data'));
@@ -85,6 +92,8 @@ class FinanceController extends Controller
     {
         if(! auth()->user()->hasRole('admin_cabang')) abort(403);
 
+        $this->setupRepo();
+
         $available_balance = $this->repo->balanceInPerOffice[$this->getOffice()];
 
         if($available_balance < 0){
@@ -96,8 +105,9 @@ class FinanceController extends Controller
 
     public function StoreWithdrawBalance(Request $request)
     {
-
         if(! auth()->user()->hasRole('admin_cabang')) abort(403);
+
+        $this->setupRepo();
 
         $request->validate([
             'amount' => 'required|numeric',
@@ -105,10 +115,13 @@ class FinanceController extends Controller
             'bank_name' => 'required'
         ]);
 
-        $available_balance = $this->repo->balanceInPerOffice[$this->getOffice()];
 
-        if($available_balance < $request->amount){
-            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo anda tidak mencukupi untuk ditarik, saldo tersedia : Rp ' . $available_balance);
+        $balance_in = $this->repo->balanceInPerOffice[$this->getOffice()];
+
+        $total_saldo = $balance_in - $this->repo->balanceOutPerOffice->sum('amount');
+
+        if($total_saldo < $request->amount){
+            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo anda tidak mencukupi untuk ditarik, saldo tersedia : Rp ' . $total_saldo);
         }
 
         $withdraw = Withdraw::create([
