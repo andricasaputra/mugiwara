@@ -99,6 +99,18 @@
           fireSound();
         });
 
+        var withdrawChannel = pusher.subscribe('withdraw-channel');
+        withdrawChannel.bind('withdraw-event', function(data) {
+          setNotification(data);
+          fireSound();
+        });
+
+        var withdrawResponseChannel = pusher.subscribe('withdraw-response-channel');
+        withdrawResponseChannel.bind('withdraw-response-event', function(data) {
+          setNotification(data);
+          fireSound();
+        });
+
         function fireSound()
         {
           $('#sound-btn').click();

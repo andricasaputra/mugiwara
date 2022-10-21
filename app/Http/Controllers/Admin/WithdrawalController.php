@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Withdraw;
+use App\Notifications\UserWithdrawalStatusNotification;
 use App\Traits\HasOldImageToDelete;
 use App\Uploads\WithdrawTransferImageService;
 use Illuminate\Http\Request;
@@ -59,6 +61,22 @@ class WithdrawalController extends Controller
             }
 
             \DB::commit();
+
+            if($request->status == 'APPROVED'){
+                $status = 'Di Setjui';
+            }elseif($request->status == 'REJECTED'){
+                $status = 'Di Tolak';
+            }else{
+                $status = 'Masih Pending';
+            }
+
+            $admin_cabang = User::find($withdraw->user_id);
+
+            $title = "Status Pengajuan Permohonan Penarikan Saldo Anda " . $status;
+
+            event(new \App\Events\WithdrawResponseBroadcastEvent($title));
+
+            $admin_cabang->notify(new UserWithdrawalStatusNotification($withdraw, $title));
 
             return redirect(route('admin.withdraw.index'))->withSuccess('Withdrawal berhasil diproses');
             
