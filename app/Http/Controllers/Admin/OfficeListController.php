@@ -39,11 +39,11 @@ class OfficeListController extends Controller
         $employees = User::employee()->get();
 
         if ($accomodations->isEmpty()) {
-            return back()->withWarning('Daftar Pengiapa masih kosong, silahkan tambahkan data penginapan terlebuh dahulu');
+            return back()->withWarning('Daftar Penginapan masih kosong, silahkan tambahkan data penginapan terlebih dahulu');
         }
 
         if ($employees->isEmpty()) {
-            return back()->withWarning('Daftar karyawan masih kosong, silahkan tambahkan data karyawan terlebuh dahulu');
+            return back()->withWarning('Daftar karyawan masih kosong, silahkan tambahkan data karyawan terlebih dahulu');
         }
 
         return view('admin.offices.create')

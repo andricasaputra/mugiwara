@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\User;
 use App\Models\Withdraw;
+use App\Notifications\AdminWithdrawalNotification;
 use App\Repositories\BalanceRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -130,6 +132,14 @@ class FinanceController extends Controller
             'account_number' => $request->account_number,
             'bank_name' => $request->bank_name,
         ]);
+
+        $admin = User::admin()->first();
+
+        $title = "Terdapat Permohonan Penarikan Saldo Dari Kantor Cabang";
+
+        event(new \App\Events\WithdrawBroadcastEvent($title));
+
+        $admin->notify(new AdminWithdrawalNotification($withdraw, $title));
 
         return redirect(route('employee.finance.index'))->withSuccess('Berhasil mengirim permohonan withdraw saldo, mohon untuk menunggu verifikasi dari admin pusat');
     }

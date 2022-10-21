@@ -25,7 +25,7 @@ class NotificationController extends Controller
         } elseif($notification->type == 'App\Notifications\RefundRequestNotification'){
             $route = route('employee.refund.index');
         }else {
-            $route = route('employee.dashboard.index');
+            $route = route('dashboard');
         }
 
         $notification = $notification->update(['read_at' => now()]);

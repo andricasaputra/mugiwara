@@ -30,3 +30,12 @@ Broadcast::channel('redeem-channel', function ($user) {
     return true;
 }); 
 
+Broadcast::channel('withdraw-channel', function ($user) {
+    return true;
+}); 
+
+Broadcast::channel('withdraw-response-channel', function ($user) {
+    return true;
+}); 
+
+
