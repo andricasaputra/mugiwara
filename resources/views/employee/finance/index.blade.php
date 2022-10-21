@@ -2,14 +2,20 @@
 
 @section('content')
 
+<style>
+@media screen and (max-width: 992px) {
+  #saldo {
+    font-size: 22x !important;
+  }
+}
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
                 	<div class="row">
-				      
-
                       <div class="col-md-6 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
@@ -39,7 +45,7 @@
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Total Saldo</p>
                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
+                                <p id="saldo" class="fs-30 fs-sm-20 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
                                 @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
                                 <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
                             @endif
