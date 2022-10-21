@@ -5,13 +5,23 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Withdraw;
+use App\Repositories\BalanceRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Xendit\Xendit;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinanceController extends Controller
 {
+    public $repo;
+
+    public function __construct()
+    {
+        $this->repo = new BalanceRepository;
+        
+    }
+
     protected function getOffice()
     {
         return auth()->user()->office?->office?->accomodation_id;
@@ -19,15 +29,27 @@ class FinanceController extends Controller
 
     public function index()
     {
+        $this->repo->balanceIn();
+        $this->repo->balanceOut();
+
         $payments = Payment::latest()->whereHas('order', function($query){
             $query->where('accomodation_id', $this->getOffice());
         })->with(['user', 'order', 'payable', 'voucher'])->get();
 
         $bookings = Order::where('accomodation_id', $this->getOffice())->get()->count();
 
-        return view('employee.finance.index')
-            ->withPayments($payments)
-            ->withBookings($bookings);
+        if(in_array($this->getOffice(), $this->repo->balanceInPerOffice->keys()->toArray())){
+
+             return view('employee.finance.index')
+                ->withPayments($payments)
+                ->withBookings($bookings)
+                ->with('balanceInPerOffice', $this->repo->balanceInPerOffice[$this->getOffice()])
+                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice);
+
+        }
+        
+        abort(403);
+       
     }
 
     public function paymentDetail(Payment $payment)
@@ -57,5 +79,45 @@ class FinanceController extends Controller
         $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
         return $hasil_rupiah;
      
+    }
+
+    public function createWithdrawBalance()
+    {
+        if(! auth()->user()->hasRole('admin_cabang')) abort(403);
+
+        $available_balance = $this->repo->balanceInPerOffice[$this->getOffice()];
+
+        if($available_balance < 0){
+            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo masih 0');
+        }
+
+        return view('employee.finance.withdraw');
+    }
+
+    public function StoreWithdrawBalance(Request $request)
+    {
+
+        if(! auth()->user()->hasRole('admin_cabang')) abort(403);
+
+        $request->validate([
+            'amount' => 'required|numeric',
+            'account_number' => 'required|numeric',
+            'bank_name' => 'required'
+        ]);
+
+        $available_balance = $this->repo->balanceInPerOffice[$this->getOffice()];
+
+        if($available_balance < $request->amount){
+            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo anda tidak mencukupi untuk ditarik, saldo tersedia : Rp ' . $available_balance);
+        }
+
+        $withdraw = Withdraw::create([
+            'user_id' => auth()->id(),
+            'amount' => $request->amount,
+            'account_number' => $request->account_number,
+            'bank_name' => $request->bank_name,
+        ]);
+
+        return redirect(route('employee.finance.index'))->withSuccess('Berhasil mengirim permohonan withdraw saldo, mohon untuk menunggu verifikasi dari admin pusat');
     }
 }

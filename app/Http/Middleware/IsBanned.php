@@ -17,9 +17,19 @@ class IsBanned
     public function handle(Request $request, Closure $next)
     {
         if(! is_null(auth()->user()->banned)){
-            return response()->json([
-                'message' => 'Akun anda telah dibanned, Silahkan hubungi administrator'
-            ]);
+
+            if($request->wantsJson()){
+
+                return response()->json([
+                    'message' => 'Akun anda telah dibanned, Silahkan hubungi administrator'
+                ]);
+
+            }else{
+
+                auth()->logout();
+                
+                return redirect(route('login'))->withErrors('Mohon maaf Akun Anda Telah Dibaneed, Untuk Informasi Lebih Lanjut Hubungi Admin');
+            }
         }
 
         return $next($request);

@@ -62,6 +62,8 @@ class OfficeListController extends Controller
                 "type" => $request->type,
                 "address" => $request->address,
                 "mobile_number" => $request->mobile_number,
+                "account_number" => $request->account_number,
+                "bank_name" => $request->bank_name,
                 "accomodation_id" => $request->accomodation_id,
             ]);
 
@@ -107,6 +109,8 @@ class OfficeListController extends Controller
               "type" => $request->type,
               "address" => $request->address,
               "mobile_number" => $request->mobile_number,
+              "account_number" => $request->account_number,
+            "bank_name" => $request->bank_name,
               "accomodation_id" => $request->accomodation_id,
             ]);
 

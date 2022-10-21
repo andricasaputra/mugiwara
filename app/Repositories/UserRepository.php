@@ -134,27 +134,27 @@ class UserRepository
                 );
             }
 
-            if ($request->role) {
+            if ($request->roles) {
                 $user->syncRoles($request->roles);
             }
 
             DB::commit();
 
-            if(! $user->isAdmin()){
-                return redirect(route('dashboard'))->withSuccess('Berhasil edit user ' . $user->name);
+            if(auth()->user()->hasRole('admin')){
+                return redirect(route('users.employee'))->withSuccess('Berhasil edit user ' . $user->name);
             }
 
-            return redirect(route('users.employee'))->withSuccess('Berhasil edit user ' . $user->name);
+            return redirect(route('dashboard'))->withSuccess('Berhasil edit user ' . $user->name);
             
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            if(! $user->isAdmin()){
-                return redirect(route('dashboard'))->withSuccess('Berhasil edit user ' . $user->name);
+            if(auth()->user()->hasRole('admin')){
+                return redirect(route('users.employee'))->withErrors('Gagal ubah data, error : ' . $e->getMessage());
             }
 
-            return redirect(route('users.employee'))->withErrors('Gagl ubah data, error : ' . $e->getMessage());
+            return redirect(route('dashboard'))->withErrors('Gagal ubah data, error : ' . $e->getMessage());
         }
 
         

@@ -15,7 +15,9 @@
 
     @foreach($menus as $menu)
 
-      @if($menu->is_active == 1 && in_array(1, $menu->role?->pluck('role_id')->toArray()))
+    @php $roles = $menu->role?->pluck('role_id')->toArray(); @endphp
+
+      @if($menu->is_active == 1 && (in_array(1, $roles) || in_array(10, $roles)))
 
         @if(count($menu->childs) > 0)
 
@@ -34,7 +36,8 @@
 
                    @if($child->name != 'transaksi' && $child->name != 'push notifikasi' && $child->name != 'Alasan Refund')
 
-                       <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
+                     <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
+
 
                     @else
 

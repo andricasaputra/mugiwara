@@ -56,14 +56,25 @@
                                                 <td>{{  $user->roles()->pluck('name')->implode(' ') }}</td>{{-- Retrieve array of roles associated to a user and convert to string --}}
                                                 <td>
 
-                                                <a href="{{ route('users.detail', $user->id) }}" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">Detail</a>
+                                                    @if(is_null($user->banned))
+                                                        <a href="{{ route('users.banned.page', $user->id) }}" class="btn btn-danger mb-2">Banned</a>
+                                                    @else
+
+                                                        <form action=" {{ route('users.banned.release') }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                            <button type="submit" class="btn btn-primary mb-2">Release banned</button>
+                                                        </form>
+                                                    @endif
+
+                                                <a href="{{ route('users.detail', $user->id) }}" class="btn btn-info mb-2">Detail</a>
 
                                                 <br>
 
-                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">Edit</a>
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info mb-2">Edit</a>
 
                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], ]) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs confirm']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger mb-2 confirm']) !!}
                                                 {!! Form::close() !!}
 
                                                 </td>

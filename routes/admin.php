@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutAwalController;
 use App\Http\Controllers\AboutKeduaController;
 use App\Http\Controllers\Admin\AccomodationController;
 use App\Http\Controllers\Admin\AppStoreController;
+use App\Http\Controllers\Admin\BalanceController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryPostController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\WithdrawalController;
 use App\Http\Controllers\PenukaranMarchendiseController;
 use Illuminate\Support\Facades\Route;
 
@@ -227,6 +229,14 @@ Route::name('admin.')->group(function() {
     Route::get('finance/transaction/detail/{id}', [FinanceController::class, 'transactionDetail'])->name('finance.transaction.detail');
 
     Route::get('finance/invoices/{payment}', [FinanceController::class, 'invoices'])->name('finance.invoices');
+
+    Route::get('finance/balance', [BalanceController::class, 'index'])->name('balance.index');
+
+    Route::get('finance/withdrawal', [WithdrawalController::class, 'index'])->name('withdraw.index');
+
+    Route::get('finance/withdrawal/action/{withdraw}', [WithdrawalController::class, 'action'])->name('withdraw.action');
+
+    Route::post('finance/withdrawal/action', [WithdrawalController::class, 'actionStore'])->name('withdraw.action.store');
 
     Route::post('payment/export/excel', [PaymentController::class, 'export'])->name('payment.export.excel');
 

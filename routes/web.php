@@ -18,6 +18,7 @@ use App\Http\Controllers\Employee\RefferalController;
 use App\Http\Controllers\Employee\RefundController;
 use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
+use App\Http\Controllers\Employee\WithdrawalController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HubungiKamiController;
 use App\Http\Controllers\MitraGabungController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 
-Route::middleware(['verified', 'panel'])->group(function(){
+Route::middleware(['verified', 'panel', 'banned'])->group(function(){
 
 
     Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit.employee');
@@ -61,6 +62,10 @@ Route::middleware(['verified', 'panel'])->group(function(){
 
         Route::get('finance/detail/{payment}', [FinanceController::class, 'paymentDetail'])->name('finance.detail');
 
+        Route::get('finance/withdraw', [FinanceController::class, 'createWithdrawBalance'])->name('finance.withdraw.create');
+
+        Route::post('finance/withdraw', [FinanceController::class, 'storeWithdrawBalance'])->name('finance.withdraw.store');
+
         Route::get('finance/balace', [FinanceController::class, 'getBalance'])->name('finance.balance');
 
         Route::get('finance/transaction/list/{page?}/{limit?}/{link?}', [FinanceController::class, 'transaction'])->name('finance.transaction.list');
@@ -69,6 +74,8 @@ Route::middleware(['verified', 'panel'])->group(function(){
         Route::get('finance/transaction/detail/{id}', [FinanceController::class, 'transactionDetail'])->name('finance.transaction.detail');
 
         Route::get('finance/invoices/{payment}', [FinanceController::class, 'invoices'])->name('finance.invoices');
+
+        Route::get('finance/withdrawal', [WithdrawalController::class, 'index'])->name('withdraw.index');
 
         Route::post('payment/export/excel', [PaymentController::class, 'export'])->name('payment.export.excel');
 

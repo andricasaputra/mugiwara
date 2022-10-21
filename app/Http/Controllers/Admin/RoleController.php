@@ -50,7 +50,7 @@ class RoleController extends Controller
         $name = $request['name'];
         $role = new Role();
         $role->name = $name;
-        $role->guard_name = 'api';
+        $role->guard_name = 'web';
 
         $permissions = $request['permissions'];
 

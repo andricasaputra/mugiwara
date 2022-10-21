@@ -17,7 +17,7 @@
         @include('layouts.sidebar_admin_new')
       @endrole
 
-      @role('employee')
+      @role('admin_cabang|employee')
         @include('layouts.sidebar_new')
       @endrole  
       <!-- partial -->

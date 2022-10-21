@@ -22,7 +22,13 @@ trait HasBannedUser
             'banned_date' => now()
         ]);
 
-        return redirect(route('users.customer'))->withSuccess('User Sukses di Banned');
+       if($user->type == 'user'){
+
+         return redirect(route('users.employee'))->withSuccess('User Sukses di Banned');
+       }else{
+
+         return redirect(route('users.customer'))->withSuccess('User Sukses di Banned');
+       }
     }
 
     public function release(Request $request)
@@ -31,6 +37,12 @@ trait HasBannedUser
 
         $user->banned()->delete();
 
-         return redirect(route('users.customer'))->withSuccess('Banned User Berhasil Dihapaus');
+        if($user->type == 'user'){
+         return redirect(route('users.employee'))->withSuccess('Banned User Berhasil Dihapaus');
+       }else{
+        return redirect(route('users.customer'))->withSuccess('Banned User Berhasil Dihapaus');
+       }
+
+         
     }
 }

@@ -10,24 +10,54 @@
 
                 	<div class="row">
 				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card card-tale">
+				        <div class="card" style="border: 1px solid violet;">
 				          <div class="card-body">
-				            <p class="mb-4">Saldo Xendit</p>
-				            <p class="fs-30 mb-2">{{ $balance }}</p>
+				            <p class="mb-4 font-weight-bold">Saldo Xendit</p>
+				            <p class="fs-30 mb-2">{{ $balance_xendit }}</p>
 				            {{-- <p>10.00% (30 days)</p> --}}
 				          </div>
 				        </div>
 				      </div>
 				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card card-dark-blue">
+				        <div class="card" style="border: 1px solid violet;">
 				          <div class="card-body">
-				            <p class="mb-4">Total Bookings</p>
+				            <p class="mb-4 font-weight-bold">Total Bookings</p>
 				            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
 				            {{-- <p>22.00% (30 days)</p> --}}
 				          </div>
 				        </div>
 				      </div>
 				    </div>
+
+                    <div class="row">
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Masuk</p>
+                            <p class="fs-30 mb-2">Rp @currency($balance_in_total)</p>
+                            {{-- <p>10.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Keluar</p>
+                            <p class="fs-30 mb-2">Rp @currency($balance_out_total->sum('amount'))</p>
+                            {{-- <p>22.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Total Saldo</p>
+                            <p class="fs-30 mb-2">Rp @currency($balance_in_total - $balance_out_total->sum('amount'))</p>
+                            {{-- <p>22.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <hr>
                         <div>
