@@ -106,7 +106,7 @@
 				<td style="color: #755731; font-weight: bold; background-color: #f7f5f2; font-size: 12px">{{ $data['order']['check_in_date'] }}</td>
 				<td style="color: #755731; font-weight: bold; background-color: #f7f5f2; font-size: 12px">{{ $data['order']['check_out_date'] }}</td>
 				<td style="color: #755731; font-weight: bold; background-color: #f7f5f2; font-size: 12px">{{ $data['order']['total_guest'] }}</td>
-				<td style="color: #755731; font-weight: bold; background-color: #f7f5f2; font-size: 12px">{{ $data['order']['total_price'] }}</td>
+				<td style="color: #755731; font-weight: bold; background-color: #f7f5f2; font-size: 12px">{{ $data['amount'] }}</td>
 			</tr>
 		</table>
 	</div>

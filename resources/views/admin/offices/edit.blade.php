@@ -38,6 +38,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="account_number">Nomor Rekening Kantor Cabang</label>
+                            <input type="number" name="account_number" class="form-control" value="{{ $office->account_number }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bank_name">Nama Bank</label>
+                            <input type="text" class="form-control" value="{{ $office->bank_name }}" name="bank_name" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="user_id">Nama Karyawan</label>
                             <select name="user_id[]" id="" class="form-control js-example-tokenizer" multiple>
                                 @php

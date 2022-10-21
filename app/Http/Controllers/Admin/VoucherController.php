@@ -19,10 +19,12 @@ class VoucherController extends Controller
         })->latest()->get();
         return view('admin.voucher.index', compact('vouchers'));
     }
+
     public function create()
     {
         return view('admin.voucher.create');
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -43,12 +45,14 @@ class VoucherController extends Controller
             'point_needed' => 'required',
             'valid_for' => 'required',
         ]);
+
         if($request->image){
             $img = $request->file('image');
             $size = $img->getSize();
             $namaImage = time() . "_" . $img->getClientOriginalName();
             Storage::disk('public')->put('vouchers/'.$namaImage, file_get_contents($img->getRealPath()));
         }
+
         Voucher::create([
             'code' => $request->code,
             'name' => $request->name,
@@ -68,6 +72,7 @@ class VoucherController extends Controller
             'point_needed' => $request->point_needed,
             'valid_for' => $request->valid_for,
         ]);
+
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil ditambahkan');
     }
     
@@ -76,11 +81,13 @@ class VoucherController extends Controller
         $voucher = Voucher::find($voucherId);
         return view('admin.voucher.edit', compact('voucher'));
     }
+
     public function show($voucherId)
     {
         $voucher = Voucher::find($voucherId);
         return view('admin.voucher.show', compact('voucher'));
     }
+
     public function update(Request $request)
     {
         $this->validate($request, [
@@ -101,6 +108,7 @@ class VoucherController extends Controller
             'valid_for' => 'required',
             'image' => 'sometimes|mimes:jpeg,png,jpg',
         ]);
+
         $voucher = Voucher::find($request->id);
         if($request->image){
             Storage::disk('public')->delete('vouchers/'.$voucher->image);
@@ -109,6 +117,7 @@ class VoucherController extends Controller
             $namaImage = time() . "_" . $img->getClientOriginalName();
             Storage::disk('public')->put('vouchers/'.$namaImage, file_get_contents($img->getRealPath()));
         }
+
         $voucher->update([
             'code' => $request->code,
             'name' => $request->name,
@@ -128,6 +137,7 @@ class VoucherController extends Controller
             'point_needed' => $request->point_needed,
             'valid_for' => $request->valid_for,
         ]);
+        
         return redirect()->route('admin.voucher.index')->with('success', 'Data voucher berhasil diubah');
     }
     

@@ -37,7 +37,17 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 text-center mt-xl-2">
-                <a class="text-white font-weight-medium" href="{{ route('admin.dashboard.index') }}">Back</a>
+                @if(auth()->check())
+
+                    @if(auth()->user()->hasRole('admin'))
+                    <a class="text-white font-weight-medium" href="{{ route('admin.dashboard.index') }}">Back</a>
+                  @else
+                    <a class="text-white font-weight-medium" href="{{ route('dashboard') }}">Back</a>
+                  @endif
+
+                @else
+                   <a class="text-white font-weight-medium" href="{{ route('home') }}">Back</a>
+                @endif
               </div>
             </div>
             <div class="row mt-5">

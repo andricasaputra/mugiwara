@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductUser;
+use App\Traits\HasOldImageToDelete;
 use App\Uploads\PhotoDeliveryUploadService;
 use App\Uploads\PhotoPickupUploadService;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use Nette\Utils\Random;
 
 class ProductUserController extends Controller
 {
+    use HasOldImageToDelete;
+
     public function redeemList()
     {
         $products = ProductUser::latest()->with(['product', 'user'])->get();
@@ -126,14 +129,5 @@ class ProductUserController extends Controller
           return redirect()->route('admin.product.redeem.list')->with('success', 'Berhasil Hapus Data');
     }
 
-    private function deleteOldImage($model, $path)
-    {
-        $oldimage = url('storage/' . $path . '/' . $model->image?->image);
-
-        if(file_exists($oldimage)){
-            unlink($oldimage);
-        }
-
-        $model->image()?->delete();
-    }
+    
 }

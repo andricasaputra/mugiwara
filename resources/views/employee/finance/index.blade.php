@@ -8,15 +8,55 @@
             <div class="card">
                 <div class="card-block">
                 	<div class="row">
-				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card card-dark-blue">
-				          <div class="card-body">
-				            <p class="mb-4">Total Bookings</p>
-				            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
-				            {{-- <p>22.00% (30 days)</p> --}}
-				          </div>
-				        </div>
-				      </div>
+				      
+
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Masuk</p>
+                           <div class="d-flex justify-content-between align-items-center">
+                                <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice)</p>
+                            @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
+                                <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
+                            @endif
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Keluar</p>
+                           <div class="d-flex justify-content-between align-items-center">
+                                <p class="fs-30 mb-2">Rp @currency($balanceOutPerOffice->sum('amount'))</p>
+                            
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Total Saldo</p>
+                           <div class="d-flex justify-content-between align-items-center">
+                                <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Total Bookings</p>
+                            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
+                            {{-- <p>22.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+
 				    </div>
 
                     <hr>

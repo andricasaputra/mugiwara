@@ -5,21 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Repositories\BalanceRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Xendit\Xendit;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinanceController extends Controller
 {
 
+    public $repo;
+
     public function __construct()
     {
         Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
+
+        $this->repo = new BalanceRepository;
     }
 
     public function index()
     {
+        $this->repo->balanceIn();
+        $this->repo->balanceOut();
+
         $payments = Payment::latest()->with(['user', 'order', 'payable', 'voucher'])->get();
 
         $getBalance = $this->getBalance();
@@ -29,7 +37,9 @@ class FinanceController extends Controller
         return view('admin.finance.index')
             ->withPayments($payments)
             ->withBookings($bookings)
-            ->withBalance($this->rupiah($getBalance['balance']));
+            ->with('balance_xendit', $this->rupiah($getBalance['balance']))
+            ->with('balance_in_total', $this->repo->balanceInTotal)
+            ->with('balance_out_total', $this->repo->balanceOutTotal);
     }
 
     public function paymentDetail(Payment $payment)

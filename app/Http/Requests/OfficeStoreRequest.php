@@ -29,6 +29,8 @@ class OfficeStoreRequest extends FormRequest
             "address" => "required|string",
             "mobile_number" => "required|string",
             "user_id" => "required",
+            "account_number" => 'required|numeric',
+            "bank_name" => 'required',
             "hotel_id" => "nullable|string"
         ];
     }

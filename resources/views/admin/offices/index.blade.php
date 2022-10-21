@@ -25,6 +25,7 @@
                                                 <th>Tipe</th>
                                                 <th>Alamat</th>
                                                 <th>Nomor HP</th>
+                                                <th>Nomor Rekening Cabang</th>
                                                 <th>Karyawan</th>
                                                 <th>Penginapan</th>
                                                 <th>Action</th>
@@ -38,8 +39,22 @@
                                                     <td>{{ $office->address }}</td>
                                                     <td>{{ $office->mobile_number }}</td>
                                                     <td>
+                                                        {{ $office->account_number }}
+                                                        <br>
+                                                        <b>({{ $office->bank_name }})</b>
+                                                    </td>
+                                                    <td>
                                                         @foreach($office->users as $user)
-                                                            {{ \App\Models\User::find($user->user_id)?->name }} <br>
+
+                                                            @php $us =  \App\Models\User::find($user->user_id);  @endphp
+
+                                                            @if($us->hasRole('admin_cabang'))
+                                                                 <span class="badge badge-pill badge-success mb-2">{{ $us?->name }} <span class="badge badge-danger ml-1"><small>Admin</small></span></span> 
+                                                            @else
+                                                                <span class="badge badge-pill badge-dark mb-2"> {{ $us?->name }}</span>
+                                                            @endif
+
+                                                           
                                                         @endforeach
 
                                                     </td>

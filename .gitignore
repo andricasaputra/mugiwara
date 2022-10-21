@@ -27,3 +27,4 @@ firebase.json
 *.sql
 capsuleinn.id.crt
 capsuleinn.id.ca-bundle
+s3.txt
