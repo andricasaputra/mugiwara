@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('privacy/{privacy}', [PrivacyPoliciesController::class, 'show'])->name('privacy.show');
 
 
-Route::middleware(['verified', 'panel', 'banned'])->group(function(){
+Route::middleware(['verified', 'panel', 'banned',  'employee'])->group(function(){
 
 
     Route::get('users/edit/{user}', [UsersController::class, 'edit'])->name('users.edit.employee');
