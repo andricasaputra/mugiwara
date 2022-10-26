@@ -156,7 +156,7 @@
                                                 <div class="card" style="min-height:350px!important;">
                                                     <div class="card-body">
                                                         <p>{{ $r->comment }}</p>
-                                                        @if(!is_null($user->google_id))
+                                                        @if(!is_null($r->user?->google_id))
                                                              <img class="img-fluid"
                                                             src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
                                                         @else
