@@ -6,6 +6,20 @@
 @media screen and (max-width: 992px) {
   #saldo {
     font-size: 22x !important;
+    
+  }
+
+  .saldo-container{
+    flex-direction: column !important;
+    
+  }
+
+  .amount-container{
+    justify-content: center !important;
+  }
+
+  .saldo-container a{
+    margin-top: 10px;
   }
 }
 </style>
@@ -20,8 +34,8 @@
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Saldo Masuk</p>
-                           <div class="d-flex justify-content-between align-items-center">
-                                <p class="fs-30 mb-2">Rp @currency($balanceInPerOffice)</p>
+                           <div class="d-flex justify-content-between align-items-center amount-container">
+                                <p class="fs-30 mb-2 saldo-amount">Rp @currency($balanceInPerOffice)</p>
                             
                            </div>
                           </div>
@@ -32,8 +46,8 @@
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Saldo Keluar</p>
-                           <div class="d-flex justify-content-between align-items-center">
-                                <p class="fs-30 mb-2">Rp @currency($balanceOutPerOffice->sum('amount'))</p>
+                           <div class="d-flex justify-content-between align-items-center amount-container">
+                                <p class="fs-30 mb-2 saldo-amount">Rp @currency($balanceOutPerOffice->sum('amount'))</p>
                             
                            </div>
                           </div>
@@ -44,7 +58,7 @@
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Total Saldo</p>
-                           <div class="d-flex justify-content-between align-items-center">
+                           <div class="d-flex justify-content-between align-items-center saldo-container">
                                 <p id="saldo" class="fs-30 fs-sm-20 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
                                 @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
                                 <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
@@ -58,7 +72,10 @@
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Total Bookings</p>
-                            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
+                            <div class="d-flex justify-content-between align-items-center amount-container">
+                                 <p class="fs-30 mb-2 saldo-amount">{{ $bookings }} Kali</p>
+                            </div>
+                           
                             {{-- <p>22.00% (30 days)</p> --}}
                           </div>
                         </div>
