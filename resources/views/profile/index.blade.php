@@ -156,20 +156,17 @@
                                                 <div class="card" style="min-height:350px!important;">
                                                     <div class="card-body">
                                                         <p>{{ $r->comment }}</p>
-                                                        @if(!is_null($r->user?->google_id))
 
-                                                            @if(strpos('http', $r->user?->account?->avatar))
+
+                                                            @if(strpos('https', $r->user?->account?->avatar) != FALSE)
                                                                 <img class="img-fluid"
                                                             src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
+
                                                             @else
-                                                                <img class="img-fluid"
-                                                            src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
+ 
+                                                                 <img class="img-fluid"
+                                                                src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
                                                             @endif
-                                                             
-                                                        @else
-                                                             <img class="img-fluid"
-                                                            src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
-                                                        @endif
                                                        
                                                         <h5>{{ $r->user?->name }}</h5>
                                                         <div class="ranting">
