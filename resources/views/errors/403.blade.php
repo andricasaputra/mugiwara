@@ -46,7 +46,7 @@
                   @endif
 
                 @else
-                   <a class="text-white font-weight-medium" href="{{ route('home') }}">Back</a>
+                   <a class="text-white font-weight-medium" href="{{ route('profile.home') }}">Back</a>
                 @endif
               </div>
             </div>
