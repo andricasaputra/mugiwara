@@ -41,7 +41,7 @@ Route::middleware(['verified', 'panel', 'banned'])->group(function(){
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::name('employee.')->middleware('employee')->group(function() {
+    Route::name('employee.')->group(function() {
 
         Route::prefix('dashboard')->group(function() {
 
