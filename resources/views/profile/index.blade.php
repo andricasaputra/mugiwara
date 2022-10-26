@@ -157,8 +157,15 @@
                                                     <div class="card-body">
                                                         <p>{{ $r->comment }}</p>
                                                         @if(!is_null($r->user?->google_id))
-                                                             <img class="img-fluid"
+
+                                                            @if(file_exists($r->user?->account?->avatar))
+                                                                <img class="img-fluid"
                                                             src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
+                                                            @else
+                                                                <img class="img-fluid"
+                                                            src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
+                                                            @endif
+                                                             
                                                         @else
                                                              <img class="img-fluid"
                                                             src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
