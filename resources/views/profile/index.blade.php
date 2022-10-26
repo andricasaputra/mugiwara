@@ -156,8 +156,14 @@
                                                 <div class="card" style="min-height:350px!important;">
                                                     <div class="card-body">
                                                         <p>{{ $r->comment }}</p>
-                                                        <img class="img-fluid"
+                                                        @if(!is_null($user->google_id))
+                                                             <img class="img-fluid"
+                                                            src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
+                                                        @else
+                                                             <img class="img-fluid"
                                                             src="{{ url('storage/avatars/' . $r->user?->account?->avatar ?? 'default_man.png') }}">
+                                                        @endif
+                                                       
                                                         <h5>{{ $r->user?->name }}</h5>
                                                         <div class="ranting">
                                                             @for ($i = 0; $i < round($r->rating); $i++)
