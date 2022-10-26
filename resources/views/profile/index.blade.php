@@ -158,7 +158,7 @@
                                                         <p>{{ $r->comment }}</p>
                                                         @if(!is_null($r->user?->google_id))
 
-                                                            @if(file_exists($r->user?->account?->avatar))
+                                                            @if(strpos('http', $r->user?->account?->avatar))
                                                                 <img class="img-fluid"
                                                             src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
                                                             @else
