@@ -16,9 +16,7 @@ class IsEmployee
      */
     public function handle(Request $request, Closure $next)
     {
-        abort_if(! auth()->user()->hasRole('superadmin') 
-            || ! auth()->user()->hasRole('admin')
-            || ! auth()->user()->hasRole('admin_cabang')
+        abort_if(! auth()->user()->hasRole('admin_cabang')
             || ! auth()->user()->hasRole('employee'), 403);
 
         return $next($request);
