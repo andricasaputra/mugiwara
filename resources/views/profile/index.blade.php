@@ -158,7 +158,7 @@
                                                         <p>{{ $r->comment }}</p>
 
 
-                                                            @if(strpos('https', $r->user?->account?->avatar) != FALSE)
+                                                            @if(strpos('google', $r->user?->account?->avatar) != FALSE)
                                                                 <img class="img-fluid"
                                                             src="{{ $r->user?->account?->avatar ?? 'default_man.png' }}">
 
