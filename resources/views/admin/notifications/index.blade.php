@@ -48,7 +48,7 @@
 
                                                     <td>{{ $notification->data['title'] }}</td>
 
-                                                     <td>{{ $notification->data['message'] }}</td>
+                                                     <td>{{ @$notification->data['message'] }}</td>
 
                                                      <td>
                                                         @if(@$notification->data['order'])
