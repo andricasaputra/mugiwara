@@ -49,6 +49,8 @@
 
 
 
+@if($popup && $popup->is_active == 1)
+
 <!-- Modal Pop Up -->
 <div id="myModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
@@ -74,3 +76,5 @@
         </div>
     </div>
 </div>
+
+@endif
