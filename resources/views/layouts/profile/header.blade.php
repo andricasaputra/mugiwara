@@ -28,6 +28,49 @@
 		  -webkit-appearance: none;
 		  -moz-appearance: none;
 		}
+
+		.modal{
+			border:  none !important;
+			box-shadow: none !important;
+		}
+
+		.modal-header, .modal-footer { 
+		   background-color: #C5AD8D !important; 
+		}
+
+		.modal-body{
+			background-color: #C5AD8D !important; 
+		}
+
+		
 	</style>
 </head>
 <body>
+
+
+
+<!-- Modal Pop Up -->
+<div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            	<div>
+	                	<img src="{{url('assets/images/capsuleinnlogo.png')}}" width="50">
+	                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h5>{{ $popup->title }}</h5>
+                <p class="text-black"><small>{{ $popup->description }}</small></p>
+                @if($popup->image?->image)
+                	<div>
+	                	<img src="{{ asset('storage/popups/' . $popup->image?->image) }}" alt="Gambar">
+	                </div>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: #3C241E; color: #fff" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>

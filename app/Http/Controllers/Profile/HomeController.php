@@ -18,6 +18,7 @@ use App\Models\Pertanyaan;
 use App\Models\PlayStoreLink;
 use App\Models\Post;
 use App\Models\Review;
+use App\Models\SettingPopUp;
 use App\Models\Slider;
 use App\Models\SliderFitur;
 use App\Models\SliderMitra;
@@ -58,6 +59,7 @@ class HomeController extends Controller
         $review = Review::with([
             'user'
         ])->orderBy('created_at', 'desc')->limit(6)->get();
+        $popUp = SettingPopUp::with('image')->latest()->first();
 
         return view('profile.index', [
             'title' => 'Beranda',
@@ -71,7 +73,8 @@ class HomeController extends Controller
             'menu' => $menu,
             'alamat' => $alamat,
             'overview' => $overview,
-            'review' => $review
+            'review' => $review,
+            'popup' => $popUp
         ])
             ->withSliders($sliders);
     }
@@ -91,6 +94,9 @@ class HomeController extends Controller
         $pendaftaran = Pendaftaran::orderBy('order', 'asc')->get();
         $syarat = SyaratDokumen::orderBy('order', 'asc')->get();
         $settings = GeneralSettings::first();
+        $popUp = SettingPopUp::with('image')->latest()->first();
+
+
         return view('profile.mitra', [
             'title' => 'Jadi Mitra',
             'settings' => $settings,
@@ -99,7 +105,8 @@ class HomeController extends Controller
             'mitraSection' => $mitraSection,
             'sliderMitra' => $sliderMitra,
             'pendaftaran' => $pendaftaran,
-            'syarat' => $syarat
+            'syarat' => $syarat,
+            'popup' => $popUp
         ]);
     }
 
@@ -116,6 +123,7 @@ class HomeController extends Controller
         $syarat = SyaratDokumen::orderBy('order', 'asc')->get();
         $appstore_link = AppStoreLink::query()->first();
         $playstore_link = PlayStoreLink::query()->first();
+        $popUp = SettingPopUp::with('image')->latest()->first();
 
         return view('profile.hotel', [
             'menu' => $menu,
@@ -126,6 +134,7 @@ class HomeController extends Controller
             'syarat' => $syarat,
             'playstore' => $playstore_link,
             'appstore' => $appstore_link,
+            'popup' => $popUp
         ])
             ->withTitle('Hotel')
             ->withSettings($settings)
@@ -151,6 +160,8 @@ class HomeController extends Controller
         $team = TeamHeader::all();
         $settings = GeneralSettings::first();
         $tentang = Tentang::all();
+        $popUp = SettingPopUp::with('image')->latest()->first();
+
         return view('profile.team', [
             'title' => 'Tentang Kami',
             'settings' => $settings,
@@ -158,7 +169,8 @@ class HomeController extends Controller
             'alamat' => $alamat,
             'visiMisi' => $visiMisi,
             'team' => $team,
-            'tentang' => $tentang
+            'tentang' => $tentang,
+            'popup' => $popUp
         ]);
     }
 
@@ -169,13 +181,16 @@ class HomeController extends Controller
         $pertanyaan = Pertanyaan::where('kategori', 'pertanyaan')->get();
         $lainnya = Pertanyaan::where('kategori', 'lain-lain')->get();
         $settings = GeneralSettings::first();
+        $popUp = SettingPopUp::with('image')->latest()->first();
+
         return view('profile.bantuan', [
             'title' => 'Bantuan',
             'settings' => $settings,
             'menu' => $menu,
             'alamat' => $alamat,
             'pertanyaan' => $pertanyaan,
-            'lainnya' => $lainnya
+            'lainnya' => $lainnya,
+            'popup' => $popUp
         ]);
     }
 
@@ -186,6 +201,8 @@ class HomeController extends Controller
         $informasi = Post::where('slug', $slug)->first();
         $informasiAll = Post::where('slug', '!=', $slug)->where('is_active', 1)->get();
         $settings = GeneralSettings::first();
+        $popUp = SettingPopUp::with('image')->latest()->first();
+
         return view('profile.detail_informasi', [
             'title' => 'Beranda - Informasi',
             'settings' => $settings,
@@ -193,6 +210,7 @@ class HomeController extends Controller
             'informasi' => $informasi,
             'informasiAll' => $informasiAll,
             'alamat' => $alamat,
+            'popup' => $popUp
         ]);
     }
 
@@ -330,13 +348,16 @@ class HomeController extends Controller
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $settings = GeneralSettings::first();
         $lainnya = Pertanyaan::where('kategori', 'lain-lain')->limit(7)->get();
+        $popUp = SettingPopUp::with('image')->latest()->first();
+
         return view('profile.detail_pertanyaan', [
             'title' => 'Pertanyaan',
             'settings' => $settings,
             'menu' => $menu,
             'alamat' => $alamat,
             'pertanyaan' => $pertanyaan,
-            'lainnya' => $lainnya
+            'lainnya' => $lainnya,
+            'popup' => $popUp
         ]);
     }
 

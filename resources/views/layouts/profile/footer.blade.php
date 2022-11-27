@@ -136,5 +136,14 @@
 		});
 	}
 </script>
+
+@if($popup && $popup->is_active == 1)
+	<!-- jQuery Code (to Show Modal on Page Load) -->
+<script>
+$(document).ready(function() {
+    $("#myModal").modal("show");
+});
+</script>
+@endif
 </body>
 </html>
