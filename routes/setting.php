@@ -1,6 +1,7 @@
 <?php  
 
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SettingPopUpController;
 
 Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('settings/payment', [SettingController::class, 'paymentList'])->name('settings.payment');
@@ -33,3 +34,15 @@ Route::post('settings/tax', [SettingController::class, 'storeTaxSetting'])->name
 Route::get('settings/tax/destroy/{setting}', [SettingController::class, 'destroyTaxSetting'])->name('settings.tax.destroy');
 
 Route::put('settings/tax/{setting}', [SettingController::class, 'updateTaxSetting'])->name('settings.tax.update');
+
+Route::get('settings/popup', [SettingPopUpController::class, 'popUpSetting'])->name('settings.popup');
+
+Route::get('settings/popup/create', [SettingPopUpController::class, 'createPopUpSetting'])->name('settings.popup.create');
+
+Route::get('settings/popup/edit/{setting}', [SettingPopUpController::class, 'editPopUpSetting'])->name('settings.popup.edit');
+
+Route::post('settings/popup', [SettingPopUpController::class, 'storePopUpSetting'])->name('settings.popup.store');
+
+Route::get('settings/popup/destroy/{setting}', [SettingPopUpController::class, 'destroyPopUpSetting'])->name('settings.popup.destroy');
+
+Route::put('settings/popup/{setting}', [SettingPopUpController::class, 'updatePopUpSetting'])->name('settings.popup.update');
