@@ -30,10 +30,10 @@
                                     <div class="swiper-wrapper">
                                         @foreach ($sliders as $slider)
                                             <div class="swiper-slide">
-                                                @if($slider->is_active == 1)
-                                                    <img class="img-fluid"
-                                                    src="{{ url('storage/data/' . $slider->image) }}" />
-                                                @endif
+
+                                                <img class="img-fluid"
+                                                src="{{ url('storage/data/' . $slider->image) }}" />
+                                              
                                             </div>
                                         @endforeach
                                     </div>

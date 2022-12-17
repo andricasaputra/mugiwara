@@ -45,7 +45,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $sliders = Slider::all();
+        $sliders = Slider::where('is_active', 1)->get();
         $beranda = Beranda::all();
         $settingPlayStore = PlayStoreLink::orderBy('created_at', 'desc')->first();
         $settingAppStore = AppStoreLink::orderBy('created_at', 'desc')->first();
