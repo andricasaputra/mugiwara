@@ -76,7 +76,7 @@ class PostController extends Controller
             'title' => 'required',
             'body' => 'required',
             'is_active' => 'required',
-            'image' => 'sometimes|mimes:jpeg,png,jpg',
+            'image' => 'sometimes|mimes:jpeg,png,jpg,webp',
         ]);
 
         $post = Post::find($request->id);
