@@ -33,7 +33,7 @@ class PostController extends Controller
             'title' => 'required',
             'body' => 'required',
             'is_active' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg',
+            'image' => 'required|mimes:jpeg,png,jpg,webp',
         ]);
 
         if($request->image){
