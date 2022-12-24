@@ -62,20 +62,6 @@
 </div>
 
 
-@endsection
-
-@section('link')
-    <style>
-        td {
-          white-space: normal !important; 
-          word-wrap: break-word;  
-        }
-        table {
-          table-layout: fixed;
-        }
-
-    </style>
-@endsection
 
 
 @push('scripts')
