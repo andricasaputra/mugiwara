@@ -11,49 +11,51 @@
                {{--  <a href="" class="btn btn-primary btn-sm align-items-center my-auto">Tambah Refferal</a> --}}
             </div>
             <div class="card-body">
-                <table id="mytable" class="table table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Affiliator</th>
-                        <th>Kode</th>
-                        <th>Follower</th>
-                        <th>Waktu Tukar</th>
-                        <th>Device ID</th>
-                        <th>Detail</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($refferals as $key => $refferal)
+                <div class="table-responsive">
+                        <table id="mytable" class="table-striped text-center" style="width: 100%">
+                        <thead>
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <th>No</th>
+                            <th>Affiliator</th>
+                            <th>Kode</th>
+                            <th>Follower</th>
+                            <th>Waktu Tukar</th>
+                            <th>Device ID</th>
+                            <th>Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($refferals as $key => $refferal)
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
 
-                            <td>{{ $refferal->user?->name }}</td>
-                            <td>{{ $refferal->refferal_code }}</td>
-                            <td>
-                                @foreach($refferal->followers as $follower)
-                                    {{ $follower->user?->name }} <br>
-                                @endforeach
-                                
-                                
-                            </td>
-                            <td>
-                                {{ $refferal->created_at->format('d-m-Y H:i:s') }}
-                            </td>
-                            <td>
-                                {{ $refferal->device_id }}
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.refferals.show', $refferal->id) }}" class="btn btn-primary">Detail</a>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7" class="text-center">Tidak ada data</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                <td>{{ $refferal->user?->name }}</td>
+                                <td>{{ $refferal->refferal_code }}</td>
+                                <td>
+                                    @foreach($refferal->followers as $follower)
+                                        {{ $follower->user?->name }} <br>
+                                    @endforeach
+                                    
+                                    
+                                </td>
+                                <td>
+                                    {{ $refferal->created_at->format('d-m-Y H:i:s') }}
+                                </td>
+                                <td>
+                                    {{ $refferal->device_id }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.refferals.show', $refferal->id) }}" class="btn btn-primary">Detail</a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak ada data</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
