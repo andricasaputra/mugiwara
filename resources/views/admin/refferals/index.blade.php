@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                        <table id="mytable" class="table-striped text-center" style="width: 100%">
+                        <table id="mytable" class="table table-striped text-center">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-
+@endsection
 
 
 @push('scripts')
