@@ -8,7 +8,7 @@
 
 		    <div class="container">
                 <div class="row mb-5">
-                    <div class="col-lg-8 hotel-items">
+                    <div class="col-lg-8 hotel-items" style="margin-bottom: 20px">
                         <div class="hotel-top">
 
                         	@if(!is_null($trending?->image))
@@ -45,9 +45,9 @@
                     <div class="col-lg-4 hotel-items">
                         <div class="card">
                             <form action="#" method="POST">
-                                <h2>Cek Ketersedian Kamar</h2>
+                                <h2 class="mt-4">Cek Ketersedian Kamar</h2>
                                 <input type="date" name="tanggal" id="dateSearch" placeholder="Cari Kamar">
-                                <button class="btn" type="button" id="searchHotel">Cari Kamar</button>
+                                <button class="btn mb-4" type="button" id="searchHotel">Cari Kamar</button>
                             </form>
                         </div>
                     </div>
