@@ -28,7 +28,7 @@
 					<div class="row">
 						@foreach($team as $k => $t)
 						<div class="col-lg-4 list-teams-list">
-							<div class="card" style="min-height: 500px!important;">
+							<div class="card" style="min-height: 500px!important; margin-bottom: 30px">
 								<img class="card-img-top" src="{{url('images/compro/team_header/' . $t->gambar)}}">
 								<div class="card-body">
 									<h2>{{$t->heading}}</h2>
