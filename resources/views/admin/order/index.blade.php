@@ -72,7 +72,7 @@
                                                     </td>
 
                                                      <td>
-                                                    	{{ $order->room?->price }}
+                                                    	{{ $order->normal_price ?? 0 }}
                                                     </td>
 
 
