@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Alamat;
 use App\Models\GeneralSettings;
 use App\Models\MitraGabung;
+use App\Models\SettingPopUp;
 use App\Models\Tambah_menu_compro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,11 +23,13 @@ class RegisterController extends Controller
         $menu = Tambah_menu_compro::where('status', 1)->get();
         $alamat = Alamat::orderBy('created_at', 'desc')->first();
         $settings = GeneralSettings::first();
+        $popUp = SettingPopUp::with('image')->latest()->first();
         return view('profile.register', [
             'title' => 'Jadi Mitra - Register',
             'alamat' => $alamat,
             'settings' => $settings,
-            'menu' => $menu
+            'menu' => $menu,
+            'popup' => $popUp
         ]);
     }
 
