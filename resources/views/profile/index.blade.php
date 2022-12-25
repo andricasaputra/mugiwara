@@ -120,7 +120,7 @@
                         @if (count($fitur) != 0)
                             <div class="row mt-5">
                                 @foreach ($fitur as $f)
-                                    <div class="col-lg-4 fiture-items">
+                                    <div class="col-lg-4 fiture-items" style="margin-bottom: 30px">
                                         <div class="card-fitures">
                                             <div class="icon-tag">
                                                 <img class="img-fluid"
