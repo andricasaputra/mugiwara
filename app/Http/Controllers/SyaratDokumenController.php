@@ -87,7 +87,7 @@ class SyaratDokumenController extends Controller
 
         if (!is_null($request->file)) {
             $validator = Validator::make($request->all(), [
-                'file' => 'max:100|mimes:jpeg,png,jpg,zip,docx'
+                'file' => 'max:1000|mimes:jpeg,png,jpg,zip,docx'
             ],[
                 'max' => ':attribute max 1 mb',
                 'mimes' => ':attribute harus gambar, zip, atau docx'
