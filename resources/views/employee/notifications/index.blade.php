@@ -46,7 +46,7 @@
 
                                                      <td>{{ $notification->data['message'] }}</td>
 
-                                                      <td>{{ $notification->created_at->diffForHumans() }}</td>
+                                                      <td>{{ @$notification->created_at->diffForHumans() }}</td>
 
                                                       <td>
                                                           <form action="{{ route('employee.notification.destroy') }}" method="post">
