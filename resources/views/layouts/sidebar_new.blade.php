@@ -34,7 +34,7 @@
 
                   @if($child->is_active == 1)
 
-                   @if(($child->name != 'Transaksi' || $child->name != 'transaksi') && $child->name != 'push notifikasi' && $child->name != 'Alasan Refund' && $child->name != 'penginapan' && $child->name != 'tipe kamar' && $child->name != 'fasilitas' && $child->name != 'nomor kamar')
+                   @if($child->name != 'Transaksi' && $child->name != 'transaksi' && $child->name != 'push notifikasi' && $child->name != 'Alasan Refund' && $child->name != 'penginapan' && $child->name != 'tipe kamar' && $child->name != 'fasilitas' && $child->name != 'nomor kamar')
 
                      <li class="nav-item"> <a class="nav-link" href="{{ url($child->url) }}">{{ ucwords($child->name) }}</a></li>
 
