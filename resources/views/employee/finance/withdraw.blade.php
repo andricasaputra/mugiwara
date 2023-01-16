@@ -21,9 +21,22 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="amount">Jumlah Saldo Yang Ingin Ditarik</label>
-                            <input type="number" class="form-control" id="amount" name="amount" value="{{ old('amount') }}" required>
+                            <input type="number" class="form-control" id="amount" name="amount" value="{{ old('amount') }}" required id="amount">
                         </div>
                     </div>
+
+                    <div class="col-12 mb-4" style="margin-top: -8px">
+                        {{-- <p style="color: red; margin-top: -8px; font-weight: bold"><i>Note : Jumlah Fee Penarikan Sebesar : </i></p> --}}
+                        <a href="#" class="badge badge-danger"><b>Note : Jumlah Fee Penarikan Sebesar : {{ $fee->value }}%</b></a>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="amount">Jumlah Saldo Setelah Potongan Fee</label>
+                            <input type="number" class="form-control" name="fee_amount" id="fee_amount" readonly>
+                        </div>
+                    </div>
+
                     <div class="col-12">
                         <div class="form-group">
                             <label for="account_number">Nomor Rekening</label>
@@ -51,11 +64,16 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.select2').select2();
+    $(document).ready(function(){
+        $('#amount').keyup(function(){
+            let fee = $(this).val() * ('{{ $fee->value }}' / 100);
+
+            console.log(fee)
+
+            $('#fee_amount').val();
+            $('#fee_amount').val($(this).val() - fee);
+        });
     });
-    $('#ratings').keypress(function(event){
-        event.preventDefault();
-    });
+    
 </script>
 @endpush

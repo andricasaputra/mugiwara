@@ -33,6 +33,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">Jumlah Setelah fee</label>
+                            <input name="amount" type="text" class="form-control form-control-lg" value="{{ $withdraw->fee_amount }}"  required readonly>
+                        </div>
+
+                        <div class="form-group">
                             <label for="name">Nama Bank</label>
                             <input name="bank_name" type="text" class="form-control form-control-lg" value="{{ $withdraw->bank_name }}"  required readonly>
                         </div>
@@ -81,12 +86,6 @@
 
 @endsection
 
-@section('link')
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-@endsection
-
 @section('scripts')
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -95,13 +94,13 @@
 
     $(document).ready(function() {
 
-        $(".js-example-tokenizer").select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
+        $('.nav-item').removeClass('active');
+        $('.nav-link').removeClass('active');
+        $('.nav-link').css({backgrounColor : '#fff' });
+        $('.nav-item').css({backgrounColor : '#fff' });
 
     });
 
     </script>
 
-@endsection()
+@endsection

@@ -163,7 +163,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">No settings available</td> 
+                                                    <td colspan="8">No settings available</td> 
                                                 </tr>
                                             @endforelse
                                         </tbody>

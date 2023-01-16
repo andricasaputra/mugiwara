@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\SettingFeeCabang;
 use App\Models\User;
 use App\Models\Withdraw;
 use App\Notifications\AdminWithdrawalNotification;
@@ -50,12 +51,14 @@ class FinanceController extends Controller
              return view('employee.finance.index')
                 ->withPayments($payments)
                 ->withBookings($bookings)
-                ->with('balanceInPerOffice', $this->repo->balanceInPerOffice[$this->getOffice()])
+                ->with('balanceInPerOffice', @$this->repo->balanceInPerOffice[$this->getOffice()] ?? 0)
                 ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice);
 
+        } else {
+            return view('employee.finance.index')->withPayments($payments)
+                ->withBookings($bookings)->with('balanceInPerOffice', @$this->repo->balanceInPerOffice[$this->getOffice()] ?? 0)
+                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice);
         }
-        
-        abort(403);
        
     }
 
@@ -102,7 +105,9 @@ class FinanceController extends Controller
             return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo masih 0');
         }
 
-        return view('employee.finance.withdraw');
+        $fee = SettingFeeCabang::where('office_id', auth()->user()->office?->office?->id)->first();
+
+        return view('employee.finance.withdraw')->withFee($fee);
     }
 
     public function StoreWithdrawBalance(Request $request)
@@ -117,7 +122,6 @@ class FinanceController extends Controller
             'bank_name' => 'required'
         ]);
 
-
         $balance_in = $this->repo->balanceInPerOffice[$this->getOffice()];
 
         $total_saldo = $balance_in - $this->repo->balanceOutPerOffice->sum('amount');
@@ -129,6 +133,7 @@ class FinanceController extends Controller
         $withdraw = Withdraw::create([
             'user_id' => auth()->id(),
             'amount' => $request->amount,
+            'fee_amount' => $request->fee_amount,
             'account_number' => $request->account_number,
             'bank_name' => $request->bank_name,
         ]);

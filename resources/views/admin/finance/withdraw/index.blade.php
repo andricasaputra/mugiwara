@@ -26,6 +26,7 @@
                                                 <th>Nama Bank</th>
                                                 <th>Nomor Rekening</th>
                                                 <th>Jumlah</th>
+                                                <th>Jumlah Setelah Fee</th>
                                                 <th>Status Permohonan</th>
                                                 <th>Alasan (apabila ditolak)</th>
                                                 <th>Gambar Bukti Transfer</th>
@@ -53,6 +54,8 @@
                                                     </td>
 
                                                     <td>Rp @currency($withdraw->amount)</td>
+
+                                                    <td>Rp @currency($withdraw->fee_amount)</td>
 
                                                     <td>
                                                         @if($withdraw->status == 'PENDING')

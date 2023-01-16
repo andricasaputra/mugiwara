@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomNumberController;
 use App\Http\Controllers\Admin\RoomTypeController;
+use App\Http\Controllers\Admin\SettingFeeCabangController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UsersController;
@@ -264,6 +265,10 @@ Route::name('admin.')->group(function() {
     Route::post('accomodations/rooms/image/{id?}', [RoomController::class, 'destroyImage'])->name('accomodation.rooms.image.destroy');
 
     Route::resource('delete_reason', DeleteReasonController::class);
+
+    Route::name('settings.')->group(function(){
+         Route::resource('fee', SettingFeeCabangController::class);
+    });
 
     require __DIR__.'/setting.php';
 

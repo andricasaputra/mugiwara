@@ -77,6 +77,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.payments_methods.index') }}"> Cara Pembayaran </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.delete_reason.index') }}"> Alasan Hapus Akun</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.popup') }}"> Setting Pop Up Web</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.settings.fee.index') }}"> Setting Fee Cabang</a></li>
           </ul>
         </div>
       </li>

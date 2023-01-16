@@ -16,6 +16,7 @@ use App\Http\Controllers\Employee\ProductController;
 use App\Http\Controllers\Employee\ProductUserController;
 use App\Http\Controllers\Employee\RefferalController;
 use App\Http\Controllers\Employee\RefundController;
+use App\Http\Controllers\Employee\RoomController;
 use App\Http\Controllers\Employee\UsersController;
 use App\Http\Controllers\Employee\VoucherController;
 use App\Http\Controllers\Employee\WithdrawalController;
@@ -49,6 +50,8 @@ Route::middleware(['verified', 'panel', 'banned',  'employee'])->group(function(
             Route::post('pointchart', [DashboardController::class, 'pointChart'])->name('dashboard.pointchart');
             Route::post('financechart', [DashboardController::class, 'financeChart'])->name('dashboard.financechart');
         });
+
+        Route::resource('rooms', RoomController::class);
 
         Route::get('orders', [OrderController::class, 'index'])->name('order.index');
         Route::get('orders/detail/{order}', [OrderController::class, 'detail'])->name('order.detail');
@@ -141,12 +144,12 @@ Route::middleware(['verified', 'panel', 'banned',  'employee'])->group(function(
         Route::get('refunds/action/{refund}', [RefundController::class, 'actionPage'])->name('refund.action.page');
         Route::post('refunds/action/{refund}', [RefundController::class, 'action'])->name('refund.action');
         });
-
-
 });
 
 Route::resource('playstores', PlayStoreController::class);
 Route::resource('appstores', AppStoreController::class);
+
+
 
 
 require __DIR__.'/auth.php';
