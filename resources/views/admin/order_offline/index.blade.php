@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                   {{--  <a href="{{ route('admin.order.point.create') }}" class="btn btn-success">Tambah Setting Poin</a> --}}
+                    <a href="{{ route('admin.order.offline.create') }}" class="btn btn-success">Pesan Kamar</a>
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -15,7 +15,7 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Daftar Pemesanan Online</p>
+                                <p class="card-title">Daftar Pemesanan Offline</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table text-center">

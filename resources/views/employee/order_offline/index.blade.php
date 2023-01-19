@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                   {{--  <a href="{{ route('admin.order.point.create') }}" class="btn btn-success">Tambah Setting Poin</a> --}}
+                    <a href="{{ route('employee.order.offline.create') }}" class="btn btn-success">Pesan Kamar</a>
                     <hr>
                     <div class="table-responsive">
                         <div class="row">
@@ -15,7 +15,7 @@
                             <div class="card">
                               <div class="card-body">
                                 @include('inc.message')
-                                <p class="card-title">Daftar Pemesanan Online</p>
+                                <p class="card-title">Daftar Pemesanan Offline</p>
                                 <div class="row">
                                   <div class="col-12">
                                     <table id="mytable" class="display expandable-table text-center">
@@ -26,10 +26,10 @@
                                                 <th>Kamar</th>
                                                 <th>Tanggal Pesan</th>
                                                 <th>Akomodasi</th>
-                                                <th>Customer</th>
                                                 <th>Check In</th>
                                                 <th>Harga Per Malam</th>
                                                 <th>Diskon Kamar</th>
+                                                <th>Jumlah Tagihan</th>
                                                 <th>Status Pembayaran</th>
                                                 <th>Jumlah Pembayaran</th>
                                                 <th>Action</th>
@@ -60,12 +60,6 @@
                                                     </td>
 
                                                     <td>
-                                                    	{{ ucfirst($order->user?->name) }}
-                                                    	<br>
-                                                    	{{ $order->user?->email }}
-                                                    </td>
-
-                                                    <td>
                                                     	{{ \Carbon\Carbon::parse($order->check_in_date)->format('d-m-Y') }}
                                                     	<br>
                                                     	{{ $order->stay_day }} Hari
@@ -85,6 +79,8 @@
                                                     	
                                                     </td>
 
+                                                    <td>{{ $order->total_price }}</td>
+
                                                     <td>
                                                     	@if($order->refund)
 
@@ -103,10 +99,21 @@
                                                      </td>
 
                                                     <td>
-                                                    	<a href="{{ route('admin.orders.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
+                                                    	<a href="{{ route('employee.order.offline.detail', $order->id) }}" class="btn btn-primary mb-2">Detail</a>
 
                                                         @if($order->order_status == 'booked')
-                                                             <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
+                                                             <a href="{{ route('employee.order.offline.edit', $order->id) }}" class="btn btn-warning mb-2">Edit</a>
+                                                        @endif
+
+                                                        @if($order->payment == null)
+        
+                                                            <form action="{{ route('employee.payment.offline.store') }}" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+
+                                                                <button type="submit" class="btn btn-success mt-2">Pay</button>
+                                                            </form>
                                                         @endif
 
                                                         @if($order->order_status == 'completed' || $order->order_status == 'cancel')
@@ -122,12 +129,20 @@
 
                                                                 @if($order->order_status == 'booked')
 
-                                                                    <a href="{{ route('admin.orders.checkin.page', $order->id) }}" class="btn btn-success mb-2" data-order_id="{{ $order->id }}">Check In</a>
+
+                                                                    <form action="{{ route('employee.order.offline.checkin') }}" method="post">
+                                                                        @csrf
+
+                                                                         <input type="hidden" value="{{ $order->id }}" name="order_id">
+
+
+                                                                         <button type="submit" class="btn btn-success mb-2">Check In</button>
+                                                                    </form>
 
 
                                                                 @elseif($order->order_status == 'stayed')
 
-                                                                        <form action="{{ route('admin.orders.checkout') }}" method="post">
+                                                                        <form action="{{ route('employee.order.offline.checkout') }}" method="post">
 
                                                                         @csrf
 

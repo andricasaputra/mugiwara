@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ManajemenMenuController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfficeListController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderOfflineController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PaymentMethodSettingController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -217,6 +218,24 @@ Route::name('admin.')->group(function() {
     Route::post('orders/checkin', [OrderController::class, 'checkin'])->name('orders.checkin');
     Route::get('orders/edit/{order}', [OrderController::class, 'edit'])->name('orders.edit');
     Route::put('orders/update/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+    //Order Offline
+
+    Route::prefix('order_offline')->group(function(){
+        
+        Route::post('checkout', [OrderOfflineController::class, 'checkout'])->name('order.offline.checkout');
+        Route::get('checkin/{order}', [OrderOfflineController::class, 'checkInPage'])->name('order.offline.checkin.page');
+        Route::post('checkin', [OrderOfflineController::class, 'checkIn'])->name('order.offline.checkin');
+
+        // CRUD
+
+        Route::get('', [OrderOfflineController::class, 'index'])->name('order.offline.index');
+        Route::get('detail/{order}', [OrderOfflineController::class, 'detail'])->name('order.offline.detail');
+        Route::get('create', [OrderOfflineController::class, 'create'])->name('order.offline.create');
+        Route::post('store', [OrderOfflineController::class, 'create'])->name('order.offline.store');
+        Route::get('edit/{order}', [OrderOfflineController::class, 'edit'])->name('order.offline.edit');
+        Route::put('update/{order}', [OrderOfflineController::class, 'update'])->name('order.offline.update');
+    });
 
     Route::get('finance', [FinanceController::class, 'index'])->name('finance.index');
 
