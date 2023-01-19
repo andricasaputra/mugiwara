@@ -21,6 +21,23 @@ class PaymentOfflineController extends Controller
             $tax_amount = 0;
         }
 
+        if($order->discount_amount != null){
+
+            if($order->discount_type == 'percent'){
+
+                $discount = $order->normal_price * ($order->discount_amount / 100);
+
+            } elseif($order->discount_type == 'flat'){
+
+                $discount = $order->discount_amount;
+
+            } else {
+
+                $discount = 0;
+            }
+
+        }
+
        try {
 
          $order->payment()->create([
@@ -31,8 +48,8 @@ class PaymentOfflineController extends Controller
             'voucher_id' => NULL,
             'currency' => null,
             'amount' => $order->total_price,
-            'discount_type' => $request->discount_type ??= NULL,
-            'discount_amount' => $request->discount_amount ??= NULL,
+            'discount_type' => $order->discount_type ?? NULL,
+            'discount_amount' => (int) $discount,
             'tax' => $tax_amount,
             'status' => 'PAYED',
         

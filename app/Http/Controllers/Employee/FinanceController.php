@@ -33,6 +33,7 @@ class FinanceController extends Controller
     protected function setupRepo()
     {
         $this->repo->balanceIn();
+        $this->repo->balanceInOffline();
         $this->repo->balanceOut();
     }
 
@@ -52,12 +53,14 @@ class FinanceController extends Controller
                 ->withPayments($payments)
                 ->withBookings($bookings)
                 ->with('balanceInPerOffice', @$this->repo->balanceInPerOffice[$this->getOffice()] ?? 0)
-                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice);
+                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice)
+                ->with('balanceInOfflinePerOffice', @$this->repo->balanceInOfflinePerOffice[$this->getOffice()] ?? 0);
 
         } else {
             return view('employee.finance.index')->withPayments($payments)
                 ->withBookings($bookings)->with('balanceInPerOffice', @$this->repo->balanceInPerOffice[$this->getOffice()] ?? 0)
-                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice);
+                ->with('balanceOutPerOffice', $this->repo->balanceOutPerOffice)
+                ->with('balanceInOfflinePerOffice', @$this->repo->balanceInOfflinePerOffice[$this->getOffice()] ?? 0);
         }
        
     }
@@ -102,12 +105,12 @@ class FinanceController extends Controller
         $available_balance = $this->repo->balanceInPerOffice[$this->getOffice()];
 
         if($available_balance < 0){
-            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo masih 0');
+            return redirect(route('employee.finance.index'))->withErrors('Mohon maaf saldo online masih 0');
         }
 
         $fee = SettingFeeCabang::where('office_id', auth()->user()->office?->office?->id)->first();
 
-        return view('employee.finance.withdraw')->withFee($fee);
+        return view('employee.finance.withdraw')->withFee($fee)->with('max_balance', $available_balance);
     }
 
     public function StoreWithdrawBalance(Request $request)

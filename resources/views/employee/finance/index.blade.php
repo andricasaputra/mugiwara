@@ -30,19 +30,30 @@
             <div class="card">
                 <div class="card-block">
                 	<div class="row">
-                      <div class="col-md-6 mb-4 stretch-card transparent">
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
-                            <p class="mb-4 font-weight-bold">Saldo Masuk</p>
+                            <p class="mb-4 font-weight-bold">Saldo Masuk (Via Aplikasi)</p>
                            <div class="d-flex justify-content-between align-items-center amount-container">
                                 <p class="fs-30 mb-2 saldo-amount">Rp @currency($balanceInPerOffice)</p>
-                            
                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div class="col-md-6 mb-4 stretch-card transparent">
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Masuk Cash (Via Offline)</p>
+                           <div class="d-flex justify-content-between align-items-center amount-container">
+                                <p class="fs-30 mb-2 saldo-amount">Rp @currency($balanceInOfflinePerOffice)</p>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Saldo Keluar</p>
@@ -54,21 +65,35 @@
                         </div>
                       </div>
 
-                      <div class="col-md-6 mb-4 stretch-card transparent">
+                      <div class="col-md-4 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
-                            <p class="mb-4 font-weight-bold">Total Saldo</p>
+                            <p class="mb-4 font-weight-bold">Total Saldo (Online + Offline)</p>
                            <div class="d-flex justify-content-between align-items-center saldo-container">
-                                <p id="saldo" class="fs-30 fs-sm-20 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
-                                @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
-                                <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
-                            @endif
+                                <p id="saldo" class="fs-30 mb-2">Rp @currency($balanceInPerOffice + $balanceInOfflinePerOffice - $balanceOutPerOffice->sum('amount'))</p>
+                                
                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div class="col-md-6 mb-4 stretch-card transparent">
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Total Saldo setelah Penarikan</p>
+                           <div class="d-flex justify-content-between align-items-center saldo-container">
+                                <p id="saldo" class="fs-20 mb-2">Rp @currency($balanceInPerOffice - $balanceOutPerOffice->sum('amount'))</p>
+
+                                 @if(auth()->user()->hasRole('admin_cabang') && $balanceInPerOffice > 0)
+                                <a href="{{ route('employee.finance.withdraw.create') }}" class="btn btn-dark pull-right">Tarik saldo</a>
+                            @endif
+                           </div>
+                          
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet">
                           <div class="card-body">
                             <p class="mb-4 font-weight-bold">Total Bookings</p>

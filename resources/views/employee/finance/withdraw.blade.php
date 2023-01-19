@@ -28,6 +28,7 @@
                     <div class="col-12 mb-4" style="margin-top: -8px">
                         {{-- <p style="color: red; margin-top: -8px; font-weight: bold"><i>Note : Jumlah Fee Penarikan Sebesar : </i></p> --}}
                         <a href="#" class="badge badge-danger"><b>Note : Jumlah Fee Penarikan Sebesar : {{ $fee->value }}%</b></a>
+                        <a href="#" class="badge badge-danger"><b>Maksimal jumlah Sado Yang Dapat Ditarik : Rp @currency($max_balance)</b></a>
                     </div>
 
                     <div class="col-12">
