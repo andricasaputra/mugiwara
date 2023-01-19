@@ -23,7 +23,10 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\PlayStoreController;
 use App\Http\Controllers\Api\PoinController;
+use App\Http\Controllers\Api\PostCommentController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\PostLikeController;
+use App\Http\Controllers\Api\PostVisitController;
 use App\Http\Controllers\Api\PrivacyController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PromotionController;
@@ -118,6 +121,36 @@ Route::middleware(['auth:sanctum', 'banned', 'deleted'])->group(function(){
     Route::prefix('posts')->name('posts.')->group(function() {
         Route::get('', [PostController::class, 'index'])->name('index');
         Route::get('{id}', [PostController::class, 'show'])->name('show');
+    });
+
+    // Post Comment
+    Route::prefix('post/comments')->group(function() {
+
+        Route::get('{post}', [PostCommentController::class, 'index']);
+        Route::post('add/{post}', [PostCommentController::class, 'store']);
+        Route::put('update/{post}/{comment}', [PostCommentController::class, 'update']);
+        Route::delete('delete/{comment}', [PostCommentController::class, 'destroy']);
+        
+    });
+
+    //Post Like
+    Route::prefix('post/likes')->group(function() {
+
+        //Route::get('{post}', [PostLikeController::class, 'index']);
+        Route::post('add/{post}', [PostLikeController::class, 'store']);
+        //Route::put('update/{post}/{like}', [PostLikeController::class, 'update']);
+        Route::delete('delete/{like}', [PostLikeController::class, 'destroy']);
+        
+    });
+
+    //Post Visitors
+    Route::prefix('post/visitors')->group(function() {
+
+        //Route::get('{post}', [PostLikeController::class, 'index']);
+        Route::post('add/{post}', [PostVisitController::class, 'store']);
+        //Route::put('update/{post}/{Visit}', [PostVisitController::class, 'update']);
+        Route::delete('delete/{visitor}', [PostVisitController::class, 'destroy']);
+        
     });
 
     Route::prefix('category-posts')->name('category_posts.')->group(function() {

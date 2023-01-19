@@ -1,0 +1,8 @@
+//withdraw :
+
+1. Saldo (Wallet + VA)
+2. Saldo Cash
+3. total Saldo (1 + 2)
+
+4. Fee : dari total saldo x persentase
+5. Saldo Bersih (saldo Wallet (1) - Fee (4)) -> ini yang bisa di approve; karna cash sudah di cabang masing2
