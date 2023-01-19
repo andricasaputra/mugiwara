@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\PostComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\Post as PostResources;
 
 class PostCommentController extends Controller
 {
-    public function index()
+    public function index(Post $post)
     {
-        $comments = PostComment::with(['post', 'user:id,name', 'user.account'])->latest()->paginate(10);
-
-        return response()->json($comments);
+        return new PostResources($post->load('comments'));
     }
 
     public function store(Request $request, Post $post)

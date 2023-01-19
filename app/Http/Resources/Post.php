@@ -27,7 +27,8 @@ class Post extends JsonResource
             'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
             'likes_total' =>$this->likes()->sum('like_count'),
             'visitors_total' =>$this->visitors()->sum('visitor_count'),
-            'commmets_total' =>$this->comments()->count()
+            'commmets_total' =>$this->comments()->count(),
+            'comments' => PostCommentResource::collection($this->whenLoaded('comments'))
         ];
     }
 }
