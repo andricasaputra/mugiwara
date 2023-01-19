@@ -26,8 +26,6 @@ class OrderOfflineController extends Controller
         $rooms = Room::where('accomodation_id', $accomodation->id)->get();
         $tax = Setting::where('type', 'tax')->where('is_active', 1)->latest()->first();
 
-        $rooms = $rooms->filter(fn($room) => $room->status == 'available');
-
         return view('employee.order_offline.create')->withAccomodation($accomodation)->withRooms($rooms)->withTax($tax);
     }
 
