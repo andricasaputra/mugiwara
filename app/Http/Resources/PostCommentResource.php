@@ -19,7 +19,7 @@ class PostCommentResource extends JsonResource
             'id' => $this->id,
             'comment' => $this->comment,
             'user' => new UserCommentResource($this->user),
-            'account' => new Account($this->user?->account),
+            'account' => new Account($this->user),
             'created_at' => $this->created_at->isoFormat('dddd, D MMMM Y'),
             'updated_at' => $this->updated_at->isoFormat('dddd, D MMMM Y'),
         ];

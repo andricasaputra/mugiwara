@@ -13,7 +13,9 @@ class PostCommentController extends Controller
 {
     public function index(Post $post)
     {
-        return new PostResources($post->load('comments'));
+        return new PostResources($post->load(['comments' => function($query){
+            $query->latest();
+        }]));
     }
 
     public function store(Request $request, Post $post)
