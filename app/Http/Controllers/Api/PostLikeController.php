@@ -22,6 +22,13 @@ class PostLikeController extends Controller
 
             $post_like = PostLike::where('post_id', $post->id)->first();
 
+            $cek = PostLike::where('post_id', $post->id)->where('user_id', request()->user()->id)->first();
+            if($cek){
+                return response()->json([
+                    'message' => 'you have already like this blog'
+                ]);
+            }
+
             if($post_like?->user_id == request()->user()->id){
                 return response()->json([
                     'message' => 'you have already like this blog'
