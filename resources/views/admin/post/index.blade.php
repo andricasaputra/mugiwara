@@ -21,6 +21,7 @@
                         <th>Isi</th>
                         <th>Author</th>
                         <th>Gambar</th>
+                        <th>Data</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -48,6 +49,13 @@
                                 {{ ucwords($post->user?->name) }}
                             </td>
                             <td><a href="{{ Storage::disk('public')->url('posts/'. $post->image) }}" target="_blank"><img src="{{ Storage::disk('public')->url('posts/'. $post->image) }}" width="100"></a></td>
+
+                            <td>
+                                Total komentar : {{ $post->comments_count }} <br>
+                                Total like : {{ $post->likess_count }} <br>
+                                Total visitor : {{ $post->visitors_count }} <br>
+                            </td>
+
                             <td>{{ $post->is_active == 1 ? 'Aktif' : 'Non-aktif'}}</td>
                             <td>
                                 <div class="d-flex flex-column">
@@ -55,6 +63,7 @@
                                     <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
                                     <a href="#" data-id="{{ $post->id }}" data-toggle="modal" data-target="#delete"
                                     class="btn btn-danger btn-sm mb-3">Hapus</a>
+                                    <a href="{{ route('admin.post.showComments', $post->id) }}" class="btn btn-danger btn-sm mb-3">Komentar</a>
                                 </div>
                             </td>
                         </tr>

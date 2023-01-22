@@ -8,11 +8,13 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\PostComment;
+
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->when(request()->q, function($posts) {
+        $posts = Post::withCount(['likes', 'comments', 'visitors'])->latest()->when(request()->q, function($posts) {
             $posts->where('title', 'like', '%'.request()->q.'%')->orWhere('body', 'like', '%'.request()->q.'%');
         })->get();
 
@@ -111,5 +113,19 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('admin.post.index')->with('success', 'Data berita berhasil dihapus');
+    }
+
+    public function showComments(Post $post)
+    {
+       $comments = $post->comments()->with(['user.account'])?->paginate(10);
+
+       return view('admin.post.show_comments')->withComments($comments);
+    }
+
+    public function deleteComment(PostComment $comment)
+    {
+        $comment->delete();
+
+        return back()->withSuccess('brhasil Hapus Komentar');
     }
 }

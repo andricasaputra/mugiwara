@@ -127,6 +127,8 @@ Route::name('admin.')->group(function() {
         Route::get('{id}/show', [PostController::class, 'show'])->name('show');
         Route::put('', [PostController::class, 'update'])->name('update');
         Route::delete('', [PostController::class, 'delete'])->name('delete');
+        Route::delete('delete-comment/{comment}', [PostController::class, 'deleteComment'])->name('delete.comment');
+        Route::get('{post}/comments', [PostController::class, 'showComments'])->name('showComments');
     });
 
     Route::prefix('point')->name('point.')->group(function() {
