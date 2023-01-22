@@ -111,6 +111,13 @@ class PromotionController extends Controller
 
         $ex = explode("-", $request->type);
 
+        if ($request->hasFile('promotion_image')) {
+            $upload = app()->make(UploadServiceInterface::class);
+            $filename = $upload->process($request->file('promotion_image'));
+
+            $promotion->images()->update(['image' => $filename]);
+        }
+
         $promotion = $promotion->update([
             'accomodation_id' => $request->accomodation_id,
             'room_type' => $ex[0],
@@ -121,13 +128,6 @@ class PromotionController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date
         ]);
-
-        if ($request->hasFile('promotion_image')) {
-            $upload = app()->make(UploadServiceInterface::class);
-            $filename = $upload->process($request->file('promotion_image'));
-
-            $promotion->images()->update(['image' => $filename]);
-        }
 
         return redirect(route('admin.promotion.index'))->withSuccess('Berhasil ubah promosi');
 
