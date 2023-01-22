@@ -3,63 +3,64 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-block">
-                        <div class="row">
-                          <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                              <div class="card-body">
-                                @include('inc.message')
-                                <p class="card-title">Komentar</p>
-                                <div class="row">
-                                  <div class="col-12">
+   <div class="row">
+       <div class="col-12">
+        <h3>Komentar</h3>
+           <div class="card">
+               <div class="card-body">
+                   @forelse($comments as $comment)
 
-                                    @foreach($comments as $comment)
-
-                                        <div class="card">
-                                          <div class="card-body">
-                                            <div class="card-header text-end">
-                                                <div>
-                                                    <div class="row text-end">
-                                                        <form method="post" action="{{ route('admin.post.delete.comment', $comment->id) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 class="card-title">
-                                                <img src="{{ url('storage/avatars/' . $comment->user?->account?->avatar) }}" alt="avatar" style="border-radius: 50%"  width="50">
-                                                {{ ucwords($comment->user?->name) }}
-                                            </h6>
-                                            <div class="d-flex justify-content-start">
-                                                <p class="card-text">{{ $comment->comment }}</p>
-                                                
-                                            </div>
-                                            <span>{{ $comment->created_at->diffForHumans() }}</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                    @endforeach
-                                    
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
+                    <div class="card mb-2">
+                      <div class="text-end">
+                          {{-- <h5 class="card-header text-end">Featured</h5> --}}
                       </div>
-                      {{ $comments->links() }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <a href="{{ route('admin.post.index') }}" class="btn btn-danger">Kembali</a>
-    </div>
+                      <div class="card-body">
+                        <img src="{{ url('storage/avatars/' . $comment->user?->account?->avatar) }}" alt="avatar" style="border-radius: 50%; margin-bottom: 30px"  width="50">
+                            {{ ucwords($comment->user?->name) }}
+                        <h5 class="card-title">{{ $comment->comment }}</h5>
+                        <p class="card-text">{{ $comment->created_at->diffForHumans() }}}</p>
+                        <form method="post" action="{{ route('admin.post.delete.comment', $comment->id) }}">
+                                @csrf
+                                @method('DELETE')
+
+                            <button class="btn btn-danger btn-sm mt-3" type="submit">Hapus</button>
+                        </form>
+                       
+                      </div>
+                    </div>
+
+                    @empty
+
+                    <div class="card">
+                      <div class="text-end">
+                          {{-- <h5 class="card-header text-end">Featured</h5> --}}
+                      </div>
+                      <div class="card-body">
+                       
+                        <h5 class="card-title text-center">Belum Ada Komentar</h5>
+                       
+                      </div>
+                    </div>
+
+                    @endforelse
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-12">
+           <div class="d-flex justify-content-center mt-3">
+               {{ $comments->links() }}
+           </div>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-12">
+           <div class="d-flex justify-content-center mt-3">
+               <a href="{{ route('admin.post.index') }}" class="btn btn-primary">Kembali</a>
+           </div>
+       </div>
+   </div>
 </div>
    
 @endsection

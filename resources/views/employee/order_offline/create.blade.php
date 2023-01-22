@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="stay_day">Lama Menginap</label>
-                            <input type="number" name="stay_day" class="form-control form-control-lg" required value="1">
+                            <div id="stay_day_container"></div>
                         </div>
 
                         <div class="form-group">
@@ -86,6 +86,11 @@
 @push('scripts')
 
 <script>
+   // function setStayDay(value)
+   // {
+   //      var stay_day = $('#stay_day').val(value); 
+   // }
+
     $(document).ready(function(){
 
         $('#room_id').on('change', function(){
@@ -97,9 +102,64 @@
                     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
                 },
                 data: { room_id : $(this).val() },
-                success: function(res){
+                success: function(data){
 
-                    setForm(res)
+                    let tax = 0;
+
+                    if('{{ $tax?->is_active }}' == 1){
+
+                        tax = data.price * ('{{ $tax?->value }}' / 100);
+
+                    } 
+
+                    console.log(tax);
+
+                    let stay_day_container = $('#stay_day_container');
+                    let normal_price = $('#normal_price');
+                    let discount_type = $('#discount_type');
+                    let discount_amount = $('#discount_amount');
+                    let total_amount = $('#total_amount');
+
+                    stay_day_container.empty();
+                    stay_day_container.html(`<input type="number" name="stay_day" id="stay_day" class="form-control form-control-lg" required value="">`);
+
+                    $(document).on('keyup', '#stay_day',function(){
+
+                        
+
+                        normal_price.val(data.price);
+                        discount_type.val(data.discount_type);
+                        discount_amount.val(data.discount_amount);
+
+                        stay_day = $(this).val();
+
+                        
+
+                        if(discount_amount.val() != ''){
+
+                            if(data.discount_type == 'percent'){
+
+                                let discount = normal_price.val() * (discount_amount.val() / 100);
+
+                                total_amount.val( (normal_price.val() - discount + Number(tax)) * stay_day);
+
+                            }else if(data.discount_type == 'flat'){
+
+                                let total = normal_price.val() - discount_amount.val() + Number(tax);
+
+                                total_amount.val(total * stay_day);
+                            }
+
+
+                        } else {
+
+                            total_amount.val((normal_price.val() + Number(tax)) * stay_day );
+
+                        }
+
+                    });
+                    
+
                 },
                 error: function(err){
                     console.log(err);
@@ -107,53 +167,6 @@
             });
 
         });
-
-        function setForm(data)
-        {
-            let tax = 0;
-
-            if('{{ $tax?->is_active }}' == 1){
-
-                tax = data.price * ('{{ $tax?->value }}' / 100);
-
-            } 
-            let normal_price = $('#normal_price');
-            let discount_type = $('#discount_type');
-            let discount_amount = $('#discount_amount');
-            let total_amount = $('#total_amount');
-
-            normal_price.val('');
-            discount_type.val('');
-            discount_amount.val('');
-            total_amount.val('');
-
-            normal_price.val(data.price);
-            discount_type.val(data.discount_type);
-            discount_amount.val(data.discount_amount);
-
-            if(data.discount_amount != null){
-
-                if(data.discount_type == 'percent'){
-
-                    let discount = data.price * (data.discount_amount / 100);
-
-                    total_amount.val((data.price + tax) - discount);
-
-                }else if(data.discount_type == 'flat'){
-
-                    let total = (data.price + tax) - data.discount_amount;
-
-                    total_amount.val(total);
-                }
-
-
-
-            } else {
-
-                total_amount.val(data.price + tax);
-
-            }
-        }
 
     });
 </script>

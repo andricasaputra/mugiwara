@@ -63,7 +63,7 @@
                                     <a href="{{ route('admin.post.show', $post->id) }}" class="btn btn-info btn-sm mb-3">Detail</a>
                                     <a href="#" data-id="{{ $post->id }}" data-toggle="modal" data-target="#delete"
                                     class="btn btn-danger btn-sm mb-3">Hapus</a>
-                                    <a href="{{ route('admin.post.showComments', $post->id) }}" class="btn btn-danger btn-sm mb-3">Komentar</a>
+                                    <a href="{{ route('admin.post.showComments', $post->id) }}" class="btn btn-success btn-sm mb-3">Komentar</a>
                                 </div>
                             </td>
                         </tr>
