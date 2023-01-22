@@ -52,7 +52,7 @@
 
                             <td>
                                 Total komentar : {{ $post->comments_count }} <br>
-                                Total like : {{ $post->likess_count }} <br>
+                                Total like : {{ $post->likes_count }} <br>
                                 Total visitor : {{ $post->visitors_count }} <br>
                             </td>
 
