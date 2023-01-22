@@ -18,7 +18,7 @@
                         <img src="{{ url('storage/avatars/' . $comment->user?->account?->avatar) }}" alt="avatar" style="border-radius: 50%; margin-bottom: 30px"  width="50">
                             {{ ucwords($comment->user?->name) }}
                         <h5 class="card-title">{{ $comment->comment }}</h5>
-                        <p class="card-text">{{ $comment->created_at->diffForHumans() }}}</p>
+                        <p class="card-text">{{ $comment->created_at->diffForHumans() }}</p>
                         <form method="post" action="{{ route('admin.post.delete.comment', $comment->id) }}">
                                 @csrf
                                 @method('DELETE')
