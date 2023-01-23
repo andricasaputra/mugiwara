@@ -8,33 +8,45 @@
             <div class="card">
                 <div class="card-block">
 
-                	<div class="row">
-				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card" style="border: 1px solid violet;">
-				          <div class="card-body">
-				            <p class="mb-4 font-weight-bold">Saldo Xendit</p>
-				            <p class="fs-30 mb-2">{{ $balance_xendit }}</p>
-				            {{-- <p>10.00% (30 days)</p> --}}
-				          </div>
-				        </div>
-				      </div>
-				      <div class="col-md-6 mb-4 stretch-card transparent">
-				        <div class="card" style="border: 1px solid violet;">
-				          <div class="card-body">
-				            <p class="mb-4 font-weight-bold">Total Bookings</p>
-				            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
-				            {{-- <p>22.00% (30 days)</p> --}}
-				          </div>
-				        </div>
-				      </div>
-				    </div>
+                    <div class="row">
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Masuk (Via Aplikasi)</p>
+                            <p class="fs-30 mb-2">Rp @currency($balance_in_total)</p>
+                            {{-- <p>10.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Saldo Masuk Cash (Via Offline)</p>
+                            <p class="fs-30 mb-2">Rp @currency($balance_in_offline_total)</p>
+                            {{-- <p>10.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4 mb-4 stretch-card transparent">
+                        <div class="card" style="border: 1px solid violet;">
+                          <div class="card-body">
+                            <p class="mb-4 font-weight-bold">Total Bookings</p>
+                            <p class="fs-30 mb-2">{{ $bookings }} Kali</p>
+                            {{-- <p>22.00% (30 days)</p> --}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <div class="row">
                       <div class="col-md-4 mb-4 stretch-card transparent">
                         <div class="card" style="border: 1px solid violet;">
                           <div class="card-body">
-                            <p class="mb-4 font-weight-bold">Saldo Masuk</p>
-                            <p class="fs-30 mb-2">Rp @currency($balance_in_total)</p>
+                            <p class="mb-4 font-weight-bold">Saldo Xendit</p>
+                            <p class="fs-20 mb-2">{{ $balance_xendit }}</p>
                             {{-- <p>10.00% (30 days)</p> --}}
                           </div>
                         </div>
@@ -104,25 +116,25 @@
                                                     <td>{{ $payment->order_id }}</td>
 
                                                     <td>
-                                                    	{{ ucfirst($payment->user?->name) }} 
+                                                        {{ ucfirst($payment->user?->name) }} 
 
-                                                    	<br>
+                                                        <br>
 
-                                                    	{{ $payment->user?->email }}
+                                                        {{ $payment->user?->email }}
                                                     </td>
 
                                                     <td>{{ $payment->amount }} </td>
 
                                                     <td>
-                                                    	{{  $payment->voucher?->name ?? '-' }}
+                                                        {{  $payment->voucher?->name ?? '-' }}
 
                                                         <br>
 
                                                         {{ $payment->voucher?->point_needed   }}
 
-                                                    	<br>
+                                                        <br>
 
-                                                    	{{ $payment->voucher?->discount_amount }}  
+                                                        {{ $payment->voucher?->discount_amount }}  
                                                     </td>
 
                                                     <td>{{ $payment->discount_amount ?? '0' }} </td>
@@ -133,7 +145,7 @@
 
                                                     <td>
 
-                                                    	<a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success mb-2">Detail</a>
+                                                        <a href="{{ route('admin.finance.detail', $payment->id) }}" class="btn btn-success mb-2">Detail</a>
 
                                                         <a href="{{ route('admin.finance.invoices', $payment->id) }}" class="btn btn-primary" target="_blank">Invoice</a>
 

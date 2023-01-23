@@ -26,6 +26,7 @@ class FinanceController extends Controller
     protected function setupRepo()
     {
         $this->repo->balanceIn();
+        $this->repo->balanceInOffline();
         $this->repo->balanceOut();
     }
 
@@ -44,6 +45,7 @@ class FinanceController extends Controller
             ->withBookings($bookings)
             ->with('balance_xendit', $this->rupiah($getBalance['balance']))
             ->with('balance_in_total', $this->repo->balanceInTotal)
+            ->with('balance_in_offline_total', $this->repo->balanceInOfflineTotal)
             ->with('balance_out_total', $this->repo->balanceOutTotal);
     }
 
