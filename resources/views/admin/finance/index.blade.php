@@ -103,7 +103,6 @@
                                                 <th>User</th>
                                                 <th>Jumlah Pembayaran</th>
                                                 <th>Voucher</th>
-                                                <th>Jumlah Diskon</th>
                                                 <th>Pajak</th>
                                                 <th>Status Pembayaran</th>
                                                 <th>Action</th>
@@ -130,14 +129,30 @@
 
                                                         <br>
 
-                                                        {{ $payment->voucher?->point_needed   }}
+                                                        @if($payment->voucher?->name != null)
+
+                                                             Point yang dibutuhkan : {{ $payment->voucher?->point_needed   }}
+
+                                                        @endif
+
+                                                       
 
                                                         <br>
 
-                                                        {{ $payment->voucher?->discount_amount }}  
+                                                         @if($payment->voucher?->discount_type == 'percent')
+
+                                                          Diskon  : {{ $payment->voucher?->discount_percent }}%  
+
+                                                        @elseif($payment->voucher?->discount_type == 'fixed')
+
+                                                         Diskon : Rp {{ $payment->voucher?->discount_amount }}  
+
+                                                        @endif
+
+                                                       
                                                     </td>
 
-                                                    <td>{{ $payment->discount_amount ?? '0' }} </td>
+                                                    {{-- <td>{{ $payment->discount_amount ?? '0' }} </td> --}}
 
                                                     <td>{{ $payment->tax ?? '0' }} </td>
 

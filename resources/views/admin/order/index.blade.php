@@ -74,13 +74,11 @@
                                                      <td>
                                                     	{{ $order->normal_price ?? 0 }}
                                                     </td>
-
-
                                                     <td>
-                                                        @if($order->room?->discount_type == 'percent')
-                                                            {{ $order->room?->discount_amount ?? 0 }} %
+                                                        @if($order->discount_type == 'percent')
+                                                            {{ $order->discount_percent ?? 0 }} %
                                                         @else
-                                                            {{ $order->room?->discount_amount ?? 0 }}
+                                                            {{ $order->discount_amount ?? 0 }}
                                                         @endif
                                                     	
                                                     </td>
