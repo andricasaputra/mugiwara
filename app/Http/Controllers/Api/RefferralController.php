@@ -23,7 +23,7 @@ class RefferralController extends Controller
 
         try {
 
-             $request->validate([
+            $request->validate([
                 'refferral_code' => 'required',
                 'device_id' => 'required',
             ]);
